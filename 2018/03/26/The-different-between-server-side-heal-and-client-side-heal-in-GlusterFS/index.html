@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="There are 2 kinds of heal functions in GlusterFS, server-side heal and client-side heal. Server side heal is automatically executed by self-heal daemon on all gluster server nodes. It does healing by">
+<meta name="description" content="There are 2 kinds of healing functions in GlusterFS, server-side heal and client-side heal. Server side heal is automatically executed by self-heal daemon on all gluster server nodes. It does healing">
 <meta name="keywords" content="GlusterFS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The different between server-side heal and client-side heal in GlusterFS">
+<meta property="og:title" content="The difference between server-side healing and client-side healing in GlusterFS">
 <meta property="og:url" content="http://wenhan.blog/2018/03/26/The-different-between-server-side-heal-and-client-side-heal-in-GlusterFS/index.html">
 <meta property="og:site_name" content="Wenhan Code life">
-<meta property="og:description" content="There are 2 kinds of heal functions in GlusterFS, server-side heal and client-side heal. Server side heal is automatically executed by self-heal daemon on all gluster server nodes. It does healing by">
+<meta property="og:description" content="There are 2 kinds of healing functions in GlusterFS, server-side heal and client-side heal. Server side heal is automatically executed by self-heal daemon on all gluster server nodes. It does healing">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-26T01:06:53.069Z">
+<meta property="og:updated_time" content="2018-03-26T01:08:11.309Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The different between server-side heal and client-side heal in GlusterFS">
-<meta name="twitter:description" content="There are 2 kinds of heal functions in GlusterFS, server-side heal and client-side heal. Server side heal is automatically executed by self-heal daemon on all gluster server nodes. It does healing by">
+<meta name="twitter:title" content="The difference between server-side healing and client-side healing in GlusterFS">
+<meta name="twitter:description" content="There are 2 kinds of healing functions in GlusterFS, server-side heal and client-side heal. Server side heal is automatically executed by self-heal daemon on all gluster server nodes. It does healing">
 
 
 
@@ -146,7 +146,7 @@
 <!-- ad end -->
 
 
-  <title> The different between server-side heal and client-side heal in GlusterFS | Wenhan Code life </title>
+  <title> The difference between server-side healing and client-side healing in GlusterFS | Wenhan Code life </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -305,7 +305,7 @@
             
             
               
-                The different between server-side heal and client-side heal in GlusterFS
+                The difference between server-side healing and client-side healing in GlusterFS
               
             
           </h1>
@@ -349,7 +349,7 @@
 
           
           
-             <span id="/2018/03/26/The-different-between-server-side-heal-and-client-side-heal-in-GlusterFS/" class="leancloud_visitors" data-flag-title="The different between server-side heal and client-side heal in GlusterFS">
+             <span id="/2018/03/26/The-different-between-server-side-heal-and-client-side-heal-in-GlusterFS/" class="leancloud_visitors" data-flag-title="The difference between server-side healing and client-side healing in GlusterFS">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -378,12 +378,12 @@
       
 
       
-        <p>There are 2 kinds of heal functions in GlusterFS, server-side heal and client-side heal.</p>
+        <p>There are 2 kinds of healing functions in GlusterFS, server-side heal and client-side heal.</p>
 <p>Server side heal is automatically executed by self-heal daemon on all gluster server nodes. It does healing by crawling file/directory information from .glusterfs directory on brick path. So it will keep the file-data and meta-data to be consistent from server side.</p>
 <p>Client side heal is different, it will triggers heal for the particular file whenever client accesses files from mount path, which means a file operation on file descriptor. It will lead to some performance impact as every file access operation will go through extra set of function calls for file check and heal.<br>Client-side heal is enable by default, and can be turned off by below command</p>
 <p>File data<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># gluster volume set &lt;volume name&gt; cluster.data-self-heal off</span><br></pre></td></tr></table></figure></p>
 <p>Entry data (contents/entries of a directory)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># gluster volume set &lt;volume name&gt; cluster.entry-self-heal off</span><br></pre></td></tr></table></figure></p>
-<p>Metadata<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># gluster volume set &lt;volume name&gt; cluster.metadata-self-heal off</span><br></pre></td></tr></table></figure></p>
+<p>Meta data<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># gluster volume set &lt;volume name&gt; cluster.metadata-self-heal off</span><br></pre></td></tr></table></figure></p>
 <p>Note that turn off client side healing doesn’t mean to compromise data<br>integrity and consistency. For file read pending xattr is evaluated for replica<br>copies and read will only served from correct copy. For file write new data<br>will be written on both replica bricks, and self-heal daemon on gluster node<br>will take care of these and will do healing if needed.</p>
 
       
@@ -753,7 +753,7 @@
         var disqus_config = function () {
           this.page.url = 'http://wenhan.blog/2018/03/26/The-different-between-server-side-heal-and-client-side-heal-in-GlusterFS/';
           this.page.identifier = '2018/03/26/The-different-between-server-side-heal-and-client-side-heal-in-GlusterFS/';
-          this.page.title = 'The different between server-side heal and client-side heal in GlusterFS';
+          this.page.title = 'The difference between server-side healing and client-side healing in GlusterFS';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://xibuka.disqus.com/embed.js';
