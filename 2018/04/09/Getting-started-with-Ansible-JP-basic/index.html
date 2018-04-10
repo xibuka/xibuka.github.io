@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Wenhan Code life">
 <meta property="og:description" content="こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。 本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。https://github.com/ansible-book">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-04-10T06:43:16.622Z">
+<meta property="og:updated_time" content="2018-04-10T06:50:46.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible 入門 - 基本操作(チュートリアル)">
 <meta name="twitter:description" content="こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。 本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。https://github.com/ansible-book">
@@ -320,7 +320,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T15:15:32+09:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T15:25:32+09:00">
                 2018-04-09
               </time>
             
@@ -390,6 +390,7 @@
 <li>スクリプトによるサーバー管理(スクリプト言語 Playbook)</li>
 <li>モジュール</li>
 </ol>
+<a id="more"></a>
 <h1 id="インストール"><a href="#インストール" class="headerlink" title="インストール"></a>インストール</h1><p>ここでは Red Hat 系 Linux でのインストールを前提に解説にする。他のOSに関していAnsibleのWebページをご参照ください。</p>
 <h2 id="管理者ノード"><a href="#管理者ノード" class="headerlink" title="管理者ノード"></a>管理者ノード</h2><h3 id="Ansible-パッケージをインストール"><a href="#Ansible-パッケージをインストール" class="headerlink" title="Ansible パッケージをインストール"></a>Ansible パッケージをインストール</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Redhat/CentOS Linuxの場合, epolリポジトリをインストールする必要がある。</span></span><br><span class="line"><span class="comment"># Fedoraの場合、デフォルトのリポジトリにAnsibleを含まれているため，直接インストールできる</span></span><br><span class="line">sudo yum install epel-release</span><br><span class="line">sudo yum install ansible -y</span><br></pre></td></tr></table></figure>
 <h3 id="管理者ノードからリモートノードの接続設定"><a href="#管理者ノードからリモートノードの接続設定" class="headerlink" title="管理者ノードからリモートノードの接続設定"></a>管理者ノードからリモートノードの接続設定</h3><p>SSH keyによる認証パスワードレス）方式を設定する。</p>
@@ -698,8 +699,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/09/Getting-started-with-Ansible-JP-intro/" rel="next" title="Ansible 入門 - 紹介">
-                <i class="fa fa-chevron-left"></i> Ansible 入門 - 紹介
+              <a href="/2018/04/09/Getting-started-with-Ansible-JP-adv/" rel="next" title="Ansible 入門 - 応用">
+                <i class="fa fa-chevron-left"></i> Ansible 入門 - 応用
               </a>
             
           </div>
@@ -707,10 +708,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/09/Getting-started-with-Ansible-JP-adv/" rel="prev" title="Ansible 入門 - 応用">
-                Ansible 入門 - 応用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -887,23 +884,6 @@
 
     </div>
 
-    <!-- ad start -->
-<!--
-    <div class="sidebar-inner">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 自适应单元 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2422626403812806"
-     data-ad-slot="1454707894"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-    </div>
--->
-    <!-- ad end -->
   </aside>
 
 
