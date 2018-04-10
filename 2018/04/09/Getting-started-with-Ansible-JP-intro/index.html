@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="VIM," />
+  <meta name="keywords" content="Linux,Ansible," />
 
 
 
@@ -87,20 +87,22 @@
 
 
 
-<meta name="description" content="Vimのプラグインを管理する人気のツール、Vundleの利用メモ 本家のサイト：[https://github.com/VundleVim/Vundle.vim] Vundleを利用するメリット  プラグインを.vimrcでインストール/更新/削除できる 名前だけ書けば自動で探してくれる  インストール以下のコマンドで、ファイルをコピーするだけでインストール完了 1$ git clone http">
-<meta name="keywords" content="VIM">
+<meta name="description" content="こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。 本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。https://github.com/ansible-book">
+<meta name="keywords" content="Linux,Ansible">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VundleでVimのプラグインを簡単管理">
-<meta property="og:url" content="http://wenhan.blog/2016/11/21/Manage-Vim-plugins-with-Vundle/index.html">
+<meta property="og:title" content="Ansible 入門 - 紹介">
+<meta property="og:url" content="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-intro/index.html">
 <meta property="og:site_name" content="Wenhan Code life">
-<meta property="og:description" content="Vimのプラグインを管理する人気のツール、Vundleの利用メモ 本家のサイト：[https://github.com/VundleVim/Vundle.vim] Vundleを利用するメリット  プラグインを.vimrcでインストール/更新/削除できる 名前だけ書けば自動で探してくれる  インストール以下のコマンドで、ファイルをコピーするだけでインストール完了 1$ git clone http">
+<meta property="og:description" content="こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。 本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。https://github.com/ansible-book">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/xibuka/git_pics/master/vim_NERDTree.png">
-<meta property="og:updated_time" content="2018-03-22T06:10:44.623Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/xibuka/git_pics/master/ansible_0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xibuka/git_pics/master/ansible_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xibuka/git_pics/master/ansible_2.png">
+<meta property="og:updated_time" content="2018-04-10T06:43:21.719Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VundleでVimのプラグインを簡単管理">
-<meta name="twitter:description" content="Vimのプラグインを管理する人気のツール、Vundleの利用メモ 本家のサイト：[https://github.com/VundleVim/Vundle.vim] Vundleを利用するメリット  プラグインを.vimrcでインストール/更新/削除できる 名前だけ書けば自動で探してくれる  インストール以下のコマンドで、ファイルをコピーするだけでインストール完了 1$ git clone http">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/xibuka/git_pics/master/vim_NERDTree.png">
+<meta name="twitter:title" content="Ansible 入門 - 紹介">
+<meta name="twitter:description" content="こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。 本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。https://github.com/ansible-book">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xibuka/git_pics/master/ansible_0.png">
 
 
 
@@ -128,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="http://wenhan.blog/2016/11/21/Manage-Vim-plugins-with-Vundle/"/>
+  <link rel="canonical" href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-intro/"/>
 
 
 
@@ -148,7 +150,7 @@
 <!-- ad end -->
 
 
-  <title> VundleでVimのプラグインを簡単管理 | Wenhan Code life </title>
+  <title> Ansible 入門 - 紹介 | Wenhan Code life </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -286,7 +288,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2016/11/21/Manage-Vim-plugins-with-Vundle/">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-intro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenhan Shi">
@@ -307,7 +309,7 @@
             
             
               
-                VundleでVimのプラグインを簡単管理
+                Ansible 入門 - 紹介
               
             
           </h1>
@@ -322,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-21T00:37:36+09:00">
-                2016-11-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T15:15:32+09:00">
+                2018-04-09
               </time>
             
 
@@ -341,9 +343,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/21/Manage-Vim-plugins-with-Vundle/#comments" itemprop="discussionUrl">
+                <a href="/2018/04/09/Getting-started-with-Ansible-JP-intro/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/11/21/Manage-Vim-plugins-with-Vundle/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/04/09/Getting-started-with-Ansible-JP-intro/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -351,7 +353,7 @@
 
           
           
-             <span id="/2016/11/21/Manage-Vim-plugins-with-Vundle/" class="leancloud_visitors" data-flag-title="VundleでVimのプラグインを簡単管理">
+             <span id="/2018/04/09/Getting-started-with-Ansible-JP-intro/" class="leancloud_visitors" data-flag-title="Ansible 入門 - 紹介">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -380,27 +382,36 @@
       
 
       
-        <p>Vimのプラグインを管理する人気のツール、Vundleの利用メモ</p>
-<p>本家のサイト：[<a href="https://github.com/VundleVim/Vundle.vim]" target="_blank" rel="noopener">https://github.com/VundleVim/Vundle.vim]</a></p>
-<p>Vundleを利用するメリット</p>
+        <p>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。</p>
+<p>本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。<br><a href="https://github.com/ansible-book/ansible-first-book-examples" target="_blank" rel="noopener">https://github.com/ansible-book/ansible-first-book-examples</a><br>もし不備やコメントがありましたら、作者<a href="mailto:shijingjing02@163.com" target="_blank" rel="noopener">shijingjing02@163.com</a>または翻訳者<a href="mailto:shibunkan@gmail.com" target="_blank" rel="noopener">shibunkan@gmail.com</a> に連絡してください。</p>
+<p>詳細の内容を下記三つに分けて説明します。</p>
+<p><a href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-intro/">Ansible 入門 - 紹介</a><br><a href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-basic/">Ansible 入門 - 基本</a><br><a href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-adv/">Ansible 入門 - 応用</a></p>
+<p>本章では、Ansibleの基礎部分の紹介を説明する。</p>
+<h1 id="Ansibleとは"><a href="#Ansibleとは" class="headerlink" title="Ansibleとは"></a>Ansibleとは</h1><h2 id="Ansibleとはなにか？"><a href="#Ansibleとはなにか？" class="headerlink" title="Ansibleとはなにか？"></a>Ansibleとはなにか？</h2><p>Ansibleは、複数のサーバを一括でコントロールする構成管理ツールである。コントロールできるサーバ対象はリモートの仮想マシンでも物理マシンでも問ローカルのサーバマシンも問題ない。</p>
+<h2 id="Ansibleでなにができる？"><a href="#Ansibleでなにができる？" class="headerlink" title="Ansibleでなにができる？"></a>Ansibleでなにができる？</h2><p>Ansibleでは、SSHなどを利用し管理ノードからリモートノードへの通信を行う。理論上では、サーバ管理者がsshでサーバにログインした後できるすべてのことに対し、Ansibleも同じことができる。</p>
+<p>例えば</p>
 <ul>
-<li>プラグインを<code>.vimrc</code>でインストール/更新/削除できる</li>
-<li>名前だけ書けば自動で探してくれる</li>
+<li>ファイルコピー</li>
+<li>パッケージインストール</li>
+<li>デーモンサービス起動</li>
+<li>その他</li>
 </ul>
-<h1 id="インストール"><a href="#インストール" class="headerlink" title="インストール"></a>インストール</h1><p>以下のコマンドで、ファイルをコピーするだけでインストール完了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h1 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h1><p>以下の設定内容を<code>.vimrc</code>のトップに記入する。<br>説明のためいくつかの行がイメージになっている。<br>実際利用するときにコメントアウトする必要がある。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">set nocompatible              &quot; be iMproved, required</span><br><span class="line">filetype off                  &quot; required</span><br><span class="line"></span><br><span class="line">&quot; set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">&quot; alternatively, pass a path where Vundle should install plugins</span><br><span class="line">&quot;call vundle#begin(&apos;~/some/path/here&apos;)</span><br><span class="line"></span><br><span class="line">&quot; let Vundle manage Vundle, required</span><br><span class="line">Plugin &apos;VundleVim/Vundle.vim&apos;</span><br><span class="line"></span><br><span class="line">&quot; The following are examples of different formats supported.</span><br><span class="line">&quot; Keep Plugin commands between vundle#begin/end.</span><br><span class="line">&quot; plugin on GitHub repo</span><br><span class="line">&quot;Plugin &apos;tpope/vim-fugitive&apos;                    &lt;- ここをコメントアウト</span><br><span class="line">&quot; plugin from http://vim-scripts.org/vim/scripts.html</span><br><span class="line">&quot;Plugin &apos;L9&apos;                                    &lt;- ここをコメントアウト</span><br><span class="line">&quot; Git plugin not hosted on GitHub</span><br><span class="line">&quot;Plugin &apos;git://git.wincent.com/command-t.git&apos;   &lt;- ここをコメントアウト</span><br><span class="line">&quot; git repos on your local machine (i.e. when working on your own plugin)</span><br><span class="line">&quot;Plugin &apos;file:///home/gmarik/path/to/plugin&apos;    &lt;- ここをコメントアウト</span><br><span class="line">&quot; The sparkup vim script is in a subdirectory of this repo called vim.</span><br><span class="line">&quot; Pass the path to set the runtimepath properly.</span><br><span class="line">&quot;Plugin &apos;rstacruz/sparkup&apos;, &#123;&apos;rtp&apos;: &apos;vim/&apos;&#125;     &lt;- ここをコメントアウト</span><br><span class="line">&quot; Install L9 and avoid a Naming conflict if you&apos;ve already installed a</span><br><span class="line">&quot; different version somewhere else.</span><br><span class="line">&quot;Plugin &apos;ascenator/L9&apos;, &#123;&apos;name&apos;: &apos;newL9&apos;&#125;       &lt;- ここをコメントアウト</span><br><span class="line"></span><br><span class="line">&quot; All of your Plugins must be added before the following line</span><br><span class="line">call vundle#end()            &quot; required</span><br><span class="line">filetype plugin indent on    &quot; required</span><br><span class="line">&quot; To ignore plugin indent changes, instead use:</span><br><span class="line">&quot;filetype plugin on</span><br><span class="line">&quot;</span><br><span class="line">&quot; Brief help</span><br><span class="line">&quot; :PluginList       - lists configured plugins</span><br><span class="line">&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span><br><span class="line">&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache</span><br><span class="line">&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span><br><span class="line">&quot;</span><br><span class="line">&quot; see :h vundle for more details or wiki for FAQ</span><br><span class="line">&quot; Put your non-Plugin stuff after this line</span><br></pre></td></tr></table></figure>
-<h1 id="Vimのプラグインをインストールする"><a href="#Vimのプラグインをインストールする" class="headerlink" title="Vimのプラグインをインストールする"></a>Vimのプラグインをインストールする</h1><p>例として、ファイルエクスプローラーの機能を提供するプラグイン「NERDTree」を入れてみよう<br><code>call vundle#end()</code>の前に、NERDTreeのgitのリンクを記入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...省略</span><br><span class="line">Plugin &apos;git@github.com:scrooloose/nerdtree.git&apos;</span><br><span class="line"></span><br><span class="line">&quot; All of your Plugins must be added before the following line</span><br><span class="line">call vundle#end()            &quot; required</span><br><span class="line">...省略</span><br></pre></td></tr></table></figure>
-<p>Vimを起動し、<code>:PluginInstall</code>を実行<br>コマンドラインからでは、<code>vim +PluginInstall +qall</code>を実行</p>
-<p>そして画面に以下のログが出るはず</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  &quot; Installing plugins to /Users/shiwenhan/.vim/bundle     </span><br><span class="line">. Plugin &apos;VundleVim/Vundle.vim&apos;                            </span><br><span class="line">. Plugin &apos;git@github.com:scrooloose/nerdtree.git&apos;          </span><br><span class="line">* Helptags</span><br></pre></td></tr></table></figure>
-<p><code>l</code>を押してログを確認<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[2016-11-21 00:56:51]                                       </span><br><span class="line">[2016-11-21 00:56:51] Plugin git@github.com:scrooloose/nerdtree.git</span><br><span class="line">[2016-11-21 00:56:51] $ git clone --recursive &apos;git@github.com:scrooloose/nerdtree.git&apos; &apos;/Users/shiwenhan/.vim/bundle/nerdtree&apos;</span><br><span class="line">[2016-11-21 00:56:51] &gt; Cloning into &apos;/Users/shiwenhan/.vim/bundle/nerdtree&apos;...</span><br><span class="line">[2016-11-21 00:56:51] &gt;                                     </span><br><span class="line">[2016-11-21 00:56:51]                                       </span><br><span class="line">[2016-11-21 00:56:51] Helptags:                             </span><br><span class="line">[2016-11-21 00:56:51] :helptags /Users/shiwenhan/.vim/bundle/Vundle.vim/doc</span><br><span class="line">[2016-11-21 00:56:51] :helptags /Users/shiwenhan/.vim/bundle/nerdtree/doc</span><br><span class="line">[2016-11-21 00:56:51] Helptags: 2 plugins processed</span><br></pre></td></tr></table></figure></p>
-<p>これでプラグインのインストールが完了した。<br>Vimを再起動して、<code>:NERDTreeToggle</code>を実行してプラグインの確認をしましょう</p>
-<p><img src="https://raw.githubusercontent.com/xibuka/git_pics/master/vim_NERDTree.png" alt="vim with NERDTree"></p>
-<p>これで確認が完成！</p>
+<h1 id="アーキテクチャ"><a href="#アーキテクチャ" class="headerlink" title="アーキテクチャ"></a>アーキテクチャ</h1><p>管理者ノードとリモートノードの間では、SSHプロトコルを利用して通信を行っている。そのため、Ansible環境を設定する時に、管理者ノードからリモートノードへSSHログインできることが必要である。ただし、SSHログインはパスワードレスに設定しなければいけない。詳細な設定方法は後ほど説明する。</p>
+<h2 id="SSH接続"><a href="#SSH接続" class="headerlink" title="SSH接続"></a>SSH接続</h2><p>管理者ノードでAnsibleをインストールし、スクリプトの編集を行う。管理者ノードでAnsibleのコマンドやスクリプトを実行する時に、管理対象のサーバにSSHで接続する。管理対象のサーバの上にパッケージをインストールする必要がない。<br><img src="https://raw.githubusercontent.com/xibuka/git_pics/master/ansible_0.png" alt="ansible ssh connection"></p>
+<h2 id="多種類のサーバに対応"><a href="#多種類のサーバに対応" class="headerlink" title="多種類のサーバに対応"></a>多種類のサーバに対応</h2><p>AnsibleはRedHat系、Debian系のLinuxと、Windows系のサーバを同時に管理することができる。管理者ノードはスクリプトを実行する時のみリモートサーバに接続するため、他の同期処理がない。そのため、通常の状態では、停電などの異常状態はAnsibleを影響しない。<br><img src="https://raw.githubusercontent.com/xibuka/git_pics/master/ansible_1.png" alt="servers"></p>
+<h2 id="Ansible-Towerのアーキテクチャ"><a href="#Ansible-Towerのアーキテクチャ" class="headerlink" title="Ansible Towerのアーキテクチャ"></a>Ansible Towerのアーキテクチャ</h2><h3 id="なぜAnsible-Towerが必要なのか？"><a href="#なぜAnsible-Towerが必要なのか？" class="headerlink" title="なぜAnsible Towerが必要なのか？"></a>なぜAnsible Towerが必要なのか？</h3><p>Ansible Towerは企業向けの有償ソフトウェアである。<br>前章のAnsible アーキテクチャとこれからのAnsibleのインストールでは、すべてのAnsibleでの管理対象となるサーバは、sshの公開鍵認証によるパスワードレスSSH接続を設定する必要がある。一般ユーザの場合、数台の仮想サーバやリモートサーバのみを管理するため特に問題ないが、企業ユーザに対し業務プロセスと安全性を確保しにくくなる。</p>
+<ul>
+<li>1台のリモートサーバを追加する毎に、パスワードレスなSSH接続の設定を手動で行うことは非常に非効率的である。企業レベルのサーバが数百台、数千台規模になると、各サーバ管理者が自分の管理者ノードで全サーバに対しパスワードレスSSH接続の設定が必要となり、作業量は膨大になる。</li>
+<li>管理者がパスワードレスSSH接続の為のssh keyを入手したり、他人にコピーしたりすると、本番環境に対し重大なセキュリティの問題になる。</li>
+</ul>
+<h3 id="Ansible-Towerでなにができるのか？"><a href="#Ansible-Towerでなにができるのか？" class="headerlink" title="Ansible Towerでなにができるのか？"></a>Ansible Towerでなにができるのか？</h3><p>Ansible Towerは企業ユーザ向けに開発されている、集中管理や権限による制限、ジョブスケジューリング機能などを提供するソフトウェアである。このソフトウェアは管理者にWebUIやREST APIを提供し、Playbookの実行やワークフローテンプレートによる条件分岐などをサポートする。</p>
+<ul>
+<li>管理者は、Ansible Tower上にサーバのssh keyを使用したりシェアしたりすることができるが、ssh keyの内容参照やコピーすることはできない。</li>
+<li>Ansible Towerでは、各管理者がシェアしているplaybookスクリプトを参照するとこができるため、重複する作業を減らすことができる。</li>
+<li>また、Ansible Towerは現在すべてのサーバでのplaybookの実行状況を集計/表示するため、状態の確認や統計もできる。</li>
+</ul>
+<p>下記の図でAnsible Towerのアーキテクチャを示している。</p>
+<p><img src="https://raw.githubusercontent.com/xibuka/git_pics/master/ansible_2.png" alt="Ansible Tower"></p>
 
       
     </div>
@@ -430,7 +441,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/VIM/" rel="tag"># VIM</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/Ansible/" rel="tag"># Ansible</a>
           
         </div>
       
@@ -443,8 +456,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/12/google-maps-api-with-python/" rel="next" title="PythonでGoogle maps のapiを利用する">
-                <i class="fa fa-chevron-left"></i> PythonでGoogle maps のapiを利用する
+              <a href="/2018/03/26/The-different-between-server-side-heal-and-client-side-heal-in-GlusterFS/" rel="next" title="The difference between server-side healing and client-side healing in GlusterFS">
+                <i class="fa fa-chevron-left"></i> The difference between server-side healing and client-side healing in GlusterFS
               </a>
             
           </div>
@@ -453,8 +466,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/12/01/crawling-webpage-use-python-requests/" rel="prev" title="Pythonでスパイダーを作る">
-                Pythonでスパイダーを作る <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/09/Getting-started-with-Ansible-JP-basic/" rel="prev" title="Ansible 入門 - 基本操作(チュートリアル)">
+                Ansible 入門 - 基本操作(チュートリアル) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -620,7 +633,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#インストール"><span class="nav-number">1.</span> <span class="nav-text">インストール</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#設定"><span class="nav-number">2.</span> <span class="nav-text">設定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vimのプラグインをインストールする"><span class="nav-number">3.</span> <span class="nav-text">Vimのプラグインをインストールする</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ansibleとは"><span class="nav-number">1.</span> <span class="nav-text">Ansibleとは</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansibleとはなにか？"><span class="nav-number">1.1.</span> <span class="nav-text">Ansibleとはなにか？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansibleでなにができる？"><span class="nav-number">1.2.</span> <span class="nav-text">Ansibleでなにができる？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#アーキテクチャ"><span class="nav-number">2.</span> <span class="nav-text">アーキテクチャ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH接続"><span class="nav-number">2.1.</span> <span class="nav-text">SSH接続</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多種類のサーバに対応"><span class="nav-number">2.2.</span> <span class="nav-text">多種類のサーバに対応</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansible-Towerのアーキテクチャ"><span class="nav-number">2.3.</span> <span class="nav-text">Ansible Towerのアーキテクチャ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#なぜAnsible-Towerが必要なのか？"><span class="nav-number">2.3.1.</span> <span class="nav-text">なぜAnsible Towerが必要なのか？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ansible-Towerでなにができるのか？"><span class="nav-number">2.3.2.</span> <span class="nav-text">Ansible Towerでなにができるのか？</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -798,9 +811,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://wenhan.blog/2016/11/21/Manage-Vim-plugins-with-Vundle/';
-          this.page.identifier = '2016/11/21/Manage-Vim-plugins-with-Vundle/';
-          this.page.title = 'VundleでVimのプラグインを簡単管理';
+          this.page.url = 'http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-intro/';
+          this.page.identifier = '2018/04/09/Getting-started-with-Ansible-JP-intro/';
+          this.page.title = 'Ansible 入門 - 紹介';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://xibuka.disqus.com/embed.js';

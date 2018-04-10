@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-adv/</loc>
+    
+    <lastmod>2018-04-10T06:43:45.266Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-intro/</loc>
+    
+    <lastmod>2018-04-10T06:43:21.719Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-basic/</loc>
+    
+    <lastmod>2018-04-10T06:43:16.622Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenhan.blog/2018/03/26/The-different-between-server-side-heal-and-client-side-heal-in-GlusterFS/</loc>
     
     <lastmod>2018-03-26T01:08:11.309Z</lastmod>
@@ -9,7 +30,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/07/07/OpenShift-Use-ansible-to-install-OpenShift-to-multi-nodes/</loc>
+    <loc>http://wenhan.blog/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/</loc>
     
     <lastmod>2018-03-22T06:10:44.624Z</lastmod>
     
@@ -45,6 +66,13 @@
   
   <url>
     <loc>http://wenhan.blog/tags/index.html</loc>
+    
+    <lastmod>2018-03-22T06:10:44.624Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/07/07/OpenShift-Use-ansible-to-install-OpenShift-to-multi-nodes/</loc>
     
     <lastmod>2018-03-22T06:10:44.624Z</lastmod>
     
@@ -93,14 +121,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.624Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2018/02/18/failed-at-yum-update-and-how-to-fix-it/</loc>
+    <loc>http://wenhan.blog/2016/12/01/crawling-webpage-use-python-requests/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
     
@@ -114,6 +135,13 @@
   </url>
   
   <url>
+    <loc>http://wenhan.blog/2017/04/27/Linux-password-aging-jp/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.623Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenhan.blog/2016/11/21/Manage-Vim-plugins-with-Vundle/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
@@ -121,7 +149,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2016/10/24/Install-Of-Hexo/</loc>
+    <loc>http://wenhan.blog/2017/09/11/Beginner-guide-of-systemd-on-CentOS7-RHEL7/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
     
@@ -135,7 +163,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/09/11/Beginner-guide-of-systemd-on-CentOS7-RHEL7/</loc>
+    <loc>http://wenhan.blog/2017/08/10/How-to-change-timezone-in-CentOS-7-or-RHEL-7/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
     
@@ -177,21 +205,21 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2016/12/01/crawling-webpage-use-python-requests/</loc>
+    <loc>http://wenhan.blog/2016/10/24/Install-Of-Hexo/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/04/27/Linux-password-aging-jp/</loc>
+    <loc>http://wenhan.blog/2018/02/18/failed-at-yum-update-and-how-to-fix-it/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/08/10/How-to-change-timezone-in-CentOS-7-or-RHEL-7/</loc>
+    <loc>http://wenhan.blog/2017/06/15/GlusterFS-Failed-to-probe-a-cloned-peer/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
     
@@ -212,20 +240,6 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/04/15/install-vim-8-with-python/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.623Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2017/05/03/linux-special-permissions-for-file-and-dir-cn/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.623Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wenhan.blog/2017/04/27/soft-link-and-hard-link-ja/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
@@ -240,6 +254,13 @@
   </url>
   
   <url>
+    <loc>http://wenhan.blog/2017/05/03/linux-special-permissions-for-file-and-dir-cn/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.623Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenhan.blog/2017/04/27/linux-special-permissions-for-file-and-dir-jp/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
@@ -247,14 +268,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/06/15/GlusterFS-Failed-to-probe-a-cloned-peer/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.623Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2018/02/18/Docker-basic-foundation/</loc>
+    <loc>http://wenhan.blog/2017/04/15/install-vim-8-with-python/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
     
@@ -262,6 +276,13 @@
   
   <url>
     <loc>http://wenhan.blog/2017/07/28/Desktop-Notifier-by-Python/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.623Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2018/02/18/Docker-basic-foundation/</loc>
     
     <lastmod>2018-03-22T06:10:44.623Z</lastmod>
     

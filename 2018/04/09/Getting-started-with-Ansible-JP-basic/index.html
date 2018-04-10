@@ -1,0 +1,1205 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="R4LmYy1qpduVpsQoZvUXjxqKgmMw0vAgFCjS8UbQpSc" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux,Ansible," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。 本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。https://github.com/ansible-book">
+<meta name="keywords" content="Linux,Ansible">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible 入門 - 基本操作(チュートリアル)">
+<meta property="og:url" content="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-basic/index.html">
+<meta property="og:site_name" content="Wenhan Code life">
+<meta property="og:description" content="こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。 本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。https://github.com/ansible-book">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-04-10T06:43:16.622Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible 入門 - 基本操作(チュートリアル)">
+<meta name="twitter:description" content="こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。 本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。https://github.com/ansible-book">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-basic/"/>
+
+
+
+
+<!-- ad start -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 自适应单元 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2422626403812806"
+     data-ad-slot="1454707894"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!-- ad end -->
+
+
+  <title> Ansible 入門 - 基本操作(チュートリアル) | Wenhan Code life </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-87273435-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wenhan Code life</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Technical Support Engineer @ Redhat</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ansible 入門 - 基本操作(チュートリアル)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T15:15:32+09:00">
+                2018-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/09/Getting-started-with-Ansible-JP-basic/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/04/09/Getting-started-with-Ansible-JP-basic/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/04/09/Getting-started-with-Ansible-JP-basic/" class="leancloud_visitors" data-flag-title="Ansible 入門 - 基本操作(チュートリアル)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。</p>
+<p>本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。<br><a href="https://github.com/ansible-book/ansible-first-book-examples" target="_blank" rel="noopener">https://github.com/ansible-book/ansible-first-book-examples</a><br>もし不備やコメントがありましたら、作者<a href="mailto:shijingjing02@163.com" target="_blank" rel="noopener">shijingjing02@163.com</a>または翻訳者<a href="mailto:shibunkan@gmail.com" target="_blank" rel="noopener">shibunkan@gmail.com</a> に連絡してください。</p>
+<p>詳細の内容を下記三つに分けて説明します。</p>
+<p><a href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-intro/">Ansible 入門 - 紹介</a><br><a href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-basic/">Ansible 入門 - 基本</a><br><a href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-adv/">Ansible 入門 - 応用</a></p>
+<p>本章では、簡単な例を使ってAnsibleの基本的な使い方を説明する。</p>
+<ol>
+<li>インストール</li>
+<li>管理対象のサーバー（サーバリストの管理）</li>
+<li>コマンドラインによるサーバー管理(Ad-hoc command)</li>
+<li>スクリプトによるサーバー管理(スクリプト言語 Playbook)</li>
+<li>モジュール</li>
+</ol>
+<h1 id="インストール"><a href="#インストール" class="headerlink" title="インストール"></a>インストール</h1><p>ここでは Red Hat 系 Linux でのインストールを前提に解説にする。他のOSに関していAnsibleのWebページをご参照ください。</p>
+<h2 id="管理者ノード"><a href="#管理者ノード" class="headerlink" title="管理者ノード"></a>管理者ノード</h2><h3 id="Ansible-パッケージをインストール"><a href="#Ansible-パッケージをインストール" class="headerlink" title="Ansible パッケージをインストール"></a>Ansible パッケージをインストール</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Redhat/CentOS Linuxの場合, epolリポジトリをインストールする必要がある。</span></span><br><span class="line"><span class="comment"># Fedoraの場合、デフォルトのリポジトリにAnsibleを含まれているため，直接インストールできる</span></span><br><span class="line">sudo yum install epel-release</span><br><span class="line">sudo yum install ansible -y</span><br></pre></td></tr></table></figure>
+<h3 id="管理者ノードからリモートノードの接続設定"><a href="#管理者ノードからリモートノードの接続設定" class="headerlink" title="管理者ノードからリモートノードの接続設定"></a>管理者ノードからリモートノードの接続設定</h3><p>SSH keyによる認証パスワードレス）方式を設定する。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ssh key を生成</span></span><br><span class="line">ssh-keygen</span><br><span class="line"><span class="comment"># リモートノードにssh keyをコピー</span></span><br><span class="line">ssh-copy-id remoteuser@remoteserver</span><br><span class="line"><span class="comment"># リモートノードをknows_hostsに追加（ssh Keyの保存確認がなくなる）</span></span><br><span class="line">ssh-keyscan remote_servers &gt;&gt; ~/.ssh/known_hosts</span><br></pre></td></tr></table></figure>
+<h3 id="設定確認"><a href="#設定確認" class="headerlink" title="設定確認"></a>設定確認</h3><p>管理者ノードで下記コマンドを実行し、パスワードの入力とSSH keyの保存確認がなかったら設定完了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh remoteuser@remoteserver</span><br></pre></td></tr></table></figure>
+<h2 id="リモートノード"><a href="#リモートノード" class="headerlink" title="リモートノード"></a>リモートノード</h2><p>Python 2.4以上が必要だが、通常はデフォルトでインストールされている。そのため、別途パッケージのインストールは必要ない。</p>
+<h1 id="管理対象のサーバー（サーバーリストの管理）"><a href="#管理対象のサーバー（サーバーリストの管理）" class="headerlink" title="管理対象のサーバー（サーバーリストの管理）"></a>管理対象のサーバー（サーバーリストの管理）</h1><h2 id="サーバリスト（Host-Inventory）とは"><a href="#サーバリスト（Host-Inventory）とは" class="headerlink" title="サーバリスト（Host Inventory）とは"></a>サーバリスト（Host Inventory）とは</h2><p>Host InventoryはAnsibleの設定ファイルであり、管理対象となるリモートノードの一覧をAnsibleに教える。<br>また、下記のように状況に応じてリモートノードのカテゴリ化もできる。<br>使い道によってカテゴリ化する：データベースノード、サービスノード。<br>ロケーションによってカテゴリ化する：中部データセンター、西部データセンター</p>
+<h2 id="Host-Inventoryファイル"><a href="#Host-Inventoryファイル" class="headerlink" title="Host Inventoryファイル"></a>Host Inventoryファイル</h2><p>デフォルトのファイルパス： <code>/etc/ansible/hosts</code></p>
+<p>他のファイルパスへ変更することもできる、詳細については後程紹介する。</p>
+<p>例：</p>
+<p>一番シンプルのhosts ファイル</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.50</span></span><br><span class="line"><span class="string">aserver.example.org</span></span><br><span class="line"><span class="string">bserver.example.org</span></span><br></pre></td></tr></table></figure>
+<p>カテゴリを持つhosts ファイル</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mail.example.com</span></span><br><span class="line"></span><br><span class="line"><span class="string">[webservers]</span></span><br><span class="line"><span class="string">foo.example.com</span></span><br><span class="line"><span class="string">bar.example.com</span></span><br><span class="line"></span><br><span class="line"><span class="string">[dbservers]</span></span><br><span class="line"><span class="string">one.example.com</span></span><br><span class="line"><span class="string">two.example.com</span></span><br><span class="line"><span class="string">three.example.com</span></span><br></pre></td></tr></table></figure>
+<h1 id="コマンドラインによるサーバー管理-Ad-hoc-command"><a href="#コマンドラインによるサーバー管理-Ad-hoc-command" class="headerlink" title="コマンドラインによるサーバー管理(Ad-hoc command)"></a>コマンドラインによるサーバー管理(Ad-hoc command)</h1><p>Ansibleではコマンドラインツールを提供していて、オフィシャルドキュメントでは Ad-Hoc Commandsと名付けている。ansibleコマンドのフォーマットを以下に示す。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible &lt;host-pattern&gt; [options]</span><br></pre></td></tr></table></figure>
+<h2 id="Ansible-コマンドができること"><a href="#Ansible-コマンドができること" class="headerlink" title="Ansible コマンドができること"></a>Ansible コマンドができること</h2><p>コマンドの構文の詳細を置いといて、”命令”モジュールの説明が終わったら構文の理解が深まりにいく。ここでは、下記のコマンドの例を通して、ansibleコマンドの役割を体感しましょう</p>
+<h3 id="環境を確認する"><a href="#環境を確認する" class="headerlink" title="環境を確認する"></a>環境を確認する</h3><p>ansible管理者ノードからユーザ bruce で各リモートノードをアクセスすることを確認する。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible all -m ping -u bruce</span><br></pre></td></tr></table></figure>
+<h3 id="コマンド実行"><a href="#コマンド実行" class="headerlink" title="コマンド実行"></a>コマンド実行</h3><p>現在bash ユーザと同名のユーザがすべてのリモートノードに対し”echo”コマンドを実行する。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible all -a <span class="string">"/bin/echo hello"</span></span><br></pre></td></tr></table></figure>
+<h3 id="ファイルコピー"><a href="#ファイルコピー" class="headerlink" title="ファイルコピー"></a>ファイルコピー</h3><p><code>/etc/hosts</code> ファイル を全リモートノードのweb グループにコピーし、コピー先は<code>/tmp/hosts</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible web -m copy -a <span class="string">"src=/etc/hosts dest=/tmp/hosts"</span></span><br></pre></td></tr></table></figure>
+<h3 id="パッケージインストール"><a href="#パッケージインストール" class="headerlink" title="パッケージインストール"></a>パッケージインストール</h3><p>全リモートノードのweb グループのマシンにyum でacmeパッケージをインストール</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible web -m yum -a <span class="string">"name=acme state=present"</span></span><br></pre></td></tr></table></figure>
+<h3 id="ユーザ追加"><a href="#ユーザ追加" class="headerlink" title="ユーザ追加"></a>ユーザ追加</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible all -m user -a <span class="string">"name=foo password=&lt;crypted password here&gt;"</span></span><br></pre></td></tr></table></figure>
+<h3 id="パッケージダウンロード"><a href="#パッケージダウンロード" class="headerlink" title="パッケージダウンロード"></a>パッケージダウンロード</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible web -m git -a <span class="string">"repo=git://foo.example.org/repo.git dest=/srv/myapp version=HEAD"</span></span><br></pre></td></tr></table></figure>
+<h3 id="サービス起動"><a href="#サービス起動" class="headerlink" title="サービス起動"></a>サービス起動</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible web -m service -a <span class="string">"name=httpd state=started"</span></span><br></pre></td></tr></table></figure>
+<h3 id="並列実行"><a href="#並列実行" class="headerlink" title="並列実行"></a>並列実行</h3><p>リブート命令を10並列で実行する。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible lb -a <span class="string">"/sbin/reboot"</span> -f 10</span><br></pre></td></tr></table></figure>
+<h3 id="リモートノード情報取得"><a href="#リモートノード情報取得" class="headerlink" title="リモートノード情報取得"></a>リモートノード情報取得</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible all -m setup</span><br></pre></td></tr></table></figure>
+<h1 id="スクリプトによるサーバー管理"><a href="#スクリプトによるサーバー管理" class="headerlink" title="スクリプトによるサーバー管理"></a>スクリプトによるサーバー管理</h1><p>重複な入力を避けるため、Ansibleをスクリプトの実行に対応する。AnsibleのスクリプトはPlaybookと読んで、YAML形式で、拡張子はymlである。Note: YAMLとJSONは似ていて、データを表示するフォーマットである。</p>
+<h2 id="Playbookの実行方法"><a href="#Playbookの実行方法" class="headerlink" title="Playbookの実行方法"></a>Playbookの実行方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook deploy.yml</span><br></pre></td></tr></table></figure>
+<h3 id="Playbookの例"><a href="#Playbookの例" class="headerlink" title="Playbookの例"></a>Playbookの例</h3><p>Playbook deploy.ymlを通して、webグループのリモートサーバに対しapacheをデプロイする。ステップとしては</p>
+<ol>
+<li>Apacheパッケージをインストール</li>
+<li>設定ファイルhttpdをコピーし、コピー完了後apacheサービスを再起動することを保証</li>
+<li>デフォルトweb pageのindex.htmlをコピー</li>
+<li>Apacheサービスを起動</li>
+</ol>
+<p>このPlaybook deploy.yml 内では以下のキーワードを含まれている。</p>
+<table>
+<thead>
+<tr>
+<th>キーワード</th>
+<th>内容</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hosts</td>
+<td>リモートノードのIP、またはグループ名、またはキーワードall</td>
+<td></td>
+</tr>
+<tr>
+<td>remote_user</td>
+<td>実行ユーザ</td>
+<td></td>
+</tr>
+<tr>
+<td>vars</td>
+<td>変数</td>
+<td></td>
+</tr>
+<tr>
+<td>tasks[^1]</td>
+<td>Playbookのコア部分、処理内容actionを順番通りに実行する。各actionはansible moduleを利用する。</td>
+<td>action の構文：module: module_parameter=module_value。</td>
+</tr>
+<tr>
+<td>handers</td>
+<td>Playbookのイベントで、デフォルトでは実行されず、action内でトリガーの条件に満足したら実行する。複数のトリガー条件にマッチしても1回のみ実行する。</td>
+</tr>
+</tbody>
+</table>
+<p>[^1]よく利用するモジュールはyum, copy, templateなど。Ansibleの中のmodule は、bash の中のyum, copyの命令に似ている。詳細は後程紹介する。</p>
+<p>以下はdeploy.ymlの内容を示す。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- hosts:</span> <span class="string">web</span></span><br><span class="line"><span class="attr">  vars:</span></span><br><span class="line"><span class="attr">    http_port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    max_clients:</span> <span class="number">200</span></span><br><span class="line"><span class="attr">  remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">ensure</span> <span class="string">apache</span> <span class="string">is</span> <span class="string">at</span> <span class="string">the</span> <span class="string">latest</span> <span class="string">version</span></span><br><span class="line"><span class="attr">    yum:</span> <span class="string">pkg=httpd</span> <span class="string">state=latest</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Write</span> <span class="string">the</span> <span class="string">configuration</span> <span class="string">file</span></span><br><span class="line"><span class="attr">    template:</span> <span class="string">src=templates/httpd.conf.j2</span> <span class="string">dest=/etc/httpd/conf/httpd.conf</span></span><br><span class="line"><span class="attr">    notify:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">restart</span> <span class="string">apache</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Write</span> <span class="string">the</span> <span class="string">default</span> <span class="string">index.html</span> <span class="string">file</span></span><br><span class="line"><span class="attr">    template:</span> <span class="string">src=templates/index.html.j2</span> <span class="string">dest=/var/www/html/index.html</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">ensure</span> <span class="string">apache</span> <span class="string">is</span> <span class="string">running</span></span><br><span class="line"><span class="attr">    service:</span> <span class="string">name=httpd</span> <span class="string">state=started</span></span><br><span class="line"><span class="attr">  handlers:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">restart</span> <span class="string">apache</span></span><br><span class="line"><span class="attr">      service:</span> <span class="string">name=httpd</span> <span class="string">state=restarted</span></span><br></pre></td></tr></table></figure>
+<p>YAMLが分からなかったら、上記deploy.ymlをJSON形式に変換することも可能だ。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">"hosts"</span>: <span class="string">"web"</span>,</span><br><span class="line">    <span class="attr">"vars"</span>: &#123;</span><br><span class="line">      <span class="attr">"http_port"</span>: <span class="number">80</span>,</span><br><span class="line">      <span class="attr">"max_clients"</span>: <span class="number">200</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"remote_user"</span>: <span class="string">"root"</span>,</span><br><span class="line">    <span class="attr">"tasks"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"ensure apache is at the latest version"</span>,</span><br><span class="line">        <span class="attr">"yum"</span>: <span class="string">"pkg=httpd state=latest"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"Write the configuration file"</span>,</span><br><span class="line">        <span class="attr">"template"</span>: <span class="string">"src=templates/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf"</span>,</span><br><span class="line">        <span class="attr">"notify"</span>: [</span><br><span class="line">          <span class="string">"restart apache"</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"Write the default index.html file"</span>,</span><br><span class="line">        <span class="attr">"template"</span>: <span class="string">"src=templates/index.html.j2 dest=/var/www/html/index.html"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"ensure apache is running"</span>,</span><br><span class="line">        <span class="attr">"service"</span>: <span class="string">"name=httpd state=started"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"handlers"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"restart apache"</span>,</span><br><span class="line">        <span class="attr">"service"</span>: <span class="string">"name=httpd state=restarted"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>JSON と YAMLをお互いに変換するオンラインツール：<a href="http://www.json2yaml.com/" target="_blank" rel="noopener">http://www.json2yaml.com/</a></p>
+<h2 id="Play-vs-Playbook"><a href="#Play-vs-Playbook" class="headerlink" title="Play vs. Playbook"></a>Play vs. Playbook</h2><p>Playbookは Ansibleで実行可能な YAMLファイルである。一般的な構文を以下の例に示す。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- hosts:</span> <span class="string">web</span></span><br><span class="line"><span class="attr">  remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">ensure</span> <span class="string">apache</span> <span class="string">is</span> <span class="string">at</span> <span class="string">the</span> <span class="string">latest</span> <span class="string">version</span></span><br><span class="line"><span class="attr">    yum:</span> <span class="string">pkg=httpd</span> <span class="string">state=latest</span></span><br></pre></td></tr></table></figure>
+<p>一つのPlaybookファイルの中で、二つのリモートノードグループに対しそれぞれ異る操作を存在することができる。例えば、webノードにhttpdパッケージのインストールと、lbノードにmysqlパッケージのインストール処理を一つのPlaybook ファイルに設定することができる。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="comment"># apache をインストールのplay</span></span><br><span class="line"><span class="attr">- hosts:</span> <span class="string">web</span></span><br><span class="line"><span class="attr">  remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">ensure</span> <span class="string">apache</span> <span class="string">is</span> <span class="string">at</span> <span class="string">the</span> <span class="string">latest</span> <span class="string">version</span></span><br><span class="line"><span class="attr">    yum:</span> <span class="string">pkg=httpd</span> <span class="string">state=latest</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># mysql をインストールのplay</span></span><br><span class="line"><span class="attr">- hosts:</span> <span class="string">lb</span></span><br><span class="line"><span class="attr">  remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">ensure</span> <span class="string">mysqld</span> <span class="string">is</span> <span class="string">at</span> <span class="string">the</span> <span class="string">latest</span> <span class="string">version</span></span><br><span class="line"><span class="attr">    yum:</span> <span class="string">pkg=mariadb</span> <span class="string">state=latest</span></span><br></pre></td></tr></table></figure>
+<p>上記の例では、一つのサーバに対する操作処理は、一つのPlayになる。一般的には一つのPlaybookでは一つのPlayしか実行しないため、その場合にはPlaybookとPlayは同じである。</p>
+<h1 id="Ansibleのモジュール"><a href="#Ansibleのモジュール" class="headerlink" title="Ansibleのモジュール"></a>Ansibleのモジュール</h1><h2 id="Ansibleのモジュールとは"><a href="#Ansibleのモジュールとは" class="headerlink" title="Ansibleのモジュールとは"></a>Ansibleのモジュールとは</h2><p>Bashを利用する時、コマンドラインでもスクリプト内でも、cd, ls, copy, yumなどの命令を実行する必要がある。AnsibleのモジュールはAnsibleの命令であり、Ansibleのコマンドラインやスクリプト上にて実行されている。よく使うモジュールとしてyum, copy, templateなどがある。</p>
+<p>Bashでのコマンドを利用するときに、さまざまなオプションが利用できて、このオプションはコマンドごとに定義されている。それと同じように、Ansibleのモジュールを実行する時に複数のオプションをつけることができて、各モジュールのオプションはモジュール内に定義されている。</p>
+<p>モジュールの利用方法は以下のドキュメントを参照で<br><a href="http://docs.ansible.com/ansible/modules_by_category.html" target="_blank" rel="noopener">http://docs.ansible.com/ansible/modules_by_category.html</a></p>
+<h2 id="コマンドラインにてAnsibleモジュールを利用"><a href="#コマンドラインにてAnsibleモジュールを利用" class="headerlink" title="コマンドラインにてAnsibleモジュールを利用"></a>コマンドラインにてAnsibleモジュールを利用</h2><p>Ansible コマンドラインでは、以下の様にモジュールを利用できる。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-m &lt;モジュール名&gt;</span><br><span class="line"></span><br><span class="line">-a モジュールのパラメータ</span><br></pre></td></tr></table></figure>
+<p>例えば</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module copyを利用し、管理者ノードの/etc/hostsをリモートノードの/tmp/hostsにコピー</span></span><br><span class="line">ansible all -m copy -a <span class="string">"src=/etc/hosts dest=/tmp/hosts"</span></span><br><span class="line"><span class="comment"># module yumを利用しリモートノードweb上にhttpdパッケージをインストール</span></span><br><span class="line">ansible web -m yum -a <span class="string">"name=httpd state=present"</span></span><br></pre></td></tr></table></figure>
+<h2 id="PlaybookにてAnsibleモジュールを利用"><a href="#PlaybookにてAnsibleモジュールを利用" class="headerlink" title="PlaybookにてAnsibleモジュールを利用"></a>PlaybookにてAnsibleモジュールを利用</h2><p>Playbookスクリプトでは、task内一つのactionは一つのモジュールを実行している。各actionに対し、</p>
+<p>  : の前はモジュールの名前</p>
+<p>  : の後ろはモジュールのパラメータ</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">ensure</span> <span class="string">apache</span> <span class="string">is</span> <span class="string">at</span> <span class="string">the</span> <span class="string">latest</span> <span class="string">version</span></span><br><span class="line"><span class="attr">    yum:</span> <span class="string">pkg=httpd</span> <span class="string">state=latest</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">write</span> <span class="string">the</span> <span class="string">apache</span> <span class="string">config</span> <span class="string">file</span></span><br><span class="line"><span class="attr">    template:</span> <span class="string">src=templates/httpd.conf.j2</span> <span class="string">dest=/etc/httpd/conf/httpd.conf</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">ensure</span> <span class="string">apache</span> <span class="string">is</span> <span class="string">running</span></span><br><span class="line"><span class="attr">    service:</span> <span class="string">name=httpd</span> <span class="string">state=started</span></span><br></pre></td></tr></table></figure>
+<h2 id="Ansibleモジュールの特性"><a href="#Ansibleモジュールの特性" class="headerlink" title="Ansibleモジュールの特性"></a>Ansibleモジュールの特性</h2><ul>
+<li>Linuxのコマンドのように、Ansibleのモジュールはコマンドライン上で実行することもできるし、Playbook内に書いて実行することもできる。</li>
+<li>各モジュールのパラメータや状態の判断は、このモジュールの仕様によって決められている。そのため、モジュールを利用する前に、このモジュールのドキュメントを参照することが必要である。<ul>
+<li>オンラインドキュメントの参照は：<a href="http://docs.ansible.com/ansible/list_of_all_modules.html" target="_blank" rel="noopener">http://docs.ansible.com/ansible/list_of_all_modules.html</a></li>
+<li>ansible-doc コマンドからモジュールの仕様が確認できる。</li>
+</ul>
+</li>
+<li>Ansibleはよく利用するモジュールを多数公開していますが、APIを公開しているので、ユーザが自分のモジュールの開発もできる。AnsibleのモジュールはPythonで書かれている。</li>
+</ul>
+<h2 id="よく使うAnsibleモジュールの紹介"><a href="#よく使うAnsibleモジュールの紹介" class="headerlink" title="よく使うAnsibleモジュールの紹介"></a>よく使うAnsibleモジュールの紹介</h2><p>Linuxを利用する時、コマンド命令が分からないとLinux 利用することはできない。これと同じようにAnsibleを利用するために基本のモジュールを理解することが大事である。</p>
+<p>これからは普段よく使われているモジュールを紹介する。</p>
+<ul>
+<li><p>テスト＆確認用</p>
+<ul>
+<li>ping:  リモートノードにpingして、正常に接続ができる場合は”pong”を返す。</li>
+<li>debug: デバッグ用、情報を出力のみ、Linuxのecho コマンドに似ている。</li>
+</ul>
+</li>
+<li><p>ファイル操作</p>
+<ul>
+<li>copy: ローカルのファイルをリモートノードにコピー</li>
+<li>template: ローカルのファイルをリモートノードにコピーし、変数を変更</li>
+<li>file: ファイルのパーミッションや属性を設定</li>
+</ul>
+</li>
+<li><p>システム操作</p>
+<ul>
+<li>user: ユーザアカウント管理</li>
+<li>yum: red hat 系Linuxのパッケージ管理</li>
+<li>service: サービスの管理</li>
+<li>firewalld: ファイアウォール内のサービスやポートの管理</li>
+</ul>
+</li>
+<li><p>Shell命令実行</p>
+<ul>
+<li>shell: リモートノード上shell命令を実行、$HOMEや”&lt;”, ”&gt;”, “|”と“&amp;”などは利用可能</li>
+<li>command: リモートノード上shell命令を実行、$HOMEや”&lt;”, ”&gt;”, “|”と“&amp;”などは利用不可</li>
+</ul>
+</li>
+</ul>
+<h3 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h3><p>管理者ノードからリモートノードへの接続状態を確認するときに一番よく使われているモジュールである。ただShellのpingコマンドみたいにただリモートノードを”ping”するだけではなく、パスワードレスのSSHログインと、リモートノードのpythonのversionを確認し、両方問題なかったらpongを返す。</p>
+<p>pingモジュールを使う時にパラメータが必要ない。リモートノードの接続状況を確認するためコマンドラインでの利用がplaybookの中より多くなっている。下記はコマンドラインでのpingモジュールの例を示す。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible servers -m ping</span><br></pre></td></tr></table></figure>
+<h3 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h3><p>Shellのechoコマンドに似ていて。メッセージを出力する。<br>msgパラメータに出力したいメッセージ内容を設定する。下の例では、システム情報をメッセージ内容に含めて出力している。Ansibleが実行する前にシステム情報を集めて定数にしているため、playbook内に定義しなくても利用できる。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- debug:</span></span><br><span class="line"><span class="attr">    msg:</span> <span class="string">"System \&#123;\&#123; inventory_hostname \&#125;\&#125; has gateway \&#123;\&#123; ansible_default_ipv4.gateway \&#125;\&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>実行結果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TASK [debug] *******************************************************************</span><br><span class="line">ok: [localhost] =&gt; &#123;</span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"System localhost has gateway 192.168.50.1"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>出力したい情報をvar パラメータを定義し出力させることができる。情報はシステム情報でも、モジュール実行結果を取り込むことができ、キーワードregesterを用いて変数に設定する。<br>例えば、システム情報を出力するため、以下の内容をPlaybookに記入する。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">Display</span> <span class="string">all</span> <span class="string">variables/facts</span> <span class="string">known</span> <span class="string">for</span> <span class="string">a</span> <span class="string">host</span></span><br><span class="line"><span class="attr">  debug:</span></span><br><span class="line"><span class="attr">    var:</span> <span class="string">hostvars[inventory_hostname]["ansible_default_ipv4"]["gateway"]</span></span><br></pre></td></tr></table></figure>
+<p>実行結果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TASK [Display part of variables/facts known <span class="keyword">for</span> a host] ************************</span><br><span class="line">ok: [localhost] =&gt; &#123;</span><br><span class="line">    <span class="string">"hostvars[inventory_hostname][\"ansible_default_ipv4\"][\"gateway\"]"</span>: <span class="string">"192.168.50.1"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>また、モジュールの実行結果など動的な情報を出力するためのPlaybook内容を以下に示す。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- shell:</span> <span class="string">/usr/bin/uptime</span></span><br><span class="line"><span class="attr">  register:</span> <span class="string">result</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- debug:</span></span><br><span class="line"><span class="attr">    var:</span> <span class="string">result</span></span><br></pre></td></tr></table></figure>
+<p>実行結果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">TASK [<span class="built_in">command</span>] *****************************************************************</span><br><span class="line">changed: [localhost]</span><br><span class="line"></span><br><span class="line">TASK [debug] *******************************************************************</span><br><span class="line">ok: [localhost] =&gt; &#123;</span><br><span class="line">    <span class="string">"result"</span>: &#123;</span><br><span class="line">        <span class="string">"changed"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">        <span class="string">"cmd"</span>: <span class="string">"/usr/bin/uptime"</span>,</span><br><span class="line">        <span class="string">"delta"</span>: <span class="string">"0:00:00.003212"</span>,</span><br><span class="line">        <span class="string">"end"</span>: <span class="string">"2017-01-01 21:30:02.817443"</span>,</span><br><span class="line">        <span class="string">"rc"</span>: 0,</span><br><span class="line">        <span class="string">"start"</span>: <span class="string">"2017-01-01 21:30:02.814231"</span>,</span><br><span class="line">        <span class="string">"stderr"</span>: <span class="string">""</span>,</span><br><span class="line">        <span class="string">"stdout"</span>: <span class="string">" 21:30:02 up 12:38,  8 users,  load average: 1.13, 1.31, 1.14"</span>,</span><br><span class="line">        <span class="string">"stdout_lines"</span>: [</span><br><span class="line">            <span class="string">" 21:30:02 up 12:38,  8 users,  load average: 1.13, 1.31, 1.14"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"warnings"</span>: []</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p>ローカルマシン上のファイルをリモートノードにコピーし、適切なファイルパーミッションを設定する。注意すべきなのは、ファイルをコピーする前に、コピー元とコピー先のファイルのchecksumを比較する。同一の場合はコピーせず、OK状態を返す。異なっている場合のみコピーを実行し、changed状態を返す。</p>
+<h4 id="ファイルパーミッション設定"><a href="#ファイルパーミッション設定" class="headerlink" title="ファイルパーミッション設定"></a>ファイルパーミッション設定</h4><p>modeパラメータを使ってパーミッションを設定する。設定の方式は数字でも、符号形式”u=rw,g=r,o=r”, ”u+rw,g-wx,o-rwx” でも問題ない。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- copy:</span></span><br><span class="line"><span class="attr">    src:</span> <span class="string">/srv/myfiles/foo.conf</span></span><br><span class="line"><span class="attr">    dest:</span> <span class="string">/etc/foo.conf</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">0644</span></span><br></pre></td></tr></table></figure>
+<h4 id="リモートノード上ファイルのバックアップ"><a href="#リモートノード上ファイルのバックアップ" class="headerlink" title="リモートノード上ファイルのバックアップ"></a>リモートノード上ファイルのバックアップ</h4><p>backupパラメータがyesになっている時に、コピーする前にリモートノード上のファイルのバックアップを取るようになる。もしコピー元＆先のファイルが同一であれば、コピー処理が実行されず、バックアップも実行されなくなる。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- copy:</span></span><br><span class="line"><span class="attr">    src:</span> <span class="string">sudoers</span></span><br><span class="line"><span class="attr">    dest:</span> <span class="string">/tmp</span></span><br><span class="line"><span class="attr">    backup:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<h4 id="コピー後の検証"><a href="#コピー後の検証" class="headerlink" title="コピー後の検証"></a>コピー後の検証</h4><p>validate パラメータに検証の為のコマンドを設定する。通常の場合、検証が必要なのはコピー後のファイルなので、%s で指定することができる。copyモジュールにvalidate変数が存在する場合は、コピー処理が正常に終了したことに加えて、validataの命令も正常と返す時のみ、copyモジュールの実行が成功になる。</p>
+<p>以下の例では、visudo -cf /etc/sudoers は sudoers ファイルを検証するための命令である。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- copy:</span></span><br><span class="line"><span class="attr">    src:</span> <span class="string">/mine/sudoers</span></span><br><span class="line"><span class="attr">    dest:</span> <span class="string">/etc/sudoers</span></span><br><span class="line"><span class="attr">    validate:</span> <span class="string">'visudo -cf %s'</span></span><br></pre></td></tr></table></figure>
+<h3 id="template"><a href="#template" class="headerlink" title="template"></a>template</h3><p>普通のファイルをコピーする場合は、copyモジュールで充分だが、コピー先ファイルの内容を動的に変更したい場合、templateモジュールを利用する必要がある。<br>例えば、apacheをインストールした後、テストのためリモートノードにindex.htmlファイルをコピーし、リモートノードのホスト名とIPアドレスを表示させたい時、templateを利用したほうがいい。<br>Index.html内、変更したい部分を変数として記入する。templateはpythonのj2テンプレートを利用している。j2を理解する必要がないが、変数の書き方は<code>\{\{</code> <code>\}\}</code>で囲むことを分かれば問題がない。</p>
+<h4 id="templateファイルの構文"><a href="#templateファイルの構文" class="headerlink" title="templateファイルの構文"></a>templateファイルの構文</h4><p>Templateなので、可読性のため j2 拡張子をファイルにつける。下記の index.html.j2 ファイルに二つの変数ansible_hostname と ansible_default_ipv4.address が書かれている。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"block"</span> <span class="attr">style</span>=<span class="string">"height: 99%;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"centered"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>#46 Demo<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Served by \&#123;\&#123; ansible_hostname \&#125;\&#125; (\&#123;\&#123; ansible_default_ipv4.address \&#125;\&#125;).<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="facts変数を利用するtemplate"><a href="#facts変数を利用するtemplate" class="headerlink" title="facts変数を利用するtemplate"></a>facts変数を利用するtemplate</h4><p>index.html.j2で使われている変数ansible_hostnameとansible_default_ipv4.addressはfacts変数であり、ansibleはその内容を調べ、直接Playbookで利用することができるし、templateで利用することもできる。そのため、templateにこの変数を記入した場合は特にパラメータを入力する必要はない。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">Write</span> <span class="string">the</span> <span class="string">default</span> <span class="string">index.html</span> <span class="string">file</span></span><br><span class="line"><span class="attr">  template:</span> <span class="string">src=templates/index.html.j2</span> <span class="string">dest=/var/www/html/index.html</span></span><br></pre></td></tr></table></figure>
+<h4 id="一般変数を利用するtemplate"><a href="#一般変数を利用するtemplate" class="headerlink" title="一般変数を利用するtemplate"></a>一般変数を利用するtemplate</h4><p>例えば、httpd.conf.j2をリモートノードにコピーした後、デフォルトのhttpポートを設定したい場合、templateの一般変数を利用して実現できる。templateファイル httpd.conf.j2の中での一般変数の利用方法は同じく<code>\{\{\}\}</code>:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">ServerRoot</span> <span class="string">"/etc/httpd"</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">Listen</span> <span class="string">\&#123;\&#123;</span> <span class="string">http_port</span> <span class="string">\&#125;\&#125;</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+<p>一般変数はtemplateを読み込む時ではなく、Playbook内のvars キーワードで定義される。もちろんPlaybook内で直接利用できる変数は、template内でも利用できる。inventory内の変数の定義については後章で説明する。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- hosts:</span> <span class="string">localhost</span></span><br><span class="line"><span class="attr">  vars:</span></span><br><span class="line"><span class="attr">    http_port:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">  remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Write</span> <span class="string">the</span> <span class="string">configuration</span> <span class="string">file</span></span><br><span class="line"><span class="attr">    template:</span> <span class="string">src=templates/httpd.conf.j2</span> <span class="string">dest=/etc/httpd/conf/httpd.conf</span></span><br></pre></td></tr></table></figure>
+<p>templateモジュールはcopyモジュールと同じく、ファイルをリモートノードにコピーするだけではなく、パーミッションの設定、バックアップ、検証機能などもできる。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- template:</span></span><br><span class="line"><span class="attr">    src:</span> <span class="string">etc/ssh/sshd_config.j2</span></span><br><span class="line"><span class="attr">    dest:</span> <span class="string">/etc/ssh/sshd_config.j2</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="string">'0600'</span></span><br><span class="line"><span class="attr">    validate:</span> <span class="string">/usr/sbin/sshd</span> <span class="bullet">-t</span> <span class="string">%s</span></span><br><span class="line"><span class="attr">    backup:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><p>fileモジュールは、リモートノード上のファイル、シンボリック、フォルダの作成、削除、またはパーミションの設定を行う。</p>
+<h4 id="ファイルのパーミッションの変更"><a href="#ファイルのパーミッションの変更" class="headerlink" title="ファイルのパーミッションの変更"></a>ファイルのパーミッションの変更</h4><p>mode変数には直接数字(頭1文字は 0)でも、パーミッション設定内容でも、パーミッションの追加/削除でも設定することができます。詳細については以下の例で示す。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/etc/foo.conf</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">0644</span></span><br><span class="line">    <span class="comment">#mode: "u=rw,g=r,o=r"</span></span><br><span class="line">    <span class="comment">#mode: "u+rw,g-wx,o-rwx"</span></span><br></pre></td></tr></table></figure>
+<h4 id="シンボリックリンク作成"><a href="#シンボリックリンク作成" class="headerlink" title="シンボリックリンク作成"></a>シンボリックリンク作成</h4><p>ここで注意すべきところは、srcとdestパラメータの意味はcopyモジュールと異なり、fileモジュールの操作対象のファイルは全てリモートノード上にある。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    src:</span> <span class="string">/file/to/link/to</span></span><br><span class="line"><span class="attr">    dest:</span> <span class="string">/path/to/symlink</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">link</span></span><br></pre></td></tr></table></figure>
+<h4 id="新しいファイル作成"><a href="#新しいファイル作成" class="headerlink" title="新しいファイル作成"></a>新しいファイル作成</h4><p>Touchコマンドのように新しいファイルを作成</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/etc/foo.conf</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">touch</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="string">"u=rw,g=r,o=r"</span></span><br></pre></td></tr></table></figure>
+<p>新しいフォルダを作成</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create a directory if it doesn't exist</span></span><br><span class="line"><span class="attr">- file:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/etc/some_directory</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">directory</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">0755</span></span><br></pre></td></tr></table></figure>
+<h3 id="user"><a href="#user" class="headerlink" title="user"></a>user</h3><p>ユーザモジュールはリモートノードのユーザアカウントを追加／削除／変更することができ、アカウントの属性を設定することもできる。</p>
+<h4 id="アカウント追加"><a href="#アカウント追加" class="headerlink" title="アカウント追加"></a>アカウント追加</h4><p>ユーザアカウントjohndを追加、uid を 1040に、primary groupをadminに設定する。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- user:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">johnd</span></span><br><span class="line"><span class="attr">    comment:</span> <span class="string">"John Doe"</span></span><br><span class="line"><span class="attr">    uid:</span> <span class="number">1040</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">admin</span></span><br></pre></td></tr></table></figure>
+<p>ユーザアカウントjamesを作成し、このアカウントに二つのグループを追加する。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- user:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">james</span></span><br><span class="line"><span class="attr">    shell:</span> <span class="string">/bin/bash</span></span><br><span class="line"><span class="attr">    groups:</span> <span class="string">admins,developers</span></span><br><span class="line"><span class="attr">    append:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<h4 id="アカウント削除"><a href="#アカウント削除" class="headerlink" title="アカウント削除"></a>アカウント削除</h4><p>ユーザアカウントjohndを削除する。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- user:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">johnd</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">absent</span></span><br><span class="line"><span class="attr">    remove:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<h4 id="アカウントの属性を変更"><a href="#アカウントの属性を変更" class="headerlink" title="アカウントの属性を変更"></a>アカウントの属性を変更</h4><p>アカウントjsmithに対し2048-bit のSSH keyを作成し、~jsmith/.ssh/id_rsaに保存する。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- user:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">jsmith</span></span><br><span class="line"><span class="attr">    generate_ssh_key:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">    ssh_key_bits:</span> <span class="number">2048</span></span><br><span class="line"><span class="attr">    ssh_key_file:</span> <span class="string">.ssh/id_rsa</span></span><br></pre></td></tr></table></figure>
+<p>アカウントの無効時刻を追加</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- user:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">james18</span></span><br><span class="line"><span class="attr">    shell:</span> <span class="string">/bin/zsh</span></span><br><span class="line"><span class="attr">    groups:</span> <span class="string">developers</span></span><br><span class="line"><span class="attr">    expires:</span> <span class="number">1422403387</span></span><br></pre></td></tr></table></figure>
+<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><p>yum モジュールはRed Hat系Linuxのパッケージを管理する。RHEL, CentOS, fedora 21以下のOSをサポートする。fedora 22以上からはdnfを利用するため、dnfモジュールの利用をお勧めする。</p>
+<h4 id="パッケージのinstallとremove"><a href="#パッケージのinstallとremove" class="headerlink" title="パッケージのinstallとremove"></a>パッケージのinstallとremove</h4><p>最新のパッケージをインストール。もし古いパッケージが存在する場合、最新versionにアップデートする。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">the</span> <span class="string">latest</span> <span class="string">version</span> <span class="string">of</span> <span class="string">Apache</span></span><br><span class="line"><span class="attr">  yum:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">latest</span></span><br></pre></td></tr></table></figure>
+<p>指定したversionのパッケージをinstall</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">one</span> <span class="string">specific</span> <span class="string">version</span> <span class="string">of</span> <span class="string">Apache</span></span><br><span class="line"><span class="attr">  yum:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">httpd-2.2.29-1.4.amzn1</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">present</span></span><br></pre></td></tr></table></figure>
+<p>httpdパッケージをremove</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">remove</span> <span class="string">the</span> <span class="string">Apache</span> <span class="string">package</span></span><br><span class="line"><span class="attr">  yum:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">absent</span></span><br></pre></td></tr></table></figure>
+<p>指定したリポジトリtestingからパッケージをinstall</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">the</span> <span class="string">latest</span> <span class="string">version</span> <span class="string">of</span> <span class="string">Apache</span> <span class="string">from</span> <span class="string">the</span> <span class="string">testing</span> <span class="string">repo</span></span><br><span class="line"><span class="attr">  yum:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">    enablerepo:</span> <span class="string">testing</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">present</span></span><br></pre></td></tr></table></figure>
+<p>パッケージグループをinstall</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">the</span> <span class="string">'Development tools'</span> <span class="string">package</span> <span class="string">group</span></span><br><span class="line"><span class="attr">  yum:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">"@Development tools"</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">present</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">the</span> <span class="string">'Gnome desktop'</span> <span class="string">environment</span> <span class="string">group</span></span><br><span class="line"><span class="attr">  yum:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">"@^gnome-desktop-environment"</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">present</span></span><br></pre></td></tr></table></figure>
+<p>ローカルファイルからパッケージをinstall</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">nginx</span> <span class="string">rpm</span> <span class="string">from</span> <span class="string">a</span> <span class="string">local</span> <span class="string">file</span></span><br><span class="line"><span class="attr">  yum:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">/usr/local/src/nginx-release-centos-6-0.el6.ngx.noarch.rpm</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">present</span></span><br></pre></td></tr></table></figure>
+<p>URLからパッケージをinstall</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">install</span> <span class="string">the</span> <span class="string">nginx</span> <span class="string">rpm</span> <span class="string">from</span> <span class="string">a</span> <span class="string">remote</span> <span class="string">repo</span></span><br><span class="line"><span class="attr">  yum:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="attr">http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">present</span></span><br></pre></td></tr></table></figure>
+<h3 id="service"><a href="#service" class="headerlink" title="service"></a>service</h3><p>リモートノード上のサービスを管理する。一般的によく利用されるサービスは、httpd, sshd, nfs, crondなどがある。</p>
+<h4 id="起動-停止-再起動"><a href="#起動-停止-再起動" class="headerlink" title="起動/停止/再起動"></a>起動/停止/再起動</h4><p>httpdサービスを起動</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- service:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">started</span></span><br></pre></td></tr></table></figure>
+<p>httpdサービスを停止</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- service:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">stopped</span></span><br></pre></td></tr></table></figure>
+<p>httpdサービスを再起動</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- service:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">restarted</span></span><br></pre></td></tr></table></figure>
+<p>httpdサービスをreload</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- service:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">reloaded</span></span><br></pre></td></tr></table></figure>
+<p>httpdサービスをブート時自動起動に設定</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- service:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">    enabled:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<p>ネットワークサービスのポートを起動する</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- service:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">network</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">restarted</span></span><br><span class="line"><span class="attr">    args:</span> <span class="string">eth0</span></span><br></pre></td></tr></table></figure>
+<h3 id="firewalld"><a href="#firewalld" class="headerlink" title="firewalld"></a>firewalld</h3><p>firewalldモジュールは、サービスやポートに対しfirewalldのルールを設定する。実行中のルールと、永久のルールの両方が設定できる。ただし、firewalldモジュールの条件として、リモートノードのfirewalldのversionは0.2.11以上である必要がある。</p>
+<h4 id="サービスに対しfirewalldルールを追加"><a href="#サービスに対しfirewalldルールを追加" class="headerlink" title="サービスに対しfirewalldルールを追加"></a>サービスに対しfirewalldルールを追加</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- firewalld:</span></span><br><span class="line"><span class="attr">    service:</span> <span class="string">https</span></span><br><span class="line"><span class="attr">    permanent:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">enabled</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- firewalld:</span></span><br><span class="line"><span class="attr">    zone:</span> <span class="string">dmz</span></span><br><span class="line"><span class="attr">    service:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">    permanent:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">enabled</span></span><br></pre></td></tr></table></figure>
+<h4 id="ポートに対しfirewalldルールを追加"><a href="#ポートに対しfirewalldルールを追加" class="headerlink" title="ポートに対しfirewalldルールを追加"></a>ポートに対しfirewalldルールを追加</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- firewalld:</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">8081</span><span class="string">/tcp</span></span><br><span class="line"><span class="attr">    permanent:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">disabled</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- firewalld:</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">161</span><span class="bullet">-162</span><span class="string">/udp</span></span><br><span class="line"><span class="attr">    permanent:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">enabled</span></span><br></pre></td></tr></table></figure>
+<h4 id="その他のfirewalldルールの例"><a href="#その他のfirewalldルールの例" class="headerlink" title="その他のfirewalldルールの例"></a>その他のfirewalldルールの例</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- firewalld:</span></span><br><span class="line"><span class="attr">    rich_rule:</span> <span class="string">'rule service name="ftp" audit limit value="1/m" accept'</span></span><br><span class="line"><span class="attr">    permanent:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">enabled</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- firewalld:</span></span><br><span class="line"><span class="attr">    source:</span> <span class="number">192.0</span><span class="number">.2</span><span class="number">.0</span><span class="string">/24</span></span><br><span class="line"><span class="attr">    zone:</span> <span class="string">internal</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">enabled</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- firewalld:</span></span><br><span class="line"><span class="attr">    zone:</span> <span class="string">trusted</span></span><br><span class="line"><span class="attr">    interface:</span> <span class="string">eth2</span></span><br><span class="line"><span class="attr">    permanent:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">enabled</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- firewalld:</span></span><br><span class="line"><span class="attr">    masquerade:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">    state:</span> <span class="string">enabled</span></span><br><span class="line"><span class="attr">    permanent:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    zone:</span> <span class="string">dmz</span></span><br></pre></td></tr></table></figure>
+<h3 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h3><p>shellモジュールは/bin/shを使ってリモートノードで命令を実行する。<br>もし命令はyumやcopyモジュールで実現できるなら、shellまたはcommandのような命令モジュールが必要なくなる。<br>また、shellモジュールは操作後の戻り値やstatusをチェックしていないため、実行する必要がない場合でも、もう一回実行される。</p>
+<p>$home, $HOME, “&lt;”,  “&gt;”,  “|”, “;” と“&amp;”が利用できる。</p>
+<ul>
+<li>$home</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">test</span> <span class="string">$home</span></span><br><span class="line"><span class="attr">  shell:</span> <span class="string">echo</span> <span class="string">"Test1"</span> <span class="string">&gt; ~/tmp/test1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>&amp;&amp;</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- shell:</span> <span class="string">service</span> <span class="string">jboss</span> <span class="string">start</span> <span class="string">&amp;&amp;</span> <span class="string">chkconfig</span> <span class="string">jboss</span> <span class="string">on</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>>></li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- shell:</span> <span class="string">echo</span> <span class="string">foo</span> <span class="string">&gt;&gt;</span> <span class="string">/tmp/testfoo</span></span><br></pre></td></tr></table></figure>
+<h4 id="スクリプト実行"><a href="#スクリプト実行" class="headerlink" title="スクリプト実行"></a>スクリプト実行</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- shell:</span> <span class="string">somescript.sh</span> <span class="string">&gt;&gt;</span> <span class="string">somelog.txt</span></span><br></pre></td></tr></table></figure>
+<p>命令実行前にカレントディレクトリを変更</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- shell:</span> <span class="string">somescript.sh</span> <span class="string">&gt;&gt;</span> <span class="string">somelog.txt</span></span><br><span class="line"><span class="attr">  args:</span></span><br><span class="line"><span class="attr">    chdir:</span> <span class="string">somedir/</span></span><br></pre></td></tr></table></figure>
+<p>命令実行前にカレントディレクトリを変更し、somelog.txtが存在しない時にのみactionを実行する。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- shell:</span> <span class="string">somescript.sh</span> <span class="string">&gt;&gt;</span> <span class="string">somelog.txt</span></span><br><span class="line"><span class="attr">  args:</span></span><br><span class="line"><span class="attr">    chdir:</span> <span class="string">somedir/</span></span><br><span class="line"><span class="attr">    creates:</span> <span class="string">somelog.txt</span></span><br></pre></td></tr></table></figure>
+<p>Bashを指定し命令を実行する</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- shell:</span> <span class="string">cat</span> <span class="string">&lt;</span> <span class="string">/tmp/\*txt</span></span><br><span class="line"><span class="attr">  args:</span></span><br><span class="line"><span class="attr">    executable:</span> <span class="string">/bin/bash</span></span><br></pre></td></tr></table></figure>
+<h3 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h3><p>Shellモジュールと似ていて、リモートノードで命令を実行する。しかし、commandモジュールは $HOME または “&lt;”, “&gt;”, “|”, “;” and “&amp;”を利用できない</p>
+<h4 id="Shell-と似た部分"><a href="#Shell-と似た部分" class="headerlink" title="Shell と似た部分"></a>Shell と似た部分</h4><ul>
+<li>一つの命令を実行する</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- command:</span> <span class="string">/sbin/shutdown</span> <span class="bullet">-t</span> <span class="string">now</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>命令を実行する前にカレントディレクトリを変更し、databaseファイルがない時に命令を実行</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- command:</span> <span class="string">/usr/bin/make_database.sh</span> <span class="string">arg1</span> <span class="string">arg2</span></span><br><span class="line"><span class="attr">  args:</span></span><br><span class="line"><span class="attr">    chdir:</span> <span class="string">somedir/</span></span><br><span class="line"><span class="attr">    creates:</span> <span class="string">/path/to/database</span></span><br></pre></td></tr></table></figure>
+<h4 id="Shell-と異る部分"><a href="#Shell-と異る部分" class="headerlink" title="Shell と異る部分"></a>Shell と異る部分</h4><ul>
+<li>パラメータを渡す方法はShellより一つ多い</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- command:</span> <span class="string">/usr/bin/make_database.sh</span> <span class="string">arg1</span> <span class="string">arg2</span> <span class="string">creates=/path/to/database</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>&amp;&amp; または &gt;&gt; は利用できない。</li>
+</ul>
+<p>下記の書き方で、~/tmp/test3と~/tmp/test4は作成できない。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">test</span> <span class="string">$home</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">echo</span> <span class="string">"test3"</span> <span class="string">&gt; ~/tmp/test3 &amp;&amp; echo "test4" &gt; ~/tmp/test4</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/Ansible/" rel="tag"># Ansible</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/09/Getting-started-with-Ansible-JP-intro/" rel="next" title="Ansible 入門 - 紹介">
+                <i class="fa fa-chevron-left"></i> Ansible 入門 - 紹介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/09/Getting-started-with-Ansible-JP-adv/" rel="prev" title="Ansible 入門 - 応用">
+                Ansible 入門 - 応用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="Wenhan Shi" />
+          <p class="site-author-name" itemprop="name">Wenhan Shi</p>
+           
+              <p class="site-description motion-element" itemprop="description">RHEL/GlusterFS/Storage System</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xibuka" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" target="_blank" title="Linkedin">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Linkedin
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/Shibunkan/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/xibuka" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#インストール"><span class="nav-number">1.</span> <span class="nav-text">インストール</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#管理者ノード"><span class="nav-number">1.1.</span> <span class="nav-text">管理者ノード</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ansible-パッケージをインストール"><span class="nav-number">1.1.1.</span> <span class="nav-text">Ansible パッケージをインストール</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理者ノードからリモートノードの接続設定"><span class="nav-number">1.1.2.</span> <span class="nav-text">管理者ノードからリモートノードの接続設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#設定確認"><span class="nav-number">1.1.3.</span> <span class="nav-text">設定確認</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#リモートノード"><span class="nav-number">1.2.</span> <span class="nav-text">リモートノード</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理対象のサーバー（サーバーリストの管理）"><span class="nav-number">2.</span> <span class="nav-text">管理対象のサーバー（サーバーリストの管理）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#サーバリスト（Host-Inventory）とは"><span class="nav-number">2.1.</span> <span class="nav-text">サーバリスト（Host Inventory）とは</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Host-Inventoryファイル"><span class="nav-number">2.2.</span> <span class="nav-text">Host Inventoryファイル</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#コマンドラインによるサーバー管理-Ad-hoc-command"><span class="nav-number">3.</span> <span class="nav-text">コマンドラインによるサーバー管理(Ad-hoc command)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansible-コマンドができること"><span class="nav-number">3.1.</span> <span class="nav-text">Ansible コマンドができること</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#環境を確認する"><span class="nav-number">3.1.1.</span> <span class="nav-text">環境を確認する</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#コマンド実行"><span class="nav-number">3.1.2.</span> <span class="nav-text">コマンド実行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ファイルコピー"><span class="nav-number">3.1.3.</span> <span class="nav-text">ファイルコピー</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#パッケージインストール"><span class="nav-number">3.1.4.</span> <span class="nav-text">パッケージインストール</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ユーザ追加"><span class="nav-number">3.1.5.</span> <span class="nav-text">ユーザ追加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#パッケージダウンロード"><span class="nav-number">3.1.6.</span> <span class="nav-text">パッケージダウンロード</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#サービス起動"><span class="nav-number">3.1.7.</span> <span class="nav-text">サービス起動</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#並列実行"><span class="nav-number">3.1.8.</span> <span class="nav-text">並列実行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#リモートノード情報取得"><span class="nav-number">3.1.9.</span> <span class="nav-text">リモートノード情報取得</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#スクリプトによるサーバー管理"><span class="nav-number">4.</span> <span class="nav-text">スクリプトによるサーバー管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Playbookの実行方法"><span class="nav-number">4.1.</span> <span class="nav-text">Playbookの実行方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Playbookの例"><span class="nav-number">4.1.1.</span> <span class="nav-text">Playbookの例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Play-vs-Playbook"><span class="nav-number">4.2.</span> <span class="nav-text">Play vs. Playbook</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ansibleのモジュール"><span class="nav-number">5.</span> <span class="nav-text">Ansibleのモジュール</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansibleのモジュールとは"><span class="nav-number">5.1.</span> <span class="nav-text">Ansibleのモジュールとは</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#コマンドラインにてAnsibleモジュールを利用"><span class="nav-number">5.2.</span> <span class="nav-text">コマンドラインにてAnsibleモジュールを利用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PlaybookにてAnsibleモジュールを利用"><span class="nav-number">5.3.</span> <span class="nav-text">PlaybookにてAnsibleモジュールを利用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansibleモジュールの特性"><span class="nav-number">5.4.</span> <span class="nav-text">Ansibleモジュールの特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#よく使うAnsibleモジュールの紹介"><span class="nav-number">5.5.</span> <span class="nav-text">よく使うAnsibleモジュールの紹介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ping"><span class="nav-number">5.5.1.</span> <span class="nav-text">ping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#debug"><span class="nav-number">5.5.2.</span> <span class="nav-text">debug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy"><span class="nav-number">5.5.3.</span> <span class="nav-text">copy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ファイルパーミッション設定"><span class="nav-number">5.5.3.1.</span> <span class="nav-text">ファイルパーミッション設定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#リモートノード上ファイルのバックアップ"><span class="nav-number">5.5.3.2.</span> <span class="nav-text">リモートノード上ファイルのバックアップ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#コピー後の検証"><span class="nav-number">5.5.3.3.</span> <span class="nav-text">コピー後の検証</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#template"><span class="nav-number">5.5.4.</span> <span class="nav-text">template</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#templateファイルの構文"><span class="nav-number">5.5.4.1.</span> <span class="nav-text">templateファイルの構文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#facts変数を利用するtemplate"><span class="nav-number">5.5.4.2.</span> <span class="nav-text">facts変数を利用するtemplate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一般変数を利用するtemplate"><span class="nav-number">5.5.4.3.</span> <span class="nav-text">一般変数を利用するtemplate</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-number">5.5.5.</span> <span class="nav-text">file</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ファイルのパーミッションの変更"><span class="nav-number">5.5.5.1.</span> <span class="nav-text">ファイルのパーミッションの変更</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#シンボリックリンク作成"><span class="nav-number">5.5.5.2.</span> <span class="nav-text">シンボリックリンク作成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新しいファイル作成"><span class="nav-number">5.5.5.3.</span> <span class="nav-text">新しいファイル作成</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user"><span class="nav-number">5.5.6.</span> <span class="nav-text">user</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#アカウント追加"><span class="nav-number">5.5.6.1.</span> <span class="nav-text">アカウント追加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#アカウント削除"><span class="nav-number">5.5.6.2.</span> <span class="nav-text">アカウント削除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#アカウントの属性を変更"><span class="nav-number">5.5.6.3.</span> <span class="nav-text">アカウントの属性を変更</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yum"><span class="nav-number">5.5.7.</span> <span class="nav-text">yum</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#パッケージのinstallとremove"><span class="nav-number">5.5.7.1.</span> <span class="nav-text">パッケージのinstallとremove</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service"><span class="nav-number">5.5.8.</span> <span class="nav-text">service</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#起動-停止-再起動"><span class="nav-number">5.5.8.1.</span> <span class="nav-text">起動/停止/再起動</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#firewalld"><span class="nav-number">5.5.9.</span> <span class="nav-text">firewalld</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#サービスに対しfirewalldルールを追加"><span class="nav-number">5.5.9.1.</span> <span class="nav-text">サービスに対しfirewalldルールを追加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ポートに対しfirewalldルールを追加"><span class="nav-number">5.5.9.2.</span> <span class="nav-text">ポートに対しfirewalldルールを追加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#その他のfirewalldルールの例"><span class="nav-number">5.5.9.3.</span> <span class="nav-text">その他のfirewalldルールの例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell"><span class="nav-number">5.5.10.</span> <span class="nav-text">shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#スクリプト実行"><span class="nav-number">5.5.10.1.</span> <span class="nav-text">スクリプト実行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Command"><span class="nav-number">5.5.11.</span> <span class="nav-text">Command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Shell-と似た部分"><span class="nav-number">5.5.11.1.</span> <span class="nav-text">Shell と似た部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shell-と異る部分"><span class="nav-number">5.5.11.2.</span> <span class="nav-text">Shell と異る部分</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+
+    <!-- ad start -->
+<!--
+    <div class="sidebar-inner">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 自适应单元 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2422626403812806"
+     data-ad-slot="1454707894"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    </div>
+-->
+    <!-- ad end -->
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <!-- ad start -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 自适应单元 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2422626403812806"
+     data-ad-slot="1454707894"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!-- ad end -->
+
+<div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wenhan Shi</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xibuka.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-basic/';
+          this.page.identifier = '2018/04/09/Getting-started-with-Ansible-JP-basic/';
+          this.page.title = 'Ansible 入門 - 基本操作(チュートリアル)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xibuka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("90wEGXD7uoUqTufkP5rUni2y-gzGzoHsz", "4vhv6NPtEfNUWFOd4v5ktPSk");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
