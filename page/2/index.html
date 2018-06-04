@@ -284,6 +284,155 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/" itemprop="url">
+                  How to check if a disk is SSD or HDD
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-02T08:27:14+09:00">
+                2017-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/" class="leancloud_visitors" data-flag-title="How to check if a disk is SSD or HDD">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Linux will detects SSD automatically.<br>Since kernel version 2.6.29, you can check <code>/dev/sda</code> with following command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># cat /sys/block/sda/queue/rotational</span><br></pre></td></tr></table></figure>
+<p>The return number <code>0</code> shows you <code>/dev/sda</code> is a SSD, and <code>1</code> shows it is a HDD.<br>Note that this command may not work when your disk is created by hardware RAID.</p>
+<p>Another way is to use <code>lsblk</code> command, a part of the util-linux package.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># lsblk -d -o name,rota</span><br><span class="line">NAME ROTA</span><br><span class="line">sda     0</span><br><span class="line">sdb     1</span><br></pre></td></tr></table></figure>
+<p><code>ROTA</code> means rotational device, <code>1</code> for true, <code>0</code> for false.<br>This command report the same information as in <code>/sys/block/.../queue/rotational</code></p>
+<p>Ref : <a href="https://unix.stackexchange.com/questions/65595/how-to-know-if-a-disk-is-an-ssd-or-an-hdd" target="_blank" rel="noopener">How to know if a disk is an SSD or an HDD</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/09/19/How-to-sort-ps-command-output/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1666,157 +1815,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenhan Shi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wenhan Code life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/" itemprop="url">
-                  How to keep process running after log off
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-29T14:31:14+09:00">
-                2017-06-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/" class="leancloud_visitors" data-flag-title="How to keep process running after log off">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>tmux is an opensource software that can help you to do this. There are a lot of<br>other things tmux can do, but now let me explain how to keep process running<br>even end the ssh session. Please follow the steps:</p>
-<ol>
-<li>start a tmux session by input <code>tmux</code> to the shell.</li>
-<li>start your process or script inside the tmux session.</li>
-<li>leave(detach) the tmux session by input <code>Ctrl+b</code> and then <code>d</code>.</li>
-</ol>
-<p>Now you can log off or terminate the ssh session safely, your process/script is<br>still running inside the tmux session. Once you want to check the status of<br>your process/script, you can login ang input <code>tmux attach</code> to re-attach<br>the session.</p>
-<p>Currently running sessions can be listed by <code>tmux list-sessions</code>.</p>
-<p>tmux can do much more things, for more details about this command please have a<br>look at <code>man tmux</code>.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1866,7 +1864,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1879,7 +1877,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

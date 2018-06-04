@@ -284,6 +284,171 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/06/04/Error-Failed-container-creation-Failed-to-load-raw-lxc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/06/04/Error-Failed-container-creation-Failed-to-load-raw-lxc/" itemprop="url">
+                  Error: Failed container creation: Failed to load raw.lxc
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-04T16:19:39+09:00">
+                2018-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/04/Error-Failed-container-creation-Failed-to-load-raw-lxc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/04/Error-Failed-container-creation-Failed-to-load-raw-lxc/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/06/04/Error-Failed-container-creation-Failed-to-load-raw-lxc/" class="leancloud_visitors" data-flag-title="Error: Failed container creation: Failed to load raw.lxc">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I follow below URL to try to install and test MaaS, </p>
+<p><a href="https://docs.maas.io/2.1/en/installconfig-lxd-install" target="_blank" rel="noopener">https://docs.maas.io/2.1/en/installconfig-lxd-install</a></p>
+<p>At the profile edit part, from above documents </p>
+<ol>
+<li><code>lxc profile edit maas</code></li>
+<li><p>replace the {} after config with the following (excluding config:):</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">config:</span><br><span class="line">  raw.lxc: |-</span><br><span class="line">    lxc.cgroup.devices.allow = c 10:237 rwm</span><br><span class="line">    lxc.aa_profile = unconfined</span><br><span class="line">    lxc.cgroup.devices.allow = b 7:* rwm</span><br><span class="line">  security.privileged: &quot;true&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>At the launch step, I hit below issue,</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lxc launch -p maas ubuntu:16.04 xenial-maas</span><br><span class="line">Creating xenial-maas</span><br><span class="line">Error: Failed container creation: Failed to load raw.lxc</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>This is because I’m using LXD 3.0, and the configuration key above is old.<br>Depending on <a href="https://github.com/lxc/lxd/issues/4393#issuecomment-378181793" target="_blank" rel="noopener">this comment</a>, <code>lxc.aa_profile</code> is changed to <code>lxc.apparmor.profile</code> from lxd 2.1.</p>
+<p>So the workaround is </p>
+<ol>
+<li><code>lxc profile edit maas</code> again</li>
+<li><p>replace the <code>lxc.aa_profile</code> with <code>lxc.apparmor.profile</code> </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">config:</span><br><span class="line">  raw.lxc: |-</span><br><span class="line">    lxc.cgroup.devices.allow = c 10:237 rwm</span><br><span class="line">    lxc.apparmor.profile = unconfined</span><br><span class="line">    lxc.cgroup.devices.allow = b 7:* rwm</span><br><span class="line">  security.privileged: &quot;true&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>re-run the launch command </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lxc launch -p maas ubuntu:16.04 xenial-maas</span><br><span class="line">Creating xenial-maas</span><br><span class="line">Starting xenial-maas</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-basic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1672,155 +1837,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenhan Shi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wenhan Code life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/" itemprop="url">
-                  How to check if a disk is SSD or HDD
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-02T08:27:14+09:00">
-                2017-11-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/" class="leancloud_visitors" data-flag-title="How to check if a disk is SSD or HDD">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Linux will detects SSD automatically.<br>Since kernel version 2.6.29, you can check <code>/dev/sda</code> with following command</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># cat /sys/block/sda/queue/rotational</span><br></pre></td></tr></table></figure>
-<p>The return number <code>0</code> shows you <code>/dev/sda</code> is a SSD, and <code>1</code> shows it is a HDD.<br>Note that this command may not work when your disk is created by hardware RAID.</p>
-<p>Another way is to use <code>lsblk</code> command, a part of the util-linux package.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># lsblk -d -o name,rota</span><br><span class="line">NAME ROTA</span><br><span class="line">sda     0</span><br><span class="line">sdb     1</span><br></pre></td></tr></table></figure>
-<p><code>ROTA</code> means rotational device, <code>1</code> for true, <code>0</code> for false.<br>This command report the same information as in <code>/sys/block/.../queue/rotational</code></p>
-<p>Ref : <a href="https://unix.stackexchange.com/questions/65595/how-to-know-if-a-disk-is-an-ssd-or-an-hdd" target="_blank" rel="noopener">How to know if a disk is an SSD or an HDD</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1870,7 +1886,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1883,7 +1899,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
