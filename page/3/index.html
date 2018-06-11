@@ -284,6 +284,157 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/07/04/How-to-copy-paste-text-to-from-the-system-clipboard-in-VIM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/04/How-to-copy-paste-text-to-from-the-system-clipboard-in-VIM/" itemprop="url">
+                  How to copy text to the system clipboard in VIM
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-04T11:44:42+09:00">
+                2017-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/04/How-to-copy-paste-text-to-from-the-system-clipboard-in-VIM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/04/How-to-copy-paste-text-to-from-the-system-clipboard-in-VIM/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/04/How-to-copy-paste-text-to-from-the-system-clipboard-in-VIM/" class="leancloud_visitors" data-flag-title="How to copy text to the system clipboard in VIM">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>Make sure your VIM have +clipboard enabled, </li>
+<li>Add “set clipboard=unnamedplus” to .vimrc</li>
+</ol>
+<h1 id="check-clipboard-is-enabled"><a href="#check-clipboard-is-enabled" class="headerlink" title="check +clipboard is enabled"></a>check +clipboard is enabled</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># vim --version | grep clipboard</span><br><span class="line">+clipboard       +job             +path_extra      +user_commands</span><br><span class="line">+eval            +mouse_dec       +statusline      +xterm_clipboard</span><br></pre></td></tr></table></figure>
+<p>If it shows ‘-clipboard’, you need to compile VIM with this feature.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/vim/vim.git</span><br><span class="line">$ cd vim/src/</span><br><span class="line">$ ./configure --with-features=huge                                    \</span><br><span class="line">             --enable-multibyte                                       \</span><br><span class="line">             --enable-rubyinterp=yes                                  \</span><br><span class="line">             --enable-pythoninterp=yes                                \</span><br><span class="line">             --with-python-config-dir=/usr/lib64/python2.7/config     \</span><br><span class="line">             --enable-perlinterp=yes                                  \</span><br><span class="line">             --enable-luainterp=yes                                   \</span><br><span class="line">             --prefix=/usr/local/                                     \</span><br><span class="line">             --enable-fail-if-missing                                 \</span><br><span class="line">             --enable-gui=no                                          \</span><br><span class="line">             --enable-tclinterp=yes                                   \</span><br><span class="line">             --enable-cscope=yes                                      \</span><br><span class="line">             --enable-gpm                                             \</span><br><span class="line">             --enable-cscope                                          \</span><br><span class="line">             --enable-fontset                                         \</span><br><span class="line">             --with-x                                                 \</span><br><span class="line">             --with-compiledby=koturn</span><br><span class="line">$ make -j5            # after this you can find a runable vim in ./</span><br><span class="line">$ sudo make install   # run this if you want to install vim to system</span><br></pre></td></tr></table></figure>
+<h1 id="Set-clipboard-to-unnamedplus"><a href="#Set-clipboard-to-unnamedplus" class="headerlink" title="Set clipboard to unnamedplus"></a>Set clipboard to unnamedplus</h1><p>Add “set clipboard=unnamedplus” to your .vimrc.</p>
+<p>An awesome answers is here <a href="https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim" target="_blank" rel="noopener">How can I copy text to the system clipboard from Vim?</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1716,161 +1867,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/04/21/fix-hexo-error-output-build-Release-DTraceProviderBindings/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenhan Shi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wenhan Code life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/21/fix-hexo-error-output-build-Release-DTraceProviderBindings/" itemprop="url">
-                  fix hexo error output './build/Release/DTraceProviderBindings'
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-21T00:56:19+09:00">
-                2017-04-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/04/21/fix-hexo-error-output-build-Release-DTraceProviderBindings/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/04/21/fix-hexo-error-output-build-Release-DTraceProviderBindings/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/04/21/fix-hexo-error-output-build-Release-DTraceProviderBindings/" class="leancloud_visitors" data-flag-title="fix hexo error output './build/Release/DTraceProviderBindings'">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>There is a noisy error message appears each time when I run hexo command</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: Cannot find module &apos;./build/Release/DTraceProviderBindings&apos;</span><br></pre></td></tr></table></figure>
-<p>It is just a trace error and doesn’t stop my work, but , it was so NOISY and I<br>realy want to remove it.</p>
-<p>From the follow links,<br><a href="https://github.com/hexojs/hexo/issues/1922" target="_blank" rel="noopener">https://github.com/hexojs/hexo/issues/1922</a><br><a href="https://github.com/yarnpkg/yarn/issues/1915" target="_blank" rel="noopener">https://github.com/yarnpkg/yarn/issues/1915</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/21/fix-hexo-error-output-build-Release-DTraceProviderBindings/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1915,7 +1916,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1928,7 +1929,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
