@@ -284,6 +284,177 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/06/28/Juju-Use-juju-to-deploy-minecraft-server-in-LXD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/06/28/Juju-Use-juju-to-deploy-minecraft-server-in-LXD/" itemprop="url">
+                  [Juju] Use juju to deploy minecraft server in LXD
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-28T17:01:36+09:00">
+                2018-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/28/Juju-Use-juju-to-deploy-minecraft-server-in-LXD/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/28/Juju-Use-juju-to-deploy-minecraft-server-in-LXD/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/06/28/Juju-Use-juju-to-deploy-minecraft-server-in-LXD/" class="leancloud_visitors" data-flag-title="[Juju] Use juju to deploy minecraft server in LXD">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Juju is a deploy tool which supports a very wide range of cloud providers,<br>like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on<br>how to build an OpenStack test environment using Juju and LXD.</p>
+<h1 id="installing-LXD"><a href="#installing-LXD" class="headerlink" title="installing LXD"></a>installing LXD</h1><p>It is very easy to install LXD, just run below command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-install lxd</span><br></pre></td></tr></table></figure>
+<p>If you can’t find lxd package, run below command to add PPA(Personal Package<br>Archive) to find LXD package. Then re-run the install command.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-add-repository ppa:ubuntu-lxc/stable</span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt dist-upgrade</span><br></pre></td></tr></table></figure>
+<h1 id="Configuring-LXD"><a href="#Configuring-LXD" class="headerlink" title="Configuring LXD"></a>Configuring LXD</h1><p>Run below command to config lxd setting step by step</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo lxd init</span><br><span class="line">Do you want to configure a new storage pool (yes/no) [default=yes]?</span><br><span class="line">Name of the storage backend to use (dir or zfs) [default=dir]:</span><br><span class="line">Would you like LXD to be available over the network (yes/no) [default=no]?</span><br><span class="line">Do you want to configure the LXD bridge (yes/no) [default=yes]?</span><br><span class="line">Warning: Stopping lxd.service, but it can still be activated by:</span><br><span class="line">  lxd.socket</span><br><span class="line">LXD has been successfully configured.</span><br></pre></td></tr></table></figure>
+<h1 id="Installing-juju"><a href="#Installing-juju" class="headerlink" title="Installing juju"></a>Installing juju</h1><p>Run below command to install juju</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install juju</span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree</span><br><span class="line">Reading state information... Done</span><br><span class="line">The following additional packages will be installed:</span><br><span class="line">  distro-info juju-2.0</span><br><span class="line">Suggested packages:</span><br><span class="line">  shunit2 juju-core</span><br><span class="line">The following NEW packages will be installed:</span><br><span class="line">  distro-info juju juju-2.0</span><br><span class="line">0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.</span><br><span class="line">Need to get 32.0 MB of archives.</span><br><span class="line">After this operation, 168 MB of additional disk space will be used.</span><br><span class="line">Do you want to continue? [Y/n]</span><br><span class="line">Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 distro-info amd64 0.14build1 [20.0 kB]</span><br><span class="line">Get:2 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 juju-2.0 amd64 2.3.7-0ubuntu0.16.04.1 [32.0 MB]</span><br><span class="line">Get:3 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 juju all 2.3.7-0ubuntu0.16.04.1 [10.2 kB]</span><br><span class="line">Fetched 32.0 MB in 4s (6,778 kB/s)</span><br><span class="line">Preconfiguring packages ...</span><br><span class="line">Selecting previously unselected package distro-info.</span><br><span class="line">(Reading database ... 60478 files and directories currently installed.)</span><br><span class="line">Preparing to unpack .../distro-info_0.14build1_amd64.deb ...</span><br><span class="line">Unpacking distro-info (0.14build1) ...</span><br><span class="line">Selecting previously unselected package juju-2.0.</span><br><span class="line">Preparing to unpack .../juju-2.0_2.3.7-0ubuntu0.16.04.1_amd64.deb ...</span><br><span class="line">Unpacking juju-2.0 (2.3.7-0ubuntu0.16.04.1) ...</span><br><span class="line">Selecting previously unselected package juju.</span><br><span class="line">Preparing to unpack .../juju_2.3.7-0ubuntu0.16.04.1_all.deb ...</span><br><span class="line">Unpacking juju (2.3.7-0ubuntu0.16.04.1) ...</span><br><span class="line">Processing triggers for man-db (2.7.5-1) ...</span><br><span class="line">Setting up distro-info (0.14build1) ...</span><br><span class="line">Setting up juju-2.0 (2.3.7-0ubuntu0.16.04.1) ...</span><br><span class="line">Setting up juju (2.3.7-0ubuntu0.16.04.1) ...</span><br></pre></td></tr></table></figure>
+<p>Once the install is done, we can bootstrap a new controller using LXD. This<br>means that juju will create a new LXD container for management service.</p>
+<p>We can create a controller called juju-controller with below command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ juju bootstrap localhost juju-controller</span><br><span class="line">Since Juju 2 is being run for the first time, downloading latest cloud information.</span><br><span class="line">Fetching latest public cloud list...</span><br><span class="line">Your list of public clouds is up to date, see `juju clouds`.</span><br><span class="line">Creating Juju controller &quot;juju-controller&quot; on localhost/localhost</span><br><span class="line">Looking for packaged Juju agent version 2.3.7 for amd64</span><br><span class="line">To configure your system to better support LXD containers, please see: https://github.com/lxc/lxd/blob/master/doc/production-setup.md</span><br><span class="line">Launching controller instance(s) on localhost/localhost...</span><br><span class="line"> - juju-9ccefc-0 (arch=amd64)                                                                                   s)</span><br><span class="line">Installing Juju agent on bootstrap instance</span><br><span class="line">Fetching Juju GUI 2.12.3</span><br><span class="line">Waiting for address</span><br><span class="line">Attempting to connect to 10.229.139.129:22</span><br><span class="line">Connected to 10.229.139.129</span><br><span class="line">Running machine configuration script...</span><br><span class="line">Bootstrap agent now started</span><br><span class="line">Contacting Juju controller at 10.229.139.129 to verify accessibility...</span><br><span class="line">Bootstrap complete, &quot;juju-controller&quot; controller now available</span><br><span class="line">Controller machines are in the &quot;controller&quot; model</span><br><span class="line">Initial model &quot;default&quot; added</span><br></pre></td></tr></table></figure>
+<p>After this, we can see a new LXD container is running.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ lxc list</span><br><span class="line">+---------------+---------+-----------------------+------+------------+-----------+</span><br><span class="line">|     NAME      |  STATE  |         IPV4          | IPV6 |    TYPE    | SNAPSHOTS |</span><br><span class="line">+---------------+---------+-----------------------+------+------------+-----------+</span><br><span class="line">| juju-9ccefc-0 | RUNNING | 10.229.139.129 (eth0) |      | PERSISTENT | 0         |</span><br><span class="line">+---------------+---------+-----------------------+------+------------+-----------+</span><br></pre></td></tr></table></figure>
+<p>And run <code>juju status</code> to check there is nothing running yet.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ juju status</span><br><span class="line">Model    Controller       Cloud/Region         Version  SLA</span><br><span class="line">default  juju-controller  localhost/localhost  2.3.7    unsupported</span><br><span class="line"></span><br><span class="line">App  Version  Status  Scale  Charm  Store  Rev  OS  Notes</span><br><span class="line"></span><br><span class="line">Unit  Workload  Agent  Machine  Public address  Ports  Message</span><br><span class="line"></span><br><span class="line">Machine  State  DNS  Inst id  Series  AZ  Message</span><br></pre></td></tr></table></figure>
+<h1 id="Deploy-minecraft-server"><a href="#Deploy-minecraft-server" class="headerlink" title="Deploy minecraft server"></a>Deploy minecraft server</h1><p>OK, now we are ready for deploy minecraft server!<br>Run below command to tell juju you want to deploy it. and it should return<br>immediately. However it doesn’t mean the service is ready. Run <code>juju status</code> to<br>check the status.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ juju status</span><br><span class="line">Model    Controller       Cloud/Region         Version  SLA</span><br><span class="line">default  juju-controller  localhost/localhost  2.3.7    unsupported</span><br><span class="line"></span><br><span class="line">App        Version  Status   Scale  Charm      Store       Rev  OS      Notes</span><br><span class="line">minecraft           waiting    0/1  minecraft  jujucharms    3  ubuntu  </span><br><span class="line"></span><br><span class="line">Unit         Workload  Agent       Machine  Public address  Ports  Message</span><br><span class="line">minecraft/0  waiting   allocating  0        10.229.139.124         waiting for machine</span><br><span class="line"></span><br><span class="line">Machine  State    DNS             Inst id        Series  AZ  Message</span><br><span class="line">0        pending  10.229.139.124  juju-72dd35-0  trusty      Running</span><br></pre></td></tr></table></figure>
+<p>From above we can see juju is working on creating the server. And we also can<br>check a new container is created for minecraft server, by <code>lxc list</code> command.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ lxc list</span><br><span class="line">+---------------+---------+-----------------------+------+------------+-----------+</span><br><span class="line">|     NAME      |  STATE  |         IPV4          | IPV6 |    TYPE    | SNAPSHOTS |</span><br><span class="line">+---------------+---------+-----------------------+------+------------+-----------+</span><br><span class="line">| juju-72dd35-0 | RUNNING | 10.229.139.124 (eth0) |      | PERSISTENT | 0         |</span><br><span class="line">+---------------+---------+-----------------------+------+------------+-----------+</span><br><span class="line">| juju-9ccefc-0 | RUNNING | 10.229.139.129 (eth0) |      | PERSISTENT | 0         |</span><br><span class="line">+---------------+---------+-----------------------+------+------------+-----------+</span><br></pre></td></tr></table></figure>
+<p>After a while, the deploying is done and the service is active.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ juju status</span><br><span class="line">Model    Controller       Cloud/Region         Version  SLA</span><br><span class="line">default  juju-controller  localhost/localhost  2.3.7    unsupported</span><br><span class="line"></span><br><span class="line">App        Version  Status  Scale  Charm      Store       Rev  OS      Notes</span><br><span class="line">minecraft           active      1  minecraft  jujucharms    3  ubuntu  </span><br><span class="line"></span><br><span class="line">Unit          Workload  Agent  Machine  Public address  Ports      Message</span><br><span class="line">minecraft/0*  active    idle   0        10.229.139.124  25565/tcp  Ready</span><br><span class="line"></span><br><span class="line">Machine  State    DNS             Inst id        Series  AZ  Message</span><br><span class="line">0        started  10.229.139.124  juju-72dd35-0  trusty      Running</span><br></pre></td></tr></table></figure>
+<p>Now you can start your minecraft client, and point to 10.229.139.124 on port<br>25565 to play with your all new minecraft server!</p>
+<p>If you want to get rid of it, just run below command.<br>Every service or server related to minecraft server will be gone.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ juju destroy-service minecraft</span><br></pre></td></tr></table></figure>
+<p>You can also destory juju controller and all service/server created by it.<br>The easiest way to destory everything is as below.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ juju destroy-controller juju-controller --destroy-all-models</span><br><span class="line">WARNING! This command will destroy the &quot;juju-controller&quot; controller.</span><br><span class="line">This includes all machines, applications, data and other resources.</span><br><span class="line"></span><br><span class="line">Continue? (y/N):y</span><br><span class="line">Destroying controller</span><br><span class="line">Waiting for hosted model resources to be reclaimed</span><br><span class="line">Waiting on 1 model, 1 machine, 1 application</span><br><span class="line">Waiting on 1 model, 1 machine, 1 application</span><br><span class="line">Waiting on 1 model, 1 machine</span><br><span class="line">All hosted models reclaimed, cleaning up controller machines</span><br></pre></td></tr></table></figure>
+<p>We can confirm that all containers are gone.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ lxc list</span><br><span class="line">+------+-------+------+------+------+-----------+</span><br><span class="line">| NAME | STATE | IPV4 | IPV6 | TYPE | SNAPSHOTS |</span><br><span class="line">+------+-------+------+------+------+-----------+</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/06/11/Suspend-issue-on-Thinkpad-X1C-6th-with-Ubuntu-18-04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1691,158 +1862,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/12/11/Gluster-filename-and-GFID/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenhan Shi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wenhan Code life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/12/11/Gluster-filename-and-GFID/" itemprop="url">
-                  Gluster filename and GFID interconversion
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-11T15:41:23+09:00">
-                2017-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/11/Gluster-filename-and-GFID/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/12/11/Gluster-filename-and-GFID/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/12/11/Gluster-filename-and-GFID/" class="leancloud_visitors" data-flag-title="Gluster filename and GFID interconversion">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="create-test-file"><a href="#create-test-file" class="headerlink" title="create test file"></a>create test file</h1><p>Mount gluster volume and create a file </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@client-1 ~]# mount -t glusterfs gluster-node-1:/vol /mnt</span><br><span class="line">[root@client-1 ~]# mkdir -p /mnt/hoge/hello-gluster/</span><br><span class="line">[root@client-1 ~]# touch /mnt/hoge/hello-gluster/file</span><br><span class="line">[root@client-1 ~]# umount /mnt/</span><br></pre></td></tr></table></figure>
-<h1 id="Get-GFID-of-a-file-in-Gluster-volume"><a href="#Get-GFID-of-a-file-in-Gluster-volume" class="headerlink" title="Get GFID of a file in Gluster volume"></a>Get GFID of a file in Gluster volume</h1><h2 id="From-brick-directory"><a href="#From-brick-directory" class="headerlink" title="From brick directory"></a>From brick directory</h2><p>Login to gluster node and locate file in brick directory.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@gluster-node-1 ~]# gluster volume info vol</span><br><span class="line"></span><br><span class="line">Volume Name: vol</span><br><span class="line">Type: Replicate</span><br><span class="line">Volume ID: 4ac36bcc-7127-48c4-ac21-421850d8bc47</span><br><span class="line">Status: Started</span><br><span class="line">Snapshot Count: 0</span><br><span class="line">Number of Bricks: 1 x 3 = 3</span><br><span class="line">Transport-type: tcp,rdma</span><br><span class="line">Bricks:</span><br><span class="line">Brick1: gluster-node-1:/gluster/brick-vol   &lt;-- confirm the brick path </span><br><span class="line">Brick2: gluster-node-2:/gluster/brick-vol</span><br><span class="line">Brick3: gluster-node-3:/gluster/brick-vol</span><br><span class="line">Options Reconfigured:</span><br><span class="line">performance.readdir-ahead: on</span><br><span class="line">nfs.disable: off</span><br><span class="line">cluster.server-quorum-ratio: 51%</span><br></pre></td></tr></table></figure>
-<p>confirm the file path in the brick, GFID can be checked by “trusted.gfid”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@gluster-node-1 ~]# ls /gluster/brick-vol/hoge/hello-gluster/file</span><br><span class="line">/gluster/brick-vol/hoge/hello-gluster/file</span><br><span class="line">[root@gluster-node-1 ~]# getfattr -d -m . -e hex /gluster/brick-vol/hoge/hello-gluster/file</span><br><span class="line">getfattr: Removing leading &apos;/&apos; from absolute path names</span><br><span class="line"># file: gluster/brick-vol/hoge/hello-gluster/file</span><br><span class="line">security.selinux=0x73797374656d5f753a6f626a6563745f723a756e6c6162656c65645f743a733000</span><br><span class="line">trusted.gfid=0xd8efc4c4d6204170ad293eda97d3d2e4</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/11/Gluster-filename-and-GFID/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1892,7 +1911,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
