@@ -284,6 +284,175 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/" itemprop="url">
+                  How to disable IPv6 inside a container/pod in OpenShift
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-01T15:46:56+09:00">
+                2018-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/" class="leancloud_visitors" data-flag-title="How to disable IPv6 inside a container/pod in OpenShift">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Although the container/pod in OpenShift transfer data by IPv4 protocol, and you<br>do not need to worry about the setting of IPv6. But in some case people want to<br>disable IPv6 inside the container without effecting other container/pods or<br>host OS.</p>
+<p>Here is an example of the IPv6 info outputed from a container.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: eth0@if45: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1450 qdisc noqueue state UP </span><br><span class="line">    link/ether 0a:58:0a:80:00:24 brd ff:ff:ff:ff:ff:ff link-netnsid 0</span><br><span class="line">    inet 10.128.0.36/23 brd 10.128.1.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::a4e3:f9ff:fe55:61db/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>It is not allowed to run <code>sysctl -w</code> to update a kernel parameter inside<br>a container for security.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ocp37 ~]# oc exec django-ex-4-6gmsj -- sysctl -w net.ipv6.conf.all.disable_ipv6=1</span><br><span class="line">sysctl: setting key &quot;net.ipv6.conf.all.disable_ipv6&quot;: Read-only file system</span><br><span class="line">command terminated with exit code 255</span><br></pre></td></tr></table></figure>
+<p>So what you need to do is to change the kubernetes settings in the DeploymentConfig. Sysctl settings are exposed via Kubernetes, allowing users to modify certain kernel parameters at runtime for namespaces within a container. Only sysctls that are namespaced can be set independently on pods;<br>For namespaced sysctl, please refer <a href="https://docs.openshift.com/container-platform/3.7/admin_guide/sysctls.html#namespaced-vs-node-level-sysctls" target="_blank" rel="noopener">here</a> for detail.</p>
+<p>Here are the steps:</p>
+<ol>
+<li><p>Add below setting to kubeletArguments field in the /etc/origin/node/node-config.yaml file. This will enable Unsafe Sysctls.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubeletArguments:</span><br><span class="line">  experimental-allowed-unsafe-sysctls:</span><br><span class="line">    - net.ipv6.conf.all.disable_ipv6</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Restart the node service to apply the changes:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># systemctl restart atomic-openshift-node</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Edit DeploymentConfig of the target pod.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># oc edit dc/&lt;DeploymentConfig of your pod&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Add below settings to the metadata filed inside of template filed, then save and quit. (You may need to create annotations filed if it is not exist.)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  ....</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      annotations:</span><br><span class="line">        security.alpha.kubernetes.io/unsafe-sysctls: net.ipv6.conf.all.disable_ipv6=1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Deploy a new container/pod using this updated DeploymentConfig</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># oc deploy dc/&lt;DeploymentConfig of your pod&gt;  --latest</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>When the pod is ready, confirm ipv6 is diabled.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@ocp37 ~]# oc exec django-ex-2-22znd -- ip a</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: eth0@if41: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1450 qdisc noqueue state UP</span><br><span class="line">    link/ether 0a:58:0a:80:00:20 brd ff:ff:ff:ff:ff:ff link-netnsid 0</span><br><span class="line">    inet 10.128.0.32/23 brd 10.128.1.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/12/11/Gluster-filename-and-GFID/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1629,158 +1798,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenhan Shi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wenhan Code life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/" itemprop="url">
-                  OpenShift Configure authentication and User Agent using HTPasswd
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-12T14:43:47+09:00">
-                2017-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/" class="leancloud_visitors" data-flag-title="OpenShift Configure authentication and User Agent using HTPasswd">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>As we Install the OpenShift by Ansible method, identity provider is set to <em>Deny all</em> by default, which will deny access from all users. To allow access for users, you must choose another identity provider and configure the <em>master configuration file</em>. By default, the <em>master configuration file</em> is located at <em>/etc/origin/master/master-config.yaml</em>.<br>OpenShift has several identity providers which can help you to manager user authentication. I will use <strong>HTPasswd</strong> this time. You can find more information in<br><a href="https://docs.openshift.com/container-platform/3.5/install_config/configuring_authentication.html" target="_blank" rel="noopener">Configuring Authentication and User Agent</a></p>
-<h1 id="Install-package"><a href="#Install-package" class="headerlink" title="Install package"></a>Install package</h1><p>The htpasswd utility is provided in httpd-tools package.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install httpd-tools</span><br></pre></td></tr></table></figure>
-<h1 id="configure-the-master-configuration-file"><a href="#configure-the-master-configuration-file" class="headerlink" title="configure the master configuration file"></a>configure the master configuration file</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">oauthConfig:</span><br><span class="line">  ...</span><br><span class="line">  identityProviders:</span><br><span class="line">  - name: my_htpasswd_provider </span><br><span class="line">    challenge: true </span><br><span class="line">    login: true </span><br><span class="line">    mappingMethod: claim </span><br><span class="line">    provider:</span><br><span class="line">      apiVersion: v1</span><br><span class="line">      kind: HTPasswdPasswordIdentityProvider</span><br><span class="line">      file: /path/to/users.htpasswd</span><br></pre></td></tr></table></figure>
-<p>Need to restart <code>atomic-openshift-master</code> to make the change to take effect.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># systemctl restart atomic-openshift-master</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1830,7 +1847,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1843,7 +1860,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

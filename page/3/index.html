@@ -284,6 +284,158 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/" itemprop="url">
+                  OpenShift Configure authentication and User Agent using HTPasswd
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-12T14:43:47+09:00">
+                2017-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/" class="leancloud_visitors" data-flag-title="OpenShift Configure authentication and User Agent using HTPasswd">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>As we Install the OpenShift by Ansible method, identity provider is set to <em>Deny all</em> by default, which will deny access from all users. To allow access for users, you must choose another identity provider and configure the <em>master configuration file</em>. By default, the <em>master configuration file</em> is located at <em>/etc/origin/master/master-config.yaml</em>.<br>OpenShift has several identity providers which can help you to manager user authentication. I will use <strong>HTPasswd</strong> this time. You can find more information in<br><a href="https://docs.openshift.com/container-platform/3.5/install_config/configuring_authentication.html" target="_blank" rel="noopener">Configuring Authentication and User Agent</a></p>
+<h1 id="Install-package"><a href="#Install-package" class="headerlink" title="Install package"></a>Install package</h1><p>The htpasswd utility is provided in httpd-tools package.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install httpd-tools</span><br></pre></td></tr></table></figure>
+<h1 id="configure-the-master-configuration-file"><a href="#configure-the-master-configuration-file" class="headerlink" title="configure the master configuration file"></a>configure the master configuration file</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">oauthConfig:</span><br><span class="line">  ...</span><br><span class="line">  identityProviders:</span><br><span class="line">  - name: my_htpasswd_provider </span><br><span class="line">    challenge: true </span><br><span class="line">    login: true </span><br><span class="line">    mappingMethod: claim </span><br><span class="line">    provider:</span><br><span class="line">      apiVersion: v1</span><br><span class="line">      kind: HTPasswdPasswordIdentityProvider</span><br><span class="line">      file: /path/to/users.htpasswd</span><br></pre></td></tr></table></figure>
+<p>Need to restart <code>atomic-openshift-master</code> to make the change to take effect.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># systemctl restart atomic-openshift-master</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/07/07/OpenShift-Use-ansible-to-install-OpenShift-to-multi-nodes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1733,154 +1885,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/04/27/Linux-password-aging-jp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenhan Shi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wenhan Code life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/27/Linux-password-aging-jp/" itemprop="url">
-                  Linux ユーザパスワードの有効期限の管理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-27T23:15:00+09:00">
-                2017-04-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/04/27/Linux-password-aging-jp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/04/27/Linux-password-aging-jp/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/04/27/Linux-password-aging-jp/" class="leancloud_visitors" data-flag-title="Linux ユーザパスワードの有効期限の管理">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Linuxのユーザパスワードの有効期限(aging)の管理について説明する。</p>
-<p><img src="https://raw.githubusercontent.com/xibuka/git_pics/master/passaging.png" alt="password aging"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/27/Linux-password-aging-jp/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1930,7 +1934,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1943,7 +1947,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
