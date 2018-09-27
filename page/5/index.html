@@ -284,6 +284,163 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2016/11/01/GoogleMap-On-iOS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/01/GoogleMap-On-iOS/" itemprop="url">
+                  iPhoneでGoogleマップを表示する時のメモ
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-01T01:16:21+09:00">
+                2016-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/11/01/GoogleMap-On-iOS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/11/01/GoogleMap-On-iOS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/11/01/GoogleMap-On-iOS/" class="leancloud_visitors" data-flag-title="iPhoneでGoogleマップを表示する時のメモ">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>GoogleマップをiPhone上に表示したい時にはまったことを残す。</p>
+<p><a href="https://developers.google.com/maps/documentation/ios-sdk/start?hl=ja#google_maps_sdk" target="_blank" rel="noopener">Google Maps API &gt; iOS向け &gt; Maps SDK for iOS</a>を参考に、とりあえず画面上GoogleMapを表示させようの所、画面が真っ白で何も表示されない。</p>
+<p>そして、コンソールには以下のエラーメッセージが出ていた。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClientParametersRequest failed, 0 attempts remaining (0 vs 6). Error Domain=com.google.HTTPStatus Code=400</span><br></pre></td></tr></table></figure>
+<p>ネットで調べたところ、この<a href="http://www.byteblocks.com/Post/ClientParametersRequest-failed-error-with-Google-Maps-SDK" target="_blank" rel="noopener">サイト</a>を見つけた。<br>そして自分の場合は、三つ目の見直しで、自分のAPIキーが「無効」になっている。。</p>
+<p>このエラーの原因は、だいたいAPIキーの設定に何か間違っているようです。<br>以下の見直しを確認すべき。</p>
+<ul>
+<li>APIキーを生成するとき、xcodeのProjectのbundle IDを設定した方がいい。このパラメータは「任意」ってGoogleが言ったが、やはり設定した方が無難。</li>
+<li>アプリのBundleIDを変更した場合、APIキーを再生成しましょう。</li>
+<li>Google Developersのダッシュボードで「Google Maps SDK for iOS」が有効になっていることを確認しましょう。デフォルトでは無効になっている。(今回はここにはまった)</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/11/01/GoogleMap-On-iOS/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2016/10/29/Python-reverse-str-to-check-Palindrome/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -776,7 +933,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -789,7 +946,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://wenhan.blog/2018/09/27/OpenStack-frequently-used-command/</loc>
+    
+    <lastmod>2018-09-27T13:10:23.114Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenhan.blog/2018/08/29/Certified-Kubernetes-Administrator-CKA-learning-note/</loc>
     
     <lastmod>2018-09-06T04:51:06.458Z</lastmod>
@@ -72,20 +79,6 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/06/15/GlusterFS-Failed-to-probe-a-cloned-peer/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2016/11/01/GoogleMap-On-iOS/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wenhan.blog/2017/08/10/How-to-change-timezone-in-CentOS-7-or-RHEL-7/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
@@ -100,13 +93,6 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/07/04/How-to-copy-paste-text-to-from-the-system-clipboard-in-VIM/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wenhan.blog/2017/06/16/How-to-clear-memory-cache-buffer-and-swap-on-linux/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
@@ -114,14 +100,21 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/</loc>
+    <loc>http://wenhan.blog/2017/07/04/How-to-copy-paste-text-to-from-the-system-clipboard-in-VIM/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/</loc>
+    <loc>http://wenhan.blog/2017/07/28/Desktop-Notifier-by-Python/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -142,14 +135,14 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/09/19/How-to-sort-ps-command-output/</loc>
+    <loc>http://wenhan.blog/2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/07/28/Desktop-Notifier-by-Python/</loc>
+    <loc>http://wenhan.blog/2017/09/19/How-to-sort-ps-command-output/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -163,42 +156,14 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/09/11/Beginner-guide-of-systemd-on-CentOS7-RHEL7/</loc>
+    <loc>http://wenhan.blog/2017/12/11/Gluster-filename-and-GFID/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/06/26/OpenShift-Install-OpenShift-and-Create-first-project-Hello-OpenShift/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2016/10/29/Python-Print-format/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2017/07/07/OpenShift-Use-ansible-to-install-OpenShift-to-multi-nodes/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2016/10/29/Python-reverse-str-to-check-Palindrome/</loc>
+    <loc>http://wenhan.blog/2017/11/24/AWK-time-functions/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -212,7 +177,49 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/12/11/Gluster-filename-and-GFID/</loc>
+    <loc>http://wenhan.blog/2017/07/12/OpenShift-Configure-authetication-and-User-Agent-using-HTPasswd/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2016/10/29/Python-reverse-str-to-check-Palindrome/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/06/26/OpenShift-Install-OpenShift-and-Create-first-project-Hello-OpenShift/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2016/10/29/Python-Print-format/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/06/15/GlusterFS-Failed-to-probe-a-cloned-peer/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2016/11/01/GoogleMap-On-iOS/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/07/07/OpenShift-Use-ansible-to-install-OpenShift-to-multi-nodes/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -227,6 +234,13 @@
   
   <url>
     <loc>http://wenhan.blog/2018/02/18/failed-at-yum-update-and-how-to-fix-it/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/04/21/fix-hexo-error-output-build-Release-DTraceProviderBindings/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -254,28 +268,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/04/21/fix-hexo-error-output-build-Release-DTraceProviderBindings/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wenhan.blog/2016/11/12/google-maps-api-with-python/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2017/11/24/AWK-time-functions/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2017/04/27/linux-special-permissions-for-file-and-dir-jp/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -289,7 +282,14 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/04/27/soft-link-and-hard-link-ja/</loc>
+    <loc>http://wenhan.blog/2017/09/11/Beginner-guide-of-systemd-on-CentOS7-RHEL7/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/04/27/linux-special-permissions-for-file-and-dir-jp/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -297,6 +297,13 @@
   
   <url>
     <loc>http://wenhan.blog/2017/09/05/systemctl-command-return-Failed-to-connect-to-bus-No-such-file-or-directory-in-a-docker-container/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/04/27/soft-link-and-hard-link-ja/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     

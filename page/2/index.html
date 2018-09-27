@@ -284,6 +284,165 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/02/18/Docker-basic-foundation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/02/18/Docker-basic-foundation/" itemprop="url">
+                  Docker basic foundation
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-18T16:35:32+09:00">
+                2018-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/18/Docker-basic-foundation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/02/18/Docker-basic-foundation/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/02/18/Docker-basic-foundation/" class="leancloud_visitors" data-flag-title="Docker basic foundation">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Base on CentOS 7, Docker 1.12.6 </p>
+<h1 id="Install-Docker"><a href="#Install-Docker" class="headerlink" title="Install Docker"></a>Install Docker</h1><p>Some pre-requirment to install Docker to a Linux OS.</p>
+<ul>
+<li>Docker only can be installed on a 64 bit OS.</li>
+<li>Kernel version over 3.10 is recommended. recommend</li>
+<li>Need to enable cgroup and namespace.</li>
+</ul>
+<p>Now it is easier to install Docker in CentOS or Fedora, it can be searched by<br><code>yum</code> command like below:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># yum search docker | grep ^docker</span><br><span class="line">docker-client.x86_64 : Client side files for Docker</span><br><span class="line">docker-client-latest.x86_64 : Client side files for Docker</span><br><span class="line">docker-common.x86_64 : Common files for docker and docker-latest</span><br><span class="line">docker-compose.noarch : Multi-container orchestration for Docker</span><br><span class="line">docker-distribution.x86_64 : Docker toolset to pack, ship, store, and deliver</span><br><span class="line">docker-latest-logrotate.x86_64 : cron job to run logrotate on Docker containers</span><br><span class="line">docker-latest-v1.10-migrator.x86_64 : Calculates SHA256 checksums for docker</span><br><span class="line">docker-logrotate.x86_64 : cron job to run logrotate on Docker containers</span><br><span class="line">docker-lvm-plugin.x86_64 : Docker volume driver for lvm volumes</span><br><span class="line">docker-python.x86_64 : An API client for docker written in Python</span><br><span class="line">docker-registry.x86_64 : Registry server for Docker</span><br><span class="line">docker-v1.10-migrator.x86_64 : Calculates SHA256 checksums for docker layer</span><br><span class="line">docker.x86_64 : Automates deployment of containerized applications</span><br><span class="line">docker-devel.x86_64 : A golang registry for global request variables (source</span><br><span class="line">docker-forward-journald.x86_64 : Forward stdin to journald</span><br><span class="line">docker-latest.x86_64 : Automates deployment of containerized applications</span><br><span class="line">docker-novolume-plugin.x86_64 : Block container starts with local volumes</span><br><span class="line">docker-unit-test.x86_64 : Automates deployment of containerized applications -</span><br></pre></td></tr></table></figure>
+<p>Running <code>yum -y install docker</code> to install docker to your system. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># yum -y install docker</span><br><span class="line"></span><br><span class="line">...snip...</span><br><span class="line"></span><br><span class="line">Installed:</span><br><span class="line">  docker.x86_64 2:1.12.6-71.git3e8e77d.el7.centos.1                                                                                                                      </span><br><span class="line"></span><br><span class="line">Complete!</span><br></pre></td></tr></table></figure>
+<p>After the installation, start docker service and run <code>docker version</code> to confirm your setup.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># systemctl start docker</span><br><span class="line"></span><br><span class="line"># docker version</span><br><span class="line">Client:</span><br><span class="line"> Version:         1.12.6</span><br><span class="line"> API version:     1.24</span><br><span class="line"> Package version: docker-1.12.6-71.git3e8e77d.el7.centos.1.x86_64</span><br><span class="line"> Go version:      go1.8.3</span><br><span class="line"> Git commit:      3e8e77d/1.12.6</span><br><span class="line"> Built:           Tue Jan 30 09:17:00 2018</span><br><span class="line"> OS/Arch:         linux/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:         1.12.6</span><br><span class="line"> API version:     1.24</span><br><span class="line"> Package version: docker-1.12.6-71.git3e8e77d.el7.centos.1.x86_64</span><br><span class="line"> Go version:      go1.8.3</span><br><span class="line"> Git commit:      3e8e77d/1.12.6</span><br><span class="line"> Built:           Tue Jan 30 09:17:00 2018</span><br><span class="line"> OS/Arch:         linux/amd64</span><br></pre></td></tr></table></figure>
+<h1 id="Basic-docker-command"><a href="#Basic-docker-command" class="headerlink" title="Basic docker command"></a>Basic docker command</h1><p>Here will introduce some basic command to use docker, for more detail please refer (Docker Documentation)[<a href="https://docs.docker.com/engine/reference/commandline/docker/]" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/docker/]</a>.</p>
+<p>Docker command will help you to communicate with docker daemon. The docker<br>daemon will listen and execute docker command. run <code>docker</code> or <code>docker --help</code> to<br>get the command list.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># docker --help</span><br><span class="line">...</span><br><span class="line">Commands:</span><br><span class="line">    attach    Attach to a running container</span><br><span class="line">    build     Build an image from a Dockerfile</span><br><span class="line">    commit    Create a new image from a container&apos;s changes</span><br><span class="line">    ...</span><br><span class="line">    version   Show the Docker version information</span><br><span class="line">    volume    Manage Docker volumes</span><br><span class="line">    wait      Block until a container stops, then print its exit code</span><br><span class="line"></span><br><span class="line">Run &apos;docker COMMAND --help&apos; for more information on a command.</span><br></pre></td></tr></table></figure>
+<p>Running docker command needs root permission.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1645,159 +1804,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2017/07/14/Install-Chrome-Browser-via-yum-in-CentOS-or-Fedora-or-RHEL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenhan Shi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wenhan Code life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/14/Install-Chrome-Browser-via-yum-in-CentOS-or-Fedora-or-RHEL/" itemprop="url">
-                  Install Chrome Browser via yum in CentOS or Fedora or RHEL
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-14T09:29:58+09:00">
-                2017-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/14/Install-Chrome-Browser-via-yum-in-CentOS-or-Fedora-or-RHEL/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/14/Install-Chrome-Browser-via-yum-in-CentOS-or-Fedora-or-RHEL/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/07/14/Install-Chrome-Browser-via-yum-in-CentOS-or-Fedora-or-RHEL/" class="leancloud_visitors" data-flag-title="Install Chrome Browser via yum in CentOS or Fedora or RHEL">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Create-a-google-yum-repository"><a href="#Create-a-google-yum-repository" class="headerlink" title="Create a google yum repository"></a>Create a google yum repository</h1><p>Create a file <code>/etc/yum.repos.d/google-chrome.repo</code> and add the following into it.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[google-chrome]</span><br><span class="line">name=google-chrome</span><br><span class="line">baseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub</span><br></pre></td></tr></table></figure>
-<h1 id="Check-the-google-repository"><a href="#Check-the-google-repository" class="headerlink" title="Check the google repository"></a>Check the google repository</h1><p>Run following command to check the repository is available.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum info google-chrome-stable</span><br></pre></td></tr></table></figure>
-<p>From the output you should find the lastest version of the package <code>google-chrome-stable</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># yum info google-chrome-stable</span><br><span class="line">Fedora 26 - x86_64 - Updates                                                                                                                                  6.3 MB/s | 4.1 MB     00:00    </span><br><span class="line">Fedora 26 - x86_64                                                                                                                                            7.5 MB/s |  53 MB     00:07    </span><br><span class="line">google-chrome                                                                                                                                                  73 kB/s | 3.7 kB     00:00    </span><br><span class="line">Last metadata expiration check: 0:00:00 ago on Fri 14 Jul 2017 09:25:33 AM JST.</span><br><span class="line">Available Packages</span><br><span class="line">Name         : google-chrome-stable</span><br><span class="line">Version      : 59.0.3071.115</span><br><span class="line">Release      : 1</span><br><span class="line">Arch         : x86_64</span><br><span class="line">Size         : 58 M</span><br><span class="line">Source       : google-chrome-stable-59.0.3071.115-1.src.rpm</span><br><span class="line">Repo         : google-chrome</span><br><span class="line">Summary      : Google Chrome</span><br><span class="line">URL          : https://chrome.google.com/</span><br><span class="line">License      : Multiple, see https://chrome.google.com/</span><br><span class="line">Description  : The web browser from Google</span><br><span class="line">             : </span><br><span class="line">             : Google Chrome is a browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier.</span><br></pre></td></tr></table></figure>
-<h1 id="Install-Chrome-via-yum"><a href="#Install-Chrome-via-yum" class="headerlink" title="Install Chrome via yum"></a>Install Chrome via yum</h1><p>Let’s install chrome browser using yum command as below, which will<br>automatically install all needed dependencies.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># yum install google-chrome-stable</span><br><span class="line">google-chrome                                                                                                                                                  78 kB/s | 3.7 kB     00:00    </span><br><span class="line">Last metadata expiration check: 0:00:00 ago on Fri 14 Jul 2017 09:25:41 AM JST.</span><br><span class="line">Dependencies resolved.</span><br><span class="line">==============================================================================================================================================================================================</span><br><span class="line"> Package                                                  Arch                               Version                                          Repository                                 Size</span><br><span class="line">==============================================================================================================================================================================================</span><br><span class="line">Installing:</span><br><span class="line"> google-chrome-stable                                     x86_64                             59.0.3071.115-1                                  google-chrome                              58 M</span><br><span class="line">Installing dependencies:</span><br><span class="line"> at                                                       x86_64                             3.1.20-3.fc26                                    fedora                                     77 k</span><br><span class="line"> ed                                                       x86_64                             1.14.1-2.fc26                                    fedora                                     79 k</span><br><span class="line"> esmtp                                                    x86_64                             1.2-6.fc26                                       fedora                                     56 k</span><br><span class="line">&lt;snip...&gt;</span><br><span class="line"> spax                                                     x86_64                             1.5.3-8.fc26                                     fedora                                    211 k</span><br><span class="line"> systemtap-sdt-devel                                      x86_64                             3.1-5.fc26                                       fedora                                     71 k</span><br><span class="line"> util-linux-user                                          x86_64                             2.30-1.fc26                                      updates                                    90 k</span><br><span class="line">Installing weak dependencies:</span><br><span class="line"> perl-Module-Runtime                                      noarch                             0.014-9.fc26                                     fedora                                     24 k</span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">==============================================================================================================================================================================================</span><br><span class="line">Install  126 Packages</span><br><span class="line"></span><br><span class="line">Total download size: 71 M</span><br><span class="line">Installed size: 265 M</span><br><span class="line">Is this ok [y/N]: y</span><br></pre></td></tr></table></figure>
-<h1 id="Start-Chrome"><a href="#Start-Chrome" class="headerlink" title="Start Chrome"></a>Start Chrome</h1><p>Start Chrome by below command, you can start it with a non-root user.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ google-chrome &amp;</span><br></pre></td></tr></table></figure>
-<p>Enjory!</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1847,7 +1853,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1860,7 +1866,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

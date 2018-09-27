@@ -284,6 +284,163 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/09/27/OpenStack-frequently-used-command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/09/27/OpenStack-frequently-used-command/" itemprop="url">
+                  OpenStack frequently used command
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-27T22:09:02+09:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/27/OpenStack-frequently-used-command/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/27/OpenStack-frequently-used-command/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/09/27/OpenStack-frequently-used-command/" class="leancloud_visitors" data-flag-title="OpenStack frequently used command">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="OpenStack-frequently-used-command"><a href="#OpenStack-frequently-used-command" class="headerlink" title="OpenStack frequently used command"></a>OpenStack frequently used command</h1><h2 id="OpenStack-Compute-Nova"><a href="#OpenStack-Compute-Nova" class="headerlink" title="OpenStack Compute - Nova"></a>OpenStack Compute - Nova</h2><ul>
+<li>list instances<br><code>nova list</code><br><code>openstack server list</code></li>
+<li>list/check flavor<br><code>nova flavor-list</code><br><code>nova flavor-show &lt;name or ID&gt;</code><br><code>openstack flavor list</code><br><code>openstack flavor show &lt;name or ID&gt;</code></li>
+<li>create flavor<br><code>openstack flavor create --ram &lt;ram&gt; --vcpus &lt;cpu number&gt; --disk &lt;size&gt; --id &lt;id&gt; &lt;name&gt;</code><br><code>nova flavor-create &lt;name&gt; &lt;id&gt; &lt;ram&gt; &lt;disk&gt; &lt;vcpus&gt;</code></li>
+<li>launch an instance<br><code>nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt;</code><br><code>openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt;</code></li>
+<li>launch an instance with network<br><code>openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; net-id=&lt;network&gt;</code></li>
+<li>launch an instance with key-pair<br><code>nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt; --key-name &lt;key-pair name&gt;</code><br><code>openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt;</code></li>
+<li>access instance via router<br><code>ip netns list</code><br><code>sudo ip netns exec &lt;qrouter-id&gt; ssh -i &lt;key&gt; user@ip</code></li>
+<li>launch an instance with custom port<br><code>nova boot --image &lt;image&gt; --flavor &lt;flavor&gt; --nic port-id=&lt;port-id&gt; &lt;instance name&gt;</code></li>
+<li>delete an instance<br><code>nova delete &lt;ID&gt;</code><br><code>openstack server delete &lt;ID or name&gt;</code></li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/27/OpenStack-frequently-used-command/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/08/29/Certified-Kubernetes-Administrator-CKA-learning-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1697,165 +1854,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/02/18/Docker-basic-foundation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenhan Shi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wenhan Code life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/02/18/Docker-basic-foundation/" itemprop="url">
-                  Docker basic foundation
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-18T16:35:32+09:00">
-                2018-02-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/02/18/Docker-basic-foundation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/02/18/Docker-basic-foundation/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/02/18/Docker-basic-foundation/" class="leancloud_visitors" data-flag-title="Docker basic foundation">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Base on CentOS 7, Docker 1.12.6 </p>
-<h1 id="Install-Docker"><a href="#Install-Docker" class="headerlink" title="Install Docker"></a>Install Docker</h1><p>Some pre-requirment to install Docker to a Linux OS.</p>
-<ul>
-<li>Docker only can be installed on a 64 bit OS.</li>
-<li>Kernel version over 3.10 is recommended. recommend</li>
-<li>Need to enable cgroup and namespace.</li>
-</ul>
-<p>Now it is easier to install Docker in CentOS or Fedora, it can be searched by<br><code>yum</code> command like below:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># yum search docker | grep ^docker</span><br><span class="line">docker-client.x86_64 : Client side files for Docker</span><br><span class="line">docker-client-latest.x86_64 : Client side files for Docker</span><br><span class="line">docker-common.x86_64 : Common files for docker and docker-latest</span><br><span class="line">docker-compose.noarch : Multi-container orchestration for Docker</span><br><span class="line">docker-distribution.x86_64 : Docker toolset to pack, ship, store, and deliver</span><br><span class="line">docker-latest-logrotate.x86_64 : cron job to run logrotate on Docker containers</span><br><span class="line">docker-latest-v1.10-migrator.x86_64 : Calculates SHA256 checksums for docker</span><br><span class="line">docker-logrotate.x86_64 : cron job to run logrotate on Docker containers</span><br><span class="line">docker-lvm-plugin.x86_64 : Docker volume driver for lvm volumes</span><br><span class="line">docker-python.x86_64 : An API client for docker written in Python</span><br><span class="line">docker-registry.x86_64 : Registry server for Docker</span><br><span class="line">docker-v1.10-migrator.x86_64 : Calculates SHA256 checksums for docker layer</span><br><span class="line">docker.x86_64 : Automates deployment of containerized applications</span><br><span class="line">docker-devel.x86_64 : A golang registry for global request variables (source</span><br><span class="line">docker-forward-journald.x86_64 : Forward stdin to journald</span><br><span class="line">docker-latest.x86_64 : Automates deployment of containerized applications</span><br><span class="line">docker-novolume-plugin.x86_64 : Block container starts with local volumes</span><br><span class="line">docker-unit-test.x86_64 : Automates deployment of containerized applications -</span><br></pre></td></tr></table></figure>
-<p>Running <code>yum -y install docker</code> to install docker to your system. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># yum -y install docker</span><br><span class="line"></span><br><span class="line">...snip...</span><br><span class="line"></span><br><span class="line">Installed:</span><br><span class="line">  docker.x86_64 2:1.12.6-71.git3e8e77d.el7.centos.1                                                                                                                      </span><br><span class="line"></span><br><span class="line">Complete!</span><br></pre></td></tr></table></figure>
-<p>After the installation, start docker service and run <code>docker version</code> to confirm your setup.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># systemctl start docker</span><br><span class="line"></span><br><span class="line"># docker version</span><br><span class="line">Client:</span><br><span class="line"> Version:         1.12.6</span><br><span class="line"> API version:     1.24</span><br><span class="line"> Package version: docker-1.12.6-71.git3e8e77d.el7.centos.1.x86_64</span><br><span class="line"> Go version:      go1.8.3</span><br><span class="line"> Git commit:      3e8e77d/1.12.6</span><br><span class="line"> Built:           Tue Jan 30 09:17:00 2018</span><br><span class="line"> OS/Arch:         linux/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:         1.12.6</span><br><span class="line"> API version:     1.24</span><br><span class="line"> Package version: docker-1.12.6-71.git3e8e77d.el7.centos.1.x86_64</span><br><span class="line"> Go version:      go1.8.3</span><br><span class="line"> Git commit:      3e8e77d/1.12.6</span><br><span class="line"> Built:           Tue Jan 30 09:17:00 2018</span><br><span class="line"> OS/Arch:         linux/amd64</span><br></pre></td></tr></table></figure>
-<h1 id="Basic-docker-command"><a href="#Basic-docker-command" class="headerlink" title="Basic docker command"></a>Basic docker command</h1><p>Here will introduce some basic command to use docker, for more detail please refer (Docker Documentation)[<a href="https://docs.docker.com/engine/reference/commandline/docker/]" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/docker/]</a>.</p>
-<p>Docker command will help you to communicate with docker daemon. The docker<br>daemon will listen and execute docker command. run <code>docker</code> or <code>docker --help</code> to<br>get the command list.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># docker --help</span><br><span class="line">...</span><br><span class="line">Commands:</span><br><span class="line">    attach    Attach to a running container</span><br><span class="line">    build     Build an image from a Dockerfile</span><br><span class="line">    commit    Create a new image from a container&apos;s changes</span><br><span class="line">    ...</span><br><span class="line">    version   Show the Docker version information</span><br><span class="line">    volume    Manage Docker volumes</span><br><span class="line">    wait      Block until a container stops, then print its exit code</span><br><span class="line"></span><br><span class="line">Run &apos;docker COMMAND --help&apos; for more information on a command.</span><br></pre></td></tr></table></figure>
-<p>Running docker command needs root permission.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1905,7 +1903,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1918,7 +1916,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
