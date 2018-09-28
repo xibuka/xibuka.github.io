@@ -383,13 +383,13 @@
       
         
           <h1 id="OpenStack-frequently-used-command"><a href="#OpenStack-frequently-used-command" class="headerlink" title="OpenStack frequently used command"></a>OpenStack frequently used command</h1><h2 id="OpenStack-Compute-Nova"><a href="#OpenStack-Compute-Nova" class="headerlink" title="OpenStack Compute - Nova"></a>OpenStack Compute - Nova</h2><ul>
-<li>list instances<br><code>nova list</code><br><code>openstack server list</code></li>
-<li>list/check flavor<br><code>nova flavor-list</code><br><code>nova flavor-show &lt;name or ID&gt;</code><br><code>openstack flavor list</code><br><code>openstack flavor show &lt;name or ID&gt;</code></li>
+<li>list instances<br><code>nova list</code><br><code>openstack server list</code> </li>
+<li>list/check flavor<br><code>nova flavor-list</code><br><code>nova flavor-show &lt;name or ID&gt;</code><br><code>openstack flavor list</code><br><code>openstack flavor show &lt;name or ID&gt;</code> </li>
 <li>create flavor<br><code>openstack flavor create --ram &lt;ram&gt; --vcpus &lt;cpu number&gt; --disk &lt;size&gt; --id &lt;id&gt; &lt;name&gt;</code><br><code>nova flavor-create &lt;name&gt; &lt;id&gt; &lt;ram&gt; &lt;disk&gt; &lt;vcpus&gt;</code></li>
 <li>launch an instance<br><code>nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt;</code><br><code>openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt;</code></li>
 <li>launch an instance with network<br><code>openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; net-id=&lt;network&gt;</code></li>
 <li>launch an instance with key-pair<br><code>nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt; --key-name &lt;key-pair name&gt;</code><br><code>openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt;</code></li>
-<li>access instance via router<br><code>ip netns list</code><br><code>sudo ip netns exec &lt;qrouter-id&gt; ssh -i &lt;key&gt; user@ip</code></li>
+<li>access instance via router<br><code>ip netns list</code><br><code>sudo ip netns exec &lt;qrouter-id&gt; ssh -i &lt;key&gt; user@ip</code> </li>
 <li>launch an instance with custom port<br><code>nova boot --image &lt;image&gt; --flavor &lt;flavor&gt; --nic port-id=&lt;port-id&gt; &lt;instance name&gt;</code></li>
 <li>delete an instance<br><code>nova delete &lt;ID&gt;</code><br><code>openstack server delete &lt;ID or name&gt;</code></li>
 </ul>
