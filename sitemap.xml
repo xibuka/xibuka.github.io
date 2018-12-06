@@ -79,7 +79,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/09/19/How-to-sort-ps-command-output/</loc>
+    <loc>http://wenhan.blog/2017/06/26/OpenShift-Install-OpenShift-and-Create-first-project-Hello-OpenShift/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -100,14 +100,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/07/28/Desktop-Notifier-by-Python/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/</loc>
+    <loc>http://wenhan.blog/2018/02/18/Docker-basic-foundation/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -121,6 +114,13 @@
   </url>
   
   <url>
+    <loc>http://wenhan.blog/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenhan.blog/2016/10/24/Install-Of-Hexo/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/07/14/Install-Chrome-Browser-via-yum-in-CentOS-or-Fedora-or-RHEL/</loc>
+    <loc>http://wenhan.blog/2017/07/28/Desktop-Notifier-by-Python/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -142,7 +142,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2018/02/18/Docker-basic-foundation/</loc>
+    <loc>http://wenhan.blog/2017/07/14/Install-Chrome-Browser-via-yum-in-CentOS-or-Fedora-or-RHEL/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -163,7 +163,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/11/24/AWK-time-functions/</loc>
+    <loc>http://wenhan.blog/2017/09/19/How-to-sort-ps-command-output/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -177,7 +177,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/06/26/OpenShift-Install-OpenShift-and-Create-first-project-Hello-OpenShift/</loc>
+    <loc>http://wenhan.blog/2017/11/24/AWK-time-functions/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -191,21 +191,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/06/15/GlusterFS-Failed-to-probe-a-cloned-peer/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wenhan.blog/2016/10/29/Python-Print-format/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2016/10/29/Python-reverse-str-to-check-Palindrome/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -219,6 +205,13 @@
   </url>
   
   <url>
+    <loc>http://wenhan.blog/2016/10/29/Python-reverse-str-to-check-Palindrome/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenhan.blog/2016/11/01/GoogleMap-On-iOS/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
@@ -226,7 +219,21 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/</loc>
+    <loc>http://wenhan.blog/2017/06/15/GlusterFS-Failed-to-probe-a-cloned-peer/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/02/16/cannot-ssh-to-server-by-root-user/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/08/10/How-to-change-timezone-in-CentOS-7-or-RHEL-7/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -261,13 +268,6 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2016/12/01/crawling-webpage-use-python-requests/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wenhan.blog/2016/11/12/google-maps-api-with-python/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
@@ -275,7 +275,14 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/08/10/How-to-change-timezone-in-CentOS-7-or-RHEL-7/</loc>
+    <loc>http://wenhan.blog/2016/12/01/crawling-webpage-use-python-requests/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -304,13 +311,6 @@
   
   <url>
     <loc>http://wenhan.blog/2017/09/05/systemctl-command-return-Failed-to-connect-to-bus-No-such-file-or-directory-in-a-docker-container/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2017/02/16/cannot-ssh-to-server-by-root-user/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
