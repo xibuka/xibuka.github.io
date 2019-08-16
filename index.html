@@ -284,6 +284,164 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2019/08/17/access-wifi-point-via-command-line-CLI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenhan Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenhan Code life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/08/17/access-wifi-point-via-command-line-CLI/" itemprop="url">
+                  connect to wifi in Linux via nmcli command
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-17T00:55:53+09:00">
+                2019-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/17/access-wifi-point-via-command-line-CLI/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/08/17/access-wifi-point-via-command-line-CLI/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/08/17/access-wifi-point-via-command-line-CLI/" class="leancloud_visitors" data-flag-title="connect to wifi in Linux via nmcli command">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I will use <code>nmcli</code> to do this task.</p>
+<p>First you need to install <code>network-manager</code> package, and start the Daemon</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install network-manager</span><br><span class="line">$ sudo systemctl start NetworkManager</span><br></pre></td></tr></table></figure>
+<p>Then let’s check the network interface status by below command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ nmcli dev status</span><br><span class="line">DEVICE          TYPE      STATE         CONNECTION</span><br><span class="line">wlp2s0          wifi      connected     xibuka-wifi-5G</span><br><span class="line">enp0s31f6       ethernet  connected     netplan-enp0s31f6</span><br><span class="line">p2p-dev-wlp2s0  wifi-p2p  disconnected  --</span><br><span class="line">eth0            ethernet  unavailable   --</span><br><span class="line">lo              loopback  unmanaged     --</span><br></pre></td></tr></table></figure>
+<p>Next step is to check the available Wifi access points.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ nmcli dev wifi list </span><br><span class="line">SSID            MODE   CHAN  RATE        SIGNAL  BARS  SECURITY  </span><br><span class="line">aterm-55ebc5-g  Infra  11    405 Mbit/s  77      ▂▄▆_  WPA1 WPA2 </span><br><span class="line">xibuka-wifi-2G  Infra  11    405 Mbit/s  77      ▂▄▆_  WPA1 WPA2 </span><br><span class="line">xibuka-wifi-5G  Infra  36    405 Mbit/s  63      ▂▄▆_  WPA1 WPA2 </span><br><span class="line">aterm-55ebc5-a  Infra  36    405 Mbit/s  54      ▂▄__  WPA1 WPA2 </span><br><span class="line">HG8045-0D9B-bg  Infra  8     195 Mbit/s  49      ▂▄__  WPA1 WPA2 </span><br><span class="line">HG8045-0D9B-a   Infra  44    405 Mbit/s  35      ▂▄__  WPA1 WPA2 </span><br><span class="line">HG8045-A39A-a   Infra  108   405 Mbit/s  35      ▂▄__  WPA1 WPA2 </span><br><span class="line">MNG6300-F560-G  Infra  11    130 Mbit/s  30      ▂___  WPA1 WPA2</span><br></pre></td></tr></table></figure>
+<p>If you can not see the SSID you want to use, you can do a re-scan by below<br>command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli dev wifi rescan</span><br></pre></td></tr></table></figure>
+<p>OK, let’s try to connect to Wifi using below nmcli command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nmcli dev wifi connect xibuka-wifi-5G password &apos;xxxxxxxxxx&apos;</span><br><span class="line">Device &apos;wlp2s0&apos; successfully activated with &apos;f1cc419e-7b51-4d99-8cff-2894dc054f19&apos;.</span><br></pre></td></tr></table></figure>
+<p>Or you can use <code>--ask</code> option to input your password interactively and don’t<br>display it. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nmcli --ask dev wifi connect xibuka-wifi-5G </span><br><span class="line">Password:</span><br><span class="line">Device &apos;wlp2s0&apos; successfully activated with &apos;f1cc419e-7b51-4d99-8cff-2894dc054f19&apos;.</span><br></pre></td></tr></table></figure>
+<p>Delete the established connections</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nmcli con del xibuka-wifi-5G</span><br></pre></td></tr></table></figure>
+<p>That’s all! Hope this help you.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2019/06/25/bash-head-options/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1696,158 +1854,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-intro/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenhan Shi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wenhan Code life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/04/09/Getting-started-with-Ansible-JP-intro/" itemprop="url">
-                  Ansible 入門 - 紹介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T15:15:32+09:00">
-                2018-04-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/09/Getting-started-with-Ansible-JP-intro/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/09/Getting-started-with-Ansible-JP-intro/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/04/09/Getting-started-with-Ansible-JP-intro/" class="leancloud_visitors" data-flag-title="Ansible 入門 - 紹介">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。内容の校正はHideki SaitoとKento Yagisawaが協力しています。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。</p>
-<p>本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。<br><a href="https://github.com/ansible-book/ansible-first-book-examples" target="_blank" rel="noopener">https://github.com/ansible-book/ansible-first-book-examples</a><br>もし不備やコメントがありましたら、作者<a href="mailto:shijingjing02@163.com" target="_blank" rel="noopener">shijingjing02@163.com</a>または翻訳者<a href="mailto:shibunkan@gmail.com" target="_blank" rel="noopener">shibunkan@gmail.com</a> に連絡してください。</p>
-<p>詳細の内容を下記三つに分けて説明します。</p>
-<p><a href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-intro/">Ansible 入門 - 紹介</a><br><a href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-basic/">Ansible 入門 - 基本</a><br><a href="http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-adv/">Ansible 入門 - 応用</a></p>
-<p>本章では、Ansibleの基礎部分の紹介を説明する。</p>
-<h1 id="Ansibleとは"><a href="#Ansibleとは" class="headerlink" title="Ansibleとは"></a>Ansibleとは</h1><h2 id="Ansibleとはなにか？"><a href="#Ansibleとはなにか？" class="headerlink" title="Ansibleとはなにか？"></a>Ansibleとはなにか？</h2><p>Ansibleは、複数のサーバを一括でコントロールする構成管理ツールである。コントロールできるサーバ対象はリモートの仮想マシンでも物理マシンでも問ローカルのサーバマシンも問題ない。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/09/Getting-started-with-Ansible-JP-intro/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1897,7 +1903,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
