@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://wenhan.blog/2019/10/01/ASRock-Fatal1ty-B450-Gaming-ITX-Restore-on-AC-Power-Loss-not-working/</loc>
+    
+    <lastmod>2019-10-01T04:17:51.172Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenhan.blog/2019/08/17/access-wifi-point-via-command-line-CLI/</loc>
     
     <lastmod>2019-08-16T16:24:35.370Z</lastmod>
@@ -93,14 +100,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2016/10/29/Python-reverse-str-to-check-Palindrome/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/</loc>
+    <loc>http://wenhan.blog/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -108,6 +108,13 @@
   
   <url>
     <loc>http://wenhan.blog/2017/07/14/Install-Chrome-Browser-via-yum-in-CentOS-or-Fedora-or-RHEL/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -142,13 +149,6 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/06/26/OpenShift-Install-OpenShift-and-Create-first-project-Hello-OpenShift/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wenhan.blog/2018/02/18/Docker-basic-foundation/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
@@ -163,14 +163,14 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2016/10/29/Python-Print-format/</loc>
+    <loc>http://wenhan.blog/tags/index.html</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/09/11/Beginner-guide-of-systemd-on-CentOS7-RHEL7/</loc>
+    <loc>http://wenhan.blog/2017/06/26/OpenShift-Install-OpenShift-and-Create-first-project-Hello-OpenShift/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -184,6 +184,13 @@
   </url>
   
   <url>
+    <loc>http://wenhan.blog/2016/10/29/Python-reverse-str-to-check-Palindrome/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenhan.blog/2017/12/11/Gluster-filename-and-GFID/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
@@ -191,14 +198,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/06/26/VIM-Use-built-in-Spell-Check/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2017/06/15/GlusterFS-Failed-to-probe-a-cloned-peer/</loc>
+    <loc>http://wenhan.blog/2017/09/11/Beginner-guide-of-systemd-on-CentOS7-RHEL7/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -212,7 +212,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/02/16/cannot-ssh-to-server-by-root-user/</loc>
+    <loc>http://wenhan.blog/2017/06/26/VIM-Use-built-in-Spell-Check/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -226,7 +226,28 @@
   </url>
   
   <url>
+    <loc>http://wenhan.blog/2017/02/16/cannot-ssh-to-server-by-root-user/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wenhan.blog/2018/02/18/failed-at-yum-update-and-how-to-fix-it/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2017/05/03/linux-special-permissions-for-file-and-dir-cn/</loc>
+    
+    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/2016/11/12/google-maps-api-with-python/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -247,14 +268,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2016/11/12/google-maps-api-with-python/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wenhan.blog/2017/05/03/linux-special-permissions-for-file-and-dir-cn/</loc>
+    <loc>http://wenhan.blog/2017/06/15/GlusterFS-Failed-to-probe-a-cloned-peer/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -275,14 +289,14 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/04/27/soft-link-and-hard-link-ja/</loc>
+    <loc>http://wenhan.blog/2017/09/05/systemctl-command-return-Failed-to-connect-to-bus-No-such-file-or-directory-in-a-docker-container/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/09/05/systemctl-command-return-Failed-to-connect-to-bus-No-such-file-or-directory-in-a-docker-container/</loc>
+    <loc>http://wenhan.blog/2017/04/27/soft-link-and-hard-link-ja/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -303,7 +317,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2017/11/02/How-to-check-if-a-disk-is-SSD-or-HDD/</loc>
+    <loc>http://wenhan.blog/2017/06/29/How-to-keep-process-script-running-after-end-the-ssh-session/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
@@ -324,13 +338,6 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/2018/02/01/How-to-disable-IPv6-inside-a-container-pod-in-OpenShift/</loc>
-    
-    <lastmod>2018-03-22T06:10:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wenhan.blog/404.html</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
@@ -345,7 +352,7 @@
   </url>
   
   <url>
-    <loc>http://wenhan.blog/tags/index.html</loc>
+    <loc>http://wenhan.blog/2016/10/29/Python-Print-format/</loc>
     
     <lastmod>2018-03-22T06:10:44.000Z</lastmod>
     
