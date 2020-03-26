@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MaaS on Wenhan Code Life</title>
-    <link>http://localhost:1313/tags/maas/</link>
+    <link>http://wenhan.blog/tags/maas/</link>
     <description>Recent content in MaaS on Wenhan Code Life</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 04 Jun 2018 16:19:39 +0000</lastBuildDate>
     
-	<atom:link href="http://localhost:1313/tags/maas/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://wenhan.blog/tags/maas/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Error: Failed container creation: Failed to load raw.lxc</title>
-      <link>http://localhost:1313/post/error-failed-container-creation-failed-to-load-raw-lxc/</link>
+      <link>http://wenhan.blog/post/error-failed-container-creation-failed-to-load-raw-lxc/</link>
       <pubDate>Mon, 04 Jun 2018 16:19:39 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/error-failed-container-creation-failed-to-load-raw-lxc/</guid>
+      <guid>http://wenhan.blog/post/error-failed-container-creation-failed-to-load-raw-lxc/</guid>
       <description>I follow below URL to try to install and test MaaS,
 https://docs.maas.io/2.1/en/installconfig-lxd-install
 At the profile edit part, from above documents
