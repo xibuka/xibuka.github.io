@@ -1,0 +1,591 @@
+<?xml-stylesheet type="text/xsl" href="http://localhost:1313/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://localhost:1313/post/asrock-fatal1ty-b450-gaming-itx-restore-on-ac-power-loss-not-working/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/access-wifi-point-via-command-line-cli/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/linux/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/bash/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/bash-head-options/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/kubenetes/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/microk8s/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/presentasion-about-microk8s-at-containerdaystokyo/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/snap/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/cloud/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/openstack/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/openstack-frequently-used-command/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/certified-kubernetes-administrator-cka-learning-note/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/cka/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/kubernetes/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/juju-use-juju-to-deploy-minecraft-server-in-lxd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/suspend-issue-on-thinkpad-x1c-6th-with-ubuntu-18-04/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/thinkpad/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/ubuntu/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/error-failed-container-creation-failed-to-load-raw-lxc/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/maas/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/ansible/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/getting-started-with-ansible-jp-basic/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/getting-started-with-ansible-jp-adv/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/getting-started-with-ansible-jp-intro/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/glusterfs/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/the-different-between-server-side-heal-and-client-side-heal-in-glusterfs/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/failed-at-yum-update-and-how-to-fix-it/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/yum/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/docker/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/docker-basic-foundation/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/container/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/how-to-disable-ipv6-inside-a-container-pod-in-openshift/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/openshift/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/gluster/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/gluster-filename-and-gfid/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/awk/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/awk-time-functions/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/how-to-check-if-a-disk-is-ssd-or-hdd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/how-to-sort-ps-command-output/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/beginner-guide-of-systemd-on-centos7-rhel7/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/systemd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/how-to-change-timezone-in-centos-7-or-rhel-7/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/desktop-notifier-by-python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/centos/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/fedora/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/rhel/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/openshift-configure-authetication-and-user-agent-using-htpasswd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/vim/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/how-to-keep-process-script-running-after-end-the-ssh-session/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/tmux/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/vim-use-built-in-spell-check/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/openshift-install-openshift-and-create-first-project-hello-openshift/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/how-to-clear-memory-cache-buffer-and-swap-on-linux/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/glusterfs-failed-to-probe-a-cloned-peer/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/linux-special-permissions-for-file-and-dir-cn/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/linux-special-permissions-for-file-and-dir-jp/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/linux-password-aging-jp/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/soft-link-and-hard-link-ja/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/fix-hexo-error-output-build-release-dtraceproviderbindings/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/hexo/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/get-weather-info-and-send-by-gmail-python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/install-vim-8-with-python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/cannot-ssh-to-server-by-root-user/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/sshd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/crawling-webpage-use-python-requests/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/manage-vim-plugins-with-vundle/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/googlemap/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/google-maps-api-with-python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/ios/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/googlemap-on-ios/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/codewar/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/python-reverse-str-to-check-palindrome/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/python-print-format/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/install-of-hexo/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>

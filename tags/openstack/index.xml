@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenStack on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/openstack/</link>
+    <description>Recent content in OpenStack on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 27 Sep 2018 22:09:02 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OpenStack frequently used command</title>
+      <link>http://localhost:1313/post/openstack-frequently-used-command/</link>
+      <pubDate>Thu, 27 Sep 2018 22:09:02 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/openstack-frequently-used-command/</guid>
+      <description>OpenStack frequently used command OpenStack Compute - Nova  list instances nova list openstack server list list/check flavor nova flavor-list nova flavor-show &amp;lt;name or ID&amp;gt; openstack flavor list openstack flavor show &amp;lt;name or ID&amp;gt; create flavor openstack flavor create --ram &amp;lt;ram&amp;gt; --vcpus &amp;lt;cpu number&amp;gt; --disk &amp;lt;size&amp;gt; --id &amp;lt;id&amp;gt; &amp;lt;name&amp;gt; nova flavor-create &amp;lt;name&amp;gt; &amp;lt;id&amp;gt; &amp;lt;ram&amp;gt; &amp;lt;disk&amp;gt; &amp;lt;vcpus&amp;gt; launch an instance nova boot &amp;lt;name&amp;gt; --image &amp;lt;image&amp;gt; --flavor &amp;lt;flavor&amp;gt; openstack server create --flavor &amp;lt;flavor&amp;gt; --image &amp;lt;image&amp;gt; &amp;lt;name&amp;gt; launch an instance with network openstack server create --flavor &amp;lt;flavor&amp;gt; --image &amp;lt;image&amp;gt; &amp;lt;name&amp;gt; net-id=&amp;lt;network&amp;gt; launch an instance with key-pair nova boot &amp;lt;name&amp;gt; --image &amp;lt;image&amp;gt; --flavor &amp;lt;flavor&amp;gt; --key-name &amp;lt;key-pair name&amp;gt; openstack server create --flavor &amp;lt;flavor&amp;gt; --image &amp;lt;image&amp;gt; &amp;lt;name&amp;gt; access instance via router ip netns list sudo ip netns exec &amp;lt;qrouter-id&amp;gt; ssh -i &amp;lt;key&amp;gt; user@ip launch an instance with custom port nova boot --image &amp;lt;image&amp;gt; --flavor &amp;lt;flavor&amp;gt; --nic port-id=&amp;lt;port-id&amp;gt; &amp;lt;instance name&amp;gt; delete an instance nova delete &amp;lt;ID&amp;gt; openstack server delete &amp;lt;ID or name&amp;gt;  Openstack Network - Neutron  list network openstack network list list subnetwork openstack subnet list --long create a network openstack network create &amp;lt;net name&amp;gt; create a subnetwork openstack subnet create &amp;lt;subnet name&amp;gt; --network &amp;lt;net name&amp;gt; --subnet-range &amp;lt;ip address&amp;gt;/&amp;lt;prefix&amp;gt; --gateway &amp;lt;gw ip&amp;gt; --allocation-pool start=IP_ADDR,end=IP_ADDR e.</description>
+    </item>
+    
+  </channel>
+</rss>

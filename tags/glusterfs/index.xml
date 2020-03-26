@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GlusterFS on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/glusterfs/</link>
+    <description>Recent content in GlusterFS on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 26 Mar 2018 09:56:21 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/glusterfs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The difference between server-side healing and client-side healing in GlusterFS</title>
+      <link>http://localhost:1313/post/the-different-between-server-side-heal-and-client-side-heal-in-glusterfs/</link>
+      <pubDate>Mon, 26 Mar 2018 09:56:21 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/the-different-between-server-side-heal-and-client-side-heal-in-glusterfs/</guid>
+      <description>There are 2 kinds of healing functions in GlusterFS, server-side heal and client-side heal.
+Server side heal is automatically executed by self-heal daemon on all gluster server nodes. It does healing by crawling file/directory information from .glusterfs directory on brick path. So it will keep the file-data and meta-data to be consistent from server side.
+Client side heal is different, it will triggers heal for the particular file whenever client accesses files from mount path, which means a file operation on file descriptor.</description>
+    </item>
+    
+  </channel>
+</rss>

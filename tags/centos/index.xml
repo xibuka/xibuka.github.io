@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CentOS on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/centos/</link>
+    <description>Recent content in CentOS on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 14 Jul 2017 09:29:58 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Install Chrome Browser via yum in CentOS or Fedora or RHEL</title>
+      <link>http://localhost:1313/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/</link>
+      <pubDate>Fri, 14 Jul 2017 09:29:58 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/</guid>
+      <description>Create a google yum repository Create a file /etc/yum.repos.d/google-chrome.repo and add the following into it.
+1 2 3 4 5 6  [google-chrome] name=google-chrome baseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch enabled=1 gpgcheck=1 gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub   Check the google repository Run following command to check the repository is available.
+1  # yum info google-chrome-stable   From the output you should find the lastest version of the package google-chrome-stable
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  # yum info google-chrome-stable Fedora 26 - x86_64 - Updates 6.</description>
+    </item>
+    
+  </channel>
+</rss>

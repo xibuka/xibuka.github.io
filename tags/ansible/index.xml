@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ansible on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/ansible/</link>
+    <description>Recent content in Ansible on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 09 Apr 2018 15:25:32 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ansible 入門 - 基本操作(チュートリアル)</title>
+      <link>http://localhost:1313/post/getting-started-with-ansible-jp-basic/</link>
+      <pubDate>Mon, 09 Apr 2018 15:25:32 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/getting-started-with-ansible-jp-basic/</guid>
+      <description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳</description>
+    </item>
+    
+    <item>
+      <title>Ansible 入門 - 応用</title>
+      <link>http://localhost:1313/post/getting-started-with-ansible-jp-adv/</link>
+      <pubDate>Mon, 09 Apr 2018 15:20:32 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/getting-started-with-ansible-jp-adv/</guid>
+      <description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳</description>
+    </item>
+    
+    <item>
+      <title>Ansible 入門 - 紹介</title>
+      <link>http://localhost:1313/post/getting-started-with-ansible-jp-intro/</link>
+      <pubDate>Mon, 09 Apr 2018 15:15:32 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/getting-started-with-ansible-jp-intro/</guid>
+      <description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>iOS on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/ios/</link>
+    <description>Recent content in iOS on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 01 Nov 2016 01:16:21 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/ios/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>iPhoneでGoogleマップを表示する時のメモ</title>
+      <link>http://localhost:1313/post/googlemap-on-ios/</link>
+      <pubDate>Tue, 01 Nov 2016 01:16:21 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/googlemap-on-ios/</guid>
+      <description>GoogleマップをiPhone上に表示したい時にはまったことを残す。 Google Maps API &amp;gt; iOS向け &amp;gt; Maps SDK for iOSを参考に、とりあえず画面上Google</description>
+    </item>
+    
+  </channel>
+</rss>

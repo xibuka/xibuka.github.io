@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tmux on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/tmux/</link>
+    <description>Recent content in tmux on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 29 Jun 2017 14:31:14 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/tmux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to keep process running after log off</title>
+      <link>http://localhost:1313/post/how-to-keep-process-script-running-after-end-the-ssh-session/</link>
+      <pubDate>Thu, 29 Jun 2017 14:31:14 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/how-to-keep-process-script-running-after-end-the-ssh-session/</guid>
+      <description>tmux is an opensource software that can help you to do this. There are a lot of other things tmux can do, but now let me explain how to keep process running even end the ssh session. Please follow the steps:
+ start a tmux session by input tmux to the shell. start your process or script inside the tmux session. leave(detach) the tmux session by input Ctrl+b and then d.</description>
+    </item>
+    
+  </channel>
+</rss>

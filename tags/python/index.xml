@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/python/</link>
+    <description>Recent content in Python on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 05 Sep 2017 10:30:55 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>systemctl command return &#39;Failed to connect to bus: No such file or directory&#39; in a docker container</title>
+      <link>http://localhost:1313/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</link>
+      <pubDate>Tue, 05 Sep 2017 10:30:55 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</guid>
+      <description>To enable and start a cron job and a httpd server in a docker container, I tried systemctl command but get an error output like this
+1 2 3 4  [root@5f1f0a5cde43 app]# systemctl status crond Failed to connect to bus: No such file or directory [root@5f1f0a5cde43 app]# systemctl status httpd Failed to connect to bus: No such file or directory   Fix this issue by add --privileged parameter to docker run command</description>
+    </item>
+    
+    <item>
+      <title>Desktop Notifier by Python</title>
+      <link>http://localhost:1313/post/desktop-notifier-by-python/</link>
+      <pubDate>Fri, 28 Jul 2017 16:37:40 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/desktop-notifier-by-python/</guid>
+      <description>This article show how to send desktop notice using Python
+Install requirments we need to install notify2 by pip
+1 2 3 4 5  # pip install notify2 Collecting notify2 Downloading notify2-0.3.1-py2.py3-none-any.whl Installing collected packages: notify2 Successfully installed notify2-0.3.1   Coding First we need to import notify2
+1  import notify2   Then need to initialise the d-bus connection. D-Bus is a message bus system, a simple way for applications to talk to one another.</description>
+    </item>
+    
+    <item>
+      <title>Python每日获取天气情报并通过邮件通知</title>
+      <link>http://localhost:1313/post/get-weather-info-and-send-by-gmail-python/</link>
+      <pubDate>Fri, 21 Apr 2017 00:16:17 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/get-weather-info-and-send-by-gmail-python/</guid>
+      <description>因为没看天气预报，被大雨浇了几次之后，我打算为我这样的懒人写一个小程序。 很简单，算是Python的一个小练习，用Python实现一个邮件提醒</description>
+    </item>
+    
+    <item>
+      <title>Pythonでスパイダーを作る</title>
+      <link>http://localhost:1313/post/crawling-webpage-use-python-requests/</link>
+      <pubDate>Thu, 01 Dec 2016 00:54:09 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/crawling-webpage-use-python-requests/</guid>
+      <description>PythonのRequestsライブラリを利用してウェブページの内容を抽出し保存する。 そして、BeautifulSoupライブラリを利用し、</description>
+    </item>
+    
+    <item>
+      <title>PythonでGoogle maps のapiを利用する</title>
+      <link>http://localhost:1313/post/google-maps-api-with-python/</link>
+      <pubDate>Sat, 12 Nov 2016 01:22:46 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/google-maps-api-with-python/</guid>
+      <description>PythonでGoogle mapsのAPI を利用しルート検索をやってみた。 利用するモジュールはgooglemaps/google-maps-</description>
+    </item>
+    
+    <item>
+      <title>Pythonで回文チェック</title>
+      <link>http://localhost:1313/post/python-reverse-str-to-check-palindrome/</link>
+      <pubDate>Sat, 29 Oct 2016 01:21:18 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/python-reverse-str-to-check-palindrome/</guid>
+      <description>もう一題をやった。Palindrome chain length 回文に関する計算問題です。 回文とは、文字列を真ん中で割って、左辺と右辺が反転的に対称している文字列</description>
+    </item>
+    
+    <item>
+      <title>Pythonの出力フォーマット</title>
+      <link>http://localhost:1313/post/python-print-format/</link>
+      <pubDate>Sat, 29 Oct 2016 00:28:06 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/python-print-format/</guid>
+      <description>今日もCodeWarの問題を練習した。RGB To Hex Conversion 問題を簡略化にすると、rgbの数字を16進に変換し出力する。 1 2 3 4 rgb(255, 255, 255) # returns FFFFFF rgb(255, 255, 300) # returns</description>
+    </item>
+    
+  </channel>
+</rss>

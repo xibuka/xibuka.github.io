@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Desktop Notifier by Python - Wenhan Code Life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Wenhan Shi" /><meta name="description" content="This article show how to send desktop notice using Python
+Install requirments we need to install notify2 by pip
+1 2 3 4 5  # pip install notify2 Collecting notify2 Downloading notify2-0.3.1-py2.py3-none-any.whl Installing collected packages: notify2 Successfully installed notify2-0.3.1   Coding First we need to import notify2
+1  import notify2   Then need to initialise the d-bus connection. D-Bus is a message bus system, a simple way for applications to talk to one another." /><meta name="keywords" content="Ubuntu, RHEL, Docker, Kubernetes, OpenShift, GlusterFS" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.2 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/desktop-notifier-by-python/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Desktop Notifier by Python" />
+<meta property="og:description" content="This article show how to send desktop notice using Python
+Install requirments we need to install notify2 by pip
+1 2 3 4 5  # pip install notify2 Collecting notify2 Downloading notify2-0.3.1-py2.py3-none-any.whl Installing collected packages: notify2 Successfully installed notify2-0.3.1   Coding First we need to import notify2
+1  import notify2   Then need to initialise the d-bus connection. D-Bus is a message bus system, a simple way for applications to talk to one another." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/desktop-notifier-by-python/" />
+<meta property="article:published_time" content="2017-07-28T16:37:40+00:00" />
+<meta property="article:modified_time" content="2020-03-26T14:30:43+09:00" />
+<meta itemprop="name" content="Desktop Notifier by Python">
+<meta itemprop="description" content="This article show how to send desktop notice using Python
+Install requirments we need to install notify2 by pip
+1 2 3 4 5  # pip install notify2 Collecting notify2 Downloading notify2-0.3.1-py2.py3-none-any.whl Installing collected packages: notify2 Successfully installed notify2-0.3.1   Coding First we need to import notify2
+1  import notify2   Then need to initialise the d-bus connection. D-Bus is a message bus system, a simple way for applications to talk to one another.">
+
+
+<meta itemprop="datePublished" content="2017-07-28T16:37:40&#43;00:00" />
+<meta itemprop="dateModified" content="2020-03-26T14:30:43&#43;09:00" />
+<meta itemprop="wordCount" content="256">
+
+
+
+<meta itemprop="keywords" content="Python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Desktop Notifier by Python"/>
+<meta name="twitter:description" content="This article show how to send desktop notice using Python
+Install requirments we need to install notify2 by pip
+1 2 3 4 5  # pip install notify2 Collecting notify2 Downloading notify2-0.3.1-py2.py3-none-any.whl Installing collected packages: notify2 Successfully installed notify2-0.3.1   Coding First we need to import notify2
+1  import notify2   Then need to initialise the d-bus connection. D-Bus is a message bus system, a simple way for applications to talk to one another."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">WenhanBlog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">WenhanBlog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+<div class="social-links">
+      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2422626403812806"
+     data-ad-slot="1454707894"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Desktop Notifier by Python</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-07-28 </span>
+        
+          <span class="more-meta"> 256 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#install-requirments">Install requirments</a></li>
+<li><a href="#coding">Coding</a></li>
+<li><a href="#try-it">Try it.</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>This article show how to send desktop notice using Python</p>
+
+<p><img src="https://raw.githubusercontent.com/xibuka/git_pics/master/simpleNotification.png" alt="simpleNotification" /></p>
+
+<h1 id="install-requirments">Install requirments</h1>
+
+<p>we need to install <code>notify2</code> by pip</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># pip install notify2
+Collecting notify2
+  Downloading notify2-0.3.1-py2.py3-none-any.whl
+Installing collected packages: notify2
+Successfully installed notify2-0.3.1</pre></td></tr></table>
+</div>
+</div>
+<!-- more -->
+
+<h1 id="coding">Coding</h1>
+
+<p>First we need to import notify2</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">notify2</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Then need to initialise the d-bus connection.
+D-Bus is a message bus system, a simple way for applications to talk to one another.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># initialise the d-bus connection
+notify2.init(&#34;hello&#34;)</pre></td></tr></table>
+</div>
+</div>
+<p>Next we need to create a Notification object.
+The simplest way is</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">n</span> <span class="o">=</span> <span class="n">notify2</span><span class="o">.</span><span class="n">Notification</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>else, you can add a icon to the notification.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">n</span> <span class="o">=</span> <span class="n">notify2</span><span class="o">.</span><span class="n">Notification</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&#34;/home/wenshi/Pictures/me.jpg&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>next, set the urgency level for the notification.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">n</span><span class="o">.</span><span class="n">set_urgency</span><span class="p">(</span><span class="n">notify2</span><span class="o">.</span><span class="n">URGENCY_NORMAL</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>the other available options are</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">notify2</span><span class="o">.</span><span class="n">URGENCY_LOW</span>
+<span class="n">notify2</span><span class="o">.</span><span class="n">URGENCY_NORMAL</span>
+<span class="n">notify2</span><span class="o">.</span><span class="n">URGENCY_CRITICAL</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>next, you can decide how long will the notification will display.
+use <code>set_timeout</code> to set the time in milliseconds.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">n</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>next, file the title and message body of the notification</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">n</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&#34;hello title&#34;</span><span class="p">,</span> <span class="s2">&#34;hello messages&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>notification will be shown on screen by <code>show</code> method.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">n</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="try-it">Try it.</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">notify2</span>
+ 
+<span class="c1"># initialise the d-bus connection</span>
+<span class="n">notify2</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">)</span>
+ 
+<span class="c1"># create Notification object</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">notify2</span><span class="o">.</span><span class="n">Notification</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&#34;/path/to/your/image&#34;</span><span class="p">)</span>
+ 
+<span class="c1"># set urgency level</span>
+<span class="n">n</span><span class="o">.</span><span class="n">set_urgency</span><span class="p">(</span><span class="n">notify2</span><span class="o">.</span><span class="n">URGENCY_NORMAL</span><span class="p">)</span>
+ 
+<span class="c1"># set timeout for a notification</span>
+<span class="n">n</span><span class="o">.</span><span class="n">set_timeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+ 
+<span class="c1"># update notification data for Notification object</span>
+<span class="n">n</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&#34;hello title&#34;</span><span class="p">,</span> <span class="s2">&#34;hello messages&#34;</span><span class="p">)</span>
+
+<span class="c1"># show notification on screen</span>
+<span class="n">n</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>and it will show up in your screen
+<img src="https://raw.githubusercontent.com/xibuka/git_pics/master/simpleNotification.png" alt="simpleNotification" /></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Wenhan Shi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-03-26
+        <a href="https://github.com/xibuka/xibuka.github.io.git/commit/02c19e3e1115c42cabb6448c1045ebb3b6a8a476" title="first commit">(02c19e3)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/python/">Python</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/how-to-change-timezone-in-centos-7-or-rhel-7/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">How to change timezone in CentOS 7 or RHEL 7</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/">
+            <span class="next-text nav-default">Install Chrome Browser via yum in CentOS or Fedora or RHEL</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="wenhan3/wenhan3.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2422626403812806"
+     data-ad-slot="1454707894"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<div class="social-links">
+      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Wenhan Shi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-87273435-2', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

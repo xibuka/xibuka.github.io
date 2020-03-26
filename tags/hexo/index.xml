@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hexo on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/hexo/</link>
+    <description>Recent content in Hexo on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 21 Apr 2017 00:56:19 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/hexo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>fix hexo error output &#39;./build/Release/DTraceProviderBindings&#39;</title>
+      <link>http://localhost:1313/post/fix-hexo-error-output-build-release-dtraceproviderbindings/</link>
+      <pubDate>Fri, 21 Apr 2017 00:56:19 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/fix-hexo-error-output-build-release-dtraceproviderbindings/</guid>
+      <description>There is a noisy error message appears each time when I run hexo command
+1  Error: Cannot find module &amp;#39;./build/Release/DTraceProviderBindings&amp;#39;   It is just a trace error and doesn&amp;rsquo;t stop my work, but , it was so NOISY and I realy want to remove it.
+From the follow links, https://github.com/hexojs/hexo/issues/1922 https://github.com/yarnpkg/yarn/issues/1915
+I know the root cause is because the dtrace-provider package. And I don&amp;rsquo;t use is at all, so I just want to uninstall it.</description>
+    </item>
+    
+    <item>
+      <title>Hexoをインストール</title>
+      <link>http://localhost:1313/post/install-of-hexo/</link>
+      <pubDate>Mon, 24 Oct 2016 23:15:49 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/install-of-hexo/</guid>
+      <description>ここのURLを参考しながら、HexoのBlogを設定した。 https://liginc.co.jp/web/programming/server/104594 Install の途中で、以下のエラーが出た。 1 2 % hexo deploy ERROR Deployer not found: github https://github.com/hexojs/hexo/issues/1040 を参考にして、直した。 1 %</description>
+    </item>
+    
+  </channel>
+</rss>

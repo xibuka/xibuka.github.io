@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ThinkPad on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/thinkpad/</link>
+    <description>Recent content in ThinkPad on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 11 Jun 2018 15:38:10 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/thinkpad/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Suspend issue on Thinkpad X1C 6th with Ubuntu 18.04</title>
+      <link>http://localhost:1313/post/suspend-issue-on-thinkpad-x1c-6th-with-ubuntu-18-04/</link>
+      <pubDate>Mon, 11 Jun 2018 15:38:10 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/suspend-issue-on-thinkpad-x1c-6th-with-ubuntu-18-04/</guid>
+      <description>S3 Suspend not supported by default There is an issue about suspend on Thinkpad X1 Carbon when using Ubuntu 18.04. When you close the lid suspend does not works well. It will continue cose some power and get you laptop hot.
+The root cause is the 6th gen X1 Carbon supports S0i3(Which is also known as Windows Modern Standby) but does not support the S3 sleep state.
+S0i3 sleep support After some researching, the workaround can be this:</description>
+    </item>
+    
+  </channel>
+</rss>

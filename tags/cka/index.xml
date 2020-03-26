@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CKA on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/cka/</link>
+    <description>Recent content in CKA on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 29 Aug 2018 11:40:56 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/cka/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Certified Kubernetes Administrator (CKA) learning note</title>
+      <link>http://localhost:1313/post/certified-kubernetes-administrator-cka-learning-note/</link>
+      <pubDate>Wed, 29 Aug 2018 11:40:56 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/certified-kubernetes-administrator-cka-learning-note/</guid>
+      <description>Install  Install docker.io
+1  apt install docker.io    If you install docker with other cgroup driver, you have to make sure that docker and Kubernetes will use same cgroup driver.
+1 2 3 4 5  cat &amp;lt;&amp;lt; EOF &amp;gt;&amp;gt; /etc/docker/daemon.json { &amp;#34;exec-opts&amp;#34;: [&amp;#34;native.cgroupdriver=systemd&amp;#34;] } EOF    install apt key and source to system
+1 2 3 4 5  root@kube-master:~# curl -s https://packages.</description>
+    </item>
+    
+  </channel>
+</rss>

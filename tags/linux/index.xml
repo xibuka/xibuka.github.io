@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/linux/</link>
+    <description>Recent content in Linux on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Aug 2019 00:55:53 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>connect to wifi in Linux via nmcli command</title>
+      <link>http://localhost:1313/post/access-wifi-point-via-command-line-cli/</link>
+      <pubDate>Sat, 17 Aug 2019 00:55:53 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/access-wifi-point-via-command-line-cli/</guid>
+      <description>I will use nmcli to do this task.
+First you need to install network-manager package, and start the Daemon
+1 2  $ sudo apt install network-manager $ sudo systemctl start NetworkManager   Then let&amp;rsquo;s check the network interface status by below command
+1 2 3 4 5 6 7  $ nmcli dev status DEVICE TYPE STATE CONNECTION wlp2s0 wifi connected xibuka-wifi-5G enp0s31f6 ethernet connected netplan-enp0s31f6 p2p-dev-wlp2s0 wifi-p2p disconnected -- eth0 ethernet unavailable -- lo loopback unmanaged --   Next step is to check the available Wifi access points.</description>
+    </item>
+    
+    <item>
+      <title>Ansible 入門 - 基本操作(チュートリアル)</title>
+      <link>http://localhost:1313/post/getting-started-with-ansible-jp-basic/</link>
+      <pubDate>Mon, 09 Apr 2018 15:25:32 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/getting-started-with-ansible-jp-basic/</guid>
+      <description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳</description>
+    </item>
+    
+    <item>
+      <title>Ansible 入門 - 応用</title>
+      <link>http://localhost:1313/post/getting-started-with-ansible-jp-adv/</link>
+      <pubDate>Mon, 09 Apr 2018 15:20:32 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/getting-started-with-ansible-jp-adv/</guid>
+      <description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳</description>
+    </item>
+    
+    <item>
+      <title>Ansible 入門 - 紹介</title>
+      <link>http://localhost:1313/post/getting-started-with-ansible-jp-intro/</link>
+      <pubDate>Mon, 09 Apr 2018 15:15:32 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/getting-started-with-ansible-jp-intro/</guid>
+      <description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳</description>
+    </item>
+    
+    <item>
+      <title>failed at yum update and how to fix it</title>
+      <link>http://localhost:1313/post/failed-at-yum-update-and-how-to-fix-it/</link>
+      <pubDate>Sun, 18 Feb 2018 16:46:33 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/failed-at-yum-update-and-how-to-fix-it/</guid>
+      <description>I hit an error when running yum update on my centOS 7, the command failed to update my OS!
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31  # yum update Loaded plugins: fastestmirror Determining fastest mirrors * base: centos.gbeservers.com * epel: linux.mirrors.es.net * extras: linux.mirrors.es.net * ius: hkg.</description>
+    </item>
+    
+    <item>
+      <title>AWK - time functions</title>
+      <link>http://localhost:1313/post/awk-time-functions/</link>
+      <pubDate>Fri, 24 Nov 2017 08:34:34 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/awk-time-functions/</guid>
+      <description>Apart of date, awk also has below built-in time functions which will help you to resolve time convert problem
+systime() This will return the current time as the number of seconds since the Epoch (1970-01-01 00:00:00).
+1 2 3 4  $ awk &amp;#39;BEGIN { &amp;gt; print &amp;#34;Number of seconds since the Epoch = &amp;#34; systime() &amp;gt; }&amp;#39; Number of seconds since the Epoch = 1511480989   mktime(YYYY MM DD HH MM SS) This will convert date string &amp;ldquo;YYYY MM DD HH MM SS&amp;rdquo; to the number of seconds since the Epoch.</description>
+    </item>
+    
+    <item>
+      <title>How to check if a disk is SSD or HDD</title>
+      <link>http://localhost:1313/post/how-to-check-if-a-disk-is-ssd-or-hdd/</link>
+      <pubDate>Thu, 02 Nov 2017 08:27:14 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/how-to-check-if-a-disk-is-ssd-or-hdd/</guid>
+      <description>Linux will detects SSD automatically. Since kernel version 2.6.29, you can check /dev/sda with following command
+1  # cat /sys/block/sda/queue/rotational   The return number 0 shows you /dev/sda is a SSD, and 1 shows it is a HDD. Note that this command may not work when your disk is created by hardware RAID.
+Another way is to use lsblk command, a part of the util-linux package.
+1 2 3 4  # lsblk -d -o name,rota NAME ROTA sda 0 sdb 1   ROTA means rotational device, 1 for true, 0 for false.</description>
+    </item>
+    
+    <item>
+      <title>How to sort ps command output</title>
+      <link>http://localhost:1313/post/how-to-sort-ps-command-output/</link>
+      <pubDate>Tue, 19 Sep 2017 14:11:37 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/how-to-sort-ps-command-output/</guid>
+      <description>ps command has a --sort option which can help you to sort processes.
+1 2 3 4 5 6 7  --sort spec Specify sorting order. Sorting syntax is [+|-]key[,[+|-]key[,...]]. Choose a multi-letter key from the STANDARD FORMAT SPECIFIERS section. The &amp;#34;+&amp;#34; is optional since default direction is increasing numerical or lexicographic order. Identical to k. For example: ps jax --sort=uid,-ppid, +pid   Sort ps output by memory From high to low The highest is at the top of the command</description>
+    </item>
+    
+    <item>
+      <title>Beginner guide of systemd on CentOS7/RHEL7</title>
+      <link>http://localhost:1313/post/beginner-guide-of-systemd-on-centos7-rhel7/</link>
+      <pubDate>Mon, 11 Sep 2017 10:19:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/beginner-guide-of-systemd-on-centos7-rhel7/</guid>
+      <description>Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system. From CentOS 7, the systemd become the new system</description>
+    </item>
+    
+    <item>
+      <title>systemctl command return &#39;Failed to connect to bus: No such file or directory&#39; in a docker container</title>
+      <link>http://localhost:1313/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</link>
+      <pubDate>Tue, 05 Sep 2017 10:30:55 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</guid>
+      <description>To enable and start a cron job and a httpd server in a docker container, I tried systemctl command but get an error output like this
+1 2 3 4  [root@5f1f0a5cde43 app]# systemctl status crond Failed to connect to bus: No such file or directory [root@5f1f0a5cde43 app]# systemctl status httpd Failed to connect to bus: No such file or directory   Fix this issue by add --privileged parameter to docker run command</description>
+    </item>
+    
+    <item>
+      <title>How to change timezone in CentOS 7 or RHEL 7</title>
+      <link>http://localhost:1313/post/how-to-change-timezone-in-centos-7-or-rhel-7/</link>
+      <pubDate>Thu, 10 Aug 2017 14:18:08 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/how-to-change-timezone-in-centos-7-or-rhel-7/</guid>
+      <description>check the current timezone status 1 2 3 4 5 6 7 8 9  [root@rhel7 ~]# timedatectl Local time: Thu 2017-08-10 05:19:53 UTC Universal time: Thu 2017-08-10 05:19:53 UTC RTC time: Thu 2017-08-10 05:19:52 Time zone: UTC (UTC, +0000) NTP enabled: yes NTP synchronized: yes RTC in local TZ: no DST active: n/a   list the avaliable timezones 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  [root@rhel7 ~]# timedatectl list-timezones Asia/Aden Asia/Almaty Asia/Amman Asia/Anadyr Asia/Aqtau Asia/Aqtobe Asia/Ashgabat .</description>
+    </item>
+    
+    <item>
+      <title>Install Chrome Browser via yum in CentOS or Fedora or RHEL</title>
+      <link>http://localhost:1313/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/</link>
+      <pubDate>Fri, 14 Jul 2017 09:29:58 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/</guid>
+      <description>Create a google yum repository Create a file /etc/yum.repos.d/google-chrome.repo and add the following into it.
+1 2 3 4 5 6  [google-chrome] name=google-chrome baseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch enabled=1 gpgcheck=1 gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub   Check the google repository Run following command to check the repository is available.
+1  # yum info google-chrome-stable   From the output you should find the lastest version of the package google-chrome-stable
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  # yum info google-chrome-stable Fedora 26 - x86_64 - Updates 6.</description>
+    </item>
+    
+    <item>
+      <title>OpenShift Configure authentication and User Agent using HTPasswd</title>
+      <link>http://localhost:1313/post/openshift-configure-authetication-and-user-agent-using-htpasswd/</link>
+      <pubDate>Wed, 12 Jul 2017 14:43:47 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/openshift-configure-authetication-and-user-agent-using-htpasswd/</guid>
+      <description>As we Install the OpenShift by Ansible method, identity provider is set to Deny all by default, which will deny access from all users. To allow access for users, you must choose another identity provider and configure the master configuration file. By default, the master configuration file is located at /etc/origin/master/master-config.yaml. OpenShift has several identity providers which can help you to manager user authentication. I will use HTPasswd this time.</description>
+    </item>
+    
+    <item>
+      <title>[OpenShift]Quick install OpenShift to multi nodes</title>
+      <link>http://localhost:1313/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/</link>
+      <pubDate>Fri, 07 Jul 2017 15:32:15 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/</guid>
+      <description>In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
+Host preparation I use under virtual machines for OpenShift nodes to deploy
+   Type CPU Mem HDD hostname OS     Master 1 2 GB 20 GB master.example.com RHEL 7   node 1 2 GB 20 GB node1.example.com RHEL 7   node 1 2 GB 20 GB node2.</description>
+    </item>
+    
+    <item>
+      <title>How to keep process running after log off</title>
+      <link>http://localhost:1313/post/how-to-keep-process-script-running-after-end-the-ssh-session/</link>
+      <pubDate>Thu, 29 Jun 2017 14:31:14 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/how-to-keep-process-script-running-after-end-the-ssh-session/</guid>
+      <description>tmux is an opensource software that can help you to do this. There are a lot of other things tmux can do, but now let me explain how to keep process running even end the ssh session. Please follow the steps:
+ start a tmux session by input tmux to the shell. start your process or script inside the tmux session. leave(detach) the tmux session by input Ctrl+b and then d.</description>
+    </item>
+    
+    <item>
+      <title>[OpenShift]Install OpenShift and Create first project Hello-OpenShift</title>
+      <link>http://localhost:1313/post/openshift-install-openshift-and-create-first-project-hello-openshift/</link>
+      <pubDate>Mon, 26 Jun 2017 13:40:40 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/openshift-install-openshift-and-create-first-project-hello-openshift/</guid>
+      <description>Install Linux OS and confirm network setting. You need to create a Linux OS machine to install OpenShift. The minimum requirement is
+   CPU Memory hard disk Network     x86_64 1 core 2 GB 20 GB IPv4    First you need to install CentOS 7.3, by select minimum setup. After you finish the installation, check your IP address to make sure you have available IP to use.</description>
+    </item>
+    
+    <item>
+      <title>How to clear memory cache, buffer and swap on linux</title>
+      <link>http://localhost:1313/post/how-to-clear-memory-cache-buffer-and-swap-on-linux/</link>
+      <pubDate>Fri, 16 Jun 2017 12:05:35 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/how-to-clear-memory-cache-buffer-and-swap-on-linux/</guid>
+      <description>How to clear cache in Linux  Clear PageCache only
+1  # sync ; echo 1 &amp;gt; /proc/sys/vm/drop_caches   Clear Dentries and inodes(metadata)
+1  # sync ; echo 2 &amp;gt; /proc/sys/vm/drop_caches   Clear All cache(include PageCache and Dentries and inode)
+1  # sync ; echo 3 &amp;gt; /proc/sys/vm/drop_caches    How to clear swap space in Linux 1  # swapoff -a &amp;amp;&amp;amp; swapon -a   NOTE: This may make your system unstable when you have low RAM already.</description>
+    </item>
+    
+    <item>
+      <title>Linux文件的特殊权限设置 setuid setgit sticky</title>
+      <link>http://localhost:1313/post/linux-special-permissions-for-file-and-dir-cn/</link>
+      <pubDate>Wed, 03 May 2017 01:17:17 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/linux-special-permissions-for-file-and-dir-cn/</guid>
+      <description>特殊权限对文件和文件夹的影响 Linux系统中存在三个比较特殊的权限，分别是setuid，setgid，和sticky。 下面的表显示了他们之间</description>
+    </item>
+    
+    <item>
+      <title>ファイルとディレクトリへの特殊パーミッション</title>
+      <link>http://localhost:1313/post/linux-special-permissions-for-file-and-dir-jp/</link>
+      <pubDate>Thu, 27 Apr 2017 23:59:20 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/linux-special-permissions-for-file-and-dir-jp/</guid>
+      <description>特殊パーミションの説明 ファイルとフォルダに対し、setuid、setgid、sticky bitの三つの特殊パーミッションが存在する。 setu</description>
+    </item>
+    
+    <item>
+      <title>Linux ユーザパスワードの有効期限の管理</title>
+      <link>http://localhost:1313/post/linux-password-aging-jp/</link>
+      <pubDate>Thu, 27 Apr 2017 23:15:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/linux-password-aging-jp/</guid>
+      <description>Linuxのユーザパスワードの有効期限(aging)の管理について説明する。 last chage (-d) : パスワードが最後に変更した日数 min days (-m) : パスワードが変更可</description>
+    </item>
+    
+    <item>
+      <title>ソフトリンクとハードリンクの違い</title>
+      <link>http://localhost:1313/post/soft-link-and-hard-link-ja/</link>
+      <pubDate>Thu, 27 Apr 2017 22:14:48 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/soft-link-and-hard-link-ja/</guid>
+      <description>ソフトリンクとハードリンクの違いについてメモする 他にも思い出したらまた追記する。 項目 ソフトリンク ハードリンク size 4 byte 表示上元ファイルと同じ inode 元</description>
+    </item>
+    
+    <item>
+      <title>cannot ssh to server as root</title>
+      <link>http://localhost:1313/post/cannot-ssh-to-server-by-root-user/</link>
+      <pubDate>Thu, 16 Feb 2017 16:36:12 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cannot-ssh-to-server-by-root-user/</guid>
+      <description>rootパスワードを知っているのに、rootでssh接続できない問題の解決方法です。 実はsshdの設定ファイルに、rootでのログイン許可を</description>
+    </item>
+    
+  </channel>
+</rss>

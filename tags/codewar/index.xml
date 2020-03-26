@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CodeWar on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/codewar/</link>
+    <description>Recent content in CodeWar on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 29 Oct 2016 01:21:18 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/codewar/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pythonで回文チェック</title>
+      <link>http://localhost:1313/post/python-reverse-str-to-check-palindrome/</link>
+      <pubDate>Sat, 29 Oct 2016 01:21:18 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/python-reverse-str-to-check-palindrome/</guid>
+      <description>もう一題をやった。Palindrome chain length 回文に関する計算問題です。 回文とは、文字列を真ん中で割って、左辺と右辺が反転的に対称している文字列</description>
+    </item>
+    
+    <item>
+      <title>Pythonの出力フォーマット</title>
+      <link>http://localhost:1313/post/python-print-format/</link>
+      <pubDate>Sat, 29 Oct 2016 00:28:06 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/python-print-format/</guid>
+      <description>今日もCodeWarの問題を練習した。RGB To Hex Conversion 問題を簡略化にすると、rgbの数字を16進に変換し出力する。 1 2 3 4 rgb(255, 255, 255) # returns FFFFFF rgb(255, 255, 300) # returns</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>VIM on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/vim/</link>
+    <description>Recent content in VIM on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 04 Jul 2017 11:44:42 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to copy text to the system clipboard in VIM</title>
+      <link>http://localhost:1313/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/</link>
+      <pubDate>Tue, 04 Jul 2017 11:44:42 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/</guid>
+      <description>Make sure your VIM have +clipboard enabled, Add &amp;ldquo;set clipboard=unnamedplus&amp;rdquo; to .vimrc  check +clipboard is enabled 1 2 3  # vim --version | grep clipboard +clipboard +job +path_extra +user_commands +eval +mouse_dec +statusline +xterm_clipboard   If it shows &amp;lsquo;-clipboard&amp;rsquo;, you need to compile VIM with this feature.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21  $ git clone https://github.</description>
+    </item>
+    
+    <item>
+      <title>[VIM] Use built in Spell Check</title>
+      <link>http://localhost:1313/post/vim-use-built-in-spell-check/</link>
+      <pubDate>Mon, 26 Jun 2017 16:37:57 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/vim-use-built-in-spell-check/</guid>
+      <description>From version 7, VIM has a built in spell check function, but disable by default.
+Enable/Disable You can use :set spell and :set nospell to enable and disable it. The spell check isn&amp;rsquo;t only for English, use :echo &amp;amp;spelllang to confirm the current target langurage. Use:set spelllang=en_GB.UTF-8 to change the target langurage, also you can use set spelllang=en_us,nl,medical to set it to multiple langurage.
+Spell check Use ]s to move to the next, [s to move to the previous spell mistake.</description>
+    </item>
+    
+    <item>
+      <title>Install vim 8 with python support on mac</title>
+      <link>http://localhost:1313/post/install-vim-8-with-python/</link>
+      <pubDate>Sat, 15 Apr 2017 00:50:08 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/install-vim-8-with-python/</guid>
+      <description>Today I configure my development envirment for my mac pro. And I find it is much easier to install VIM 8 with python support use brew. (much more easier than cent 7)
+If you have brew, you just need to run
+1  brew install --with-python vim   If you want both python3 and python2 support, just run this
+1  brew install --with-python --with-python3 vim   Update: you may need to use below command on some latest OS for python2</description>
+    </item>
+    
+    <item>
+      <title>VundleでVimのプラグインを簡単管理</title>
+      <link>http://localhost:1313/post/manage-vim-plugins-with-vundle/</link>
+      <pubDate>Mon, 21 Nov 2016 00:37:36 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/manage-vim-plugins-with-vundle/</guid>
+      <description>Vimのプラグインを管理する人気のツール、Vundleの利用メモ 本家のサイト：[https://github.com/VundleVim/V</description>
+    </item>
+    
+  </channel>
+</rss>

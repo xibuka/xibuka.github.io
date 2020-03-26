@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>OpenStack frequently used command - Wenhan Code Life</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Wenhan Shi" /><meta name="description" content="OpenStack frequently used command OpenStack Compute - Nova  list instances nova list openstack server list list/check flavor nova flavor-list nova flavor-show &amp;lt;name or ID&amp;gt; openstack flavor list openstack flavor show &amp;lt;name or ID&amp;gt; create flavor openstack flavor create --ram &amp;lt;ram&amp;gt; --vcpus &amp;lt;cpu number&amp;gt; --disk &amp;lt;size&amp;gt; --id &amp;lt;id&amp;gt; &amp;lt;name&amp;gt; nova flavor-create &amp;lt;name&amp;gt; &amp;lt;id&amp;gt; &amp;lt;ram&amp;gt; &amp;lt;disk&amp;gt; &amp;lt;vcpus&amp;gt; launch an instance nova boot &amp;lt;name&amp;gt; --image &amp;lt;image&amp;gt; --flavor &amp;lt;flavor&amp;gt; openstack server create --flavor &amp;lt;flavor&amp;gt; --image &amp;lt;image&amp;gt; &amp;lt;name&amp;gt; launch an instance with network openstack server create --flavor &amp;lt;flavor&amp;gt; --image &amp;lt;image&amp;gt; &amp;lt;name&amp;gt; net-id=&amp;lt;network&amp;gt; launch an instance with key-pair nova boot &amp;lt;name&amp;gt; --image &amp;lt;image&amp;gt; --flavor &amp;lt;flavor&amp;gt; --key-name &amp;lt;key-pair name&amp;gt; openstack server create --flavor &amp;lt;flavor&amp;gt; --image &amp;lt;image&amp;gt; &amp;lt;name&amp;gt; access instance via router ip netns list sudo ip netns exec &amp;lt;qrouter-id&amp;gt; ssh -i &amp;lt;key&amp;gt; user@ip launch an instance with custom port nova boot --image &amp;lt;image&amp;gt; --flavor &amp;lt;flavor&amp;gt; --nic port-id=&amp;lt;port-id&amp;gt; &amp;lt;instance name&amp;gt; delete an instance nova delete &amp;lt;ID&amp;gt; openstack server delete &amp;lt;ID or name&amp;gt;  Openstack Network - Neutron  list network openstack network list list subnetwork openstack subnet list --long create a network openstack network create &amp;lt;net name&amp;gt; create a subnetwork openstack subnet create &amp;lt;subnet name&amp;gt; --network &amp;lt;net name&amp;gt; --subnet-range &amp;lt;ip address&amp;gt;/&amp;lt;prefix&amp;gt; --gateway &amp;lt;gw ip&amp;gt; --allocation-pool start=IP_ADDR,end=IP_ADDR e." /><meta name="keywords" content="Ubuntu, RHEL, Docker, Kubernetes, OpenShift, GlusterFS" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.57.2 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/openstack-frequently-used-command/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="OpenStack frequently used command" />
+<meta property="og:description" content="OpenStack frequently used command OpenStack Compute - Nova  list instances nova list openstack server list list/check flavor nova flavor-list nova flavor-show &lt;name or ID&gt; openstack flavor list openstack flavor show &lt;name or ID&gt; create flavor openstack flavor create --ram &lt;ram&gt; --vcpus &lt;cpu number&gt; --disk &lt;size&gt; --id &lt;id&gt; &lt;name&gt; nova flavor-create &lt;name&gt; &lt;id&gt; &lt;ram&gt; &lt;disk&gt; &lt;vcpus&gt; launch an instance nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt; openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; launch an instance with network openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; net-id=&lt;network&gt; launch an instance with key-pair nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt; --key-name &lt;key-pair name&gt; openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; access instance via router ip netns list sudo ip netns exec &lt;qrouter-id&gt; ssh -i &lt;key&gt; user@ip launch an instance with custom port nova boot --image &lt;image&gt; --flavor &lt;flavor&gt; --nic port-id=&lt;port-id&gt; &lt;instance name&gt; delete an instance nova delete &lt;ID&gt; openstack server delete &lt;ID or name&gt;  Openstack Network - Neutron  list network openstack network list list subnetwork openstack subnet list --long create a network openstack network create &lt;net name&gt; create a subnetwork openstack subnet create &lt;subnet name&gt; --network &lt;net name&gt; --subnet-range &lt;ip address&gt;/&lt;prefix&gt; --gateway &lt;gw ip&gt; --allocation-pool start=IP_ADDR,end=IP_ADDR e." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/openstack-frequently-used-command/" />
+<meta property="article:published_time" content="2018-09-27T22:09:02+00:00" />
+<meta property="article:modified_time" content="2020-03-26T14:30:43+09:00" />
+<meta itemprop="name" content="OpenStack frequently used command">
+<meta itemprop="description" content="OpenStack frequently used command OpenStack Compute - Nova  list instances nova list openstack server list list/check flavor nova flavor-list nova flavor-show &lt;name or ID&gt; openstack flavor list openstack flavor show &lt;name or ID&gt; create flavor openstack flavor create --ram &lt;ram&gt; --vcpus &lt;cpu number&gt; --disk &lt;size&gt; --id &lt;id&gt; &lt;name&gt; nova flavor-create &lt;name&gt; &lt;id&gt; &lt;ram&gt; &lt;disk&gt; &lt;vcpus&gt; launch an instance nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt; openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; launch an instance with network openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; net-id=&lt;network&gt; launch an instance with key-pair nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt; --key-name &lt;key-pair name&gt; openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; access instance via router ip netns list sudo ip netns exec &lt;qrouter-id&gt; ssh -i &lt;key&gt; user@ip launch an instance with custom port nova boot --image &lt;image&gt; --flavor &lt;flavor&gt; --nic port-id=&lt;port-id&gt; &lt;instance name&gt; delete an instance nova delete &lt;ID&gt; openstack server delete &lt;ID or name&gt;  Openstack Network - Neutron  list network openstack network list list subnetwork openstack subnet list --long create a network openstack network create &lt;net name&gt; create a subnetwork openstack subnet create &lt;subnet name&gt; --network &lt;net name&gt; --subnet-range &lt;ip address&gt;/&lt;prefix&gt; --gateway &lt;gw ip&gt; --allocation-pool start=IP_ADDR,end=IP_ADDR e.">
+
+
+<meta itemprop="datePublished" content="2018-09-27T22:09:02&#43;00:00" />
+<meta itemprop="dateModified" content="2020-03-26T14:30:43&#43;09:00" />
+<meta itemprop="wordCount" content="898">
+
+
+
+<meta itemprop="keywords" content="OpenStack,Cloud," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="OpenStack frequently used command"/>
+<meta name="twitter:description" content="OpenStack frequently used command OpenStack Compute - Nova  list instances nova list openstack server list list/check flavor nova flavor-list nova flavor-show &lt;name or ID&gt; openstack flavor list openstack flavor show &lt;name or ID&gt; create flavor openstack flavor create --ram &lt;ram&gt; --vcpus &lt;cpu number&gt; --disk &lt;size&gt; --id &lt;id&gt; &lt;name&gt; nova flavor-create &lt;name&gt; &lt;id&gt; &lt;ram&gt; &lt;disk&gt; &lt;vcpus&gt; launch an instance nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt; openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; launch an instance with network openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; net-id=&lt;network&gt; launch an instance with key-pair nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt; --key-name &lt;key-pair name&gt; openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; access instance via router ip netns list sudo ip netns exec &lt;qrouter-id&gt; ssh -i &lt;key&gt; user@ip launch an instance with custom port nova boot --image &lt;image&gt; --flavor &lt;flavor&gt; --nic port-id=&lt;port-id&gt; &lt;instance name&gt; delete an instance nova delete &lt;ID&gt; openstack server delete &lt;ID or name&gt;  Openstack Network - Neutron  list network openstack network list list subnetwork openstack subnet list --long create a network openstack network create &lt;net name&gt; create a subnetwork openstack subnet create &lt;subnet name&gt; --network &lt;net name&gt; --subnet-range &lt;ip address&gt;/&lt;prefix&gt; --gateway &lt;gw ip&gt; --allocation-pool start=IP_ADDR,end=IP_ADDR e."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">WenhanBlog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">WenhanBlog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+<div class="social-links">
+      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2422626403812806"
+     data-ad-slot="1454707894"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">OpenStack frequently used command</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-27 </span>
+        
+          <span class="more-meta"> 898 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#openstack-frequently-used-command">OpenStack frequently used command</a>
+<ul>
+<li><a href="#openstack-compute-nova">OpenStack Compute - Nova</a></li>
+<li><a href="#openstack-network-neutron">Openstack Network - Neutron</a></li>
+<li><a href="#openstack-image-glance">OpenStack Image - Glance</a></li>
+<li><a href="#openstack-block-storage-cinder">OpenStack block Storage - Cinder</a></li>
+<li><a href="#openstack-identity-keystone">OpenStack Identity - Keystone</a></li>
+<li><a href="#openstack-object-storage-swift">OpenStack Object Storage - Swift</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h1 id="openstack-frequently-used-command">OpenStack frequently used command</h1>
+
+<h2 id="openstack-compute-nova">OpenStack Compute - Nova</h2>
+
+<ul>
+<li>list instances
+<code>nova list</code>
+<code>openstack server list</code></li>
+<li>list/check flavor
+<code>nova flavor-list</code>
+<code>nova flavor-show &lt;name or ID&gt;</code>
+<code>openstack flavor list</code>
+<code>openstack flavor show &lt;name or ID&gt;</code></li>
+<li>create flavor
+<code>openstack flavor create --ram &lt;ram&gt; --vcpus &lt;cpu number&gt; --disk &lt;size&gt; --id &lt;id&gt; &lt;name&gt;</code>
+<code>nova flavor-create &lt;name&gt; &lt;id&gt; &lt;ram&gt; &lt;disk&gt; &lt;vcpus&gt;</code></li>
+<li>launch an instance
+<code>nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt;</code>
+<code>openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt;</code></li>
+<li>launch an instance with network
+<code>openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt; net-id=&lt;network&gt;</code></li>
+<li>launch an instance with key-pair
+<code>nova boot &lt;name&gt; --image &lt;image&gt; --flavor &lt;flavor&gt; --key-name &lt;key-pair name&gt;</code>
+<code>openstack server create --flavor &lt;flavor&gt; --image &lt;image&gt; &lt;name&gt;</code></li>
+<li>access instance via router
+<code>ip netns list</code>
+<code>sudo ip netns exec &lt;qrouter-id&gt; ssh -i &lt;key&gt; user@ip</code></li>
+<li>launch an instance with custom port
+<code>nova boot --image &lt;image&gt; --flavor &lt;flavor&gt; --nic port-id=&lt;port-id&gt; &lt;instance name&gt;</code></li>
+<li>delete an instance
+<code>nova delete &lt;ID&gt;</code>
+<code>openstack server delete &lt;ID or name&gt;</code></li>
+</ul>
+
+<!-- more -->
+
+<h2 id="openstack-network-neutron">Openstack Network - Neutron</h2>
+
+<ul>
+<li>list network
+<code>openstack network list</code></li>
+<li>list subnetwork
+<code>openstack subnet list --long</code></li>
+<li>create a network
+<code>openstack network create &lt;net name&gt;</code></li>
+<li>create a subnetwork
+<code>openstack subnet create &lt;subnet name&gt; --network &lt;net name&gt; --subnet-range &lt;ip address&gt;/&lt;prefix&gt; --gateway &lt;gw ip&gt; --allocation-pool start=IP_ADDR,end=IP_ADDR</code>
+e.g.
+<code>openstack subnet create practicesubnet --network practice --subnet-range 10.2.0.224/27 --gateway 10.2.0.225 --allocation-pool start=10.2.0.240,end=10.2.0.245</code></li>
+<li>create port with specify IP address
+<code>openstack subnet list --long</code> to confirm avaiable address range
+<code>openstack port create --network=&lt;network&gt; 
+--fixed-ip subnet=private-subnet,ip-address=&lt;ip_address&gt; &lt;port name&gt;</code></li>
+<li>create port without specify IP address
+<code>openstack port create &lt;port name&gt; --network &lt;network&gt;</code>
+system will allocate one IP address for this port</li>
+<li>search ports with specified fixed IP addresses
+<code>neutron port-list --fixed-ips ip_address=&lt;IP1&gt; ip_address=&lt;IP2&gt;</code></li>
+<li>create a router
+<code>openstack router create &lt;router&gt;</code></li>
+<li>Link the router to the external provider network
+<code>openstack router set &lt;router&gt; --external-gateway &lt;public network&gt;</code></li>
+<li>add subnet to router
+<code>openstack router add subnet &lt;router&gt; &lt;subnet&gt;</code></li>
+<li>remove subnet from router
+<code>openstack router remove subnet &lt;router&gt; &lt;subnet&gt;</code></li>
+<li>delete router
+<code>openstack router delete &lt;router&gt;</code></li>
+<li>create external network
+<code>openstack network create public --external --provider-network-type flat --provider-physical-network external</code></li>
+<li>manage floating IP
+<code>neutron floatingip-create</code><br />
+<code>neutron floatingip-delete</code>
+<code>neutron floatingip-associate</code>
+<code>neutron floatingip-disassociate</code>
+<code>neutron floatingip-list</code></li>
+</ul>
+
+<p>e.g.
+<code>neutron floatingip-create public</code>
+<code>neutron floatingip-associate &lt;fip ID&gt; &lt;port ID of instance's internal ip&gt;</code></p>
+
+<h2 id="openstack-image-glance">OpenStack Image - Glance</h2>
+
+<ul>
+<li>image list and show detail
+<code>glance image-list</code>
+<code>glance image-show &lt;ID&gt;</code>
+<code>openstack image list</code>
+<code>openstack image show &lt;name or ID&gt;</code></li>
+<li>check image file info
+<code>qemu-img info &lt;path/to/image&gt;</code></li>
+<li>create image from file
+<code>glance image-create --progress --name &lt;name&gt; --file /path/to/file --disk-format qcow2 --container-format bare --visibility public</code></li>
+<li>download image
+<code>openstack image save &lt;image&gt; --file &lt;save/to/file&gt;</code></li>
+<li>delete an image
+<code>glance image-delete &lt;ID&gt;</code>
+<code>openstack image delete &lt;ID&gt;</code></li>
+</ul>
+
+<h2 id="openstack-block-storage-cinder">OpenStack block Storage - Cinder</h2>
+
+<ul>
+<li>volume list and show detail
+<code>cinder list</code>
+<code>cinder show &lt;ID&gt;</code>
+<code>openstack volume list</code>
+<code>openstack volume show &lt;name or ID&gt;</code></li>
+<li>create new empty volume
+<code>cinder create --name &lt;vol name&gt; &lt;size in GiBs&gt;</code></li>
+<li>create new volume from image
+<code>cinder create --name &lt;vol name&gt; &lt;size in GiBs&gt; --image &lt;ID or Name&gt;</code></li>
+<li>attach volume to an instance
+<code>openstack server add volume &lt;instance&gt; &lt;volume&gt;</code>
+<code>nova volume-attach &lt;instance&gt; &lt;volume ID&gt; &lt;device&gt;</code></li>
+<li>detach volume from an instance
+<code>openstack server remove volume &lt;instance&gt; &lt;volume&gt;</code>
+<code>nova volume-detach &lt;server&gt; &lt;volume&gt;</code></li>
+<li>delete volume
+<code>cinder delete &lt;volume&gt;</code>
+<code>openstack volume delete &lt;volume&gt;</code></li>
+</ul>
+
+<h2 id="openstack-identity-keystone">OpenStack Identity - Keystone</h2>
+
+<ul>
+<li>issue a token
+<code>openstack token issue</code></li>
+
+<li><p>check auth info
+<code>source credrc.sh</code> which the file looks like</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">export OS_AUTH_TYPE=password
+export OS_AUTH_URL=http://127.0.0.1:5000/v3
+export OS_IDENTITY_API_VERSION=&#34;3&#34;
+export OS_TENANT_NAME=&#34;demo&#34;
+export OS_USERNAME=&#34;demo&#34;
+export OS_PASSWORD=&#34;nova&#34;
+export OS_PROJECT_DOMAIN_ID=&#34;default&#34;
+export OS_USER_DOMAIN_ID=&#34;default&#34;
+export OS_REGION_NAME=&#34;RegionOne&#34;
+alias osc=&#34;openstack --os-cloud&#34;</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>check auth info with
+<code>export | grep OS_</code></p></li>
+
+<li><p>create new project
+<code>openstack project create --description &quot;text&quot; &lt;project name&gt;</code></p></li>
+
+<li><p>create and delete user
+<code>openstack user create &lt;name&gt; --password pass</code>
+<code>openstack user delete &lt;name&gt;</code></p></li>
+
+<li><p>check role list
+<code>openstack role list</code></p></li>
+
+<li><p>change user&rsquo;s role in project
+<code>openstack role add --user &lt;user&gt; --project &lt;project&gt; &lt;role&gt;</code></p></li>
+
+<li><p>show quota of a project
+<code>openstack quota show &lt;project id&gt;</code>
+<code>nova quota-show --tenant &lt;project id&gt;</code></p></li>
+
+<li><p>update quota of a project
+<code>openstack quota set --&lt;key&gt; &lt;value&gt; &lt;project id&gt;</code>
+<code>nova quota-update --&lt;key&gt; &lt;value&gt; &lt;project id&gt;</code></p></li>
+
+<li><p>change policy</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">vim /etc/glance/policy.json
+...
+&#34;add_image&#34;: &#34;role:admin&#34;,
+...</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>key pair create and list
+<code>nova keypair-add &lt;name&gt; --pub-key &lt;path/to/public/key&gt;</code>
+<code>openstack keypair create &lt;name&gt; --pub-key &lt;path/to/public/key&gt;</code>
+<code>nova keypair-list</code></p></li>
+
+<li><p>add security group rule to allow SSH access
+<code>openstack security group rule create &lt;rule name&gt; --ingress --dst-port 22:22 --protocol tcp --remote-ip 0.0.0.0/0 &lt;group name&gt;</code>
+<code>nova secgroup-add-rule &lt;group name&gt; &lt;ip-proto&gt; &lt;from-port&gt; &lt;to-port&gt;</code>
+<code>e.g. nova secgroup-add-rule novasg2 tcp 22 22 0.0.0.0/24</code></p></li>
+
+<li><p>list security group and rule
+<code>openstack security group list</code>
+<code>openstack security group rule list</code></p></li>
+</ul>
+
+<h2 id="openstack-object-storage-swift">OpenStack Object Storage - Swift</h2>
+
+<p>The account is not the user account, but more like a namespace/project in swift.
+The container is like the directory.</p>
+
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Get account info</td>
+<td><code>swift stat</code></td>
+</tr>
+
+<tr>
+<td>create a container</td>
+<td><code>swift post &lt;container&gt;</code></td>
+</tr>
+
+<tr>
+<td>list all containers in an account</td>
+<td><code>swift list</code></td>
+</tr>
+
+<tr>
+<td>get the info of a container</td>
+<td><code>swift stat &lt;container&gt;</code></td>
+</tr>
+
+<tr>
+<td>upload files/directory to a container</td>
+<td><code>swift upload --object-name &lt;object&gt; &lt;containe&gt; &lt;file/firectory path&gt;</code></td>
+</tr>
+
+<tr>
+<td>list files in a container</td>
+<td><code>swift list &lt;containe&gt;</code></td>
+</tr>
+
+<tr>
+<td>download file</td>
+<td><code>swift download &lt;container&gt; &lt;object&gt;</code></td>
+</tr>
+
+<tr>
+<td>update meta data to container</td>
+<td><code>swift post --meta &lt;color&gt;:&lt;value&gt; &lt;container&gt;</code></td>
+</tr>
+
+<tr>
+<td>delete object</td>
+<td><code>swift delete &lt;container&gt; &lt;object&gt;</code></td>
+</tr>
+
+<tr>
+<td>upload files in specify segments</td>
+<td><code>swift upload &lt;container&gt; &lt;object&gt; --segment-size &lt;size&gt;</code></td>
+</tr>
+
+<tr>
+<td>delete container</td>
+<td><code>swift delete &lt;container&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>e.g.
+<code>swift upload uploads files/puppies.jpg --object-name picture</code>
+1. adding a read ACL on the uploads container allowing anyone to read it except for people from gadget.example.com.
+<code>swift post -r .r:*,-gadget.example.com uploads</code>
+1. adding a write ACL to the uploads container allowing anyone in the phone project to write to it.
+<code>swift post -w phone:* uploads</code></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Wenhan Shi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-03-26
+        <a href="https://github.com/xibuka/xibuka.github.io.git/commit/02c19e3e1115c42cabb6448c1045ebb3b6a8a476" title="first commit">(02c19e3)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/openstack/">OpenStack</a>
+          <a href="/tags/cloud/">Cloud</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/presentasion-about-microk8s-at-containerdaystokyo/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Presentasion about microk8s at containerDaysTokyo</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/certified-kubernetes-administrator-cka-learning-note/">
+            <span class="next-text nav-default">Certified Kubernetes Administrator (CKA) learning note</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="wenhan3/wenhan3.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2422626403812806"
+     data-ad-slot="1454707894"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<div class="social-links">
+      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Wenhan Shi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-87273435-2', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

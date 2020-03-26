@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/docker/</link>
+    <description>Recent content in docker on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 18 Feb 2018 16:35:32 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker basic foundation</title>
+      <link>http://localhost:1313/post/docker-basic-foundation/</link>
+      <pubDate>Sun, 18 Feb 2018 16:35:32 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/docker-basic-foundation/</guid>
+      <description>Base on CentOS 7, Docker 1.12.6
+Install Docker Some pre-requirment to install Docker to a Linux OS.
+ Docker only can be installed on a 64 bit OS. Kernel version over 3.10 is recommended. recommend Need to enable cgroup and namespace.  Now it is easier to install Docker in CentOS or Fedora, it can be searched by yum command like below:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  # yum search docker | grep ^docker docker-client.</description>
+    </item>
+    
+    <item>
+      <title>systemctl command return &#39;Failed to connect to bus: No such file or directory&#39; in a docker container</title>
+      <link>http://localhost:1313/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</link>
+      <pubDate>Tue, 05 Sep 2017 10:30:55 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</guid>
+      <description>To enable and start a cron job and a httpd server in a docker container, I tried systemctl command but get an error output like this
+1 2 3 4  [root@5f1f0a5cde43 app]# systemctl status crond Failed to connect to bus: No such file or directory [root@5f1f0a5cde43 app]# systemctl status httpd Failed to connect to bus: No such file or directory   Fix this issue by add --privileged parameter to docker run command</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gluster on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/gluster/</link>
+    <description>Recent content in Gluster on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 11 Dec 2017 15:41:23 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/gluster/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Gluster filename and GFID interconversion</title>
+      <link>http://localhost:1313/post/gluster-filename-and-gfid/</link>
+      <pubDate>Mon, 11 Dec 2017 15:41:23 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/gluster-filename-and-gfid/</guid>
+      <description>create test file Mount gluster volume and create a file
+1 2 3 4  [root@client-1 ~]# mount -t glusterfs gluster-node-1:/vol /mnt [root@client-1 ~]# mkdir -p /mnt/hoge/hello-gluster/ [root@client-1 ~]# touch /mnt/hoge/hello-gluster/file [root@client-1 ~]# umount /mnt/   Get GFID of a file in Gluster volume From brick directory Login to gluster node and locate file in brick directory.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  [root@gluster-node-1 ~]# gluster volume info vol Volume Name: vol Type: Replicate Volume ID: 4ac36bcc-7127-48c4-ac21-421850d8bc47 Status: Started Snapshot Count: 0 Number of Bricks: 1 x 3 = 3 Transport-type: tcp,rdma Bricks: Brick1: gluster-node-1:/gluster/brick-vol &amp;lt;-- confirm the brick path Brick2: gluster-node-2:/gluster/brick-vol Brick3: gluster-node-3:/gluster/brick-vol Options Reconfigured: performance.</description>
+    </item>
+    
+    <item>
+      <title>GlusterFS Failed to probe a cloned peer</title>
+      <link>http://localhost:1313/post/glusterfs-failed-to-probe-a-cloned-peer/</link>
+      <pubDate>Thu, 15 Jun 2017 11:43:46 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/glusterfs-failed-to-probe-a-cloned-peer/</guid>
+      <description>If you want to save some time for setup each gluster system, you can just setup all the necessary configuration in one vm, and then cloning it. But you may in trouble for probe a peer from another node. When you try to run the command, you could get the following error messages:
+1 2  [root@node1 ~]# gluster peer probe node2 peer probe: failed: Peer uuid (host node2) is same as local uuid   this is because when glusterfs-server package is first installed, a node UUID file will be created at /var/lib/glusterd/glusterd.</description>
+    </item>
+    
+  </channel>
+</rss>

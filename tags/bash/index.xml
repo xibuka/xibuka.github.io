@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bash on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/bash/</link>
+    <description>Recent content in bash on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 25 Jun 2019 00:12:59 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The begining of bash script</title>
+      <link>http://localhost:1313/post/bash-head-options/</link>
+      <pubDate>Tue, 25 Jun 2019 00:12:59 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/bash-head-options/</guid>
+      <description>exit script immediately when a command fails
+1 2  set -o errexit set -e   output error and exit script immediately when refer to a undefine variable.
+1 2  set -o nounset set -u   exit script even a command fails before a pipe
+1  set -o pipefail  </description>
+    </item>
+    
+  </channel>
+</rss>

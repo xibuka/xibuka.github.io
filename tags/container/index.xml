@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Container on Wenhan Code Life</title>
+    <link>http://localhost:1313/tags/container/</link>
+    <description>Recent content in Container on Wenhan Code Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 01 Feb 2018 15:46:56 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/container/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to disable IPv6 inside a container/pod in OpenShift</title>
+      <link>http://localhost:1313/post/how-to-disable-ipv6-inside-a-container-pod-in-openshift/</link>
+      <pubDate>Thu, 01 Feb 2018 15:46:56 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/how-to-disable-ipv6-inside-a-container-pod-in-openshift/</guid>
+      <description>Although the container/pod in OpenShift transfer data by IPv4 protocol, and you do not need to worry about the setting of IPv6. But in some case people want to disable IPv6 inside the container without effecting other container/pods or host OS.
+Here is an example of the IPv6 info outputed from a container.
+1 2 3 4 5 6 7 8 9 10 11 12 13  [root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a 1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.</description>
+    </item>
+    
+  </channel>
+</rss>
