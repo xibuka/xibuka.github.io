@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
+<<<<<<< HEAD
     <title>docker on Wenhan Shi Blog</title>
     <link>http://wenhan.blog/tags/docker/</link>
     <description>Recent content in docker on Wenhan Shi Blog</description>
+=======
+    <title>Docker on Wenhan Shi Blog</title>
+    <link>http://wenhan.blog/tags/docker/</link>
+    <description>Recent content in Docker on Wenhan Shi Blog</description>
+>>>>>>> f8d7fee7a22efd99f4360f477a39e5534fbc682d
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 18 Feb 2018 16:35:32 +0000</lastBuildDate>
