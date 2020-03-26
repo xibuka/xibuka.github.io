@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>VIM on Wenhan Code Life</title>
+    <title>VIM on Wenhan Shi Blog</title>
     <link>http://wenhan.blog/tags/vim/</link>
-    <description>Recent content in VIM on Wenhan Code Life</description>
+    <description>Recent content in VIM on Wenhan Shi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 04 Jul 2017 11:44:42 +0000</lastBuildDate>
