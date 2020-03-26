@@ -1,1 +1,592 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url><loc>http://wenhan.blog/post/asrock-fatal1ty-b450-gaming-itx-restore-on-ac-power-loss-not-working/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/access-wifi-point-via-command-line-cli/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/linux/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/bash/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/bash-head-options/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/kubenetes/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/microk8s/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/snap/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/cloud/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/openstack/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/openstack-frequently-used-command/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/certified-kubernetes-administrator-cka-learning-note/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/cka/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/kubernetes/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/juju-use-juju-to-deploy-minecraft-server-in-lxd/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/suspend-issue-on-thinkpad-x1c-6th-with-ubuntu-18-04/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/thinkpad/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/ubuntu/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/error-failed-container-creation-failed-to-load-raw-lxc/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/maas/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/ansible/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/getting-started-with-ansible-jp-basic/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/getting-started-with-ansible-jp-adv/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/getting-started-with-ansible-jp-intro/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/glusterfs/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/the-different-between-server-side-heal-and-client-side-heal-in-glusterfs/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/failed-at-yum-update-and-how-to-fix-it/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/yum/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/docker/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/docker-basic-foundation/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/container/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/how-to-disable-ipv6-inside-a-container-pod-in-openshift/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/openshift/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/gluster/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/gluster-filename-and-gfid/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/awk/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/awk-time-functions/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/how-to-check-if-a-disk-is-ssd-or-hdd/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/how-to-sort-ps-command-output/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/systemd/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/python/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/how-to-change-timezone-in-centos-7-or-rhel-7/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/desktop-notifier-by-python/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/centos/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/fedora/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/rhel/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/openshift-configure-authetication-and-user-agent-using-htpasswd/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/vim/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/how-to-keep-process-script-running-after-end-the-ssh-session/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/tmux/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/vim-use-built-in-spell-check/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/openshift-install-openshift-and-create-first-project-hello-openshift/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/how-to-clear-memory-cache-buffer-and-swap-on-linux/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/glusterfs-failed-to-probe-a-cloned-peer/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/linux-special-permissions-for-file-and-dir-cn/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/linux-special-permissions-for-file-and-dir-jp/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/linux-password-aging-jp/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/soft-link-and-hard-link-ja/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/fix-hexo-error-output-build-release-dtraceproviderbindings/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/hexo/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/get-weather-info-and-send-by-gmail-python/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/install-vim-8-with-python/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/cannot-ssh-to-server-by-root-user/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/sshd/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/crawling-webpage-use-python-requests/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/manage-vim-plugins-with-vundle/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/googlemap/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/google-maps-api-with-python/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/ios/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/googlemap-on-ios/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/tags/codewar/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/python-reverse-str-to-check-palindrome/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/python-print-format/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/post/install-of-hexo/</loc><lastmod>2020-03-26T14:30:43+09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url><loc>http://wenhan.blog/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://wenhan.blog/post/asrock-fatal1ty-b450-gaming-itx-restore-on-ac-power-loss-not-working/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/access-wifi-point-via-command-line-cli/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/linux/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/bash/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/bash-head-options/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/kubenetes/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/microk8s/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/snap/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/cloud/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/openstack/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/openstack-frequently-used-command/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/certified-kubernetes-administrator-cka-learning-note/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/cka/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/kubernetes/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/juju-use-juju-to-deploy-minecraft-server-in-lxd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/suspend-issue-on-thinkpad-x1c-6th-with-ubuntu-18-04/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/thinkpad/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/ubuntu/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/error-failed-container-creation-failed-to-load-raw-lxc/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/maas/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/ansible/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/getting-started-with-ansible-jp-basic/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/getting-started-with-ansible-jp-adv/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/getting-started-with-ansible-jp-intro/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/glusterfs/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/the-different-between-server-side-heal-and-client-side-heal-in-glusterfs/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/failed-at-yum-update-and-how-to-fix-it/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/yum/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/docker/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/docker-basic-foundation/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/container/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/how-to-disable-ipv6-inside-a-container-pod-in-openshift/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/openshift/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/gluster/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/gluster-filename-and-gfid/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/awk/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/awk-time-functions/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/how-to-check-if-a-disk-is-ssd-or-hdd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/how-to-sort-ps-command-output/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/systemd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/how-to-change-timezone-in-centos-7-or-rhel-7/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/desktop-notifier-by-python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/centos/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/fedora/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/rhel/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/openshift-configure-authetication-and-user-agent-using-htpasswd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/vim/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/how-to-keep-process-script-running-after-end-the-ssh-session/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/tmux/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/vim-use-built-in-spell-check/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/openshift-install-openshift-and-create-first-project-hello-openshift/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/how-to-clear-memory-cache-buffer-and-swap-on-linux/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/glusterfs-failed-to-probe-a-cloned-peer/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/linux-special-permissions-for-file-and-dir-cn/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/linux-special-permissions-for-file-and-dir-jp/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/linux-password-aging-jp/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/soft-link-and-hard-link-ja/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/fix-hexo-error-output-build-release-dtraceproviderbindings/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/hexo/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/get-weather-info-and-send-by-gmail-python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/install-vim-8-with-python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/cannot-ssh-to-server-by-root-user/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/sshd/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/crawling-webpage-use-python-requests/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/manage-vim-plugins-with-vundle/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/googlemap/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/google-maps-api-with-python/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/ios/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/googlemap-on-ios/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/tags/codewar/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/python-reverse-str-to-check-palindrome/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/python-print-format/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/post/install-of-hexo/</loc>
+    <lastmod>2020-03-26T14:30:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://wenhan.blog/categories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>
