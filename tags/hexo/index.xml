@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hexo on Wenhan Shi Blog</title>
@@ -18,9 +18,9 @@
       
       <guid>http://wenhan.blog/post/fix-hexo-error-output-build-release-dtraceproviderbindings/</guid>
       <description>There is a noisy error message appears each time when I run hexo command
-1  Error: Cannot find module &amp;#39;./build/Release/DTraceProviderBindings&amp;#39;   It is just a trace error and doesn&#39;t stop my work, but , it was so NOISY and I realy want to remove it.
+1  Error: Cannot find module &amp;#39;./build/Release/DTraceProviderBindings&amp;#39;   It is just a trace error and doesn&amp;rsquo;t stop my work, but , it was so NOISY and I realy want to remove it.
 From the follow links, https://github.com/hexojs/hexo/issues/1922 https://github.com/yarnpkg/yarn/issues/1915
-I know the root cause is because the dtrace-provider package. And I don&#39;t use is at all, so I just want to uninstall it.</description>
+I know the root cause is because the dtrace-provider package. And I don&amp;rsquo;t use is at all, so I just want to uninstall it.</description>
     </item>
     
     <item>

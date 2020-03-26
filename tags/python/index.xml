@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Wenhan Shi Blog</title>
@@ -18,7 +18,7 @@
       
       <guid>http://wenhan.blog/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</guid>
       <description>To enable and start a cron job and a httpd server in a docker container, I tried systemctl command but get an error output like this
-1 2 3 4  [root@5f1f0a5cde43 app]# systemctl status crond Failed to connect to bus: No such file or directory [root@5f1f0a5cde43 app]# systemctl status httpd Failed to connect to bus: No such file or directory   Fix this issue by add --privileged parameter to docker run  command</description>
+1 2 3 4  [root@5f1f0a5cde43 app]# systemctl status crond Failed to connect to bus: No such file or directory [root@5f1f0a5cde43 app]# systemctl status httpd Failed to connect to bus: No such file or directory   Fix this issue by add --privileged parameter to docker run command</description>
     </item>
     
     <item>

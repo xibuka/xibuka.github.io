@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Wenhan Shi Blog</title>
@@ -19,7 +19,7 @@
       <guid>http://wenhan.blog/post/access-wifi-point-via-command-line-cli/</guid>
       <description>I will use nmcli to do this task.
 First you need to install network-manager package, and start the Daemon
-1 2  $ sudo apt install network-manager $ sudo systemctl start NetworkManager   Then let&#39;s check the network interface status by below command
+1 2  $ sudo apt install network-manager $ sudo systemctl start NetworkManager   Then let&amp;rsquo;s check the network interface status by below command
 1 2 3 4 5 6 7  $ nmcli dev status DEVICE TYPE STATE CONNECTION wlp2s0 wifi connected xibuka-wifi-5G enp0s31f6 ethernet connected netplan-enp0s31f6 p2p-dev-wlp2s0 wifi-p2p disconnected -- eth0 ethernet unavailable -- lo loopback unmanaged --   Next step is to check the available Wifi access points.</description>
     </item>
     
@@ -109,7 +109,7 @@ Another way is to use lsblk command, a part of the util-linux package.
       
       <guid>http://wenhan.blog/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/</guid>
       <description>To enable and start a cron job and a httpd server in a docker container, I tried systemctl command but get an error output like this
-1 2 3 4  [root@5f1f0a5cde43 app]# systemctl status crond Failed to connect to bus: No such file or directory [root@5f1f0a5cde43 app]# systemctl status httpd Failed to connect to bus: No such file or directory   Fix this issue by add --privileged parameter to docker run  command</description>
+1 2 3 4  [root@5f1f0a5cde43 app]# systemctl status crond Failed to connect to bus: No such file or directory [root@5f1f0a5cde43 app]# systemctl status httpd Failed to connect to bus: No such file or directory   Fix this issue by add --privileged parameter to docker run command</description>
     </item>
     
     <item>
@@ -118,7 +118,7 @@ Another way is to use lsblk command, a part of the util-linux package.
       <pubDate>Thu, 10 Aug 2017 14:18:08 +0000</pubDate>
       
       <guid>http://wenhan.blog/post/how-to-change-timezone-in-centos-7-or-rhel-7/</guid>
-      <description>check the current timezone status 1 2 3 4 5 6 7 8 9 10  [root@rhel7 ~]# timedatectl Local time: Thu 2017-08-10 05:19:53 UTC Universal time: Thu 2017-08-10 05:19:53 UTC RTC time: Thu 2017-08-10 05:19:52 Time zone: UTC (UTC, +0000) NTP enabled: yes NTP synchronized: yes RTC in local TZ: no DST active: n/a   list the avaliable timezones 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  [root@rhel7 ~]# timedatectl list-timezones Asia/Aden Asia/Almaty Asia/Amman Asia/Anadyr Asia/Aqtau Asia/Aqtobe Asia/Ashgabat .</description>
+      <description>check the current timezone status 1 2 3 4 5 6 7 8 9  [root@rhel7 ~]# timedatectl Local time: Thu 2017-08-10 05:19:53 UTC Universal time: Thu 2017-08-10 05:19:53 UTC RTC time: Thu 2017-08-10 05:19:52 Time zone: UTC (UTC, +0000) NTP enabled: yes NTP synchronized: yes RTC in local TZ: no DST active: n/a   list the avaliable timezones 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  [root@rhel7 ~]# timedatectl list-timezones Asia/Aden Asia/Almaty Asia/Amman Asia/Anadyr Asia/Aqtau Asia/Aqtobe Asia/Ashgabat .</description>
     </item>
     
     <item>
@@ -139,7 +139,7 @@ Another way is to use lsblk command, a part of the util-linux package.
       <pubDate>Wed, 12 Jul 2017 14:43:47 +0000</pubDate>
       
       <guid>http://wenhan.blog/post/openshift-configure-authetication-and-user-agent-using-htpasswd/</guid>
-      <description>As we Install the OpenShift by Ansible method, identity provider is set to Deny all by default, which will deny access from all users. To allow access for users, you must choose another identity provider and configure the master configuration file. By default, the master configuration file is located at /etc/origin/master/master-config.yaml. OpenShift has several identity providers which can help you to manager user authentication. I will use HTPasswd this time. You can find more information in Configuring Authentication and User Agent</description>
+      <description>As we Install the OpenShift by Ansible method, identity provider is set to Deny all by default, which will deny access from all users. To allow access for users, you must choose another identity provider and configure the master configuration file. By default, the master configuration file is located at /etc/origin/master/master-config.yaml. OpenShift has several identity providers which can help you to manager user authentication. I will use HTPasswd this time.</description>
     </item>
     
     <item>
@@ -179,7 +179,10 @@ Host preparation I use under virtual machines for OpenShift nodes to deploy
       <pubDate>Fri, 16 Jun 2017 12:05:35 +0000</pubDate>
       
       <guid>http://wenhan.blog/post/how-to-clear-memory-cache-buffer-and-swap-on-linux/</guid>
-      <description>How to clear cache in Linux  Clear PageCache only  1  # sync ; echo 1 &amp;gt; /proc/sys/vm/drop_caches    Clear Dentries and inodes(metadata)  1  # sync ; echo 2 &amp;gt; /proc/sys/vm/drop_caches    Clear All cache(include PageCache and Dentries and inode)  1  # sync ; echo 3 &amp;gt; /proc/sys/vm/drop_caches   How to clear swap space in Linux 1  # swapoff -a &amp;amp;&amp;amp; swapon -a   NOTE: This may make your system unstable when you have low RAM already.</description>
+      <description>How to clear cache in Linux  Clear PageCache only
+1  # sync ; echo 1 &amp;gt; /proc/sys/vm/drop_caches   Clear Dentries and inodes(metadata)
+1  # sync ; echo 2 &amp;gt; /proc/sys/vm/drop_caches   Clear All cache(include PageCache and Dentries and inode)
+1  # sync ; echo 3 &amp;gt; /proc/sys/vm/drop_caches    How to clear swap space in Linux 1  # swapoff -a &amp;amp;&amp;amp; swapon -a   NOTE: This may make your system unstable when you have low RAM already.</description>
     </item>
     
     <item>

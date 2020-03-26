@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>VIM on Wenhan Shi Blog</title>
@@ -28,7 +28,7 @@
       
       <guid>http://wenhan.blog/post/vim-use-built-in-spell-check/</guid>
       <description>From version 7, VIM has a built in spell check function, but disable by default.
-Enable/Disable You can use :set spell  and  :set nospell to enable and disable it. The spell check isn&#39;t only for English, use :echo &amp;amp;spelllang to confirm the current target langurage. Use:set spelllang=en_GB.UTF-8 to change the target langurage, also you can use set spelllang=en_us,nl,medical to set it to multiple langurage.
+Enable/Disable You can use :set spell and :set nospell to enable and disable it. The spell check isn&amp;rsquo;t only for English, use :echo &amp;amp;spelllang to confirm the current target langurage. Use:set spelllang=en_GB.UTF-8 to change the target langurage, also you can use set spelllang=en_us,nl,medical to set it to multiple langurage.
 Spell check Use ]s to move to the next, [s to move to the previous spell mistake.</description>
     </item>
     
