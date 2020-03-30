@@ -1,196 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>How to disable IPv6 inside a container/pod in OpenShift - Wenhan Shi Blog</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Wenhan Shi" /><meta name="description" content="Although the container/pod in OpenShift transfer data by IPv4 protocol, and you do not need to worry about the setting of IPv6. But in some case people want to disable IPv6 inside the container without effecting other container/pods or host OS.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>How to disable IPv6 inside a container/pod in OpenShift - Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="Although the container/pod in OpenShift transfer data by IPv4 protocol, and you do not need to worry about the setting of IPv6. But in some case people want to disable IPv6 inside the container without effecting other container/pods or host OS.
 Here is an example of the IPv6 info outputed from a container.
-1 2 3 4 5 6 7 8 9 10 11 12 13  [root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a 1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127." /><meta name="keywords" content="Ubuntu, RHEL, Docker, Kubernetes, OpenShift, GlusterFS" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.57.2 with theme even" />
-
-
-<link rel="canonical" href="http://wenhan.blog/post/how-to-disable-ipv6-inside-a-container-pod-in-openshift/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="How to disable IPv6 inside a container/pod in OpenShift" />
-<meta property="og:description" content="Although the container/pod in OpenShift transfer data by IPv4 protocol, and you do not need to worry about the setting of IPv6. But in some case people want to disable IPv6 inside the container without effecting other container/pods or host OS.
+1 2 3 4 5 6 7 8 9 10 11 12 13  [root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a 1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127."><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=http://wenhan.blog/post/how-to-disable-ipv6-inside-a-container-pod-in-openshift/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="How to disable IPv6 inside a container/pod in OpenShift"><meta property="og:description" content="Although the container/pod in OpenShift transfer data by IPv4 protocol, and you do not need to worry about the setting of IPv6. But in some case people want to disable IPv6 inside the container without effecting other container/pods or host OS.
 Here is an example of the IPv6 info outputed from a container.
-1 2 3 4 5 6 7 8 9 10 11 12 13  [root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://wenhan.blog/post/how-to-disable-ipv6-inside-a-container-pod-in-openshift/" />
-<meta property="article:published_time" content="2018-02-01T15:46:56+00:00" />
-<meta property="article:modified_time" content="2020-03-26T14:30:43+09:00" />
-<meta itemprop="name" content="How to disable IPv6 inside a container/pod in OpenShift">
-<meta itemprop="description" content="Although the container/pod in OpenShift transfer data by IPv4 protocol, and you do not need to worry about the setting of IPv6. But in some case people want to disable IPv6 inside the container without effecting other container/pods or host OS.
+1 2 3 4 5 6 7 8 9 10 11 12 13  [root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127."><meta property="og:type" content="article"><meta property="og:url" content="http://wenhan.blog/post/how-to-disable-ipv6-inside-a-container-pod-in-openshift/"><meta property="article:published_time" content="2018-02-01T15:46:56+00:00"><meta property="article:modified_time" content="2020-03-30T13:56:15+09:00"><meta itemprop=name content="How to disable IPv6 inside a container/pod in OpenShift"><meta itemprop=description content="Although the container/pod in OpenShift transfer data by IPv4 protocol, and you do not need to worry about the setting of IPv6. But in some case people want to disable IPv6 inside the container without effecting other container/pods or host OS.
 Here is an example of the IPv6 info outputed from a container.
-1 2 3 4 5 6 7 8 9 10 11 12 13  [root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.">
-
-
-<meta itemprop="datePublished" content="2018-02-01T15:46:56&#43;00:00" />
-<meta itemprop="dateModified" content="2020-03-26T14:30:43&#43;09:00" />
-<meta itemprop="wordCount" content="423">
-
-
-
-<meta itemprop="keywords" content="Container,OpenShift," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="How to disable IPv6 inside a container/pod in OpenShift"/>
-<meta name="twitter:description" content="Although the container/pod in OpenShift transfer data by IPv4 protocol, and you do not need to worry about the setting of IPv6. But in some case people want to disable IPv6 inside the container without effecting other container/pods or host OS.
+1 2 3 4 5 6 7 8 9 10 11 12 13  [root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127."><meta itemprop=datePublished content="2018-02-01T15:46:56+00:00"><meta itemprop=dateModified content="2020-03-30T13:56:15+09:00"><meta itemprop=wordCount content="423"><meta itemprop=keywords content="Container,OpenShift,"><meta name=twitter:card content="summary"><meta name=twitter:title content="How to disable IPv6 inside a container/pod in OpenShift"><meta name=twitter:description content="Although the container/pod in OpenShift transfer data by IPv4 protocol, and you do not need to worry about the setting of IPv6. But in some case people want to disable IPv6 inside the container without effecting other container/pods or host OS.
 Here is an example of the IPv6 info outputed from a container.
-1 2 3 4 5 6 7 8 9 10 11 12 13  [root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127."/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2422626403812806"
-     data-ad-slot="1454707894"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">WenhanBlog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">WenhanBlog</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li>
-  </ul>
-</nav>
-
-<div class="social-links">
-      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="http://wenhan.blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">How to disable IPv6 inside a container/pod in OpenShift</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2018-02-01 </span>
-        
-          <span class="more-meta"> 423 words </span>
-          <span class="more-meta"> 2 mins read </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content">
-    
-  </div>
-</div>
-    <div class="post-content">
-      <p>Although the container/pod in OpenShift transfer data by IPv4 protocol, and you
+1 2 3 4 5 6 7 8 9 10 11 12 13  [root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><ins class=adsbygoogle style=display:block data-ad-client=ca-pub-2422626403812806 data-ad-slot=1454707894 data-ad-format=auto></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=http://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>How to disable IPv6 inside a container/pod in OpenShift</h1><div class=post-meta><span class=post-time>2018-02-01</span>
+<span class=more-meta>423 words</span>
+<span class=more-meta>2 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents></nav></div></div><div class=post-content><p>Although the container/pod in OpenShift transfer data by IPv4 protocol, and you
 do not need to worry about the setting of IPv6. But in some case people want to
 disable IPv6 inside the container without effecting other container/pods or
-host OS.</p>
-
-<p>Here is an example of the IPv6 info outputed from a container.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">[root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a
+host OS.</p><p>Here is an example of the IPv6 info outputed from a container.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -202,239 +37,71 @@ host OS.</p>
     inet 10.128.0.36/23 brd 10.128.1.255 scope global eth0
        valid_lft forever preferred_lft forever
     inet6 fe80::a4e3:f9ff:fe55:61db/64 scope link 
-       valid_lft forever preferred_lft forever</pre></td></tr></table>
-</div>
-</div>
-<p>It is not allowed to run <code>sysctl -w</code> to update a kernel parameter inside
-a container for security.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">[root@ocp37 ~]# oc exec django-ex-4-6gmsj -- sysctl -w net.ipv6.conf.all.disable_ipv6=1
+       valid_lft forever preferred_lft forever
+</code></pre></td></tr></table></div></div><p>It is not allowed to run <code>sysctl -w</code> to update a kernel parameter inside
+a container for security.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[root@ocp37 ~]# oc exec django-ex-4-6gmsj -- sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sysctl: setting key &#34;net.ipv6.conf.all.disable_ipv6&#34;: Read-only file system
-command terminated with exit code 255</pre></td></tr></table>
-</div>
-</div>
-<p>So what you need to do is to change the kubernetes settings in the DeploymentConfig. Sysctl settings are exposed via Kubernetes, allowing users to modify certain kernel parameters at runtime for namespaces within a container. Only sysctls that are namespaced can be set independently on pods;
-For namespaced sysctl, please refer <a href="https://docs.openshift.com/container-platform/3.7/admin_guide/sysctls.html#namespaced-vs-node-level-sysctls">here</a> for detail.</p>
-
-<p>Here are the steps:</p>
-
-<ol>
-<li><p>Add below setting to kubeletArguments field in the /etc/origin/node/node-config.yaml file. This will enable Unsafe Sysctls.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubeletArguments:
- experimental-allowed-unsafe-sysctls:
-   - net.ipv6.conf.all.disable_ipv6</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>Restart the node service to apply the changes:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># systemctl restart atomic-openshift-node</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>Edit DeploymentConfig of the target pod.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># oc edit dc/&lt;DeploymentConfig of your pod&gt;</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>Add below settings to the metadata filed inside of template filed, then save and quit. (You may need to create annotations filed if it is not exist.)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">spec:
- ....
- template:
-   metadata:
-     annotations:
-       security.alpha.kubernetes.io/unsafe-sysctls: net.ipv6.conf.all.disable_ipv6=1</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>Deploy a new container/pod using this updated DeploymentConfig</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># oc deploy dc/&lt;DeploymentConfig of your pod&gt;  --latest</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>When the pod is ready, confirm ipv6 is diabled.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">[root@ocp37 ~]# oc exec django-ex-2-22znd -- ip a
+command terminated with exit code 255
+</code></pre></td></tr></table></div></div><p>So what you need to do is to change the kubernetes settings in the DeploymentConfig. Sysctl settings are exposed via Kubernetes, allowing users to modify certain kernel parameters at runtime for namespaces within a container. Only sysctls that are namespaced can be set independently on pods;
+For namespaced sysctl, please refer <a href=https://docs.openshift.com/container-platform/3.7/admin_guide/sysctls.html#namespaced-vs-node-level-sysctls>here</a> for detail.</p><p>Here are the steps:</p><ol><li><p>Add below setting to kubeletArguments field in the /etc/origin/node/node-config.yaml file. This will enable Unsafe Sysctls.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubeletArguments:
+  experimental-allowed-unsafe-sysctls:
+    - net.ipv6.conf.all.disable_ipv6
+</code></pre></td></tr></table></div></div></li><li><p>Restart the node service to apply the changes:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># systemctl restart atomic-openshift-node
+</code></pre></td></tr></table></div></div></li><li><p>Edit DeploymentConfig of the target pod.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># oc edit dc/&lt;DeploymentConfig of your pod&gt;
+</code></pre></td></tr></table></div></div></li><li><p>Add below settings to the metadata filed inside of template filed, then save and quit. (You may need to create annotations filed if it is not exist.)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>spec:
+  ....
+  template:
+    metadata:
+      annotations:
+        security.alpha.kubernetes.io/unsafe-sysctls: net.ipv6.conf.all.disable_ipv6=1
+</code></pre></td></tr></table></div></div></li><li><p>Deploy a new container/pod using this updated DeploymentConfig</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># oc deploy dc/&lt;DeploymentConfig of your pod&gt;  --latest
+</code></pre></td></tr></table></div></div></li><li><p>When the pod is ready, confirm ipv6 is diabled.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[root@ocp37 ~]# oc exec django-ex-2-22znd -- ip a
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1
-   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-   inet 127.0.0.1/8 scope host lo
-      valid_lft forever preferred_lft forever
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
 3: eth0@if41: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1450 qdisc noqueue state UP
-   link/ether 0a:58:0a:80:00:20 brd ff:ff:ff:ff:ff:ff link-netnsid 0
-   inet 10.128.0.32/23 brd 10.128.1.255 scope global eth0
-      valid_lft forever preferred_lft forever</pre></td></tr></table>
-</div>
-</div></li>
-</ol>
-
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Wenhan Shi</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2020-03-26
-        <a href="https://github.com/xibuka/xibuka.github.io.git/commit/02c19e3e1115c42cabb6448c1045ebb3b6a8a476" title="first commit">(02c19e3)</a>
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/container/">Container</a>
-          <a href="/tags/openshift/">OpenShift</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/docker-basic-foundation/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Docker basic foundation</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/gluster-filename-and-gfid/">
-            <span class="next-text nav-default">Gluster filename and GFID interconversion</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-
-  
-
-  
-    <script src="https://utteranc.es/client.js"
-            repo="xibuka/xibuka.github.io"
-            issue-term="pathname"
-            theme="github-light"
-            crossorigin="anonymous"
-            async>
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="http://wenhan.blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-      <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-  </div>
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Wenhan Shi</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-87273435-2', 'auto');
-	ga('set', 'anonymizeIp', true);
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-</body>
-</html>
+    link/ether 0a:58:0a:80:00:20 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.128.0.32/23 brd 10.128.1.255 scope global eth0
+       valid_lft forever preferred_lft forever
+</code></pre></td></tr></table></div></div></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Wenhan Shi</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-03-30
+<a href=https://github.com/xibuka/xibuka.github.io.git/commit/2e618d8f83d00f8e4e8bd89cbbc00a4968670cab title="workflow test 4">(2e618d8)</a></span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/container/>Container</a>
+<a href=/tags/openshift/>OpenShift</a></div><nav class=post-nav><a class=prev href=/post/docker-basic-foundation/><i class="iconfont icon-left"></i><span class="prev-text nav-default">Docker basic foundation</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/gluster-filename-and-gfid/><span class="next-text nav-default">Gluster filename and GFID interconversion</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=xibuka/xibuka.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=http://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2016 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

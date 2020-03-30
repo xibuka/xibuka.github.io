@@ -1,321 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Certified Kubernetes Administrator (CKA) learning note - Wenhan Shi Blog</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Wenhan Shi" /><meta name="description" content="Install  Install docker.io
-1  apt install docker.io    If you install docker with other cgroup driver, you have to make sure that docker and Kubernetes will use same cgroup driver.
-1 2 3 4 5  cat &amp;lt;&amp;lt; EOF &amp;gt;&amp;gt; /etc/docker/daemon.json { &amp;#34;exec-opts&amp;#34;: [&amp;#34;native.cgroupdriver=systemd&amp;#34;] } EOF    install apt key and source to system
-1 2 3 4 5  root@kube-master:~# curl -s https://packages." /><meta name="keywords" content="Ubuntu, RHEL, Docker, Kubernetes, OpenShift, GlusterFS" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.57.2 with theme even" />
-
-
-<link rel="canonical" href="http://wenhan.blog/post/certified-kubernetes-administrator-cka-learning-note/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="Certified Kubernetes Administrator (CKA) learning note" />
-<meta property="og:description" content="Install  Install docker.io
-1  apt install docker.io    If you install docker with other cgroup driver, you have to make sure that docker and Kubernetes will use same cgroup driver.
-1 2 3 4 5  cat &lt;&lt; EOF &gt;&gt; /etc/docker/daemon.json { &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;] } EOF    install apt key and source to system
-1 2 3 4 5  root@kube-master:~# curl -s https://packages." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://wenhan.blog/post/certified-kubernetes-administrator-cka-learning-note/" />
-<meta property="article:published_time" content="2018-08-29T11:40:56+00:00" />
-<meta property="article:modified_time" content="2020-03-26T14:30:43+09:00" />
-<meta itemprop="name" content="Certified Kubernetes Administrator (CKA) learning note">
-<meta itemprop="description" content="Install  Install docker.io
-1  apt install docker.io    If you install docker with other cgroup driver, you have to make sure that docker and Kubernetes will use same cgroup driver.
-1 2 3 4 5  cat &lt;&lt; EOF &gt;&gt; /etc/docker/daemon.json { &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;] } EOF    install apt key and source to system
-1 2 3 4 5  root@kube-master:~# curl -s https://packages.">
-
-
-<meta itemprop="datePublished" content="2018-08-29T11:40:56&#43;00:00" />
-<meta itemprop="dateModified" content="2020-03-26T14:30:43&#43;09:00" />
-<meta itemprop="wordCount" content="2507">
-
-
-
-<meta itemprop="keywords" content="Kubernetes,CKA," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Certified Kubernetes Administrator (CKA) learning note"/>
-<meta name="twitter:description" content="Install  Install docker.io
-1  apt install docker.io    If you install docker with other cgroup driver, you have to make sure that docker and Kubernetes will use same cgroup driver.
-1 2 3 4 5  cat &lt;&lt; EOF &gt;&gt; /etc/docker/daemon.json { &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;] } EOF    install apt key and source to system
-1 2 3 4 5  root@kube-master:~# curl -s https://packages."/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2422626403812806"
-     data-ad-slot="1454707894"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">WenhanBlog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">WenhanBlog</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li>
-  </ul>
-</nav>
-
-<div class="social-links">
-      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="http://wenhan.blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Certified Kubernetes Administrator (CKA) learning note</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2018-08-29 </span>
-        
-          <span class="more-meta"> 2507 words </span>
-          <span class="more-meta"> 12 mins read </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#install">Install</a></li>
-<li><a href="#run-a-job">Run a Job</a></li>
-<li><a href="#deploy-a-pod">Deploy a Pod</a>
-<ul>
-<li><a href="#run-a-pod">run a Pod</a></li>
-<li><a href="#delete-a-pod">delete a Pod</a></li>
-</ul></li>
-<li><a href="#examine-the-current-status">Examine the current status</a></li>
-<li><a href="#deployment">Deployment</a>
-<ul>
-<li><a href="#create-the-deployment-and-pod">Create the deployment and pod</a></li>
-<li><a href="#rollout-image-version">rollout image version</a></li>
-</ul></li>
-<li><a href="#setting-container-environment-variables">Setting Container Environment Variables</a></li>
-<li><a href="#scaling-pod">Scaling pod</a>
-<ul>
-<li><a href="#command-line">command line</a></li>
-<li><a href="#yaml-file">yaml file</a></li>
-</ul></li>
-<li><a href="#replication-controllers-replica-sets-and-deployments">Replication Controllers, Replica Sets, and Deployments</a>
-<ul>
-<li><a href="#replication-controllers">Replication Controllers</a></li>
-<li><a href="#replicaset">ReplicaSet</a></li>
-<li><a href="#deployment-1">Deployment</a></li>
-</ul></li>
-<li><a href="#label">Label</a></li>
-<li><a href="#daemonset">DaemonSet</a></li>
-<li><a href="#label-a-node-schedule-a-pod">Label a Node &amp; Schedule a Pod</a></li>
-<li><a href="#specific-schedulers">Specific Schedulers</a></li>
-<li><a href="#logs">Logs</a></li>
-<li><a href="#node-maintenance">Node maintenance</a></li>
-<li><a href="#upgrading-kubernetes-components">Upgrading Kubernetes Components</a></li>
-<li><a href="#network">Network</a>
-<ul>
-<li><a href="#inbound-node-port-requirements">Inbound Node Port Requirements</a></li>
-<li><a href="#export-pod-to-the-internet">export pod to the internet</a></li>
-<li><a href="#deploying-a-load-balancer">Deploying a Load Balancer</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      
-
-<h1 id="install">Install</h1>
-
-<ol>
-<li><p>Install docker.io</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apt install docker.io</pre></td></tr></table>
-</div>
-</div></li>
-</ol>
-
-<p>If you install docker with other cgroup driver, you have to make sure that
-docker and Kubernetes will use same cgroup driver.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">cat &lt;&lt; EOF &gt;&gt; /etc/docker/daemon.json
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Certified Kubernetes Administrator (CKA) learning note - Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="Install  Install docker.io  1  apt install docker.io   If you install docker with other cgroup driver, you have to make sure that docker and Kubernetes will use same cgroup driver.
+1 2 3 4 5  cat &amp;lt;&amp;lt; EOF &amp;gt;&amp;gt; /etc/docker/daemon.json { &amp;#34;exec-opts&amp;#34;: [&amp;#34;native.cgroupdriver=systemd&amp;#34;] } EOF    install apt key and source to system  1 2 3 4 5  root@kube-master:~# curl -s https://packages."><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=http://wenhan.blog/post/certified-kubernetes-administrator-cka-learning-note/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Certified Kubernetes Administrator (CKA) learning note"><meta property="og:description" content="Install  Install docker.io  1  apt install docker.io   If you install docker with other cgroup driver, you have to make sure that docker and Kubernetes will use same cgroup driver.
+1 2 3 4 5  cat << EOF >> /etc/docker/daemon.json { &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;] } EOF    install apt key and source to system  1 2 3 4 5  root@kube-master:~# curl -s https://packages."><meta property="og:type" content="article"><meta property="og:url" content="http://wenhan.blog/post/certified-kubernetes-administrator-cka-learning-note/"><meta property="article:published_time" content="2018-08-29T11:40:56+00:00"><meta property="article:modified_time" content="2020-03-30T13:56:15+09:00"><meta itemprop=name content="Certified Kubernetes Administrator (CKA) learning note"><meta itemprop=description content="Install  Install docker.io  1  apt install docker.io   If you install docker with other cgroup driver, you have to make sure that docker and Kubernetes will use same cgroup driver.
+1 2 3 4 5  cat << EOF >> /etc/docker/daemon.json { &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;] } EOF    install apt key and source to system  1 2 3 4 5  root@kube-master:~# curl -s https://packages."><meta itemprop=datePublished content="2018-08-29T11:40:56+00:00"><meta itemprop=dateModified content="2020-03-30T13:56:15+09:00"><meta itemprop=wordCount content="2510"><meta itemprop=keywords content="Kubernetes,CKA,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Certified Kubernetes Administrator (CKA) learning note"><meta name=twitter:description content="Install  Install docker.io  1  apt install docker.io   If you install docker with other cgroup driver, you have to make sure that docker and Kubernetes will use same cgroup driver.
+1 2 3 4 5  cat << EOF >> /etc/docker/daemon.json { &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;] } EOF    install apt key and source to system  1 2 3 4 5  root@kube-master:~# curl -s https://packages."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><ins class=adsbygoogle style=display:block data-ad-client=ca-pub-2422626403812806 data-ad-slot=1454707894 data-ad-format=auto></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=http://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Certified Kubernetes Administrator (CKA) learning note</h1><div class=post-meta><span class=post-time>2018-08-29</span>
+<span class=more-meta>2510 words</span>
+<span class=more-meta>12 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#run-a-pod>run a Pod</a></li><li><a href=#delete-a-pod>delete a Pod</a></li></ul><ul><li><a href=#create-the-deployment-and-pod>Create the deployment and pod</a></li><li><a href=#rollout-image-version>rollout image version</a></li></ul><ul><li><a href=#command-line>command line</a></li><li><a href=#yaml-file>yaml file</a></li></ul><ul><li><a href=#replication-controllers>Replication Controllers</a></li><li><a href=#replicaset>ReplicaSet</a></li><li><a href=#deployment-1>Deployment</a></li></ul><ul><li><a href=#inbound-node-port-requirements>Inbound Node Port Requirements</a></li><li><a href=#export-pod-to-the-internet>export pod to the internet</a></li><li><a href=#deploying-a-load-balancer>Deploying a Load Balancer</a></li></ul></nav></div></div><div class=post-content><h1 id=install>Install</h1><ol><li>Install docker.io</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>apt install docker.io
+</code></pre></td></tr></table></div></div><p>If you install docker with other cgroup driver, you have to make sure that
+docker and Kubernetes will use same cgroup driver.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>cat &lt;&lt; EOF &gt;&gt; /etc/docker/daemon.json
 {
     &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;]
 }
-EOF</pre></td></tr></table>
-</div>
-</div>
-<ol>
-<li><p>install apt key and source to system</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">root@kube-master:~# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+EOF
+</code></pre></td></tr></table></div></div><ol><li>install apt key and source to system</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>root@kube-master:~# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 OK
 root@kube-master:~# cat &lt;&lt;EOF &gt;&gt; /etc/apt/sources.list.d/kubernetes.list
 &gt; deb http://apt.kubernetes.io/ kubernetes-xenial main
-&gt; EOF</pre></td></tr></table>
-</div>
-</div></li>
-</ol>
+&gt; EOF
+</code></pre></td></tr></table></div></div><p>Then install kubernetes packages</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>root@kube-master:~# apt update -y
+root@kube-master:~# apt install -y kubelet kubeadm kubectl
 
-<p>Then install kubernetes packages</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">root@kube-master:~# apt update -y
-root@kube-master:~# apt install -y kubelet kubeadm kubectl</pre></td></tr></table>
-</div>
-</div>
-<ol>
-<li>setup and config with kubeadm</li>
-</ol>
-
-<!-- more -->
-
-<p>You must choose a CNI when you execute <code>kubeadm init</code>, in this post I choose
-flunnel, so I have to add <code>--pod-network-cidr</code> options.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">root@k8sm:~# kubeadm init --pod-network-cidr=10.244.0.0/16</pre></td></tr></table>
-</div>
-</div>
-<p>after waiting for some while, you should see below message that shows the
-install is complete</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">Your Kubernetes master has initialized successfully!
+</code></pre></td></tr></table></div></div><ol><li>setup and config with kubeadm</li></ol><p>You must choose a CNI when you execute <code>kubeadm init</code>, in this post I choose
+flunnel, so I have to add <code>--pod-network-cidr</code> options.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>root@k8sm:~# kubeadm init --pod-network-cidr=10.244.0.0/16
+</code></pre></td></tr></table></div></div><p>after waiting for some while, you should see below message that shows the
+install is complete</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Your Kubernetes master has initialized successfully!
 
 To start using your cluster, you need to run the following as a regular user:
 
@@ -330,65 +69,35 @@ Run &#34;kubectl apply -f [podnetwork].yaml&#34; with one of the options listed 
 You can now join any number of machines by running the following on each node
 as root:
 
-  kubeadm join 192.168.122.75:6443 --token .....&lt;snip&gt;</pre></td></tr></table>
-</div>
-</div>
-<p>Follow the instruction, run below comand as a regular user</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">  mkdir -p $HOME/.kube
+  kubeadm join 192.168.122.75:6443 --token .....&lt;snip&gt;
+</code></pre></td></tr></table></div></div><p>Follow the instruction, run below comand as a regular user</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>  mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config</pre></td></tr></table>
-</div>
-</div>
-<p>And you need to memo the command start with <code>kubeadm join</code>, you will need to
-exeute this command on your kubernetes node to join to the cluster</p>
-
-<p>In order for your pods to communicate with one another, you&rsquo;ll need to install
-pod networking.  We are going to use Flannel for our Container Network Interface
-(CNI) because it&rsquo;s easy to install and reliable.  Enter this command:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</pre></td></tr></table>
-</div>
-</div>
-<p>Next run below command to make sure everything is coming up.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl get pods --all-namespaces</pre></td></tr></table>
-</div>
-</div>
-<p>If you see the coredns-xxxxxx pod is running, and your master node is Ready,
-your cluster is ready to accept worker nodes.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">wshi@k8sm:~$ kubectl get pods --all-namespaces
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre></td></tr></table></div></div><p>And you need to memo the command start with <code>kubeadm join</code>, you will need to
+exeute this command on your kubernetes node to join to the cluster</p><p>In order for your pods to communicate with one another, you'll need to install
+pod networking. We are going to use Flannel for our Container Network Interface
+(CNI) because it's easy to install and reliable. Enter this command:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+</code></pre></td></tr></table></div></div><p>Next run below command to make sure everything is coming up.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl get pods --all-namespaces
+</code></pre></td></tr></table></div></div><p>If you see the coredns-xxxxxx pod is running, and your master node is Ready,
+your cluster is ready to accept worker nodes.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>wshi@k8sm:~$ kubectl get pods --all-namespaces
 NAMESPACE     NAME                           READY     STATUS    RESTARTS   AGE
 kube-system   coredns-78fcdf6894-ltgw2       1/1       Running   0          17m
 kube-system   coredns-78fcdf6894-n8hw2       1/1       Running   0          17m
@@ -400,146 +109,110 @@ kube-system   kube-proxy-nczhf               1/1       Running   0          17m
 kube-system   kube-scheduler-k8sm            1/1       Running   0          16m
 wshi@k8sm:~$ kubectl get node
 NAME      STATUS    ROLES     AGE       VERSION
-k8sm      Ready     master    17m       v1.11.2</pre></td></tr></table>
-</div>
-</div>
-<ol>
-<li>setup other node and join to the cluster</li>
-</ol>
-
-<p>For the rest worker nodes, you just need to install kubectl, kubeadm, kubelet
+k8sm      Ready     master    17m       v1.11.2
+</code></pre></td></tr></table></div></div><ol><li>setup other node and join to the cluster</li></ol><p>For the rest worker nodes, you just need to install kubectl, kubeadm, kubelet
 and docker refer above, then execute the <code>kubeadm join ...</code> command which was
 mentioned before.
-After a while, you should see all worker nodes are ready to use.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">wshi@k8sm:~$ kubectl get node
+After a while, you should see all worker nodes are ready to use.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>wshi@k8sm:~$ kubectl get node
 NAME      STATUS    ROLES     AGE       VERSION
 k8sm      Ready     master    44m       v1.11.2
 k8sn1     Ready     &lt;none&gt;    11m       v1.11.2
-k8sn2     Ready     &lt;none&gt;    11m       v1.11.2</pre></td></tr></table>
-</div>
-</div>
-<h1 id="run-a-job">Run a Job</h1>
-
-<p>Applications that running inside a pod are called &ldquo;jobs&rdquo;.</p>
-
-<p>Most Kubernetes objects are created using yaml. Here is a sample yaml for a job which uses perl to calculate pi to 2000 digits and then stops.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-YAML" data-lang="YAML">apiVersion<span class="p">:</span><span class="w"> </span>batch/v1<span class="w">
-</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Job<span class="w">
-</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
-</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>pi<span class="w">
-</span><span class="w"></span>spec<span class="p">:</span><span class="w">
-</span><span class="w">  </span>template<span class="p">:</span><span class="w">
-</span><span class="w">    </span>spec<span class="p">:</span><span class="w">
-</span><span class="w">      </span>containers<span class="p">:</span><span class="w">
-</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>pi<span class="w">
-</span><span class="w">        </span>image<span class="p">:</span><span class="w"> </span>perl<span class="w">
-</span><span class="w">        </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;perl&#34;</span><span class="p">,</span><span class="w">  </span><span class="s2">&#34;-Mbignum=bpi&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;-wle&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;print bpi(2000)&#34;</span><span class="p">]</span><span class="w">
-</span><span class="w">      </span>restartPolicy<span class="p">:</span><span class="w"> </span>Never<span class="w">
-</span><span class="w">  </span>backoffLimit<span class="p">:</span><span class="w"> </span><span class="m">4</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>Create this yaml file on your master node and call it &ldquo;pi-job.yaml&rdquo;. Run the job with the command:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl create -f pi-job.yaml</code></pre></td></tr></table>
-</div>
-</div>
-<p>Get the detail information of this job with the command:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ kubectl get pod
+k8sn2     Ready     &lt;none&gt;    11m       v1.11.2
+</code></pre></td></tr></table></div></div><h1 id=run-a-job>Run a Job</h1><p>Applications that running inside a pod are called &ldquo;jobs&rdquo;.</p><p>Most Kubernetes objects are created using yaml. Here is a sample yaml for a job which uses perl to calculate pi to 2000 digits and then stops.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-YAML data-lang=YAML>apiVersion<span class=p>:</span><span class=w> </span>batch/v1<span class=w>
+</span><span class=w></span>kind<span class=p>:</span><span class=w> </span>Job<span class=w>
+</span><span class=w></span>metadata<span class=p>:</span><span class=w>
+</span><span class=w>  </span>name<span class=p>:</span><span class=w> </span>pi<span class=w>
+</span><span class=w></span>spec<span class=p>:</span><span class=w>
+</span><span class=w>  </span>template<span class=p>:</span><span class=w>
+</span><span class=w>    </span>spec<span class=p>:</span><span class=w>
+</span><span class=w>      </span>containers<span class=p>:</span><span class=w>
+</span><span class=w>      </span>-<span class=w> </span>name<span class=p>:</span><span class=w> </span>pi<span class=w>
+</span><span class=w>        </span>image<span class=p>:</span><span class=w> </span>perl<span class=w>
+</span><span class=w>        </span>command<span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;perl&#34;</span><span class=p>,</span><span class=w>  </span><span class=s2>&#34;-Mbignum=bpi&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;-wle&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;print bpi(2000)&#34;</span><span class=p>]</span><span class=w>
+</span><span class=w>      </span>restartPolicy<span class=p>:</span><span class=w> </span>Never<span class=w>
+</span><span class=w>  </span>backoffLimit<span class=p>:</span><span class=w> </span><span class=m>4</span><span class=w>
+</span></code></pre></td></tr></table></div></div><p>Create this yaml file on your master node and call it &ldquo;pi-job.yaml&rdquo;. Run the job with the command:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>kubectl create -f pi-job.yaml
+</code></pre></td></tr></table></div></div><p>Get the detail information of this job with the command:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ kubectl get pod
 NAME                                               READY     STATUS      RESTARTS   AGE
 ...
 pi-72c7r                                           0/1       Completed   0          3m
@@ -599,173 +272,101 @@ Events:
   Normal  Pulling    3m    kubelet, juju-cfb27c-2  pulling image &#34;perl&#34;
   Normal  Pulled     1m    kubelet, juju-cfb27c-2  Successfully pulled image &#34;perl&#34;
   Normal  Created    1m    kubelet, juju-cfb27c-2  Created container
-  Normal  Started    1m    kubelet, juju-cfb27c-2  Started container</pre></td></tr></table>
-</div>
-</div>
-<p>And view the log(STDOUT) with below command:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl logs pi-72c7r
-<span class="m">3</span>.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632788659361533818279682303019520353018529689957736225994138912497217752834791315155748572424541506959508295331168617278558890750983817546374649393192550604009277016711390098488240128583616035637076601047101819429555961989467678374494482553797747268471040475346462080466842590694912933136770289891521047521620569660240580381501935112533824300355876402474964732639141992726042699227967823547816360093417216412199245863150302861829745557067498385054945885869269956909272107975093029553211653449872027559602364806654991198818347977535663698074265425278625518184175746728909777727938000816470600161452491921732172147723501414419735685481613611573525521334757418494684385233239073941433345477624168625189835694855620992192221842725502542568876717904946016534668049886272327917860857843838279679766814541009538837863609506800642251252051173929848960841284886269456042419652850222106611863067442786220391949450471237137869609563643719172874677646575739624138908658326459958133904780275898</code></pre></td></tr></table>
-</div>
-</div>
-<p>Here is another example YAML file for job which use the image &ldquo;busybox&rdquo; and sleep for 10 seconds</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>batch/v1<span class="w">
-</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Job<span class="w">
-</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
-</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>busybox<span class="w">
-</span><span class="w"></span>spec<span class="p">:</span><span class="w">
-</span><span class="w">  </span>template<span class="p">:</span><span class="w">
-</span><span class="w">    </span>spec<span class="p">:</span><span class="w">
-</span><span class="w">      </span>containers<span class="p">:</span><span class="w">
-</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>busybox<span class="w">
-</span><span class="w">        </span>image<span class="p">:</span><span class="w"> </span>busybox<span class="w">
-</span><span class="w">        </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;sleep&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;10&#34;</span><span class="p">]</span><span class="w">
-</span><span class="w">      </span>restartPolicy<span class="p">:</span><span class="w"> </span>Never<span class="w">
-</span><span class="w">  </span>backoffLimit<span class="p">:</span><span class="w"> </span><span class="m">4</span></code></pre></td></tr></table>
-</div>
-</div>
-<h1 id="deploy-a-pod">Deploy a Pod</h1>
-
-<p>Pods usually represent running applications in a Kubernetes cluster.  Here is an example of some yaml which defines a pod:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Pod<span class="w">
-</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
-</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>alpine<span class="w">
-</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>default<span class="w">
-</span><span class="w"></span>spec<span class="p">:</span><span class="w">
-</span><span class="w">  </span>containers<span class="p">:</span><span class="w">
-</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>alpine<span class="w">
-</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>alpine<span class="w">
-</span><span class="w">    </span>command<span class="p">:</span><span class="w">
-</span><span class="w">      </span>-<span class="w"> </span>sleep<span class="w">
-</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;3600&#34;</span><span class="w">
-</span><span class="w">    </span>imagePullPolicy<span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
-</span><span class="w">  </span>restartPolicy<span class="p">:</span><span class="w"> </span>Always</code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="run-a-pod">run a Pod</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl create -f alpine.yaml</code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="delete-a-pod">delete a Pod</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl delete -f alpine.yaml</code></pre></td></tr></table>
-</div>
-</div>
-<p>Or</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl delete pod alpine</pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl delete pod/alpine</pre></td></tr></table>
-</div>
-</div>
-<h1 id="examine-the-current-status">Examine the current status</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl get nodes
+  Normal  Started    1m    kubelet, juju-cfb27c-2  Started container
+</code></pre></td></tr></table></div></div><p>And view the log(STDOUT) with below command:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ kubectl logs pi-72c7r
+3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632788659361533818279682303019520353018529689957736225994138912497217752834791315155748572424541506959508295331168617278558890750983817546374649393192550604009277016711390098488240128583616035637076601047101819429555961989467678374494482553797747268471040475346462080466842590694912933136770289891521047521620569660240580381501935112533824300355876402474964732639141992726042699227967823547816360093417216412199245863150302861829745557067498385054945885869269956909272107975093029553211653449872027559602364806654991198818347977535663698074265425278625518184175746728909777727938000816470600161452491921732172147723501414419735685481613611573525521334757418494684385233239073941433345477624168625189835694855620992192221842725502542568876717904946016534668049886272327917860857843838279679766814541009538837863609506800642251252051173929848960841284886269456042419652850222106611863067442786220391949450471237137869609563643719172874677646575739624138908658326459958133904780275898
+</code></pre></td></tr></table></div></div><p>Here is another example YAML file for job which use the image &ldquo;busybox&rdquo; and sleep for 10 seconds</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>apiVersion<span class=p>:</span><span class=w> </span>batch/v1<span class=w>
+</span><span class=w></span>kind<span class=p>:</span><span class=w> </span>Job<span class=w>
+</span><span class=w></span>metadata<span class=p>:</span><span class=w>
+</span><span class=w>  </span>name<span class=p>:</span><span class=w> </span>busybox<span class=w>
+</span><span class=w></span>spec<span class=p>:</span><span class=w>
+</span><span class=w>  </span>template<span class=p>:</span><span class=w>
+</span><span class=w>    </span>spec<span class=p>:</span><span class=w>
+</span><span class=w>      </span>containers<span class=p>:</span><span class=w>
+</span><span class=w>      </span>-<span class=w> </span>name<span class=p>:</span><span class=w> </span>busybox<span class=w>
+</span><span class=w>        </span>image<span class=p>:</span><span class=w> </span>busybox<span class=w>
+</span><span class=w>        </span>command<span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;sleep&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;10&#34;</span><span class=p>]</span><span class=w>
+</span><span class=w>      </span>restartPolicy<span class=p>:</span><span class=w> </span>Never<span class=w>
+</span><span class=w>  </span>backoffLimit<span class=p>:</span><span class=w> </span><span class=m>4</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h1 id=deploy-a-pod>Deploy a Pod</h1><p>Pods usually represent running applications in a Kubernetes cluster. Here is an example of some yaml which defines a pod:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>apiVersion<span class=p>:</span><span class=w> </span>v1<span class=w>
+</span><span class=w></span>kind<span class=p>:</span><span class=w> </span>Pod<span class=w>
+</span><span class=w></span>metadata<span class=p>:</span><span class=w>
+</span><span class=w>  </span>name<span class=p>:</span><span class=w> </span>alpine<span class=w>
+</span><span class=w>  </span>namespace<span class=p>:</span><span class=w> </span>default<span class=w>
+</span><span class=w></span>spec<span class=p>:</span><span class=w>
+</span><span class=w>  </span>containers<span class=p>:</span><span class=w>
+</span><span class=w>  </span>-<span class=w> </span>name<span class=p>:</span><span class=w> </span>alpine<span class=w>
+</span><span class=w>    </span>image<span class=p>:</span><span class=w> </span>alpine<span class=w>
+</span><span class=w>    </span>command<span class=p>:</span><span class=w>
+</span><span class=w>      </span>-<span class=w> </span>sleep<span class=w>
+</span><span class=w>      </span>-<span class=w> </span><span class=s2>&#34;3600&#34;</span><span class=w>
+</span><span class=w>    </span>imagePullPolicy<span class=p>:</span><span class=w> </span>IfNotPresent<span class=w>
+</span><span class=w>  </span>restartPolicy<span class=p>:</span><span class=w> </span>Always<span class=w>
+</span></code></pre></td></tr></table></div></div><h2 id=run-a-pod>run a Pod</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>kubectl create -f alpine.yaml
+</code></pre></td></tr></table></div></div><h2 id=delete-a-pod>delete a Pod</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>kubectl delete -f alpine.yaml
+</code></pre></td></tr></table></div></div><p>Or</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl delete pod alpine
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl delete pod/alpine
+</code></pre></td></tr></table></div></div><h1 id=examine-the-current-status>Examine the current status</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl get nodes
 kubectl describe node node-name
-kubectl get pods --all-namespaces -o wide</pre></td></tr></table>
-</div>
-</div>
-<p>Use <code>-n</code> will specify the namespace in use</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl get pods -n kube-system</pre></td></tr></table>
-</div>
-</div>
-<h1 id="deployment">Deployment</h1>
-
-<p>A yaml file for an nginx deployment</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apiVersion: apps/v1beta2
+kubectl get pods --all-namespaces -o wide
+</code></pre></td></tr></table></div></div><p>Use <code>-n</code> will specify the namespace in use</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl get pods -n kube-system
+</code></pre></td></tr></table></div></div><h1 id=deployment>Deployment</h1><p>A yaml file for an nginx deployment</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -783,122 +384,48 @@ spec:
       - name: nginx
         image: nginx:1.7.9
         ports:
-        - containerPort: 80</pre></td></tr></table>
-</div>
-</div>
-<h2 id="create-the-deployment-and-pod">Create the deployment and pod</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl create -f nginx-deployment.yaml</pre></td></tr></table>
-</div>
-</div>
-<p>Find the detail info</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl describe deployment nginx-deployment</pre></td></tr></table>
-</div>
-</div>
-<p>Check pod is running on which node</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ kubectl get pod nginx-deployment-7fc9b7bd96-c6wwh -o wide
+        - containerPort: 80
+</code></pre></td></tr></table></div></div><h2 id=create-the-deployment-and-pod>Create the deployment and pod</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl create -f nginx-deployment.yaml
+</code></pre></td></tr></table></div></div><p>Find the detail info</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl describe deployment nginx-deployment
+</code></pre></td></tr></table></div></div><p>Check pod is running on which node</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ kubectl get pod nginx-deployment-7fc9b7bd96-c6wwh -o wide
 NAME                                READY     STATUS    RESTARTS   AGE       IP          NODE            NOMINATED NODE
-nginx-deployment-7fc9b7bd96-c6wwh   1/1       Running   0          21h       10.1.33.6   juju-cfb27c-2   &lt;none&gt;</pre></td></tr></table>
-</div>
-</div>
-<h2 id="rollout-image-version">rollout image version</h2>
-
-<p>Change the image version to 1.8, you run below command</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl set image deployment nginx-deployment nginx=nginx:1.8</pre></td></tr></table>
-</div>
-</div>
-<p>Or, you can update the line in the yaml to 1.8 version of the image, and apply
-the changes with</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl apply -f nginx-deployment.yaml</pre></td></tr></table>
-</div>
-</div>
-<p>Check the status of the rollout with below command</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl rollout status deployment nginx-deployment</pre></td></tr></table>
-</div>
-</div>
-<p>Undo the previous rollout</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl rollout undo deployment nginx-deployment</pre></td></tr></table>
-</div>
-</div>
-<p>View the history</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl rollout history deployment nginx-deployment</pre></td></tr></table>
-</div>
-</div>
-<p>Go to a specific point in history</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl rollout history deployment nginx-deployment --revision=x</pre></td></tr></table>
-</div>
-</div>
-<h1 id="setting-container-environment-variables">Setting Container Environment Variables</h1>
-
-<p>Deploy a pod to print Environment Variables</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apiVersion: v1
+nginx-deployment-7fc9b7bd96-c6wwh   1/1       Running   0          21h       10.1.33.6   juju-cfb27c-2   &lt;none&gt;
+</code></pre></td></tr></table></div></div><h2 id=rollout-image-version>rollout image version</h2><p>Change the image version to 1.8, you run below command</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl set image deployment nginx-deployment nginx=nginx:1.8
+</code></pre></td></tr></table></div></div><p>Or, you can update the line in the yaml to 1.8 version of the image, and apply
+the changes with</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl apply -f nginx-deployment.yaml
+</code></pre></td></tr></table></div></div><p>Check the status of the rollout with below command</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl rollout status deployment nginx-deployment
+</code></pre></td></tr></table></div></div><p>Undo the previous rollout</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl rollout undo deployment nginx-deployment
+</code></pre></td></tr></table></div></div><p>View the history</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl rollout history deployment nginx-deployment
+</code></pre></td></tr></table></div></div><p>Go to a specific point in history</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl rollout history deployment nginx-deployment --revision=x
+</code></pre></td></tr></table></div></div><h1 id=setting-container-environment-variables>Setting Container Environment Variables</h1><p>Deploy a pod to print Environment Variables</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>apiVersion: v1
 kind: Pod
 metadata:
   name: env-dump
@@ -914,52 +441,34 @@ spec:
     - name: SCHOOL
       value: &#34;Linux Academy&#34;
     - name: KUBERNETES
-      value: &#34;is awesome&#34;</pre></td></tr></table>
-</div>
-</div>
-<p>After executed the pod, you can check Environment Viriables by log</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ kubectl logs env-dump
+      value: &#34;is awesome&#34;
+</code></pre></td></tr></table></div></div><p>After executed the pod, you can check Environment Viriables by log</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ kubectl logs env-dump
 ....
 STUDENT_NAME=Your Name
 SCHOOL=Linux Academy
 KUBERNETES=is awesome
-....</pre></td></tr></table>
-</div>
-</div>
-<h1 id="scaling-pod">Scaling pod</h1>
-
-<h2 id="command-line">command line</h2>
-
-<p>Use scale to deployment with &ndash;replicas=X</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ kubectl get deployment
+....
+</code></pre></td></tr></table></div></div><h1 id=scaling-pod>Scaling pod</h1><h2 id=command-line>command line</h2><p>Use scale to deployment with &ndash;replicas=X</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ kubectl get deployment
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   2         2         2            2           21h
 $ kubectl scale deployment nginx-deployment --replicas=3
@@ -972,56 +481,34 @@ NAME                                               READY     STATUS      RESTART
 ...
 nginx-deployment-7fc9b7bd96-c6wwh                  1/1       Running     0          21h
 nginx-deployment-7fc9b7bd96-kddj5                  1/1       Running     0          31s
-nginx-deployment-7fc9b7bd96-s86gc                  1/1       Running     0          21h</pre></td></tr></table>
-</div>
-</div>
-<h2 id="yaml-file">yaml file</h2>
-
-<p>Update <code>replicas: x</code> part in yaml file, and apply the changes with</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl apply -f nginx-deployment.yml </pre></td></tr></table>
-</div>
-</div>
-<h1 id="replication-controllers-replica-sets-and-deployments">Replication Controllers, Replica Sets, and Deployments</h1>
-
-<p>Deployments replaced the older ReplicationController functionality, but it never
-hurts to know where you came from.  Deployments are easier to work with,
-and here&rsquo;s a brief exercise to show you how.
+nginx-deployment-7fc9b7bd96-s86gc                  1/1       Running     0          21h
+</code></pre></td></tr></table></div></div><h2 id=yaml-file>yaml file</h2><p>Update <code>replicas: x</code> part in yaml file, and apply the changes with</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl apply -f nginx-deployment.yml 
+</code></pre></td></tr></table></div></div><h1 id=replication-controllers-replica-sets-and-deployments>Replication Controllers, Replica Sets, and Deployments</h1><p>Deployments replaced the older ReplicationController functionality, but it never
+hurts to know where you came from. Deployments are easier to work with,
+and here's a brief exercise to show you how.
 A Replication Controller ensures that a specified number of pod replicas are running
 at any one time. In other words, a Replication Controller makes sure that a pod or
-a homogeneous set of pods is always up and available.</p>
-
-<p>To maintain three copies of an nginx container</p>
-
-<h2 id="replication-controllers">Replication Controllers</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apiVersion: v1
+a homogeneous set of pods is always up and available.</p><p>To maintain three copies of an nginx container</p><h2 id=replication-controllers>Replication Controllers</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>apiVersion: v1
 kind: ReplicationController
 metadata:
   name: nginx
@@ -1039,36 +526,29 @@ spec:
       - name: nginx
         image: nginx
         ports:
-        - containerPort: 80</pre></td></tr></table>
-</div>
-</div>
-<h2 id="replicaset">ReplicaSet</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apiVersion: apps/v1beta2
+        - containerPort: 80
+</code></pre></td></tr></table></div></div><h2 id=replicaset>ReplicaSet</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>apiVersion: apps/v1beta2
 kind: ReplicaSet
 metadata:
   name: nginx
@@ -1088,36 +568,29 @@ spec:
       - name: nginx
         image: nginx
         ports:
-        - containerPort: 80</pre></td></tr></table>
-</div>
-</div>
-<h2 id="deployment-1">Deployment</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
+        - containerPort: 80
+</code></pre></td></tr></table></div></div><h2 id=deployment-1>Deployment</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -1137,82 +610,43 @@ spec:
       - name: nginx
         image: nginx
         ports:
-        - containerPort: 80</pre></td></tr></table>
-</div>
-</div>
-<h1 id="label">Label</h1>
-
-<p>Label node with colors</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl label node node1-name color=black
+        - containerPort: 80
+</code></pre></td></tr></table></div></div><h1 id=label>Label</h1><p>Label node with colors</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl label node node1-name color=black
 kubectl label node node2-name color=red
 kubectl label node node3-name color=green
-kubectl label node node4-name color=blue</pre></td></tr></table>
-</div>
-</div>
-<p>Label all pod in default namespace by using <code>--all</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl label pods -n default color=white --all</pre></td></tr></table>
-</div>
-</div>
-<p>Get pod/node/etc with specific label</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl get pods -l color=white -n default</pre></td></tr></table>
-</div>
-</div>
-<p>Get pod with multi labels</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl get pods -l color=white,app=nginx</pre></td></tr></table>
-</div>
-</div>
-<h1 id="daemonset">DaemonSet</h1>
-
-<p>Deploy nginx pod on all node with</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apiVersion: apps/v1
+kubectl label node node4-name color=blue
+</code></pre></td></tr></table></div></div><p>Label all pod in default namespace by using <code>--all</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl label pods -n default color=white --all
+</code></pre></td></tr></table></div></div><p>Get pod/node/etc with specific label</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl get pods -l color=white -n default
+</code></pre></td></tr></table></div></div><p>Get pod with multi labels</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl get pods -l color=white,app=nginx
+</code></pre></td></tr></table></div></div><h1 id=daemonset>DaemonSet</h1><p>Deploy nginx pod on all node with</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: cthulu
@@ -1232,60 +666,37 @@ spec:
         effect: NoSchedule
       containers:
       - name: cthulu-jr
-        image: nginx</pre></td></tr></table>
-</div>
-</div>
-<p>Confirm that pod is running on each node</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ kubectl get pod -o wide
+        image: nginx
+</code></pre></td></tr></table></div></div><p>Confirm that pod is running on each node</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ kubectl get pod -o wide
 NAME                                               READY     STATUS             RESTARTS   AGE       IP              NODE            NOMINATED NODE
 cthulu-kvbk9                                       1/1       Running            0          2m        10.1.33.8       juju-cfb27c-2   &lt;none&gt;
 cthulu-t7hfc                                       1/1       Running            0          2m        10.1.45.13      juju-cfb27c-1   &lt;none&gt;
-cthulu-x8hdf                                       1/1       Running            0          2m        10.1.31.9       juju-cfb27c-3   &lt;none&gt;</pre></td></tr></table>
-</div>
-</div>
-<h1 id="label-a-node-schedule-a-pod">Label a Node &amp; Schedule a Pod</h1>
-
-<p>Label a Node to let you can schedule a pod on it.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl label node juju-cfb27c-3 deploy=here</pre></td></tr></table>
-</div>
-</div>
-<p>use <code>nodeSelector</code> in yaml file to let a pod being deployed on the specific
-node</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apiVersion: v1
+cthulu-x8hdf                                       1/1       Running            0          2m        10.1.31.9       juju-cfb27c-3   &lt;none&gt;
+</code></pre></td></tr></table></div></div><h1 id=label-a-node--schedule-a-pod>Label a Node & Schedule a Pod</h1><p>Label a Node to let you can schedule a pod on it.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl label node juju-cfb27c-3 deploy=here
+</code></pre></td></tr></table></div></div><p>use <code>nodeSelector</code> in yaml file to let a pod being deployed on the specific
+node</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>apiVersion: v1
 kind: Pod
 metadata:
   name: busybox
@@ -1300,47 +711,29 @@ spec:
     imagePullPolicy: IfNotPresent
   restartPolicy: Always
   nodeSelector: 
-    deploy: here </pre></td></tr></table>
-</div>
-</div>
-<p>Confirm</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ kubectl get pod busybox -o wide
+    deploy: here 
+</code></pre></td></tr></table></div></div><p>Confirm</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ kubectl get pod busybox -o wide
 NAME      READY     STATUS    RESTARTS   AGE       IP           NODE            NOMINATED NODE
-busybox   1/1       Running   0          10s       10.1.31.10   juju-cfb27c-3   &lt;none&gt;</pre></td></tr></table>
-</div>
-</div>
-<h1 id="specific-schedulers">Specific Schedulers</h1>
-
-<p>Ordinarily, we don&rsquo;t need to specify the scheduler&rsquo;s name in the spec because everyone uses a
+busybox   1/1       Running   0          10s       10.1.31.10   juju-cfb27c-3   &lt;none&gt;
+</code></pre></td></tr></table></div></div><h1 id=specific-schedulers>Specific Schedulers</h1><p>Ordinarily, we don't need to specify the scheduler's name in the spec because everyone uses a
 single default one. Sometimes, however, developers need to have custom schedulers in charge of
-placing pods due to legacy or specialized hardware constraints.</p>
-
-<p>Use <code>schedulerName</code> in yaml to specific a customer scheduler</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apiVersion: v1
+placing pods due to legacy or specialized hardware constraints.</p><p>Use <code>schedulerName</code> in yaml to specific a customer scheduler</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>apiVersion: v1
 kind: Pod
 metadata:
   name: annotation-default-scheduler
@@ -1352,239 +745,85 @@ spec:
   schedulerName: custom-scheduler
   containers:
   - name: pod-container
-    image: k8s.gcr.io/pause:2.0</pre></td></tr></table>
-</div>
-</div>
-<h1 id="logs">Logs</h1>
-
-<p>View the current logs of a pod</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl logs pod-name</pre></td></tr></table>
-</div>
-</div>
-<p>View the current logs of a pod interactively</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl logs pod-name -f</pre></td></tr></table>
-</div>
-</div>
-<p>Print last 10 lines of the log.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl logs pod-name --tail=10</pre></td></tr></table>
-</div>
-</div>
-<p>Log file in master/node machine can be found at <code>/var/log/containers</code> directory</p>
-
-<h1 id="node-maintenance">Node maintenance</h1>
-
-<p>Maintenance a node by preventing the scheduler from putting new pods on to it and
+    image: k8s.gcr.io/pause:2.0
+</code></pre></td></tr></table></div></div><h1 id=logs>Logs</h1><p>View the current logs of a pod</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl logs pod-name
+</code></pre></td></tr></table></div></div><p>View the current logs of a pod interactively</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl logs pod-name -f
+</code></pre></td></tr></table></div></div><p>Print last 10 lines of the log.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl logs pod-name --tail=10
+</code></pre></td></tr></table></div></div><p>Log file in master/node machine can be found at <code>/var/log/containers</code> directory</p><h1 id=node-maintenance>Node maintenance</h1><p>Maintenance a node by preventing the scheduler from putting new pods on to it and
 evicting any existing pods. Ignore the DaemonSets &ndash; those pods are only providing
-services to other local pods and will come back up when the node comes back up.</p>
-
-<p>In this example I&rsquo;m going to remove juju-cfb27c-2 from cluster.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">root@juju-cfb27c-0:~# kubectl drain juju-cfb27c-2 --ignore-daemonsets
+services to other local pods and will come back up when the node comes back up.</p><p>In this example I'm going to remove juju-cfb27c-2 from cluster.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>root@juju-cfb27c-0:~# kubectl drain juju-cfb27c-2 --ignore-daemonsets
 node/juju-cfb27c-2 cordoned
-WARNING: Ignoring DaemonSet-managed pods: cthulu-kvbk9, nginx-ingress-kubernetes-worker-controller-t6qh9</pre></td></tr></table>
-</div>
-</div>
-<p>juju-cfb27c-2 is marked as &ldquo;SchedulingDisabled&rdquo;</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># kubectl get node
+WARNING: Ignoring DaemonSet-managed pods: cthulu-kvbk9, nginx-ingress-kubernetes-worker-controller-t6qh9
+</code></pre></td></tr></table></div></div><p>juju-cfb27c-2 is marked as &ldquo;SchedulingDisabled&rdquo;</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># kubectl get node
 NAME            STATUS                     ROLES     AGE       VERSION
 juju-cfb27c-1   Ready                      &lt;none&gt;    4d        v1.11.2
 juju-cfb27c-2   Ready,SchedulingDisabled   &lt;none&gt;    4d        v1.11.2
-juju-cfb27c-3   Ready                      &lt;none&gt;    4d        v1.11.2</pre></td></tr></table>
-</div>
-</div>
-<p>Now -2 node can be shutdown and do maintenance work, no pod will be schedule on
-it. If you create some new pods, they will only placed on juju-cfb27c-1 and -3.</p>
-
-<p>Next, when -2 node is ready to use, you can get it back with</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># kubectl uncordon juju-cfb27c-2 
+juju-cfb27c-3   Ready                      &lt;none&gt;    4d        v1.11.2
+</code></pre></td></tr></table></div></div><p>Now -2 node can be shutdown and do maintenance work, no pod will be schedule on
+it. If you create some new pods, they will only placed on juju-cfb27c-1 and -3.</p><p>Next, when -2 node is ready to use, you can get it back with</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># kubectl uncordon juju-cfb27c-2 
 node/juju-cfb27c-2 uncordoned
 # kubectl get node
 NAME            STATUS    ROLES     AGE       VERSION
 juju-cfb27c-1   Ready     &lt;none&gt;    4d        v1.11.2
 juju-cfb27c-2   Ready     &lt;none&gt;    4d        v1.11.2
-juju-cfb27c-3   Ready     &lt;none&gt;    4d        v1.11.2</pre></td></tr></table>
-</div>
-</div>
-<h1 id="upgrading-kubernetes-components">Upgrading Kubernetes Components</h1>
+juju-cfb27c-3   Ready     &lt;none&gt;    4d        v1.11.2
 
-<p>Confirm the current version with</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl get nodes</pre></td></tr></table>
-</div>
-</div>
-<ol>
-<li><p>Upgrade kubeadm on the master node</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">sudo apt upgrade kubeadm</pre></td></tr></table>
-</div>
-</div></li>
-</ol>
-
-<p>And confirm the version of kubeadm with</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubeadm version</pre></td></tr></table>
-</div>
-</div>
-<ol>
-<li><p>check the upgrade plan</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">sudo kubeadm upgrade plan</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>apply the upgrade plan</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">sudo kubeadm upgrade apply v1.x.x</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>upgrade kubelet</p></li>
-</ol>
-
-<p>Before upgrade kubelet, first you need to drain the node which you want to
-upgrade</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl drain NODENAME --ignore-daemonsets</pre></td></tr></table>
-</div>
-</div>
-<p>Then, update kubelet manaully with</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">sudo apt update
-sudo apt upgrade kubelet</pre></td></tr></table>
-</div>
-</div>
-<p>Don&rsquo;t forget to make your node avaliable after the upgrade.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">kubectl uncordon NODENAME</pre></td></tr></table>
-</div>
-</div>
-<h1 id="network">Network</h1>
-
-<h2 id="inbound-node-port-requirements">Inbound Node Port Requirements</h2>
-
-<ul>
-<li>Master Nodes
-
-<ul>
-<li>TCP 6443         &ndash;  Kubernetes API Server</li>
-<li>TCP 2379-2380    &ndash;  etcd server client API</li>
-<li>TCP 10250        &ndash;  Kubelet API</li>
-<li>TCP 10251        &ndash;  Kube-scheduler</li>
-<li>TCP 10252        &ndash;  kube-controller-manager</li>
-<li>TCP 10255        &ndash;  Read-only Kubelet API</li>
-</ul></li>
-<li>Worker Nodes
-
-<ul>
-<li>TCP 10250        &ndash;  Kubelet API</li>
-<li>TCP 10255        &ndash;  Read-only Kubelet API</li>
-<li>TCP 30000-32767  &ndash; Node Port Services</li>
-</ul></li>
-</ul>
-
-<h2 id="export-pod-to-the-internet">export pod to the internet</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># kubectl expost deployment NAME --type=&#34;NodePort&#34; --port XX</pre></td></tr></table>
-</div>
-</div>
-<h2 id="deploying-a-load-balancer">Deploying a Load Balancer</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">Kind:Service
+</code></pre></td></tr></table></div></div><h1 id=upgrading-kubernetes-components>Upgrading Kubernetes Components</h1><p>Confirm the current version with</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl get nodes
+</code></pre></td></tr></table></div></div><ol><li>Upgrade kubeadm on the master node</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>sudo apt upgrade kubeadm
+</code></pre></td></tr></table></div></div><p>And confirm the version of kubeadm with</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubeadm version
+</code></pre></td></tr></table></div></div><ol><li>check the upgrade plan</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>sudo kubeadm upgrade plan
+</code></pre></td></tr></table></div></div><ol><li>apply the upgrade plan</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>sudo kubeadm upgrade apply v1.x.x
+</code></pre></td></tr></table></div></div><ol><li>upgrade kubelet</li></ol><p>Before upgrade kubelet, first you need to drain the node which you want to
+upgrade</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl drain NODENAME --ignore-daemonsets
+</code></pre></td></tr></table></div></div><p>Then, update kubelet manaully with</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>sudo apt update
+sudo apt upgrade kubelet
+</code></pre></td></tr></table></div></div><p>Don't forget to make your node avaliable after the upgrade.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl uncordon NODENAME
+</code></pre></td></tr></table></div></div><h1 id=network>Network</h1><h2 id=inbound-node-port-requirements>Inbound Node Port Requirements</h2><ul><li>Master Nodes<ul><li>TCP 6443 &ndash; Kubernetes API Server</li><li>TCP 2379-2380 &ndash; etcd server client API</li><li>TCP 10250 &ndash; Kubelet API</li><li>TCP 10251 &ndash; Kube-scheduler</li><li>TCP 10252 &ndash; kube-controller-manager</li><li>TCP 10255 &ndash; Read-only Kubelet API</li></ul></li><li>Worker Nodes<ul><li>TCP 10250 &ndash; Kubelet API</li><li>TCP 10255 &ndash; Read-only Kubelet API</li><li>TCP 30000-32767 &ndash; Node Port Services</li></ul></li></ul><h2 id=export-pod-to-the-internet>export pod to the internet</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># kubectl expost deployment NAME --type=&#34;NodePort&#34; --port XX
+</code></pre></td></tr></table></div></div><h2 id=deploying-a-load-balancer>Deploying a Load Balancer</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Kind:Service
 apiVersion: v1
 metadata:
   name: la-lb-service
@@ -1597,128 +836,22 @@ spec:
      targetPort:9376
   clusterIP: 10.0.171.223
   loadBalancerIP: 78.12.23.17
-  type: LoadBalancer</pre></td></tr></table>
-</div>
-</div>
-    </div>
+  type: LoadBalancer
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Wenhan Shi</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2020-03-26
-        <a href="https://github.com/xibuka/xibuka.github.io.git/commit/02c19e3e1115c42cabb6448c1045ebb3b6a8a476" title="first commit">(02c19e3)</a>
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/kubernetes/">Kubernetes</a>
-          <a href="/tags/cka/">CKA</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/openstack-frequently-used-command/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">OpenStack frequently used command</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/juju-use-juju-to-deploy-minecraft-server-in-lxd/">
-            <span class="next-text nav-default">[Juju] Use juju to deploy minecraft server in LXD</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-
-  
-
-  
-    <script src="https://utteranc.es/client.js"
-            repo="xibuka/xibuka.github.io"
-            issue-term="pathname"
-            theme="github-light"
-            crossorigin="anonymous"
-            async>
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="http://wenhan.blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-      <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-  </div>
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Wenhan Shi</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-87273435-2', 'auto');
-	ga('set', 'anonymizeIp', true);
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-</body>
-</html>
+</code></pre></td></tr></table></div></div></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Wenhan Shi</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-03-30
+<a href=https://github.com/xibuka/xibuka.github.io.git/commit/2e618d8f83d00f8e4e8bd89cbbc00a4968670cab title="workflow test 4">(2e618d8)</a></span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/kubernetes/>Kubernetes</a>
+<a href=/tags/cka/>CKA</a></div><nav class=post-nav><a class=prev href=/post/openstack-frequently-used-command/><i class="iconfont icon-left"></i><span class="prev-text nav-default">OpenStack frequently used command</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/juju-use-juju-to-deploy-minecraft-server-in-lxd/><span class="next-text nav-default">[Juju] Use juju to deploy minecraft server in LXD</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=xibuka/xibuka.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=http://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2016 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

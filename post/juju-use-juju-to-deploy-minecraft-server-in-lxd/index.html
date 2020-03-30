@@ -1,340 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>[Juju] Use juju to deploy minecraft server in LXD - Wenhan Shi Blog</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Wenhan Shi" /><meta name="description" content="Juju is a deploy tool which supports a very wide range of cloud providers, like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on how to build an OpenStack test environment using Juju and LXD.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>[Juju] Use juju to deploy minecraft server in LXD - Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="Juju is a deploy tool which supports a very wide range of cloud providers, like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on how to build an OpenStack test environment using Juju and LXD.
 installing LXD It is very easy to install LXD, just run below command
-1  $ sudo apt-install lxd   If you can&amp;rsquo;t find lxd package, run below command to add PPA(Personal Package Archive) to find LXD package." /><meta name="keywords" content="Ubuntu, RHEL, Docker, Kubernetes, OpenShift, GlusterFS" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.57.2 with theme even" />
-
-
-<link rel="canonical" href="http://wenhan.blog/post/juju-use-juju-to-deploy-minecraft-server-in-lxd/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="[Juju] Use juju to deploy minecraft server in LXD" />
-<meta property="og:description" content="Juju is a deploy tool which supports a very wide range of cloud providers, like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on how to build an OpenStack test environment using Juju and LXD.
+1  $ sudo apt-install lxd   If you can't find lxd package, run below command to add PPA(Personal Package Archive) to find LXD package."><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=http://wenhan.blog/post/juju-use-juju-to-deploy-minecraft-server-in-lxd/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="[Juju] Use juju to deploy minecraft server in LXD"><meta property="og:description" content="Juju is a deploy tool which supports a very wide range of cloud providers, like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on how to build an OpenStack test environment using Juju and LXD.
 installing LXD It is very easy to install LXD, just run below command
-1  $ sudo apt-install lxd   If you can&rsquo;t find lxd package, run below command to add PPA(Personal Package Archive) to find LXD package." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://wenhan.blog/post/juju-use-juju-to-deploy-minecraft-server-in-lxd/" />
-<meta property="article:published_time" content="2018-06-28T17:01:36+00:00" />
-<meta property="article:modified_time" content="2020-03-26T14:30:43+09:00" />
-<meta itemprop="name" content="[Juju] Use juju to deploy minecraft server in LXD">
-<meta itemprop="description" content="Juju is a deploy tool which supports a very wide range of cloud providers, like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on how to build an OpenStack test environment using Juju and LXD.
+1  $ sudo apt-install lxd   If you can't find lxd package, run below command to add PPA(Personal Package Archive) to find LXD package."><meta property="og:type" content="article"><meta property="og:url" content="http://wenhan.blog/post/juju-use-juju-to-deploy-minecraft-server-in-lxd/"><meta property="article:published_time" content="2018-06-28T17:01:36+00:00"><meta property="article:modified_time" content="2020-03-30T13:56:15+09:00"><meta itemprop=name content="[Juju] Use juju to deploy minecraft server in LXD"><meta itemprop=description content="Juju is a deploy tool which supports a very wide range of cloud providers, like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on how to build an OpenStack test environment using Juju and LXD.
 installing LXD It is very easy to install LXD, just run below command
-1  $ sudo apt-install lxd   If you can&rsquo;t find lxd package, run below command to add PPA(Personal Package Archive) to find LXD package.">
-
-
-<meta itemprop="datePublished" content="2018-06-28T17:01:36&#43;00:00" />
-<meta itemprop="dateModified" content="2020-03-26T14:30:43&#43;09:00" />
-<meta itemprop="wordCount" content="2163">
-
-
-
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="[Juju] Use juju to deploy minecraft server in LXD"/>
-<meta name="twitter:description" content="Juju is a deploy tool which supports a very wide range of cloud providers, like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on how to build an OpenStack test environment using Juju and LXD.
+1  $ sudo apt-install lxd   If you can't find lxd package, run below command to add PPA(Personal Package Archive) to find LXD package."><meta itemprop=datePublished content="2018-06-28T17:01:36+00:00"><meta itemprop=dateModified content="2020-03-30T13:56:15+09:00"><meta itemprop=wordCount content="2164"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="[Juju] Use juju to deploy minecraft server in LXD"><meta name=twitter:description content="Juju is a deploy tool which supports a very wide range of cloud providers, like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on how to build an OpenStack test environment using Juju and LXD.
 installing LXD It is very easy to install LXD, just run below command
-1  $ sudo apt-install lxd   If you can&rsquo;t find lxd package, run below command to add PPA(Personal Package Archive) to find LXD package."/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2422626403812806"
-     data-ad-slot="1454707894"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">WenhanBlog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">WenhanBlog</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li>
-  </ul>
-</nav>
-
-<div class="social-links">
-      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="http://wenhan.blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">[Juju] Use juju to deploy minecraft server in LXD</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2018-06-28 </span>
-        
-          <span class="more-meta"> 2163 words </span>
-          <span class="more-meta"> 11 mins read </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#installing-lxd">installing LXD</a></li>
-<li><a href="#configuring-lxd">Configuring LXD</a></li>
-<li><a href="#installing-juju">Installing juju</a></li>
-<li><a href="#deploy-minecraft-server">Deploy minecraft server</a></li>
-<li><a href="#deploy-minecraft-server-1">Deploy minecraft server</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      
-
-<p>Juju is a deploy tool which supports a very wide range of cloud providers,
+1  $ sudo apt-install lxd   If you can't find lxd package, run below command to add PPA(Personal Package Archive) to find LXD package."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><ins class=adsbygoogle style=display:block data-ad-client=ca-pub-2422626403812806 data-ad-slot=1454707894 data-ad-format=auto></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=http://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>[Juju] Use juju to deploy minecraft server in LXD</h1><div class=post-meta><span class=post-time>2018-06-28</span>
+<span class=more-meta>2164 words</span>
+<span class=more-meta>11 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents></nav></div></div><div class=post-content><p>Juju is a deploy tool which supports a very wide range of cloud providers,
 like AWS, Azure, Google Cloud Platform, MAAS and LXD. This artcle will focus on
-how to build an OpenStack test environment using Juju and LXD.</p>
-
-<h1 id="installing-lxd">installing LXD</h1>
-
-<p>It is very easy to install LXD, just run below command</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ sudo apt-install lxd</pre></td></tr></table>
-</div>
-</div>
-<p>If you can&rsquo;t find lxd package, run below command to add PPA(Personal Package
-Archive) to find LXD package. Then re-run the install command.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ sudo apt-add-repository ppa:ubuntu-lxc/stable
+how to build an OpenStack test environment using Juju and LXD.</p><h1 id=installing-lxd>installing LXD</h1><p>It is very easy to install LXD, just run below command</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ sudo apt-install lxd
+</code></pre></td></tr></table></div></div><p>If you can't find lxd package, run below command to add PPA(Personal Package
+Archive) to find LXD package. Then re-run the install command.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ sudo apt-add-repository ppa:ubuntu-lxc/stable
 $ sudo apt update
-$ sudo apt dist-upgrade</pre></td></tr></table>
-</div>
-</div>
-<h1 id="configuring-lxd">Configuring LXD</h1>
-
-<p>Run below command to config lxd setting step by step</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ sudo lxd init
+$ sudo apt dist-upgrade
+</code></pre></td></tr></table></div></div><h1 id=configuring-lxd>Configuring LXD</h1><p>Run below command to config lxd setting step by step</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ sudo lxd init
 Do you want to configure a new storage pool (yes/no) [default=yes]?
 Name of the storage backend to use (dir or zfs) [default=dir]:
 Would you like LXD to be available over the network (yes/no) [default=no]?
 Do you want to configure the LXD bridge (yes/no) [default=yes]?
 Warning: Stopping lxd.service, but it can still be activated by:
   lxd.socket
-LXD has been successfully configured.</pre></td></tr></table>
-</div>
-</div>
-<h1 id="installing-juju">Installing juju</h1>
-
-<p>Run below command to install juju</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"><span class="err">$</span> <span class="nx">sudo</span> <span class="nx">apt</span> <span class="nx">install</span> <span class="nx">juju</span>
-<span class="nx">Reading</span> <span class="kn">package</span> <span class="nx">lists</span><span class="o">...</span> <span class="nx">Done</span>
-<span class="nx">Building</span> <span class="nx">dependency</span> <span class="nx">tree</span>
-<span class="nx">Reading</span> <span class="nx">state</span> <span class="nx">information</span><span class="o">...</span> <span class="nx">Done</span>
-<span class="nx">The</span> <span class="nx">following</span> <span class="nx">additional</span> <span class="nx">packages</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">installed</span><span class="p">:</span>
-  <span class="nx">distro</span><span class="o">-</span><span class="nx">info</span> <span class="nx">juju</span><span class="o">-</span><span class="mf">2.0</span>
-<span class="nx">Suggested</span> <span class="nx">packages</span><span class="p">:</span>
-  <span class="nx">shunit2</span> <span class="nx">juju</span><span class="o">-</span><span class="nx">core</span>
-<span class="nx">The</span> <span class="nx">following</span> <span class="nx">NEW</span> <span class="nx">packages</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">installed</span><span class="p">:</span>
-  <span class="nx">distro</span><span class="o">-</span><span class="nx">info</span> <span class="nx">juju</span> <span class="nx">juju</span><span class="o">-</span><span class="mf">2.0</span>
-<span class="mi">0</span> <span class="nx">upgraded</span><span class="p">,</span> <span class="mi">3</span> <span class="nx">newly</span> <span class="nx">installed</span><span class="p">,</span> <span class="mi">0</span> <span class="nx">to</span> <span class="nx">remove</span> <span class="nx">and</span> <span class="mi">0</span> <span class="nx">not</span> <span class="nx">upgraded</span><span class="p">.</span>
-<span class="nx">Need</span> <span class="nx">to</span> <span class="nx">get</span> <span class="mf">32.0</span> <span class="nx">MB</span> <span class="nx">of</span> <span class="nx">archives</span><span class="p">.</span>
-<span class="nx">After</span> <span class="nx">this</span> <span class="nx">operation</span><span class="p">,</span> <span class="mi">168</span> <span class="nx">MB</span> <span class="nx">of</span> <span class="nx">additional</span> <span class="nx">disk</span> <span class="nx">space</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">used</span><span class="p">.</span>
-<span class="nx">Do</span> <span class="nx">you</span> <span class="nx">want</span> <span class="nx">to</span> <span class="k">continue</span><span class="err">?</span> <span class="p">[</span><span class="nx">Y</span><span class="o">/</span><span class="nx">n</span><span class="p">]</span>
-<span class="nx">Get</span><span class="p">:</span><span class="mi">1</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//archive.ubuntu.com/ubuntu xenial/main amd64 distro-info amd64 0.14build1 [20.0 kB]
-</span><span class="c1"></span><span class="nx">Get</span><span class="p">:</span><span class="mi">2</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//archive.ubuntu.com/ubuntu xenial-updates/main amd64 juju-2.0 amd64 2.3.7-0ubuntu0.16.04.1 [32.0 MB]
-</span><span class="c1"></span><span class="nx">Get</span><span class="p">:</span><span class="mi">3</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//archive.ubuntu.com/ubuntu xenial-updates/main amd64 juju all 2.3.7-0ubuntu0.16.04.1 [10.2 kB]
-</span><span class="c1"></span><span class="nx">Fetched</span> <span class="mf">32.0</span> <span class="nx">MB</span> <span class="nx">in</span> <span class="mi">4</span><span class="nf">s</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">778</span> <span class="nx">kB</span><span class="o">/</span><span class="nx">s</span><span class="p">)</span>
-<span class="nx">Preconfiguring</span> <span class="nx">packages</span> <span class="o">...</span>
-<span class="nx">Selecting</span> <span class="nx">previously</span> <span class="nx">unselected</span> <span class="kn">package</span> <span class="nx">distro</span><span class="o">-</span><span class="nx">info</span><span class="p">.</span>
-<span class="p">(</span><span class="nx">Reading</span> <span class="nx">database</span> <span class="o">...</span> <span class="mi">60478</span> <span class="nx">files</span> <span class="nx">and</span> <span class="nx">directories</span> <span class="nx">currently</span> <span class="nx">installed</span><span class="p">.)</span>
-<span class="nx">Preparing</span> <span class="nx">to</span> <span class="nx">unpack</span> <span class="o">.../</span><span class="nx">distro</span><span class="o">-</span><span class="nx">info_0</span><span class="mf">.14</span><span class="nx">build1_amd64</span><span class="p">.</span><span class="nx">deb</span> <span class="o">...</span>
-<span class="nx">Unpacking</span> <span class="nx">distro</span><span class="o">-</span><span class="nf">info</span> <span class="p">(</span><span class="mf">0.14</span><span class="nx">build1</span><span class="p">)</span> <span class="o">...</span>
-<span class="nx">Selecting</span> <span class="nx">previously</span> <span class="nx">unselected</span> <span class="kn">package</span> <span class="nx">juju</span><span class="o">-</span><span class="mf">2.0</span><span class="p">.</span>
-<span class="nx">Preparing</span> <span class="nx">to</span> <span class="nx">unpack</span> <span class="o">.../</span><span class="nx">juju</span><span class="o">-</span><span class="mf">2.0</span><span class="nx">_2</span><span class="mf">.3.7</span><span class="o">-</span><span class="mi">0</span><span class="nx">ubuntu0</span><span class="mf">.16.04.1</span><span class="nx">_amd64</span><span class="p">.</span><span class="nx">deb</span> <span class="o">...</span>
-<span class="nx">Unpacking</span> <span class="nx">juju</span><span class="o">-</span><span class="mf">2.0</span> <span class="p">(</span><span class="mf">2.3.7</span><span class="o">-</span><span class="mi">0</span><span class="nx">ubuntu0</span><span class="mf">.16.04.1</span><span class="p">)</span> <span class="o">...</span>
-<span class="nx">Selecting</span> <span class="nx">previously</span> <span class="nx">unselected</span> <span class="kn">package</span> <span class="nx">juju</span><span class="p">.</span>
-<span class="nx">Preparing</span> <span class="nx">to</span> <span class="nx">unpack</span> <span class="o">.../</span><span class="nx">juju_2</span><span class="mf">.3.7</span><span class="o">-</span><span class="mi">0</span><span class="nx">ubuntu0</span><span class="mf">.16.04.1</span><span class="nx">_all</span><span class="p">.</span><span class="nx">deb</span> <span class="o">...</span>
-<span class="nx">Unpacking</span> <span class="nf">juju</span> <span class="p">(</span><span class="mf">2.3.7</span><span class="o">-</span><span class="mi">0</span><span class="nx">ubuntu0</span><span class="mf">.16.04.1</span><span class="p">)</span> <span class="o">...</span>
-<span class="nx">Processing</span> <span class="nx">triggers</span> <span class="k">for</span> <span class="nx">man</span><span class="o">-</span><span class="nf">db</span> <span class="p">(</span><span class="mf">2.7.5</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">...</span>
-<span class="nx">Setting</span> <span class="nx">up</span> <span class="nx">distro</span><span class="o">-</span><span class="nf">info</span> <span class="p">(</span><span class="mf">0.14</span><span class="nx">build1</span><span class="p">)</span> <span class="o">...</span>
-<span class="nx">Setting</span> <span class="nx">up</span> <span class="nx">juju</span><span class="o">-</span><span class="mf">2.0</span> <span class="p">(</span><span class="mf">2.3.7</span><span class="o">-</span><span class="mi">0</span><span class="nx">ubuntu0</span><span class="mf">.16.04.1</span><span class="p">)</span> <span class="o">...</span>
-<span class="nx">Setting</span> <span class="nx">up</span> <span class="nf">juju</span> <span class="p">(</span><span class="mf">2.3.7</span><span class="o">-</span><span class="mi">0</span><span class="nx">ubuntu0</span><span class="mf">.16.04.1</span><span class="p">)</span> <span class="o">...</span></pre></td></tr></table>
-</div>
-</div>
-<p>Once the install is done, we can bootstrap a new controller using LXD. This
-means that juju will create a new LXD container for management service.</p>
-
-<p>We can create a controller called juju-controller with below command</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ juju bootstrap localhost juju-controller
+LXD has been successfully configured.
+</code></pre></td></tr></table></div></div><h1 id=installing-juju>Installing juju</h1><p>Run below command to install juju</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=err>$</span> <span class=nx>sudo</span> <span class=nx>apt</span> <span class=nx>install</span> <span class=nx>juju</span>
+<span class=nx>Reading</span> <span class=kn>package</span> <span class=nx>lists</span><span class=o>...</span> <span class=nx>Done</span>
+<span class=nx>Building</span> <span class=nx>dependency</span> <span class=nx>tree</span>
+<span class=nx>Reading</span> <span class=nx>state</span> <span class=nx>information</span><span class=o>...</span> <span class=nx>Done</span>
+<span class=nx>The</span> <span class=nx>following</span> <span class=nx>additional</span> <span class=nx>packages</span> <span class=nx>will</span> <span class=nx>be</span> <span class=nx>installed</span><span class=p>:</span>
+  <span class=nx>distro</span><span class=o>-</span><span class=nx>info</span> <span class=nx>juju</span><span class=o>-</span><span class=mf>2.0</span>
+<span class=nx>Suggested</span> <span class=nx>packages</span><span class=p>:</span>
+  <span class=nx>shunit2</span> <span class=nx>juju</span><span class=o>-</span><span class=nx>core</span>
+<span class=nx>The</span> <span class=nx>following</span> <span class=nx>NEW</span> <span class=nx>packages</span> <span class=nx>will</span> <span class=nx>be</span> <span class=nx>installed</span><span class=p>:</span>
+  <span class=nx>distro</span><span class=o>-</span><span class=nx>info</span> <span class=nx>juju</span> <span class=nx>juju</span><span class=o>-</span><span class=mf>2.0</span>
+<span class=mi>0</span> <span class=nx>upgraded</span><span class=p>,</span> <span class=mi>3</span> <span class=nx>newly</span> <span class=nx>installed</span><span class=p>,</span> <span class=mi>0</span> <span class=nx>to</span> <span class=nx>remove</span> <span class=nx>and</span> <span class=mi>0</span> <span class=nx>not</span> <span class=nx>upgraded</span><span class=p>.</span>
+<span class=nx>Need</span> <span class=nx>to</span> <span class=nx>get</span> <span class=mf>32.0</span> <span class=nx>MB</span> <span class=nx>of</span> <span class=nx>archives</span><span class=p>.</span>
+<span class=nx>After</span> <span class=nx>this</span> <span class=nx>operation</span><span class=p>,</span> <span class=mi>168</span> <span class=nx>MB</span> <span class=nx>of</span> <span class=nx>additional</span> <span class=nx>disk</span> <span class=nx>space</span> <span class=nx>will</span> <span class=nx>be</span> <span class=nx>used</span><span class=p>.</span>
+<span class=nx>Do</span> <span class=nx>you</span> <span class=nx>want</span> <span class=nx>to</span> <span class=k>continue</span><span class=err>?</span> <span class=p>[</span><span class=nx>Y</span><span class=o>/</span><span class=nx>n</span><span class=p>]</span>
+<span class=nx>Get</span><span class=p>:</span><span class=mi>1</span> <span class=nx>http</span><span class=p>:</span><span class=c1>//archive.ubuntu.com/ubuntu xenial/main amd64 distro-info amd64 0.14build1 [20.0 kB]
+</span><span class=c1></span><span class=nx>Get</span><span class=p>:</span><span class=mi>2</span> <span class=nx>http</span><span class=p>:</span><span class=c1>//archive.ubuntu.com/ubuntu xenial-updates/main amd64 juju-2.0 amd64 2.3.7-0ubuntu0.16.04.1 [32.0 MB]
+</span><span class=c1></span><span class=nx>Get</span><span class=p>:</span><span class=mi>3</span> <span class=nx>http</span><span class=p>:</span><span class=c1>//archive.ubuntu.com/ubuntu xenial-updates/main amd64 juju all 2.3.7-0ubuntu0.16.04.1 [10.2 kB]
+</span><span class=c1></span><span class=nx>Fetched</span> <span class=mf>32.0</span> <span class=nx>MB</span> <span class=nx>in</span> <span class=mi>4</span><span class=nf>s</span> <span class=p>(</span><span class=mi>6</span><span class=p>,</span><span class=mi>778</span> <span class=nx>kB</span><span class=o>/</span><span class=nx>s</span><span class=p>)</span>
+<span class=nx>Preconfiguring</span> <span class=nx>packages</span> <span class=o>...</span>
+<span class=nx>Selecting</span> <span class=nx>previously</span> <span class=nx>unselected</span> <span class=kn>package</span> <span class=nx>distro</span><span class=o>-</span><span class=nx>info</span><span class=p>.</span>
+<span class=p>(</span><span class=nx>Reading</span> <span class=nx>database</span> <span class=o>...</span> <span class=mi>60478</span> <span class=nx>files</span> <span class=nx>and</span> <span class=nx>directories</span> <span class=nx>currently</span> <span class=nx>installed</span><span class=p>.</span><span class=p>)</span>
+<span class=nx>Preparing</span> <span class=nx>to</span> <span class=nx>unpack</span> <span class=o>...</span><span class=o>/</span><span class=nx>distro</span><span class=o>-</span><span class=nx>info_0</span><span class=mf>.14</span><span class=nx>build1_amd64</span><span class=p>.</span><span class=nx>deb</span> <span class=o>...</span>
+<span class=nx>Unpacking</span> <span class=nx>distro</span><span class=o>-</span><span class=nf>info</span> <span class=p>(</span><span class=mf>0.14</span><span class=nx>build1</span><span class=p>)</span> <span class=o>...</span>
+<span class=nx>Selecting</span> <span class=nx>previously</span> <span class=nx>unselected</span> <span class=kn>package</span> <span class=nx>juju</span><span class=o>-</span><span class=mf>2.0</span><span class=p>.</span>
+<span class=nx>Preparing</span> <span class=nx>to</span> <span class=nx>unpack</span> <span class=o>...</span><span class=o>/</span><span class=nx>juju</span><span class=o>-</span><span class=mf>2.0</span><span class=nx>_2</span><span class=mf>.3</span><span class=mf>.7</span><span class=o>-</span><span class=mi>0</span><span class=nx>ubuntu0</span><span class=mf>.16</span><span class=mf>.04</span><span class=mf>.1</span><span class=nx>_amd64</span><span class=p>.</span><span class=nx>deb</span> <span class=o>...</span>
+<span class=nx>Unpacking</span> <span class=nx>juju</span><span class=o>-</span><span class=mf>2.0</span> <span class=p>(</span><span class=mf>2.3</span><span class=mf>.7</span><span class=o>-</span><span class=mi>0</span><span class=nx>ubuntu0</span><span class=mf>.16</span><span class=mf>.04</span><span class=mf>.1</span><span class=p>)</span> <span class=o>...</span>
+<span class=nx>Selecting</span> <span class=nx>previously</span> <span class=nx>unselected</span> <span class=kn>package</span> <span class=nx>juju</span><span class=p>.</span>
+<span class=nx>Preparing</span> <span class=nx>to</span> <span class=nx>unpack</span> <span class=o>...</span><span class=o>/</span><span class=nx>juju_2</span><span class=mf>.3</span><span class=mf>.7</span><span class=o>-</span><span class=mi>0</span><span class=nx>ubuntu0</span><span class=mf>.16</span><span class=mf>.04</span><span class=mf>.1</span><span class=nx>_all</span><span class=p>.</span><span class=nx>deb</span> <span class=o>...</span>
+<span class=nx>Unpacking</span> <span class=nf>juju</span> <span class=p>(</span><span class=mf>2.3</span><span class=mf>.7</span><span class=o>-</span><span class=mi>0</span><span class=nx>ubuntu0</span><span class=mf>.16</span><span class=mf>.04</span><span class=mf>.1</span><span class=p>)</span> <span class=o>...</span>
+<span class=nx>Processing</span> <span class=nx>triggers</span> <span class=k>for</span> <span class=nx>man</span><span class=o>-</span><span class=nf>db</span> <span class=p>(</span><span class=mf>2.7</span><span class=mf>.5</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span> <span class=o>...</span>
+<span class=nx>Setting</span> <span class=nx>up</span> <span class=nx>distro</span><span class=o>-</span><span class=nf>info</span> <span class=p>(</span><span class=mf>0.14</span><span class=nx>build1</span><span class=p>)</span> <span class=o>...</span>
+<span class=nx>Setting</span> <span class=nx>up</span> <span class=nx>juju</span><span class=o>-</span><span class=mf>2.0</span> <span class=p>(</span><span class=mf>2.3</span><span class=mf>.7</span><span class=o>-</span><span class=mi>0</span><span class=nx>ubuntu0</span><span class=mf>.16</span><span class=mf>.04</span><span class=mf>.1</span><span class=p>)</span> <span class=o>...</span>
+<span class=nx>Setting</span> <span class=nx>up</span> <span class=nf>juju</span> <span class=p>(</span><span class=mf>2.3</span><span class=mf>.7</span><span class=o>-</span><span class=mi>0</span><span class=nx>ubuntu0</span><span class=mf>.16</span><span class=mf>.04</span><span class=mf>.1</span><span class=p>)</span> <span class=o>...</span>
+</code></pre></td></tr></table></div></div><p>Once the install is done, we can bootstrap a new controller using LXD. This
+means that juju will create a new LXD container for management service.</p><p>We can create a controller called juju-controller with below command</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ juju bootstrap localhost juju-controller
 Since Juju 2 is being run for the first time, downloading latest cloud information.
 Fetching latest public cloud list...
 Your list of public clouds is up to date, see `juju clouds`.
@@ -353,43 +142,30 @@ Bootstrap agent now started
 Contacting Juju controller at 10.229.139.129 to verify accessibility...
 Bootstrap complete, &#34;juju-controller&#34; controller now available
 Controller machines are in the &#34;controller&#34; model
-Initial model &#34;default&#34; added</pre></td></tr></table>
-</div>
-</div>
-<p>After this, we can see a new LXD container is running.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ lxc list
+Initial model &#34;default&#34; added
+</code></pre></td></tr></table></div></div><p>After this, we can see a new LXD container is running.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ lxc list
 +---------------+---------+-----------------------+------+------------+-----------+
 |     NAME      |  STATE  |         IPV4          | IPV6 |    TYPE    | SNAPSHOTS |
 +---------------+---------+-----------------------+------+------------+-----------+
 | juju-9ccefc-0 | RUNNING | 10.229.139.129 (eth0) |      | PERSISTENT | 0         |
-+---------------+---------+-----------------------+------+------------+-----------+</pre></td></tr></table>
-</div>
-</div>
-<p>And run <code>juju status</code> to check there is nothing running yet.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ juju status
++---------------+---------+-----------------------+------+------------+-----------+
+</code></pre></td></tr></table></div></div><p>And run <code>juju status</code> to check there is nothing running yet.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ juju status
 Model    Controller       Cloud/Region         Version  SLA
 default  juju-controller  localhost/localhost  2.3.7    unsupported
 
@@ -397,32 +173,24 @@ App  Version  Status  Scale  Charm  Store  Rev  OS  Notes
 
 Unit  Workload  Agent  Machine  Public address  Ports  Message
 
-Machine  State  DNS  Inst id  Series  AZ  Message</pre></td></tr></table>
-</div>
-</div>
-<h1 id="deploy-minecraft-server">Deploy minecraft server</h1>
+Machine  State  DNS  Inst id  Series  AZ  Message
 
-<p>OK, now we are ready for deploy minecraft server!
+</code></pre></td></tr></table></div></div><h1 id=deploy-minecraft-server>Deploy minecraft server</h1><p>OK, now we are ready for deploy minecraft server!
 Run below command to tell juju you want to deploy it. and it should return
-immediately. However it doesn&rsquo;t mean the service is ready. Run <code>juju status</code> to
-check the status.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ juju status
+immediately. However it doesn't mean the service is ready. Run <code>juju status</code> to
+check the status.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ juju status
 Model    Controller       Cloud/Region         Version  SLA
 default  juju-controller  localhost/localhost  2.3.7    unsupported
 
@@ -433,51 +201,37 @@ Unit         Workload  Agent       Machine  Public address  Ports  Message
 minecraft/0  waiting   allocating  0        10.229.139.124         waiting for machine
 
 Machine  State    DNS             Inst id        Series  AZ  Message
-0        pending  10.229.139.124  juju-72dd35-0  trusty      Running</pre></td></tr></table>
-</div>
-</div>
-<p>From above we can see juju is working on creating the server. And we also can
-check a new container is created for minecraft server, by <code>lxc list</code> command.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ lxc list
+0        pending  10.229.139.124  juju-72dd35-0  trusty      Running
+</code></pre></td></tr></table></div></div><p>From above we can see juju is working on creating the server. And we also can
+check a new container is created for minecraft server, by <code>lxc list</code> command.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ lxc list
 +---------------+---------+-----------------------+------+------------+-----------+
 |     NAME      |  STATE  |         IPV4          | IPV6 |    TYPE    | SNAPSHOTS |
 +---------------+---------+-----------------------+------+------------+-----------+
 | juju-72dd35-0 | RUNNING | 10.229.139.124 (eth0) |      | PERSISTENT | 0         |
 +---------------+---------+-----------------------+------+------------+-----------+
 | juju-9ccefc-0 | RUNNING | 10.229.139.129 (eth0) |      | PERSISTENT | 0         |
-+---------------+---------+-----------------------+------+------------+-----------+</pre></td></tr></table>
-</div>
-</div>
-<p>After a while, the deploying is done and the service is active.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ juju status
++---------------+---------+-----------------------+------+------------+-----------+
+</code></pre></td></tr></table></div></div><p>After a while, the deploying is done and the service is active.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ juju status
 Model    Controller       Cloud/Region         Version  SLA
 default  juju-controller  localhost/localhost  2.3.7    unsupported
 
@@ -488,40 +242,24 @@ Unit          Workload  Agent  Machine  Public address  Ports      Message
 minecraft/0*  active    idle   0        10.229.139.124  25565/tcp  Ready
 
 Machine  State    DNS             Inst id        Series  AZ  Message
-0        started  10.229.139.124  juju-72dd35-0  trusty      Running</pre></td></tr></table>
-</div>
-</div>
-<p>Now you can start your minecraft client, and point to 10.229.139.124 on port
-25565 to play with your all new minecraft server!</p>
-
-<p>If you want to get rid of it, just run below command.
-Every service or server related to minecraft server will be gone.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ juju destroy-service minecraft</pre></td></tr></table>
-</div>
-</div>
-<p>You can also destory juju controller and all service/server created by it.
-The easiest way to destory everything is as below.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ juju destroy-controller juju-controller --destroy-all-models
+0        started  10.229.139.124  juju-72dd35-0  trusty      Running
+</code></pre></td></tr></table></div></div><p>Now you can start your minecraft client, and point to 10.229.139.124 on port
+25565 to play with your all new minecraft server!</p><p>If you want to get rid of it, just run below command.
+Every service or server related to minecraft server will be gone.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ juju destroy-service minecraft
+</code></pre></td></tr></table></div></div><p>You can also destory juju controller and all service/server created by it.
+The easiest way to destory everything is as below.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ juju destroy-controller juju-controller --destroy-all-models
 WARNING! This command will destroy the &#34;juju-controller&#34; controller.
 This includes all machines, applications, data and other resources.
 
@@ -531,172 +269,156 @@ Waiting for hosted model resources to be reclaimed
 Waiting on 1 model, 1 machine, 1 application
 Waiting on 1 model, 1 machine, 1 application
 Waiting on 1 model, 1 machine
-All hosted models reclaimed, cleaning up controller machines</pre></td></tr></table>
-</div>
-</div>
-<p>We can confirm that all containers are gone.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ lxc list
+All hosted models reclaimed, cleaning up controller machines
+</code></pre></td></tr></table></div></div><p>We can confirm that all containers are gone.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ lxc list
 +------+-------+------+------+------+-----------+
 | NAME | STATE | IPV4 | IPV6 | TYPE | SNAPSHOTS |
-+------+-------+------+------+------+-----------+</pre></td></tr></table>
-</div>
-</div>
-<h1 id="deploy-minecraft-server-1">Deploy minecraft server</h1>
-
-<p>You can deploy a more complicated environment such as OpenStack using Juju.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
-</span><span class="lnt">121
-</span><span class="lnt">122
-</span><span class="lnt">123
-</span><span class="lnt">124
-</span><span class="lnt">125
-</span><span class="lnt">126
-</span><span class="lnt">127
-</span><span class="lnt">128
-</span><span class="lnt">129
-</span><span class="lnt">130
-</span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">$ juju deploy cs:bundle/openstack-base-55
++------+-------+------+------+------+-----------+
+</code></pre></td></tr></table></div></div><h1 id=deploy-minecraft-server-1>Deploy minecraft server</h1><p>You can deploy a more complicated environment such as OpenStack using Juju.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ juju deploy cs:bundle/openstack-base-55
 Located bundle &#34;cs:bundle/openstack-base-55&#34;
 Resolving charm: cs:ceph-mon-25
 Resolving charm: cs:ceph-osd-262
@@ -835,125 +557,20 @@ Executing changes:
 - add unit nova-cloud-controller/0 to 2/lxd/2
 - add unit openstack-dashboard/0 to 3/lxd/2
 - add unit rabbitmq-server/0 to 0/lxd/2
-Deploy of bundle completed.</pre></td></tr></table>
-</div>
-</div>
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Wenhan Shi</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2020-03-26
-        <a href="https://github.com/xibuka/xibuka.github.io.git/commit/02c19e3e1115c42cabb6448c1045ebb3b6a8a476" title="first commit">(02c19e3)</a>
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      
-      <nav class="post-nav">
-        <a class="prev" href="/post/certified-kubernetes-administrator-cka-learning-note/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Certified Kubernetes Administrator (CKA) learning note</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/suspend-issue-on-thinkpad-x1c-6th-with-ubuntu-18-04/">
-            <span class="next-text nav-default">Suspend issue on Thinkpad X1C 6th with Ubuntu 18.04</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-
-  
-
-  
-    <script src="https://utteranc.es/client.js"
-            repo="xibuka/xibuka.github.io"
-            issue-term="pathname"
-            theme="github-light"
-            crossorigin="anonymous"
-            async>
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="http://wenhan.blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-      <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-  </div>
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Wenhan Shi</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-87273435-2', 'auto');
-	ga('set', 'anonymizeIp', true);
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-</body>
-</html>
+Deploy of bundle completed.
+</code></pre></td></tr></table></div></div></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Wenhan Shi</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-03-30
+<a href=https://github.com/xibuka/xibuka.github.io.git/commit/2e618d8f83d00f8e4e8bd89cbbc00a4968670cab title="workflow test 4">(2e618d8)</a></span></p></div><footer class=post-footer><nav class=post-nav><a class=prev href=/post/certified-kubernetes-administrator-cka-learning-note/><i class="iconfont icon-left"></i><span class="prev-text nav-default">Certified Kubernetes Administrator (CKA) learning note</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/suspend-issue-on-thinkpad-x1c-6th-with-ubuntu-18-04/><span class="next-text nav-default">Suspend issue on Thinkpad X1C 6th with Ubuntu 18.04</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=xibuka/xibuka.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=http://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2016 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

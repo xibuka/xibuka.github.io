@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>microk8s on Wenhan Shi Blog</title>
-    <link>http://wenhan.blog/tags/microk8s/</link>
-    <description>Recent content in microk8s on Wenhan Shi Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Fri, 07 Dec 2018 00:33:49 +0000</lastBuildDate>
-    
-	<atom:link href="http://wenhan.blog/tags/microk8s/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Presentasion about microk8s at containerDaysTokyo</title>
-      <link>http://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</link>
-      <pubDate>Fri, 07 Dec 2018 00:33:49 +0000</pubDate>
-      
-      <guid>http://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</guid>
-      <description>I did a presentation about microk8s and snap at ContainerDays Tokyo. The slide(Japanese) can be found as below.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>microk8s on Wenhan Shi Blog</title><link>http://wenhan.blog/tags/microk8s/</link><description>Recent content in microk8s on Wenhan Shi Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 07 Dec 2018 00:33:49 +0000</lastBuildDate><atom:link href="http://wenhan.blog/tags/microk8s/index.xml" rel="self" type="application/rss+xml"/><item><title>Presentasion about microk8s at containerDaysTokyo</title><link>http://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</link><pubDate>Fri, 07 Dec 2018 00:33:49 +0000</pubDate><guid>http://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</guid><description>I did a presentation about microk8s and snap at ContainerDays Tokyo. The slide(Japanese) can be found as below.
 speakerdeck.com
-Enjoy!</description>
-    </item>
-    
-  </channel>
-</rss>
+Enjoy!</description></item></channel></rss>

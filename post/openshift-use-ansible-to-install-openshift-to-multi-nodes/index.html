@@ -1,1050 +1,536 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>[OpenShift]Quick install OpenShift to multi nodes - Wenhan Shi Blog</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Wenhan Shi" /><meta name="description" content="In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>[OpenShift]Quick install OpenShift to multi nodes - Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
 Host preparation I use under virtual machines for OpenShift nodes to deploy
-   Type CPU Mem HDD hostname OS     Master 1 2 GB 20 GB master.example.com RHEL 7   node 1 2 GB 20 GB node1.example.com RHEL 7   node 1 2 GB 20 GB node2." /><meta name="keywords" content="Ubuntu, RHEL, Docker, Kubernetes, OpenShift, GlusterFS" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.57.2 with theme even" />
-
-
-<link rel="canonical" href="http://wenhan.blog/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-
-
-<meta property="og:title" content="[OpenShift]Quick install OpenShift to multi nodes" />
-<meta property="og:description" content="In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
+   Type CPU Mem HDD hostname OS     Master 1 2 GB 20 GB master.example.com RHEL 7   node 1 2 GB 20 GB node1.example.com RHEL 7   node 1 2 GB 20 GB node2."><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=http://wenhan.blog/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="[OpenShift]Quick install OpenShift to multi nodes"><meta property="og:description" content="In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
 Host preparation I use under virtual machines for OpenShift nodes to deploy
-   Type CPU Mem HDD hostname OS     Master 1 2 GB 20 GB master.example.com RHEL 7   node 1 2 GB 20 GB node1.example.com RHEL 7   node 1 2 GB 20 GB node2." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://wenhan.blog/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/" />
-<meta property="article:published_time" content="2017-07-07T15:32:15+00:00" />
-<meta property="article:modified_time" content="2020-03-26T14:30:43+09:00" />
-<meta itemprop="name" content="[OpenShift]Quick install OpenShift to multi nodes">
-<meta itemprop="description" content="In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
+   Type CPU Mem HDD hostname OS     Master 1 2 GB 20 GB master.example.com RHEL 7   node 1 2 GB 20 GB node1.example.com RHEL 7   node 1 2 GB 20 GB node2."><meta property="og:type" content="article"><meta property="og:url" content="http://wenhan.blog/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/"><meta property="article:published_time" content="2017-07-07T15:32:15+00:00"><meta property="article:modified_time" content="2020-03-30T13:56:15+09:00"><meta itemprop=name content="[OpenShift]Quick install OpenShift to multi nodes"><meta itemprop=description content="In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
 Host preparation I use under virtual machines for OpenShift nodes to deploy
-   Type CPU Mem HDD hostname OS     Master 1 2 GB 20 GB master.example.com RHEL 7   node 1 2 GB 20 GB node1.example.com RHEL 7   node 1 2 GB 20 GB node2.">
-
-
-<meta itemprop="datePublished" content="2017-07-07T15:32:15&#43;00:00" />
-<meta itemprop="dateModified" content="2020-03-26T14:30:43&#43;09:00" />
-<meta itemprop="wordCount" content="1521">
-
-
-
-<meta itemprop="keywords" content="Linux,OpenShift," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="[OpenShift]Quick install OpenShift to multi nodes"/>
-<meta name="twitter:description" content="In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
+   Type CPU Mem HDD hostname OS     Master 1 2 GB 20 GB master.example.com RHEL 7   node 1 2 GB 20 GB node1.example.com RHEL 7   node 1 2 GB 20 GB node2."><meta itemprop=datePublished content="2017-07-07T15:32:15+00:00"><meta itemprop=dateModified content="2020-03-30T13:56:15+09:00"><meta itemprop=wordCount content="1523"><meta itemprop=keywords content="Linux,OpenShift,"><meta name=twitter:card content="summary"><meta name=twitter:title content="[OpenShift]Quick install OpenShift to multi nodes"><meta name=twitter:description content="In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
 Host preparation I use under virtual machines for OpenShift nodes to deploy
-   Type CPU Mem HDD hostname OS     Master 1 2 GB 20 GB master.example.com RHEL 7   node 1 2 GB 20 GB node1.example.com RHEL 7   node 1 2 GB 20 GB node2."/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2422626403812806"
-     data-ad-slot="1454707894"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">WenhanBlog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">WenhanBlog</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li>
-  </ul>
-</nav>
-
-<div class="social-links">
-      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="http://wenhan.blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">[OpenShift]Quick install OpenShift to multi nodes</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2017-07-07 </span>
-        
-          <span class="more-meta"> 1521 words </span>
-          <span class="more-meta"> 8 mins read </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#host-preparation">Host preparation</a></li>
-<li><a href="#host-registration">Host Registration</a></li>
-<li><a href="#install-necessary-packages">Install necessary packages</a></li>
-<li><a href="#install-and-configure-docker">Install and configure docker</a>
-<ul>
-<li><a href="#install-docker">Install docker</a></li>
-<li><a href="#add-parameter-to-docker-configuration-file">Add parameter to docker configuration file</a></li>
-<li><a href="#configure-docker-storage">Configure Docker Storage</a></li>
-<li><a href="#enable-and-start-docker-service">Enable and start docker service.</a></li>
-</ul></li>
-<li><a href="#ensure-host-access">Ensure Host Access</a></li>
-<li><a href="#quick-installation">Quick Installation</a>
-<ul>
-<li><a href="#running-an-interactive-installation">Running an Interactive Installation</a></li>
-<li><a href="#running-an-unattended-installation">Running an unattended Installation</a></li>
-<li><a href="#verifying-the-installation">Verifying the installation</a></li>
-</ul></li>
-<li><a href="#uninstallation">Uninstallation</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      
-
-<p>In this article we will show you how to install OpenShift in mutliple nodes
+   Type CPU Mem HDD hostname OS     Master 1 2 GB 20 GB master.example.com RHEL 7   node 1 2 GB 20 GB node1.example.com RHEL 7   node 1 2 GB 20 GB node2."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><ins class=adsbygoogle style=display:block data-ad-client=ca-pub-2422626403812806 data-ad-slot=1454707894 data-ad-format=auto></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=http://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>[OpenShift]Quick install OpenShift to multi nodes</h1><div class=post-meta><span class=post-time>2017-07-07</span>
+<span class=more-meta>1523 words</span>
+<span class=more-meta>8 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#install-docker>Install docker</a></li><li><a href=#add-parameter-to-docker-configuration-file>Add parameter to docker configuration file</a></li><li><a href=#configure-docker-storage>Configure Docker Storage</a></li><li><a href=#enable-and-start-docker-service>Enable and start docker service.</a></li></ul><ul><li><a href=#running-an-interactive-installation>Running an Interactive Installation</a></li><li><a href=#running-an-unattended-installation>Running an unattended Installation</a></li><li><a href=#verifying-the-installation>Verifying the installation</a></li></ul></nav></div></div><div class=post-content><p>In this article we will show you how to install OpenShift in mutliple nodes
 using a quick install command, atomic-openshift-installer, which is powered by
-ansible.</p>
-
-<h1 id="host-preparation">Host preparation</h1>
-
-<p>I use under virtual machines for OpenShift nodes to deploy</p>
-
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>CPU</th>
-<th>Mem</th>
-<th>HDD</th>
-<th>hostname</th>
-<th>OS</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>Master</td>
-<td>1</td>
-<td>2 GB</td>
-<td>20 GB</td>
-<td>master.example.com</td>
-<td>RHEL 7</td>
-</tr>
-
-<tr>
-<td>node</td>
-<td>1</td>
-<td>2 GB</td>
-<td>20 GB</td>
-<td>node1.example.com</td>
-<td>RHEL 7</td>
-</tr>
-
-<tr>
-<td>node</td>
-<td>1</td>
-<td>2 GB</td>
-<td>20 GB</td>
-<td>node2.example.com</td>
-<td>RHEL 7</td>
-</tr>
-</tbody>
-</table>
-
-<h1 id="host-registration">Host Registration</h1>
-
-<p>Note: If you are using other OS but not RHEL, Please go to <a href="# Install necessary packages"># Install necessary packages</a> to install the
-packages. If you can not install some of them, try to add some repos or get the rpm file.</p>
-
-<p>Register each host with RHSM(Red Hat Subscription Manager) to access the
-required packages.</p>
-
-<!--more -->
-
-<ol>
-<li><p>Register with RHSM for each host:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># subscription-manager register --username=&lt;user_name&gt; --password=&lt;password&gt;</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>List the available OpenShift subscriptions:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># subscription-manager list --available --matches &#39;*OpenShift*&#39;</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>Find pool ID for an OpenShift Container Platform subscription and attach it.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># subscription-manager attach --pool=&lt;pool_id&gt;</pre></td></tr></table>
-</div>
-</div></li>
-
-<li><p>Disable all repositories and enable only the repositories required by
-OpenShift Container Platform 3.5</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># subscription-manager repos --disable=&#34;*&#34;
+ansible.</p><h1 id=host-preparation>Host preparation</h1><p>I use under virtual machines for OpenShift nodes to deploy</p><table><thead><tr><th>Type</th><th>CPU</th><th>Mem</th><th>HDD</th><th>hostname</th><th>OS</th></tr></thead><tbody><tr><td>Master</td><td>1</td><td>2 GB</td><td>20 GB</td><td>master.example.com</td><td>RHEL 7</td></tr><tr><td>node</td><td>1</td><td>2 GB</td><td>20 GB</td><td>node1.example.com</td><td>RHEL 7</td></tr><tr><td>node</td><td>1</td><td>2 GB</td><td>20 GB</td><td>node2.example.com</td><td>RHEL 7</td></tr></tbody></table><h1 id=host-registration>Host Registration</h1><p>Note: If you are using other OS but not RHEL, Please go to [# Install necessary packages](# Install necessary packages) to install the
+packages. If you can not install some of them, try to add some repos or get the rpm file.</p><p>Register each host with RHSM(Red Hat Subscription Manager) to access the
+required packages.</p><ol><li><p>Register with RHSM for each host:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># subscription-manager register --username=&lt;user_name&gt; --password=&lt;password&gt;
+</code></pre></td></tr></table></div></div></li><li><p>List the available OpenShift subscriptions:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># subscription-manager list --available --matches &#39;*OpenShift*&#39;
+</code></pre></td></tr></table></div></div></li><li><p>Find pool ID for an OpenShift Container Platform subscription and attach it.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># subscription-manager attach --pool=&lt;pool_id&gt;
+</code></pre></td></tr></table></div></div></li><li><p>Disable all repositories and enable only the repositories required by
+OpenShift Container Platform 3.5</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># subscription-manager repos --disable=&#34;*&#34;
 # yum-config-manager --disable \*
 # subscription-manager repos \
-   --enable=&#34;rhel-7-server-rpms&#34; \
-   --enable=&#34;rhel-7-server-extras-rpms&#34; \
-   --enable=&#34;rhel-7-server-ose-3.5-rpms&#34; \
-   --enable=&#34;rhel-7-fast-datapath-rpms&#34;</pre></td></tr></table>
-</div>
-</div></li>
-</ol>
+    --enable=&#34;rhel-7-server-rpms&#34; \
+    --enable=&#34;rhel-7-server-extras-rpms&#34; \
+    --enable=&#34;rhel-7-server-ose-3.5-rpms&#34; \
+    --enable=&#34;rhel-7-fast-datapath-rpms&#34;
+</code></pre></td></tr></table></div></div></li></ol><h1 id=install-necessary-packages>Install necessary packages</h1><p>Install the following packages.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># yum -y install wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec sos psacct
+# yum update
+# yum -y install atomic-openshift-utils atomic-openshift-excluder atomic-openshift-docker-excluder
+# atomic-openshift-excluder unexclude
+</code></pre></td></tr></table></div></div><h1 id=install-and-configure-docker>Install and configure docker</h1><h2 id=install-docker>Install docker</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># yum -y install docker
+</code></pre></td></tr></table></div></div><h2 id=add-parameter-to-docker-configuration-file>Add parameter to docker configuration file</h2><p>Edit <code>/etc/sysconfig/docker</code> file and add <code>--insecure-registry 172.30.0.0/16</code> to the <code>OPTIONS</code> parameter.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>OPTIONS=&#39;--selinux-enabled --insecure-registry 172.30.0.0/16&#39;
+</code></pre></td></tr></table></div></div><h2 id=configure-docker-storage>Configure Docker Storage</h2><p>Here we use an additional block device for docker storage. In <code>/etc/sysconfig/docker-storage-setup</code> , set <code>DEVS</code> to the path of the disk device. Set <code>VG</code> to the volume group name you wish to create.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># cat &lt;&lt;EOF &gt; /etc/sysconfig/docker-storage-setup
+DEVS=/dev/vdc
+VG=docker-vg
+EOF
+</code></pre></td></tr></table></div></div><p>Then run <code>docker-storage-setup</code> and check to make sure the <code>docker-vg</code> was created.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># docker-storage-setup                                                                                                                                                                                                                                [5/1868]
+0
+Checking that no-one is using this disk right now ...
+OK
 
-<h1 id="install-necessary-packages">Install necessary packages</h1>
+Disk /dev/vdc: 31207 cylinders, 16 heads, 63 sectors/track
+sfdisk:  /dev/vdc: unrecognized partition table type
 
-<p>Install the following packages.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   # yum -y install wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec sos psacct
-   # yum update
-   # yum -y install atomic-openshift-utils atomic-openshift-excluder atomic-openshift-docker-excluder
-   # atomic-openshift-excluder unexclude</pre></td></tr></table>
-</div>
-</div>
-<h1 id="install-and-configure-docker">Install and configure docker</h1>
+Old situation:
+sfdisk: No partitions found
 
-<h2 id="install-docker">Install docker</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   # yum -y install docker</pre></td></tr></table>
-</div>
-</div>
-<h2 id="add-parameter-to-docker-configuration-file">Add parameter to docker configuration file</h2>
+New situation:
+Units: sectors of 512 bytes, counting from 0
 
-<p>Edit <code>/etc/sysconfig/docker</code> file and add <code>--insecure-registry 172.30.0.0/16</code> to the <code>OPTIONS</code> parameter.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   OPTIONS=&#39;--selinux-enabled --insecure-registry 172.30.0.0/16&#39;</pre></td></tr></table>
-</div>
-</div>
-<h2 id="configure-docker-storage">Configure Docker Storage</h2>
+   Device Boot    Start       End   #sectors  Id  System
+/dev/vdc1          2048  31457279   31455232  8e  Linux LVM
+/dev/vdc2             0         -          0   0  Empty
+/dev/vdc3             0         -          0   0  Empty
+/dev/vdc4             0         -          0   0  Empty
+Warning: partition 1 does not start at a cylinder boundary
+Warning: partition 1 does not end at a cylinder boundary
+Warning: no primary partition is marked bootable (active)
+This does not matter for LILO, but the DOS MBR will not boot this disk.
+Successfully wrote the new partition table
 
-<p>Here we use an additional block device for docker storage. In <code>/etc/sysconfig/docker-storage-setup</code> , set <code>DEVS</code> to the path of the disk device. Set <code>VG</code> to the volume group name you wish to create.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   # cat &lt;&lt;EOF &gt; /etc/sysconfig/docker-storage-setup
-   DEVS=/dev/vdc
-   VG=docker-vg
-   EOF</pre></td></tr></table>
-</div>
-</div>
-<p>Then run <code>docker-storage-setup</code> and check to make sure the <code>docker-vg</code> was created.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   # docker-storage-setup                                                                                                                                                                                                                                [5/1868]
-   0
-   Checking that no-one is using this disk right now ...
-   OK
-   
-   Disk /dev/vdc: 31207 cylinders, 16 heads, 63 sectors/track
-   sfdisk:  /dev/vdc: unrecognized partition table type
-   
-   Old situation:
-   sfdisk: No partitions found
-   
-   New situation:
-   Units: sectors of 512 bytes, counting from 0
-   
-      Device Boot    Start       End   #sectors  Id  System
-   /dev/vdc1          2048  31457279   31455232  8e  Linux LVM
-   /dev/vdc2             0         -          0   0  Empty
-   /dev/vdc3             0         -          0   0  Empty
-   /dev/vdc4             0         -          0   0  Empty
-   Warning: partition 1 does not start at a cylinder boundary
-   Warning: partition 1 does not end at a cylinder boundary
-   Warning: no primary partition is marked bootable (active)
-   This does not matter for LILO, but the DOS MBR will not boot this disk.
-   Successfully wrote the new partition table
-   
-   Re-reading the partition table ...
-   
-   If you created or changed a DOS partition, /dev/foo7, say, then use dd(1)
-   to zero the first 512 bytes:  dd if=/dev/zero of=/dev/foo7 bs=512 count=1
-   (See fdisk(8).)
-     Physical volume &#34;/dev/vdc1&#34; successfully created
-     Volume group &#34;docker-vg&#34; successfully created
-     Rounding up size to full physical extent 16.00 MiB
-     Logical volume &#34;docker-poolmeta&#34; created.
-     Logical volume &#34;docker-pool&#34; created.
-     WARNING: Converting logical volume docker-vg/docker-pool and docker-vg/docker-poolmeta to pool&#39;s data and metadata volumes.
-     THIS WILL DESTROY CONTENT OF LOGICAL VOLUME (filesystem etc.)
-     Converted docker-vg/docker-pool to thin pool.
-     Logical volume &#34;docker-pool&#34; changed.</pre></td></tr></table>
-</div>
-</div>
-<h2 id="enable-and-start-docker-service">Enable and start docker service.</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   # systemctl enable docker
-   # systemctl start docker
-   # systemctl is-active docker</pre></td></tr></table>
-</div>
-</div>
-<h1 id="ensure-host-access">Ensure Host Access</h1>
+Re-reading the partition table ...
 
-<p>On each hosts, generate an SSH key WITHOUT a password</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   # ssh-keygen</pre></td></tr></table>
-</div>
-</div>
-<p>Copy the <code>id_rsa.pub</code> to each host:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   # for host in master.example.com \
-       node1.example.com \
-       node2.example.com; \
-       do ssh-copy-id -i ~/.ssh/id_rsa.pub $host; \
-       done</pre></td></tr></table>
-</div>
-</div>
-<h1 id="quick-installation">Quick Installation</h1>
+If you created or changed a DOS partition, /dev/foo7, say, then use dd(1)
+to zero the first 512 bytes:  dd if=/dev/zero of=/dev/foo7 bs=512 count=1
+(See fdisk(8).)
+  Physical volume &#34;/dev/vdc1&#34; successfully created
+  Volume group &#34;docker-vg&#34; successfully created
+  Rounding up size to full physical extent 16.00 MiB
+  Logical volume &#34;docker-poolmeta&#34; created.
+  Logical volume &#34;docker-pool&#34; created.
+  WARNING: Converting logical volume docker-vg/docker-pool and docker-vg/docker-poolmeta to pool&#39;s data and metadata volumes.
+  THIS WILL DESTROY CONTENT OF LOGICAL VOLUME (filesystem etc.)
+  Converted docker-vg/docker-pool to thin pool.
+  Logical volume &#34;docker-pool&#34; changed.
+</code></pre></td></tr></table></div></div><h2 id=enable-and-start-docker-service>Enable and start docker service.</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># systemctl enable docker
+# systemctl start docker
+# systemctl is-active docker
+</code></pre></td></tr></table></div></div><h1 id=ensure-host-access>Ensure Host Access</h1><p>On each hosts, generate an SSH key WITHOUT a password</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># ssh-keygen
+</code></pre></td></tr></table></div></div><p>Copy the <code>id_rsa.pub</code> to each host:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># for host in master.example.com \
+    node1.example.com \
+    node2.example.com; \
+    do ssh-copy-id -i ~/.ssh/id_rsa.pub $host; \
+    done
+</code></pre></td></tr></table></div></div><h1 id=quick-installation>Quick Installation</h1><h2 id=running-an-interactive-installation>Running an Interactive Installation</h2><p>Start the interactive installation by running under command, and follow the
+on-screen instructions to install a new OpenShift Continer Platform cluster.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span><span class=lnt>91
+</span><span class=lnt>92
+</span><span class=lnt>93
+</span><span class=lnt>94
+</span><span class=lnt>95
+</span><span class=lnt>96
+</span><span class=lnt>97
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ atomic-openshift-installer install
+*** Installation Summary ***
 
-<h2 id="running-an-interactive-installation">Running an Interactive Installation</h2>
+Hosts:
+- master.example.com
+  - OpenShift master
+  - OpenShift node (Unscheduled)
+  - Etcd
+  - Storage
+- node1.example.com
+  - OpenShift node (Dedicated)
+- node2.example.com
+  - OpenShift node (Dedicated)
 
-<p>Start the interactive installation by running under command, and follow the
-on-screen instructions to install a new OpenShift Continer Platform cluster.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span><span class="lnt">80
-</span><span class="lnt">81
-</span><span class="lnt">82
-</span><span class="lnt">83
-</span><span class="lnt">84
-</span><span class="lnt">85
-</span><span class="lnt">86
-</span><span class="lnt">87
-</span><span class="lnt">88
-</span><span class="lnt">89
-</span><span class="lnt">90
-</span><span class="lnt">91
-</span><span class="lnt">92
-</span><span class="lnt">93
-</span><span class="lnt">94
-</span><span class="lnt">95
-</span><span class="lnt">96
-</span><span class="lnt">97
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   $ atomic-openshift-installer install
-   *** Installation Summary ***
-   
-   Hosts:
-   - master.example.com
-     - OpenShift master
-     - OpenShift node (Unscheduled)
-     - Etcd
-     - Storage
-   - node1.example.com
-     - OpenShift node (Dedicated)
-   - node2.example.com
-     - OpenShift node (Dedicated)
-   
-   Total OpenShift masters: 1
-   Total OpenShift nodes: 3
-   
-   NOTE: Add a total of 3 or more masters to perform an HA installation.
-   
-   Gathering information from hosts...
-   All hosts in config are uninstalled. Proceeding with installation...
-   
-   Wrote atomic-openshift-installer config: /root/.config/openshift/installer.cfg.yml
-   Wrote Ansible inventory: /root/.config/openshift/hosts
-   
-   Ready to run installation process.
-   
-   Play 1/28 (Create initial host groups for localhost)
-   ..
-   Play 2/28 (Create initial host groups for all hosts)
-   .
-   Play 3/28 (Populate config host groups)
-   ................
-   Play 4/28 (Ensure that all non-node hosts are accessible)
-   .
-   Play 5/28 (Initialize host facts)
-   ................
-   Play 6/28 (Gather and set facts for node hosts)
-   ...............
-   Play 7/28 (Verify compatible yum/subscription-manager combination)
-   ..
-   Play 8/28 (Determine openshift_version to configure on first master)
-   ............................................................................................
-   Play 9/28 (Set openshift_version for all hosts)
-   ............................................................................................
-   Play 10/28 (Set oo_option facts)
-   ........
-   Play 11/28 (Disable excluders)
-   ..........................
-   Play 12/28 (Configure etcd)
-   ................................................................................................................................................Pausing for 10 seconds
-   (ctrl+C then &#39;C&#39; = continue early, ctrl+C then &#39;A&#39; = abort)
-   ....................................................................
-   Play 13/28 (Configure nfs)
-   ...............................................
-   Play 14/28 (Gather and set facts for master hosts)
-   .......................
-   Play 15/28 (Determine if session secrets must be generated)
-   ..............
-   Play 16/28 (Generate master session secrets)
-   ..............
-   Play 17/28 (Configure masters)
-   .............................................................................................................................................................................................................................................................................................................................................................................................................................................
-   Play 18/28 (Additional master configuration)
-   .......................................................................................................................................................................................................................
-   Play 19/28 (Gather and set facts for node hosts)
-   ...............
-   Play 20/28 (Evaluate node groups)
-   ..
-   Play 21/28 (Configure nodes)
-   .............................................................................................................................................................................................................................................................................................................................................
-   Play 22/28 (Additional node config)
-   .....................................................................................................................
-   Play 23/28 (Create persistent volumes)
-   ............................................................................................................................................................
-   Play 24/28 (Create Hosted Resources)
-   .......................................................................................................................................................................................................Pausing for 30 seconds
-   (ctrl+C then &#39;C&#39; = continue early, ctrl+C then &#39;A&#39; = abort)
-   ................................................
-   Play 25/28 (Re-enable excluder if it was previously enabled)
-   ...............
-   localhost                  : ok=11   changed=0    unreachable=0    failed=0   
-   master.example.com         : ok=606  changed=151  unreachable=0    failed=0   
-   node1.example.com          : ok=202  changed=39   unreachable=0    failed=0   
-   node2.example.com          : ok=202  changed=39   unreachable=0    failed=0   
-   
-   
-   Installation Complete: Note: Play count is only an estimate, some plays may have been skipped or dynamically added
-   
-   
-   The installation was successful!
-   
-   If this is your first time installing please take a look at the Administrator
-   Guide for advanced options related to routing, storage, authentication, and
-   more:
-   
-   http://docs.openshift.com/enterprise/latest/admin_guide/overview.html</pre></td></tr></table>
-</div>
-</div>
-<h2 id="running-an-unattended-installation">Running an unattended Installation</h2>
+Total OpenShift masters: 1
+Total OpenShift nodes: 3
 
-<p>Unattended installation allow you to run the installation with a pre-defined
+NOTE: Add a total of 3 or more masters to perform an HA installation.
+
+Gathering information from hosts...
+All hosts in config are uninstalled. Proceeding with installation...
+
+Wrote atomic-openshift-installer config: /root/.config/openshift/installer.cfg.yml
+Wrote Ansible inventory: /root/.config/openshift/hosts
+
+Ready to run installation process.
+
+Play 1/28 (Create initial host groups for localhost)
+..
+Play 2/28 (Create initial host groups for all hosts)
+.
+Play 3/28 (Populate config host groups)
+................
+Play 4/28 (Ensure that all non-node hosts are accessible)
+.
+Play 5/28 (Initialize host facts)
+................
+Play 6/28 (Gather and set facts for node hosts)
+...............
+Play 7/28 (Verify compatible yum/subscription-manager combination)
+..
+Play 8/28 (Determine openshift_version to configure on first master)
+............................................................................................
+Play 9/28 (Set openshift_version for all hosts)
+............................................................................................
+Play 10/28 (Set oo_option facts)
+........
+Play 11/28 (Disable excluders)
+..........................
+Play 12/28 (Configure etcd)
+................................................................................................................................................Pausing for 10 seconds
+(ctrl+C then &#39;C&#39; = continue early, ctrl+C then &#39;A&#39; = abort)
+....................................................................
+Play 13/28 (Configure nfs)
+...............................................
+Play 14/28 (Gather and set facts for master hosts)
+.......................
+Play 15/28 (Determine if session secrets must be generated)
+..............
+Play 16/28 (Generate master session secrets)
+..............
+Play 17/28 (Configure masters)
+.............................................................................................................................................................................................................................................................................................................................................................................................................................................
+Play 18/28 (Additional master configuration)
+.......................................................................................................................................................................................................................
+Play 19/28 (Gather and set facts for node hosts)
+...............
+Play 20/28 (Evaluate node groups)
+..
+Play 21/28 (Configure nodes)
+.............................................................................................................................................................................................................................................................................................................................................
+Play 22/28 (Additional node config)
+.....................................................................................................................
+Play 23/28 (Create persistent volumes)
+............................................................................................................................................................
+Play 24/28 (Create Hosted Resources)
+.......................................................................................................................................................................................................Pausing for 30 seconds
+(ctrl+C then &#39;C&#39; = continue early, ctrl+C then &#39;A&#39; = abort)
+................................................
+Play 25/28 (Re-enable excluder if it was previously enabled)
+...............
+localhost                  : ok=11   changed=0    unreachable=0    failed=0   
+master.example.com         : ok=606  changed=151  unreachable=0    failed=0   
+node1.example.com          : ok=202  changed=39   unreachable=0    failed=0   
+node2.example.com          : ok=202  changed=39   unreachable=0    failed=0   
+
+
+Installation Complete: Note: Play count is only an estimate, some plays may have been skipped or dynamically added
+
+
+The installation was successful!
+
+If this is your first time installing please take a look at the Administrator
+Guide for advanced options related to routing, storage, authentication, and
+more:
+
+http://docs.openshift.com/enterprise/latest/admin_guide/overview.html
+</code></pre></td></tr></table></div></div><h2 id=running-an-unattended-installation>Running an unattended Installation</h2><p>Unattended installation allow you to run the installation with a pre-defined
 configuration file. The default installation configure file path is <em>~/.config/openshift/installer.cfg.yml</em>. Define the configuration file and
-run the install command with the <code>-u</code> option.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   $ atomic-openshift-installer -u install</pre></td></tr></table>
-</div>
-</div>
-<p>Here is a simple example of the <em>install.cfg.yml</em> file. For further
-information, please follow <a href="https://docs.openshift.com/container-platform/3.5/install_config/install/quick_install.html#defining-an-installation-configuration-file">Defining an Installation Configuration File</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-~/.config/openshift/installer.cfg.yml" data-lang="~/.config/openshift/installer.cfg.yml"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-~/.config/openshift/installer.cfg.yml" data-lang="~/.config/openshift/installer.cfg.yml"><span class="w">   </span>ansible_callback_facts_yaml<span class="p">:</span><span class="w"> </span>/root/.config/openshift/.ansible/callback_facts.yaml<span class="w">
-</span><span class="w">   </span>ansible_inventory_path<span class="p">:</span><span class="w"> </span>/root/.config/openshift/hosts<span class="w">
-</span><span class="w">   </span>ansible_log_path<span class="p">:</span><span class="w"> </span>/tmp/ansible.log<span class="w">
-</span><span class="w">   </span>deployment<span class="p">:</span><span class="w">
-</span><span class="w">     </span>ansible_ssh_user<span class="p">:</span><span class="w"> </span>root<span class="w">
-</span><span class="w">     </span>hosts<span class="p">:</span><span class="w">
-</span><span class="w">     </span>-<span class="w"> </span>connect_to<span class="p">:</span><span class="w"> </span>master.example.com<span class="w">
-</span><span class="w">       </span>hostname<span class="p">:</span><span class="w"> </span>master<span class="w">
-</span><span class="w">       </span>ip<span class="p">:</span><span class="w"> </span><span class="m">10.64.221.200</span><span class="w">
-</span><span class="w">       </span>public_hostname<span class="p">:</span><span class="w"> </span>master<span class="w">
-</span><span class="w">       </span>public_ip<span class="p">:</span><span class="w"> </span><span class="m">10.64.221.200</span><span class="w">
-</span><span class="w">       </span>roles<span class="p">:</span><span class="w">
-</span><span class="w">       </span>-<span class="w"> </span>master<span class="w">
-</span><span class="w">       </span>-<span class="w"> </span>etcd<span class="w">
-</span><span class="w">       </span>-<span class="w"> </span>node<span class="w">
-</span><span class="w">       </span>-<span class="w"> </span>storage<span class="w">
-</span><span class="w">     </span>-<span class="w"> </span>connect_to<span class="p">:</span><span class="w"> </span>node1.example.com<span class="w">
-</span><span class="w">       </span>hostname<span class="p">:</span><span class="w"> </span>node1<span class="w">
-</span><span class="w">       </span>ip<span class="p">:</span><span class="w"> </span><span class="m">10.64.221.47</span><span class="w">
-</span><span class="w">       </span>node_labels<span class="p">:</span><span class="w"> </span><span class="s1">&#39;{&#39;&#39;region&#39;&#39;: &#39;&#39;infra&#39;&#39;}&#39;</span><span class="w">
-</span><span class="w">       </span>public_hostname<span class="p">:</span><span class="w"> </span>node1<span class="w">
-</span><span class="w">       </span>public_ip<span class="p">:</span><span class="w"> </span><span class="m">10.64.221.47</span><span class="w">
-</span><span class="w">       </span>roles<span class="p">:</span><span class="w">
-</span><span class="w">       </span>-<span class="w"> </span>node<span class="w">
-</span><span class="w">     </span>-<span class="w"> </span>connect_to<span class="p">:</span><span class="w"> </span>node2.example.com<span class="w">
-</span><span class="w">       </span>hostname<span class="p">:</span><span class="w"> </span>node2<span class="w">
-</span><span class="w">       </span>ip<span class="p">:</span><span class="w"> </span><span class="m">10.64.221.192</span><span class="w">
-</span><span class="w">       </span>node_labels<span class="p">:</span><span class="w"> </span><span class="s1">&#39;{&#39;&#39;region&#39;&#39;: &#39;&#39;infra&#39;&#39;}&#39;</span><span class="w">
-</span><span class="w">       </span>public_hostname<span class="p">:</span><span class="w"> </span>node2<span class="w">
-</span><span class="w">       </span>public_ip<span class="p">:</span><span class="w"> </span><span class="m">10.64.221.192</span><span class="w">
-</span><span class="w">       </span>roles<span class="p">:</span><span class="w">
-</span><span class="w">       </span>-<span class="w"> </span>node<span class="w">
-</span><span class="w">     </span>master_routingconfig_subdomain<span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
-</span><span class="w">     </span>openshift_master_cluster_hostname<span class="p">:</span><span class="w"> </span>None<span class="w">
-</span><span class="w">     </span>openshift_master_cluster_public_hostname<span class="p">:</span><span class="w"> </span>None<span class="w">
-</span><span class="w">     </span>proxy_exclude_hosts<span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
-</span><span class="w">     </span>proxy_http<span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
-</span><span class="w">     </span>proxy_https<span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
-</span><span class="w">     </span>roles<span class="p">:</span><span class="w">
-</span><span class="w">       </span>etcd<span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w">       </span>master<span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w">       </span>node<span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w">       </span>storage<span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w">   </span>variant<span class="p">:</span><span class="w"> </span>openshift-enterprise<span class="w">
-</span><span class="w">   </span>variant_version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.5&#39;</span><span class="w">
-</span><span class="w">   </span>version<span class="p">:</span><span class="w"> </span>v2</code></pre></td></tr></table>
-</div>
-</div>
-<p>Also you can specify a different path of the configuration file with the <code>-c</code> option.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   $ atomic-openshift-installer -u -c &lt;/path/to/file&gt; install</pre></td></tr></table>
-</div>
-</div>
-<h2 id="verifying-the-installation">Verifying the installation</h2>
-
-<p>After the installation is completed.
-1. Verify the master and nodes are started in Ready status. On the master host,
-   run the following as root</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   # oc get nodes
+run the install command with the <code>-u</code> option.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ atomic-openshift-installer -u install
+</code></pre></td></tr></table></div></div><p>Here is a simple example of the <em>install.cfg.yml</em> file. For further
+information, please follow <a href=https://docs.openshift.com/container-platform/3.5/install_config/install/quick_install.html#defining-an-installation-configuration-file>Defining an Installation Configuration File</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-~/.config/openshift/installer.cfg.yml data-lang=~/.config/openshift/installer.cfg.yml>ansible_callback_facts_yaml<span class=p>:</span><span class=w> </span>/root/.config/openshift/.ansible/callback_facts.yaml<span class=w>
+</span><span class=w></span>ansible_inventory_path<span class=p>:</span><span class=w> </span>/root/.config/openshift/hosts<span class=w>
+</span><span class=w></span>ansible_log_path<span class=p>:</span><span class=w> </span>/tmp/ansible.log<span class=w>
+</span><span class=w></span>deployment<span class=p>:</span><span class=w>
+</span><span class=w>  </span>ansible_ssh_user<span class=p>:</span><span class=w> </span>root<span class=w>
+</span><span class=w>  </span>hosts<span class=p>:</span><span class=w>
+</span><span class=w>  </span>-<span class=w> </span>connect_to<span class=p>:</span><span class=w> </span>master.example.com<span class=w>
+</span><span class=w>    </span>hostname<span class=p>:</span><span class=w> </span>master<span class=w>
+</span><span class=w>    </span>ip<span class=p>:</span><span class=w> </span><span class=m>10.64</span><span class=m>.221</span><span class=m>.200</span><span class=w>
+</span><span class=w>    </span>public_hostname<span class=p>:</span><span class=w> </span>master<span class=w>
+</span><span class=w>    </span>public_ip<span class=p>:</span><span class=w> </span><span class=m>10.64</span><span class=m>.221</span><span class=m>.200</span><span class=w>
+</span><span class=w>    </span>roles<span class=p>:</span><span class=w>
+</span><span class=w>    </span>-<span class=w> </span>master<span class=w>
+</span><span class=w>    </span>-<span class=w> </span>etcd<span class=w>
+</span><span class=w>    </span>-<span class=w> </span>node<span class=w>
+</span><span class=w>    </span>-<span class=w> </span>storage<span class=w>
+</span><span class=w>  </span>-<span class=w> </span>connect_to<span class=p>:</span><span class=w> </span>node1.example.com<span class=w>
+</span><span class=w>    </span>hostname<span class=p>:</span><span class=w> </span>node1<span class=w>
+</span><span class=w>    </span>ip<span class=p>:</span><span class=w> </span><span class=m>10.64</span><span class=m>.221</span><span class=m>.47</span><span class=w>
+</span><span class=w>    </span>node_labels<span class=p>:</span><span class=w> </span><span class=s1>&#39;{&#39;</span><span class=s1>&#39;region&#39;</span><span class=s1>&#39;: &#39;</span><span class=s1>&#39;infra&#39;</span><span class=s1>&#39;}&#39;</span><span class=w>
+</span><span class=w>    </span>public_hostname<span class=p>:</span><span class=w> </span>node1<span class=w>
+</span><span class=w>    </span>public_ip<span class=p>:</span><span class=w> </span><span class=m>10.64</span><span class=m>.221</span><span class=m>.47</span><span class=w>
+</span><span class=w>    </span>roles<span class=p>:</span><span class=w>
+</span><span class=w>    </span>-<span class=w> </span>node<span class=w>
+</span><span class=w>  </span>-<span class=w> </span>connect_to<span class=p>:</span><span class=w> </span>node2.example.com<span class=w>
+</span><span class=w>    </span>hostname<span class=p>:</span><span class=w> </span>node2<span class=w>
+</span><span class=w>    </span>ip<span class=p>:</span><span class=w> </span><span class=m>10.64</span><span class=m>.221</span><span class=m>.192</span><span class=w>
+</span><span class=w>    </span>node_labels<span class=p>:</span><span class=w> </span><span class=s1>&#39;{&#39;</span><span class=s1>&#39;region&#39;</span><span class=s1>&#39;: &#39;</span><span class=s1>&#39;infra&#39;</span><span class=s1>&#39;}&#39;</span><span class=w>
+</span><span class=w>    </span>public_hostname<span class=p>:</span><span class=w> </span>node2<span class=w>
+</span><span class=w>    </span>public_ip<span class=p>:</span><span class=w> </span><span class=m>10.64</span><span class=m>.221</span><span class=m>.192</span><span class=w>
+</span><span class=w>    </span>roles<span class=p>:</span><span class=w>
+</span><span class=w>    </span>-<span class=w> </span>node<span class=w>
+</span><span class=w>  </span>master_routingconfig_subdomain<span class=p>:</span><span class=w> </span><span class=s1>&#39;&#39;</span><span class=w>
+</span><span class=w>  </span>openshift_master_cluster_hostname<span class=p>:</span><span class=w> </span>None<span class=w>
+</span><span class=w>  </span>openshift_master_cluster_public_hostname<span class=p>:</span><span class=w> </span>None<span class=w>
+</span><span class=w>  </span>proxy_exclude_hosts<span class=p>:</span><span class=w> </span><span class=s1>&#39;&#39;</span><span class=w>
+</span><span class=w>  </span>proxy_http<span class=p>:</span><span class=w> </span><span class=s1>&#39;&#39;</span><span class=w>
+</span><span class=w>  </span>proxy_https<span class=p>:</span><span class=w> </span><span class=s1>&#39;&#39;</span><span class=w>
+</span><span class=w>  </span>roles<span class=p>:</span><span class=w>
+</span><span class=w>    </span>etcd<span class=p>:</span><span class=w> </span>{}<span class=w>
+</span><span class=w>    </span>master<span class=p>:</span><span class=w> </span>{}<span class=w>
+</span><span class=w>    </span>node<span class=p>:</span><span class=w> </span>{}<span class=w>
+</span><span class=w>    </span>storage<span class=p>:</span><span class=w> </span>{}<span class=w>
+</span><span class=w></span>variant<span class=p>:</span><span class=w> </span>openshift-enterprise<span class=w>
+</span><span class=w></span>variant_version<span class=p>:</span><span class=w> </span><span class=s1>&#39;3.5&#39;</span><span class=w>
+</span><span class=w></span>version<span class=p>:</span><span class=w> </span>v2<span class=w>
+</span></code></pre></td></tr></table></div></div><p>Also you can specify a different path of the configuration file with the <code>-c</code> option.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ atomic-openshift-installer -u -c &lt;/path/to/file&gt; install
+</code></pre></td></tr></table></div></div><h2 id=verifying-the-installation>Verifying the installation</h2><p>After the installation is completed.</p><ol><li><p>Verify the master and nodes are started in Ready status. On the master host,
+run the following as root</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># oc get nodes
    
-   NAME                        STATUS                     AGE
-   master.example.com          Ready,SchedulingDisabled   165d
-   node1.example.com           Ready                      165d
-   node2.example.com           Ready                      165d</pre></td></tr></table>
-</div>
-</div>
-<ol>
-<li><p>The web console use the master host name with a default port number 8443. In
-this test environment, you can find the web console at <a href="https://master.openshift.com:8443/console">https://master.openshift.com:8443/console</a></p></li>
-
-<li><p>Now that the install has been verified, run the following command on each master
+NAME                        STATUS                     AGE
+master.example.com          Ready,SchedulingDisabled   165d
+node1.example.com           Ready                      165d
+node2.example.com           Ready                      165d
+</code></pre></td></tr></table></div></div></li><li><p>The web console use the master host name with a default port number 8443. In
+this test environment, you can find the web console at <a href=https://master.openshift.com:8443/console>https://master.openshift.com:8443/console</a></p></li><li><p>Now that the install has been verified, run the following command on each master
 and node host to add the atomic-openshift packages back to the list of yum
-excludes on the host:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma"># atomic-openshift-excluder exclude</pre></td></tr></table>
-</div>
-</div></li>
-</ol>
+excludes on the host:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># atomic-openshift-excluder exclude
+</code></pre></td></tr></table></div></div></li></ol><h1 id=uninstallation>Uninstallation</h1><p>You can uninstall OpenShift Container Platform from all hosts using the follow
+commands</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ atomic-openshift-installer uninstall
+OpenShift will be uninstalled from the following hosts:
 
-<h1 id="uninstallation">Uninstallation</h1>
+  * master.example.com
+  * node1.example.com
+  * node2.example.com
 
-<p>You can uninstall OpenShift Container Platform from all hosts using the follow
-commands</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   $ atomic-openshift-installer uninstall
-   OpenShift will be uninstalled from the following hosts:
-   
-     * master.example.com
-     * node1.example.com
-     * node2.example.com
-   
-   Do you want to proceed? [y/N]: y
-   
-   Play 1/9 (OSEv3:children)
-   ....
-   Play 2/9 (nodes)
-   ..
-   Play 3/9 (masters)
-   ..
-   Play 4/9 (etcd)
-   ..
-   Play 5/9 (nodes)
-   ...............................
-   Play 6/9 (masters)
-   ............
-   Play 7/9 (etcd)
-   ............
-   master.example.com         : ok=60   changed=17   unreachable=0    failed=0
-   node1.example.com          : ok=35   changed=8    unreachable=0    failed=0
-   node2.example.com          : ok=35   changed=8    unreachable=0    failed=0</pre></td></tr></table>
-</div>
-</div>
-<p>If you are using a configuration file, specify the file path for the uninstallation:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">   $ atomic-openshift-installer -c &lt;/path/to/file&gt; uninstall</pre></td></tr></table>
-</div>
-</div>
-    </div>
+Do you want to proceed? [y/N]: y
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Wenhan Shi</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2020-03-26
-        <a href="https://github.com/xibuka/xibuka.github.io.git/commit/02c19e3e1115c42cabb6448c1045ebb3b6a8a476" title="first commit">(02c19e3)</a>
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/linux/">Linux</a>
-          <a href="/tags/openshift/">OpenShift</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/openshift-configure-authetication-and-user-agent-using-htpasswd/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">OpenShift Configure authentication and User Agent using HTPasswd</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/">
-            <span class="next-text nav-default">How to copy text to the system clipboard in VIM</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-
-  
-
-  
-    <script src="https://utteranc.es/client.js"
-            repo="xibuka/xibuka.github.io"
-            issue-term="pathname"
-            theme="github-light"
-            crossorigin="anonymous"
-            async>
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:shibunkan@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/shi_wenhan" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://www.linkedin.com/in/wenhan-shi-0883a9132/" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://github.com/xibuka" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.zhihu.com/people/xibuka" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="http://wenhan.blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-      <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
-  </div>
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Wenhan Shi</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-87273435-2', 'auto');
-	ga('set', 'anonymizeIp', true);
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-
-
-</body>
-</html>
+Play 1/9 (OSEv3:children)
+....
+Play 2/9 (nodes)
+..
+Play 3/9 (masters)
+..
+Play 4/9 (etcd)
+..
+Play 5/9 (nodes)
+...............................
+Play 6/9 (masters)
+............
+Play 7/9 (etcd)
+............
+master.example.com         : ok=60   changed=17   unreachable=0    failed=0
+node1.example.com          : ok=35   changed=8    unreachable=0    failed=0
+node2.example.com          : ok=35   changed=8    unreachable=0    failed=0
+</code></pre></td></tr></table></div></div><p>If you are using a configuration file, specify the file path for the uninstallation:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ atomic-openshift-installer -c &lt;/path/to/file&gt; uninstall
+</code></pre></td></tr></table></div></div></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Wenhan Shi</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-03-30
+<a href=https://github.com/xibuka/xibuka.github.io.git/commit/2e618d8f83d00f8e4e8bd89cbbc00a4968670cab title="workflow test 4">(2e618d8)</a></span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/openshift/>OpenShift</a></div><nav class=post-nav><a class=prev href=/post/openshift-configure-authetication-and-user-agent-using-htpasswd/><i class="iconfont icon-left"></i><span class="prev-text nav-default">OpenShift Configure authentication and User Agent using HTPasswd</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/><span class="next-text nav-default">How to copy text to the system clipboard in VIM</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=xibuka/xibuka.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=http://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2016 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
