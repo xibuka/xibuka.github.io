@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://wenhan.blog/sitemap.xml
+Sitemap: https://wenhan.blog/sitemap.xml
