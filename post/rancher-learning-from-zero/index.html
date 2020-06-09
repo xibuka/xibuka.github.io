@@ -1,0 +1,297 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Rancher ゼロから勉強 - Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="紹介 Rancherはrancher-server とrancher-agent、そして一つ以上のkubernetes clusterによって構成"><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://wenhan.blog/post/rancher-learning-from-zero/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Rancher ゼロから勉強"><meta property="og:description" content="紹介 Rancherはrancher-server とrancher-agent、そして一つ以上のkubernetes clusterによって構成"><meta property="og:type" content="article"><meta property="og:url" content="https://wenhan.blog/post/rancher-learning-from-zero/"><meta property="article:published_time" content="2020-06-09T16:12:08+09:00"><meta property="article:modified_time" content="2020-06-09T17:10:42+09:00"><meta itemprop=name content="Rancher ゼロから勉強"><meta itemprop=description content="紹介 Rancherはrancher-server とrancher-agent、そして一つ以上のkubernetes clusterによって構成"><meta itemprop=datePublished content="2020-06-09T16:12:08+09:00"><meta itemprop=dateModified content="2020-06-09T17:10:42+09:00"><meta itemprop=wordCount content="2107"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="Rancher ゼロから勉強"><meta name=twitter:description content="紹介 Rancherはrancher-server とrancher-agent、そして一つ以上のkubernetes clusterによって構成"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><ins class=adsbygoogle style=display:block data-ad-client=ca-pub-2422626403812806 data-ad-slot=1454707894 data-ad-format=auto></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Rancher ゼロから勉強</h1><div class=post-meta><span class=post-time>2020-06-09</span>
+<span class=more-meta>2107 words</span>
+<span class=more-meta>5 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#シングルノード>シングルノード</a></li><li><a href=#マルチノード>マルチノード</a><ul><li><a href=#マシンの用意>マシンの用意</a></li><li><a href=#rkeでkubernetes環境作成>rkeでKubernetes環境作成</a></li><li><a href=#kubenetes環境でrancherをインストール>kubenetes環境でRancherをインストール</a></li></ul></li></ul></nav></div></div><div class=post-content><h1 id=紹介>紹介</h1><p>Rancherは<code>rancher-server</code> と<code>rancher-agent</code>、そして一つ以上の<code>kubernetes cluster</code>によって構成されている。この中、<code>rancher-agent</code>は管理された<code>kubernetes</code>に実行され、<code>rancher-server</code>と通信し、クラスタの情報を送信する。</p><p><code>rancher-server</code>は<code>kubernetes</code>を管理するためのWebUIとAPIを提供している。<code>rancher-server</code>はHTTPSのみアクセスできる。</p><h1 id=インストール>インストール</h1><h2 id=シングルノード>シングルノード</h2><p>シングルノードの構築は以下二つの方法があります。</p><ul><li><code>docker</code>で直接<code>rancher-server</code>を実行</li><li><code>rke</code>で一つのノードに全ての<code>role</code>を有効</li></ul><p><code>rke</code>の方法は後でも出てくるので割愛、ここでは<code>docker</code>の方法を示す。</p><p><code>rancher-server</code>を実行したいノードで、下記のコマンドを入力する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>docker run -d --restart<span class=o>=</span>unless-stopped <span class=se>\
+</span><span class=se></span>  -p 80:80 -p 443:443 <span class=se>\
+</span><span class=se></span>  rancher/rancher:latest
+</code></pre></td></tr></table></div></div><p>これでシングルノードの<code>rancher-server</code>を起動した。<code>http://&lt;IP Address></code>でアクセスできる。</p><h2 id=マルチノード>マルチノード</h2><p><code>rke</code>を使ってHA環境の<code>rancher-server</code>を構築する。</p><p><code>rke(rancher k8s engine)</code>は<code>kubernetes</code>を構築するためのコマンドで、環境を用意すればコマンド一つでクラスターを構築できる。</p><h3 id=マシンの用意>マシンの用意</h3><p>今回は<code>multipass</code> でマシンを準備する。以下のコマンドで６台の仮想マシンを作成する。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>multipass launch -c <span class=m>2</span> -m 4096M -d 20G --cloud-init<span class=o>=</span>./cloud-init.yaml -n kmaster1
+multipass launch -c <span class=m>2</span> -m 4096M -d 20G --cloud-init<span class=o>=</span>./cloud-init.yaml -n kmaster2
+multipass launch -c <span class=m>2</span> -m 4096M -d 20G --cloud-init<span class=o>=</span>./cloud-init.yaml -n kmaster3
+multipass launch -c <span class=m>2</span> -m 4096M -d 20G --cloud-init<span class=o>=</span>./cloud-init.yaml -n kworker1
+multipass launch -c <span class=m>2</span> -m 4096M -d 20G --cloud-init<span class=o>=</span>./cloud-init.yaml -n kworker2
+multipass launch -c <span class=m>2</span> -m 4096M -d 20G --cloud-init<span class=o>=</span>./cloud-init.yaml -n kworker3
+</code></pre></td></tr></table></div></div><p>コマンドにあった<code>cloud-init.yaml</code>ファイルは、マシン立ち上がった後の後処理を実行する。今回の場合は以下の後処理を実行した。</p><ul><li><p><code>docker</code>のインストール</p></li><li><p>ホストマシン<code>ssh</code>キーの登録</p></li><li><p><code>Ubuntu</code>ユーザを<code>docker</code>グループに登録</p></li><li><p>必要カーネルモジュールのロード</p></li><li><p>swap領域の停止</p></li></ul><p>詳細の内容は以下に示す。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>#cloud-config
+
+packages:
+    - docker.io
+
+ssh_authorized_keys:
+    - &lt;rsa public key&gt;
+
+runcmd:
+    - usermod -aG docker ubuntu
+    - modprobe br_netfilter
+    - modprobe ip6_udp_tunnel
+    - modprobe ip_set
+    - modprobe ip_set_hash_ip
+    - modprobe ip_set_hash_net
+    - modprobe iptable_filter
+    - modprobe iptable_nat
+    - modprobe iptable_mangle
+    - modprobe iptable_raw
+    - modprobe nf_conntrack_netlink
+    - modprobe nf_conntrack
+    - modprobe nf_conntrack_ipv4
+    - modprobe nf_defrag_ipv4
+    - modprobe nf_nat
+    - modprobe nf_nat_ipv4
+    - modprobe nf_nat_masquerade_ipv4
+    - modprobe nfnetlink
+    - modprobe udp_tunnel
+    - modprobe veth
+    - modprobe vxlan
+    - modprobe x_tables
+    - modprobe xt_addrtype
+    - modprobe xt_conntrack
+    - modprobe xt_comment
+    - modprobe xt_mark
+    - modprobe xt_multiport
+    - modprobe xt_nat
+    - modprobe xt_recent
+    - modprobe xt_set
+    - modprobe xt_statistic
+    - modprobe xt_tcpudp
+    - swapoff -a
+</code></pre></td></tr></table></div></div><p>最終的に以下ようにな６台のマシンができた</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ multipass list
+Name                    State             IPv4             Image
+kmaster1                Running           10.131.158.97    Not Available
+kmaster2                Running           10.131.158.194   Not Available
+kmaster3                Running           10.131.158.121   Not Available
+kworker1                Running           10.131.158.133   Not Available
+kworker2                Running           10.131.158.247   Not Available
+kworker3                Running           10.131.158.166   Not Available
+</code></pre></td></tr></table></div></div><h3 id=rkeでkubernetes環境作成>rkeでKubernetes環境作成</h3><p><a href=https://rancher.com/products/rke/>rke</a>で説明した通り、バイナリをダウンロードし実行権限を追加する。</p><p>上記の６ノードの情報とそれぞれの役割を設定する。他にもいろいろ設定できるが、今回は割愛</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>nodes<span class=p>:</span><span class=w>
+</span><span class=w>  </span>-<span class=w> </span>address<span class=p>:</span><span class=w> </span><span class=m>10.131</span><span class=m>.158</span><span class=m>.97</span><span class=w>
+</span><span class=w>    </span>user<span class=p>:</span><span class=w> </span>ubuntu<span class=w>
+</span><span class=w>    </span>role<span class=p>:</span><span class=w> </span><span class=p>[</span>controlplane<span class=p>,</span><span class=w> </span>worker<span class=p>,</span><span class=w> </span>etcd<span class=p>]</span><span class=w>
+</span><span class=w>  </span>-<span class=w> </span>address<span class=p>:</span><span class=w> </span><span class=m>10.131</span><span class=m>.158</span><span class=m>.194</span><span class=w>
+</span><span class=w>    </span>user<span class=p>:</span><span class=w> </span>ubuntu<span class=w>
+</span><span class=w>    </span>role<span class=p>:</span><span class=w> </span><span class=p>[</span>controlplane<span class=p>,</span><span class=w> </span>worker<span class=p>,</span><span class=w> </span>etcd<span class=p>]</span><span class=w>
+</span><span class=w>  </span>-<span class=w> </span>address<span class=p>:</span><span class=w> </span><span class=m>10.131</span><span class=m>.158</span><span class=m>.121</span><span class=w>
+</span><span class=w>    </span>user<span class=p>:</span><span class=w> </span>ubuntu<span class=w>
+</span><span class=w>    </span>role<span class=p>:</span><span class=w> </span><span class=p>[</span>controlplane<span class=p>,</span><span class=w> </span>worker<span class=p>,</span><span class=w> </span>etcd<span class=p>]</span><span class=w>
+</span><span class=w>  </span>-<span class=w> </span>address<span class=p>:</span><span class=w> </span><span class=m>10.131</span><span class=m>.158</span><span class=m>.133</span><span class=w>
+</span><span class=w>    </span>user<span class=p>:</span><span class=w> </span>ubuntu<span class=w>
+</span><span class=w>    </span>role<span class=p>:</span><span class=w> </span><span class=p>[</span>worker<span class=p>]</span><span class=w>
+</span><span class=w>  </span>-<span class=w> </span>address<span class=p>:</span><span class=w> </span><span class=m>10.131</span><span class=m>.158</span><span class=m>.247</span><span class=w>
+</span><span class=w>    </span>user<span class=p>:</span><span class=w> </span>ubuntu<span class=w>
+</span><span class=w>    </span>role<span class=p>:</span><span class=w> </span><span class=p>[</span>worker<span class=p>]</span><span class=w>
+</span><span class=w>  </span>-<span class=w> </span>address<span class=p>:</span><span class=w> </span><span class=m>10.131</span><span class=m>.158</span><span class=m>.166</span><span class=w>
+</span><span class=w>    </span>user<span class=p>:</span><span class=w> </span>ubuntu<span class=w>
+</span><span class=w>    </span>role<span class=p>:</span><span class=w> </span><span class=p>[</span>worker<span class=p>]</span><span class=w>
+</span><span class=w>
+</span><span class=w></span>system-images<span class=p>:</span><span class=w>
+</span><span class=w>    </span>kubernetes<span class=p>:</span><span class=w> </span>rancher/hyperkube<span class=p>:</span>v1<span class=m>.18</span><span class=m>.2</span><span class=w>
+</span><span class=w>
+</span><span class=w></span>services<span class=p>:</span><span class=w>
+</span><span class=w>  </span>etcd<span class=p>:</span><span class=w>
+</span><span class=w>    </span>snapshot<span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>    </span>creation<span class=p>:</span><span class=w> </span>6h<span class=w>
+</span><span class=w>    </span>retention<span class=p>:</span><span class=w> </span><span class=m>24</span><span class=w>
+</span><span class=w>
+</span><span class=w></span>ingress<span class=p>:</span><span class=w>
+</span><span class=w>  </span>provider<span class=p>:</span><span class=w> </span>nginx<span class=w>
+</span><span class=w>  </span>options<span class=p>:</span><span class=w>
+</span><span class=w>    </span>use-forwarded-headers<span class=p>:</span><span class=w> </span><span class=s1>&#39;true&#39;</span><span class=w>
+</span></code></pre></td></tr></table></div></div><p><code>rke</code>コマンドにこの`Yamlファイルをパラメータにして実行すると、Kubernetes環境が作成できる。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>rke_linux-amd64 up --config ./rancher_cluster.yaml
+</code></pre></td></tr></table></div></div><p>無事クラスタが作成された後、元のYamlファイル以外に、新しいファイルが二つ生成されます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ ll
+total 132K
+-rw-r----- 1 wshi wshi 5.3K Jun  8 17:04 kube_config_rancher_cluster.yaml
+-rw-r----- 1 wshi wshi 119K Jun  8 17:07 rancher_cluster.rkestate
+-rw-rw-r-- 1 wshi wshi  748 Jun  8 16:53 rancher_cluster.yaml
+</code></pre></td></tr></table></div></div><p>この中の<code>kube_config_rancher_cluster.yaml</code>はクラスタにアクセスするための設定ファイルのため、<code>kubectl</code>に読み込まれるように、<code>~/kube/config</code>にコピーする。これによってクラスタにアクセスができるようになった。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ kubectl get node
+NAME             STATUS   ROLES                      AGE   VERSION
+10.131.158.121   Ready    controlplane,etcd,worker   21h   v1.17.4
+10.131.158.133   Ready    worker                     21h   v1.17.4
+10.131.158.166   Ready    worker                     21h   v1.17.4
+10.131.158.194   Ready    controlplane,etcd,worker   21h   v1.17.4
+10.131.158.247   Ready    worker                     21h   v1.17.4
+10.131.158.97    Ready    controlplane,etcd,worker   21h   v1.17.4
+</code></pre></td></tr></table></div></div><h3 id=kubenetes環境でrancherをインストール>kubenetes環境でRancherをインストール</h3><p><a href=https://rancher.com/docs/rancher/v2.x/en/installation/k8s-install/helm-rancher/>rancherのドキュメント</a> に従ってインストールします。ここではインストールの手順だけ抽出し、詳しい設定はドキュメントを参照してください。</p><ol><li><p><code>helm</code>のインストール</p><p><a href=https://helm.sh/docs/intro/install/>helmのホームページ</a>を参考にして<code>helm</code>をインストールする</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>sudo snap install helm --classic
+</code></pre></td></tr></table></div></div></li><li><p><code>helm</code>に<code>rancher</code>のリポジトリを追加</p><p>今回は<code>stable</code>を選択する</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
+</code></pre></td></tr></table></div></div></li><li><p><code>rancher</code>インストールのため<code>namespace</code>を追加</p><p><code>namespace</code>の名前は必ず<code>cattle-system</code>にする</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubectl create namespace cattle-system
+</code></pre></td></tr></table></div></div></li><li><p><code>cert-manager</code>をインストール</p><p>他にも証明書作成の方法はありますが、今回は<code>rancher</code>に生成してもらう</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># Install the CustomResourceDefinition resources separately
+kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager.crds.yaml
+
+# Create the namespace for cert-manager
+kubectl create namespace cert-manager
+
+# Add the Jetstack Helm repository
+helm repo add jetstack https://charts.jetstack.io
+
+# Update your local Helm chart repository cache
+helm repo update
+
+# Install the cert-manager Helm chart
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --version v0.15.0
+</code></pre></td></tr></table></div></div><p><code>cert-manager</code>の状態を確認</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ kubectl get pods --namespace cert-manager
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-766d5c494b-9cmcq              1/1     Running   0          15s
+cert-manager-cainjector-6649bbb695-cfmxq   1/1     Running   0          15s
+cert-manager-webhook-68d464c8b-5bmjt       1/1     Running   0          15s
+</code></pre></td></tr></table></div></div></li><li><p><code>rancher-server</code>をインストール</p><p>Rancher-generated certificatesを利用して、<code>rancher-server</code>をインストール</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>helm install rancher rancher-stable/rancher \
+  --namespace cattle-system \
+  --set hostname=rancher.my.org
+</code></pre></td></tr></table></div></div><p><code>rancher-server</code>の状態を確認</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ kubectl get pod -n cattle-system -o wide
+NAME                       READY   STATUS    RESTARTS   AGE   IP          NODE             NOMINATED NODE   READINESS GATES
+rancher-756b996499-fjnt9   1/1     Running   0          35m   10.42.0.4   10.131.158.247   &lt;none&gt;           &lt;none&gt;
+rancher-756b996499-rkn8h   1/1     Running   0          35m   10.42.2.4   10.131.158.121   &lt;none&gt;           &lt;none&gt;
+rancher-756b996499-wmczg   1/1     Running   0          35m   10.42.5.4   10.131.158.97    &lt;none&gt;           &lt;none&gt;
+
+</code></pre></td></tr></table></div></div><p>それぞれのノード上にPodが<code>Running</code>状態であり、インストールは成功した。</p></li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Wenhan Shi</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-06-09
+<a href=https://github.com/xibuka/xibuka.github.io.git/commit/65c6274ca9d6b7a5df172537024b62f658827999 title="update new post">(65c6274)</a></span></p></div><footer class=post-footer><nav class=post-nav><a class=next href=/post/install-linux-os-with-qemu-cli/><span class="next-text nav-default">Install Linux OS With Qemu CLI</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=xibuka/xibuka.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2016 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
