@@ -1,0 +1,184 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Kong Gatewayの Route By Header Pluginを使ってみる - Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="紹介 Kong GatewayではRouteでサブパスを定義し、どのServiceにアクセスするかを決めています。例えば、以下のURLの後ろのサブパス"><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://wenhan.blog/post/20220802_using-kong-gw-route-by-header-plugin/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Kong Gatewayの Route By Header Pluginを使ってみる"><meta property="og:description" content="紹介 Kong GatewayではRouteでサブパスを定義し、どのServiceにアクセスするかを決めています。例えば、以下のURLの後ろのサブパス"><meta property="og:type" content="article"><meta property="og:url" content="https://wenhan.blog/post/20220802_using-kong-gw-route-by-header-plugin/"><meta property="article:published_time" content="2022-08-03T01:19:02+09:00"><meta property="article:modified_time" content="2022-08-03T13:45:52+09:00"><meta itemprop=name content="Kong Gatewayの Route By Header Pluginを使ってみる"><meta itemprop=description content="紹介 Kong GatewayではRouteでサブパスを定義し、どのServiceにアクセスするかを決めています。例えば、以下のURLの後ろのサブパス"><meta itemprop=datePublished content="2022-08-03T01:19:02+09:00"><meta itemprop=dateModified content="2022-08-03T13:45:52+09:00"><meta itemprop=wordCount content="1233"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="Kong Gatewayの Route By Header Pluginを使ってみる"><meta name=twitter:description content="紹介 Kong GatewayではRouteでサブパスを定義し、どのServiceにアクセスするかを決めています。例えば、以下のURLの後ろのサブパス"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Kong Gatewayの Route By Header Pluginを使ってみる</h1><div class=post-meta><span class=post-time>2022-08-03</span>
+<span class=more-meta>1233 words</span>
+<span class=more-meta>3 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#紹介>紹介</a></li><li><a href=#デモ>デモ</a></li><li><a href=#検証>検証</a></li></ul></nav></div></div><div class=post-content><h2 id=紹介>紹介</h2><p>Kong GatewayではRouteでサブパスを定義し、どのServiceにアクセスするかを決めています。例えば、以下のURLの後ろのサブパスがpathAの場合は、トラフィックがserviceAにルーティングされ、最終的に後ろにあるendpointAにアクセスされます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-text data-lang=text>http://mykong.org:8000/pathA =&gt; serviceA =&gt; endpointA
+</code></pre></td></tr></table></div></div><p>しかし、サブパスではなくて、もっと動的にリクエストの転送先を決めたい場合があります。このプラグインは、事前に定義されたヘッダーと転送先をルールに、リクエストヘッダ情報を見て転送先を決めています。ルールに二つのパラメータがあり、<code>condition</code>は定義したヘッダーと値、<code>upstream_name</code>は転送先のUpstreamオブジェクトです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span><span class=nt>&#34;rules&#34;</span><span class=p>:</span><span class=p>[</span><span class=p>{</span><span class=nt>&#34;condition&#34;</span><span class=p>:</span> <span class=p>{</span><span class=nt>&#34;location&#34;</span><span class=p>:</span><span class=s2>&#34;us-east&#34;</span><span class=p>}</span><span class=p>,</span> <span class=nt>&#34;upstream_name&#34;</span><span class=p>:</span> <span class=s2>&#34;east.doamin.com&#34;</span><span class=p>}</span><span class=p>]</span><span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>この記事では、このプラグインの実装についてメモします。
+注：このプラグインを操作できるのはAdmin APIを通す方法のみ。Kong Managerでの操作はできない。</p><p><a href=https://docs.konghq.com/hub/kong-inc/route-by-header/>https://docs.konghq.com/hub/kong-inc/route-by-header/</a></p><h2 id=デモ>デモ</h2><p>実際にこのプラグインを使ってみましょう。まずは作業用の<code>service</code>と<code>route</code>を作成する。<code>service</code>のendpointは<a href=http://httpbin.org/anything>http://httpbin.org/anything</a> となりますが、このプラグインのルールに当てはまらない時にアクセスされます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>curl -i -X POST http://localhost:8001/services <span class=se>\
+</span><span class=se></span>  --data <span class=nv>protocol</span><span class=o>=</span>http <span class=se>\
+</span><span class=se></span>  --data <span class=nv>host</span><span class=o>=</span>httpbin.org <span class=se>\
+</span><span class=se></span>  --date <span class=nv>path</span><span class=o>=</span>/anything
+  --data <span class=nv>name</span><span class=o>=</span>demo
+
+curl -i -X POST http://localhost:8001/routes  <span class=se>\
+</span><span class=se></span>  --data <span class=s2>&#34;paths[]=/&#34;</span> <span class=se>\
+</span><span class=se></span>  --data service.id<span class=o>=</span>&lt;The id of service created above&gt;
+  --data <span class=nv>name</span><span class=o>=</span>demo
+</code></pre></td></tr></table></div></div><p>次に、転送先の<code>Upstream</code>を二つ用意し、<code>myip</code>と<code>date</code>をそれぞれアクセスするとIPアドレスと時間が表示されます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>curl -i -X POST http://localhost:8001/upstreams -d <span class=nv>name</span><span class=o>=</span>myip
+curl -i -X POST http://localhost:8001/upstreams/myip/targets --data <span class=nv>target</span><span class=o>=</span><span class=s2>&#34;ip.jsontest.com:80&#34;</span>
+
+curl -i -X POST http://localhost:8001/upstreams -d <span class=nv>name</span><span class=o>=</span>date
+curl -i -X POST http://localhost:8001/upstreams/date/targets --data <span class=nv>target</span><span class=o>=</span><span class=s2>&#34;date.jsontest.com:80&#34;</span>
+</code></pre></td></tr></table></div></div><p>最後はrouteに対してこのプラグインを作ります。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>curl -i -X POST http://localhost:8001/routes/demo/plugins <span class=se>\
+</span><span class=se></span>  -H <span class=s1>&#39;Content-Type: application/json&#39;</span> <span class=se>\
+</span><span class=se></span>  --data <span class=s1>&#39;{&#34;name&#34;: &#34;route-by-header&#34;, &#34;config&#34;: {&#34;rules&#34;:[{&#34;condition&#34;: {&#34;info&#34;:&#34;myip&#34;}, &#34;upstream_name&#34;: &#34;myip&#34;}, {&#34;condition&#34;: {&#34;info&#34;:&#34;date&#34;}, &#34;upstream_name&#34;: &#34;date&#34;}]}}&#39;</span>
+</code></pre></td></tr></table></div></div><p><code>--data</code>の部分はJsonで記載した振り分けのルールです。headerに<code>info:myip</code>が存在したら、<code>myip</code>のupstreamにふりわけされ、<code>info:date</code>が存在したら、<code>date</code>のupstreamに振り分けられます。</p><h2 id=検証>検証</h2><p>リクエストのヘッダーに<code>info:myip</code>を設定したら、<code>myip</code>のUpstreamに転送されました。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ curl -i -X GET http://localhost:8000/ -H <span class=s2>&#34;info:myip&#34;</span>
+HTTP/1.1 <span class=m>200</span> OK
+Content-Type: application/json
+Content-Length: <span class=m>24</span>
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+X-Cloud-Trace-Context: d2c85f05ccd0e7d1273aee2476504cac
+Date: Wed, <span class=m>03</span> Aug <span class=m>2022</span> 04:23:29 GMT
+Server: Google Frontend
+X-Kong-Upstream-Latency: <span class=m>212</span>
+X-Kong-Proxy-Latency: <span class=m>0</span>
+Via: kong/2.8.1.2-enterprise-edition
+
+<span class=o>{</span><span class=s2>&#34;ip&#34;</span>: <span class=s2>&#34;18.181.83.240&#34;</span><span class=o>}</span>
+</code></pre></td></tr></table></div></div><p>リクエストのヘッダーに<code>info:date</code>を設定したら、<code>date</code>のUpstreamに転送されました。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ curl -i -X GET http://localhost:8000/ -H <span class=s2>&#34;info:date&#34;</span>
+HTTP/1.1 <span class=m>200</span> OK
+Content-Type: application/json
+Content-Length: <span class=m>100</span>
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+X-Cloud-Trace-Context: b03d154c04e8d788ae3c0d870ab9c2df
+Date: Wed, <span class=m>03</span> Aug <span class=m>2022</span> 04:23:33 GMT
+Server: Google Frontend
+X-Kong-Upstream-Latency: <span class=m>214</span>
+X-Kong-Proxy-Latency: <span class=m>0</span>
+Via: kong/2.8.1.2-enterprise-edition
+
+<span class=o>{</span>
+   <span class=s2>&#34;date&#34;</span>: <span class=s2>&#34;08-03-2022&#34;</span>,
+   <span class=s2>&#34;milliseconds_since_epoch&#34;</span>: 1659500613301,
+   <span class=s2>&#34;time&#34;</span>: <span class=s2>&#34;04:23:33 AM&#34;</span>
+<span class=o>}</span>
+</code></pre></td></tr></table></div></div><p>リクエストのヘッダーを設定せず、つまりどのルールにも当てはまらない時は、serviceの元のendpoint、<a href=http://httpbin.org/anything>http://httpbin.org/anything</a> に転送されました。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=o>[</span>ec2-user@ip-10-0-18-228 ~<span class=o>]</span>$ curl -i -X GET http://localhost:8000/
+HTTP/1.1 <span class=m>200</span> OK
+Content-Type: application/json
+Content-Length: <span class=m>419</span>
+Connection: keep-alive
+Date: Wed, <span class=m>03</span> Aug <span class=m>2022</span> 04:26:05 GMT
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: <span class=nb>true</span>
+X-Kong-Upstream-Latency: <span class=m>335</span>
+X-Kong-Proxy-Latency: <span class=m>3</span>
+Via: kong/2.8.1.2-enterprise-edition
+
+<span class=o>{</span>
+  <span class=s2>&#34;args&#34;</span>: <span class=o>{</span><span class=o>}</span>,
+  <span class=s2>&#34;data&#34;</span>: <span class=s2>&#34;&#34;</span>,
+  <span class=s2>&#34;files&#34;</span>: <span class=o>{</span><span class=o>}</span>,
+  <span class=s2>&#34;form&#34;</span>: <span class=o>{</span><span class=o>}</span>,
+  <span class=s2>&#34;headers&#34;</span>: <span class=o>{</span>
+    <span class=s2>&#34;Accept&#34;</span>: <span class=s2>&#34;*/*&#34;</span>,
+    <span class=s2>&#34;Host&#34;</span>: <span class=s2>&#34;httpbin.org&#34;</span>,
+    <span class=s2>&#34;User-Agent&#34;</span>: <span class=s2>&#34;curl/7.61.1&#34;</span>,
+    <span class=s2>&#34;X-Amzn-Trace-Id&#34;</span>: <span class=s2>&#34;Root=1-62e9f8dd-7e352f095824a8b136de808a&#34;</span>,
+    <span class=s2>&#34;X-Forwarded-Host&#34;</span>: <span class=s2>&#34;localhost&#34;</span>,
+    <span class=s2>&#34;X-Forwarded-Path&#34;</span>: <span class=s2>&#34;/&#34;</span>
+  <span class=o>}</span>,
+  <span class=s2>&#34;json&#34;</span>: null,
+  <span class=s2>&#34;method&#34;</span>: <span class=s2>&#34;GET&#34;</span>,
+  <span class=s2>&#34;origin&#34;</span>: <span class=s2>&#34;127.0.0.1, 18.181.83.240&#34;</span>,
+  <span class=s2>&#34;url&#34;</span>: <span class=s2>&#34;http://localhost/anything&#34;</span>
+<span class=o>}</span>
+</code></pre></td></tr></table></div></div></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Wenhan Shi</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2022-08-03
+<a href=https://github.com/xibuka/xibuka.github.io.git/commit/0246a282b05e84f3b1f648ec79dba16dd0057df7 title="fix title of post Route By Header">(0246a28)</a></span></p></div><footer class=post-footer><nav class=post-nav><a class=next href=/post/20220531_using-kong-canary-release-plugin/><span class="next-text nav-default">KongのCanary Release pluginを使ってみる</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=xibuka/xibuka.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2016 -
+2022
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
