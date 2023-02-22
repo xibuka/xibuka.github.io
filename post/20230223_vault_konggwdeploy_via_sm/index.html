@@ -1,0 +1,118 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>HashiCorp Vaultを参照しKongGatewayをデプロイ - Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="背景 Kong Gateway 3.0 から、Secrets ManagementがGAとなりました。Kong Gateway は、データベースのパスワードからプラグインで使用される API キー"><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://wenhan.blog/post/20230223_vault_konggwdeploy_via_sm/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="HashiCorp Vaultを参照しKongGatewayをデプロイ"><meta property="og:description" content="背景 Kong Gateway 3.0 から、Secrets ManagementがGAとなりました。Kong Gateway は、データベースのパスワードからプラグインで使用される API キー"><meta property="og:type" content="article"><meta property="og:url" content="https://wenhan.blog/post/20230223_vault_konggwdeploy_via_sm/"><meta property="article:published_time" content="2023-02-23T00:34:38+09:00"><meta property="article:modified_time" content="2023-02-23T00:36:29+09:00"><meta itemprop=name content="HashiCorp Vaultを参照しKongGatewayをデプロイ"><meta itemprop=description content="背景 Kong Gateway 3.0 から、Secrets ManagementがGAとなりました。Kong Gateway は、データベースのパスワードからプラグインで使用される API キー"><meta itemprop=datePublished content="2023-02-23T00:34:38+09:00"><meta itemprop=dateModified content="2023-02-23T00:36:29+09:00"><meta itemprop=wordCount content="1425"><meta itemprop=keywords content="Kong Gateway,Vault,Secrets Management,"><meta name=twitter:card content="summary"><meta name=twitter:title content="HashiCorp Vaultを参照しKongGatewayをデプロイ"><meta name=twitter:description content="背景 Kong Gateway 3.0 から、Secrets ManagementがGAとなりました。Kong Gateway は、データベースのパスワードからプラグインで使用される API キー"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>HashiCorp Vaultを参照しKongGatewayをデプロイ</h1><div class=post-meta><span class=post-time>2023-02-23</span>
+<span class=more-meta>1425 words</span>
+<span class=more-meta>3 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#vault環境を用意>Vault環境を用意</a></li><li><a href=#secretを作成>Secretを作成</a></li><li><a href=#secretを利用しkong-gatewayをデプロイ>Secretを利用しKong gatewayをデプロイ</a></li><li><a href=#secretを利用しプラグインをデプロイ>Secretを利用しプラグインをデプロイ</a></li></ul></nav></div></div><div class=post-content><h1 id=背景>背景</h1><p>Kong Gateway 3.0 から、Secrets ManagementがGAとなりました。Kong Gateway は、データベースのパスワードからプラグインで使用される API キーまで、多くのSecretに依存して動作します。以前ではRBACを使って、Admin APIとKong Managerから機密情報へのアクセスを制限できましたが、Secretを平文で表示されずに管理できたら嬉しいですよね。これを実現できるのはSecrets Managementです。</p><h1 id=サポートするvault>サポートするVault</h1><p>現時点で、サポートしているVaultは以下の４種類です。</p><ul><li>AWS Secrets Manager</li><li>GCP Secrets Manager</li><li>HashiCorp Vault</li><li>Environment Variable</li></ul><p>Kong は、上記の各システムを抽象化して、利用するときにVaultのキーワード(hcv、aws、gcpまたは env)を変更するだけで利用できます。たとえば、HashiCorp Vaultの Postgres Secretのpassword フィールドにアクセスするには、次のフォーマットで参照できます。</p><pre><code>{vault://hcv/postgres/password}
+</code></pre><p>AWS Secrets Managerの場合</p><pre><code>{vault://aws/postgres/password}
+</code></pre><p>環境変数の場合</p><pre><code>export POSTGRES='{&quot;username&quot;:&quot;user&quot;, &quot;password&quot;:&quot;pass&quot;}'
+{vault://env/postgres/password}
+</code></pre><h1 id=デモ>デモ</h1><p>では実際にSecrets Managementを使ってVaultのSecretsを参照し、Kongのデプロイを試してみよう</p><h2 id=vault環境を用意>Vault環境を用意</h2><p>ここで、TOKEN_IDをkongにします。この値は後の認証するときに使用されます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>docker run -d --name vault.idp \
+  --network=kong-net \
+  -e &#34;VAULT_DEV_ROOT_TOKEN_ID=kong&#34; \
+  -p 8200:8200 \
+  --cap-add=IPC_LOCK \
+  vault:latest
+</code></pre></td></tr></table></div></div><h2 id=secretを作成>Secretを作成</h2><p>コンテナーに入って、Secretを作成しましょう</p><pre><code>docker exec -it vault.idp sh
+/ # export VAULT_ADDR='http://127.0.0.1:8200'
+/ # export VAULT_TOKEN=&quot;kong&quot;
+/ # vault kv put -mount secret kong pg_password=kongpass
+</code></pre><p>VAULT_ADDRとVAULT_TOKENを設定しないと、<code>Get "https://127.0.0.1:8200/v1/sys/internal/ui/mounts/secret": http: server gave HTTP response to HTTPS client</code>のエラーが出ます。</p><h2 id=secretを利用しkong-gatewayをデプロイ>Secretを利用しKong gatewayをデプロイ</h2><p>Vaultが無事起動している状態でしたら、Kong GatewayのDocker コンテナーも起動しに行きます。DBへの接続用のパラメータ<code>KONG_PG_PASSWORD</code>のところに、HashiCorp VaultからSecretを参照するように<code>{vault://hcv/kong/pg_password}</code>と書き換えています。Vaultへの接続情報は<code>KONG_VAULT_HCV_*</code>のパラメータで設定しています。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>docker run -d --name kong-gateway-sm \
+  --network=kong-net \
+  -e &#34;KONG_DATABASE=postgres&#34; \
+  -e &#34;KONG_PG_HOST=kong-database&#34; \
+  -e &#34;KONG_PG_USER=kong&#34; \
+  -e &#34;KONG_PG_PASSWORD={vault://hcv/kong/pg_password}&#34; \
+  -e &#34;KONG_PROXY_ACCESS_LOG=/dev/stdout&#34; \
+  -e &#34;KONG_ADMIN_ACCESS_LOG=/dev/stdout&#34; \
+  -e &#34;KONG_PROXY_ERROR_LOG=/dev/stderr&#34; \
+  -e &#34;KONG_ADMIN_ERROR_LOG=/dev/stderr&#34; \
+  -e &#34;KONG_ADMIN_LISTEN=0.0.0.0:8001&#34; \
+  -e &#34;KONG_ADMIN_GUI_URL=http://localhost:8002&#34; \
+  -e &#34;KONG_VAULT_HCV_PROTOCOL=http&#34; \
+  -e &#34;KONG_VAULT_HCV_HOST=vault.idp&#34; \
+  -e &#34;KONG_VAULT_HCV_PORT=8200&#34; \
+  -e &#34;KONG_VAULT_HCV_MOUNT=secret&#34; \
+  -e &#34;KONG_VAULT_HCV_KV=v2&#34; \
+  -e &#34;KONG_VAULT_HCV_AUTH_METHOD=token&#34; \
+  -e &#34;KONG_VAULT_HCV_TOKEN=kong&#34; \
+  -e KONG_LICENSE_DATA \
+  -p 8000:8000 \
+  -p 8443:8443 \
+  -p 8001:8001 \
+  -p 8444:8444 \
+  -p 8002:8002 \
+  -p 8445:8445 \
+  -p 8003:8003 \
+  -p 8004:8004 \
+  kong/kong-gateway:3.1.1.3
+</code></pre></td></tr></table></div></div><p>コンテナーが無事起動しているであれば、ちゃんとVaultからSecretが参照できましたね！</p><h2 id=secretを利用しプラグインをデプロイ>Secretを利用しプラグインをデプロイ</h2><p>Vaultへのアクセス情報を設定しているため、PluginをデプロイするときにもSecretを参照することができます。以下の例では、<code>Proxy Caching Advanced</code>プラグインをデプロイするときに、<code>config.redis.password</code>の設定はVaultからの参照にしています。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>curl localhost:8001/services/example-service/plugins \
+--data &#34;name=proxy-cache-advanced&#34;  \
+--data &#34;config.response_code=200&#34; \
+--data &#34;config.request_method=GET&#34; \
+--data &#34;config.content_type=application/json; charset=utf-8&#34; \
+--data &#34;config.cache_control=false&#34; \
+--data &#34;config.strategy=redis&#34; \
+--data &#34;config.redis.host=host.docker.internal&#34; \
+--data &#34;config.redis.port=6379&#34; \
+--data &#34;config.redis.password={vault://hcv/redis/password}&#34;
+</code></pre></td></tr></table></div></div><p>以上！Kong GWで機密情報の管理や参照の方法をご紹介しました。現時点では、環境変数、HashiCorp Vault、 AWS Secrets Manager、およびGCP Secrets Managerのドライバはbuilt-inで入っているのですぐ利用できます。Azure Key Vaultファンの方には朗報です。近いうちにそちらもサポートするようになるのでもう少しお待ちください！</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Wenhan Shi</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2023-02-23
+<a href=https://github.com/xibuka/xibuka.github.io.git/commit/ce48db787bf972def30b0945ae6734928d1b6374 title="new post vault">(ce48db7)</a></span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/kong-gateway/>Kong Gateway</a>
+<a href=/tags/vault/>Vault</a>
+<a href=/tags/secrets-management/>Secrets Management</a></div><nav class=post-nav><a class=next href=/post/20230220_exit_slack/><span class="next-text nav-default">Kong Gatewayで実装！リクエストが失敗したらSlackWebhookで通知</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=xibuka/xibuka.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2016 -
+2023
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span>
+<script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
