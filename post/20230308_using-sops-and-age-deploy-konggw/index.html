@@ -1,0 +1,108 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント - Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="背景 Kong Gatewayをデプロイする時に、データベースへの接続情報など平文で保存したくないデータが存在しています。これを解決するためにKong"><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント"><meta property="og:description" content="背景 Kong Gatewayをデプロイする時に、データベースへの接続情報など平文で保存したくないデータが存在しています。これを解決するためにKong"><meta property="og:type" content="article"><meta property="og:url" content="https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw/"><meta property="article:published_time" content="2023-03-08T16:41:18+09:00"><meta property="article:modified_time" content="2023-03-08T16:45:17+09:00"><meta itemprop=name content="Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント"><meta itemprop=description content="背景 Kong Gatewayをデプロイする時に、データベースへの接続情報など平文で保存したくないデータが存在しています。これを解決するためにKong"><meta itemprop=datePublished content="2023-03-08T16:41:18+09:00"><meta itemprop=dateModified content="2023-03-08T16:45:17+09:00"><meta itemprop=wordCount content="1707"><meta itemprop=keywords content="Kong,Security,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント"><meta name=twitter:description content="背景 Kong Gatewayをデプロイする時に、データベースへの接続情報など平文で保存したくないデータが存在しています。これを解決するためにKong"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント</h1><div class=post-meta><span class=post-time>2023-03-08</span>
+<span class=more-meta>1707 words</span>
+<span class=more-meta>4 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#背景>背景</a></li><li><a href=#事前準備>事前準備</a></li><li><a href=#keyの生成>keyの生成</a></li><li><a href=#設定ファイルの暗号化>設定ファイルの暗号化</a></li><li><a href=#設定ファイルの復号化>設定ファイルの復号化</a></li><li><a href=#cicd-workflow>CI/CD workflow</a></li></ul></nav></div></div><div class=post-content><h2 id=背景>背景</h2><p>Kong Gatewayをデプロイする時に、データベースへの接続情報など平文で保存したくないデータが存在しています。これを解決するためにKong Secret Managerが開発され、AWS Secrets Managerなどの3rdパーティのサービスを利用すれば解決できます。しかし、環境によって外部のセキュリティサービスに接続できない時にこの機能は利用できません。ここで、Mozilaが開発したSOPSという暗号化ツールとGithub ActionのCI/CD workflowを利用し、普段暗号化されている設定ファイルをデプロイ時だけ復号し、Kong GWをインストールする実現することができました。</p><h2 id=事前準備>事前準備</h2><p>CI/CD workflowを構築する前に、まずはローカル環境で暗号と復号を試してみましょう。以下の必要なツールをローカル環境にインストールします。</p><ol><li><a href=https://github.com/FiloSottile/age/releases>age</a></li><li><a href=https://github.com/mozilla/sops/releases>sops</a></li></ol><p>SOPSはとても便利な暗号化・復号化のツールで人気があります。PGP, age, Google cloud's KMS, Azure's key valut, Hashicorp Vaultなどをサポートしています。今回は他のクラウドサービスを極力利用しない方針のため、ageを選択しました。</p><p>ツールのインストールができましたら、<code>age-kengen --help</code>を試してみましょう。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ age-keygen --help
+Usage:
+    age-keygen <span class=o>[</span>-o OUTPUT<span class=o>]</span>
+    age-keygen -y <span class=o>[</span>-o OUTPUT<span class=o>]</span> <span class=o>[</span>INPUT<span class=o>]</span>
+
+Options:
+    -o, --output OUTPUT       Write the result to the file at path OUTPUT.
+    -y                        Convert an identity file to a recipients file.
+</code></pre></td></tr></table></div></div><p>見た感じ大丈夫そうなので、早速Keyを生成しましょう。</p><h2 id=keyの生成>keyの生成</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>$ age-keygen -o sops-key.txt
+Public key: age1hhpnj4ylj5z7qwaek0ncrq882ygmvnv4unup78u3djgmlezrmgkqshyatc
+
+$ cat sops-key.txt
+# created: 2023-03-08T06:07:28Z
+# public key: age1hhpnj4ylj5z7qwaek0ncrq882ygmvnv4unup78u3djgmlezrmgkqshyatc
+AGE-SECRET-KEY-1UHJNXS6RKYWA72RVED0ERGZVQ98N6MDFV6Y3CSPPN9JKLKSRH9GSQRLFAE
+</code></pre></td></tr></table></div></div><p><code>sops-key.txt</code>ファイルに２種類のkeyが生成されました。Public keyは暗号化用、Private Keyは復号化用です。</p><h2 id=設定ファイルの暗号化>設定ファイルの暗号化</h2><p>SOPSをもっと便利に使うために、一つの設定ファイル <code>.sops.yaml</code>を作りましょう。これでコマンドラインからkeyを指定する必要がなくなります。ageの後ろに先ほど生成したPublic keyを記入しまして、encrypted_regexの部分は、どのセクションの内容を暗号化するかを設定するところです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>creation_rules<span class=p>:</span><span class=w>
+</span><span class=w>  </span>-<span class=w> </span>encrypted_regex<span class=p>:</span><span class=w> </span><span class=s1>&#39;^(env|admin|proxy|enterprise|manager|portal|portalapi|postgresql)$&#39;</span><span class=w>
+</span><span class=w>    </span>age<span class=p>:</span><span class=w> </span>age1hhpnj4ylj5z7qwaek0ncrq882ygmvnv4unup78u3djgmlezrmgkqshyatc<span class=w>
+</span></code></pre></td></tr></table></div></div><p>上記の設定で、以下のコマンドで、Kong GWデプロイのファイルを暗号化することができます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ sops -e -i values.yaml
+$ head values.yaml
+image:
+    repository: kong/kong-gateway
+    tag: <span class=s2>&#34;3.1&#34;</span>
+env:
+    prefix: ENC<span class=o>[</span>AES256_GCM,data:2AFF90x0Q3Ej9cMDiw<span class=o>=</span><span class=o>=</span>,iv:o/jBUcZIypUEioKk0Fd4uheBrCOlUOL4RQYExOW696E<span class=o>=</span>,tag:LoIjejClr7lh37Rq9YeKDw<span class=o>=</span><span class=o>=</span>,type:str<span class=o>]</span>
+    log_level: ENC<span class=o>[</span>AES256_GCM,data:ZhYxI6A<span class=o>=</span>,iv:oZJ8E/MocmOonUPD2FY6BLaXPuj4TBl//0fqTmOY0Xg<span class=o>=</span>,tag:46p/kxlNSctmOGFupQSnOQ<span class=o>=</span><span class=o>=</span>,type:str<span class=o>]</span>
+    database: ENC<span class=o>[</span>AES256_GCM,data:3L8H1aqImEc<span class=o>=</span>,iv:9iF+73VeFWbsmHqW1yKBCgwMpO3us8pTWwSWmNaCl80<span class=o>=</span>,tag:icNvo+EvoYnxiAGdjxzPqw<span class=o>=</span><span class=o>=</span>,type:str<span class=o>]</span>
+    proxy_url: ENC<span class=o>[</span>AES256_GCM,data:89WLCtCUglsyZQdsns1Lj6O/CI6YtCc8wXdX9EIJCGNwzmjB8v8<span class=o>=</span>,iv:HUFPH8bgG62UvAeQATh/0GprR8zOgLBGmvcYbON4B00<span class=o>=</span>,tag:Q1l7E8l5xClp52KSEz+MNQ<span class=o>=</span><span class=o>=</span>,type:str<span class=o>]</span>
+    admin_gui_url: ENC<span class=o>[</span>AES256_GCM,data:Xun4V7eliBRlmfn8v3CVFwxMjRumh+REwmPgCDbWwrPhjSQMXkn6qQ<span class=o>=</span><span class=o>=</span>,iv:8zH3GjO35ycpAsuOgDB+UKNAc19zSee72z2UlrdZ+Js<span class=o>=</span>,tag:U4IEK5Nef6h59vbHyM0aSA<span class=o>=</span><span class=o>=</span>,type:str<span class=o>]</span>
+    admin_api_uri: ENC<span class=o>[</span>AES256_GCM,data:52j0JgFNldx5Qytsqav9nSLLLEUzR7+KsNo8aTsjbS2IyTM1R00<span class=o>=</span>,iv:0RkBMi8k/XhuEzGSRpIQ9VQGbcUOTcb+o/KUVJ5LSYk<span class=o>=</span>,tag:m5o89fI+GCKxD7TcLf5Nqg<span class=o>=</span><span class=o>=</span>,type:str<span class=o>]</span>
+</code></pre></td></tr></table></div></div><p><code>image</code>のセクションは暗号化対象<code>encrypted_regex</code>にないので、平文のままになっております。</p><h2 id=設定ファイルの復号化>設定ファイルの復号化</h2><p>複合するために、まずはPrivate Keyを<code>.config/sops/age/keys.txt</code>にコピーします。このパスはデフォルトのパスなので、 sopsコマンドを実行する時にはPrivate Keyを指定する必要がなくなります。
+Private Keyの設定したら、以下のコマンドで上で暗号化したファイルを複合化することができます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>$ sops -d -i values.yaml
+$ head values.yaml
+image:
+    repository: kong/kong-gateway
+    tag: <span class=s2>&#34;3.1&#34;</span>
+env:
+    prefix: /kong_prefix/
+    log_level: debug
+    database: postgres
+    proxy_url: http://www.kongtest.net:8000
+    admin_gui_url: http://www.kongtest.net:8002
+    admin_api_uri: http://www.kongtest.net:8001
+</code></pre></td></tr></table></div></div><h2 id=cicd-workflow>CI/CD workflow</h2><p>次に、実際にKong GatewayをデプロイCI/CDの中に上記の内容を追加すると、ユーザからは平文の設定ファイルを開示せずにデプロイできます。復号した設定ファイルもCI/CD workflow内にしか存在しないため、CI/CDが終了したら削除されます。</p><p>作業の流れは以下の感じです。</p><p><img src=https://raw.githubusercontent.com/robincher/kong-mozilla-sops-demo/master/assets/context.png alt=workflow></p><ol><li>Public/Privateの生成</li><li>設定ファイルの暗号化</li><li>設定ファイルをコミット</li><li>GitHub Action
+4-1. ツールのインストール
+4-2. Private keyの取得
+4-3. 設定ファイルの復号化
+4-4. helmで設定ファイルを使ってKong Gatewayをデプロイ</li></ol><p>1から3は全てローカル環境で実施できます。気をつけたいのは、4-2 Private Key取得のところです。Github ActionのSecrets機能でPrivate Keyを事前に登録したら、CI/CD workflowで直接参照できますので、平文で表示される心配もなくなります。また、利用するPublic/Privateはペアじゃなかったら復号する時にエラーになりますのでご注意ください。</p><p>書いていたCI/CD workflowは、<a href=https://raw.githubusercontent.com/robincher/kong-mozilla-sops-demo/master/.github/workflows/main.yaml>main.yml</a> から参照できます。暗号化した設定ファイルをコミットしたら、無事にKong Gatewayのインストールができますのでぜひみなさん試してみてください。</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Wenhan Shi</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2023-03-08
+<a href=https://github.com/xibuka/xibuka.github.io.git/commit/7afe427299c4d74bd9a16e2f2f40b6b527775873 title="re-generate blog">(7afe427)</a></span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/kong/>Kong</a>
+<a href=/tags/security/>Security</a></div><nav class=post-nav><a class=next href=/post/20230223_vault_konggwdeploy_via_sm/><span class="next-text nav-default">HashiCorp Vaultを参照しKongGatewayをデプロイ</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=xibuka/xibuka.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2016 -
+2023
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span>
+<script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
