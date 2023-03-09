@@ -59,37 +59,37 @@ failed at yum update and how to fix it
 </div></header><div class=post-content><p>I hit an error when running <code>yum update</code> on my centOS 7, the command failed
 to update my OS!</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1> 1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2> 2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3> 3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4> 4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5> 5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6> 6</a>
-</span><span class=lnt id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7> 7</a>
-</span><span class=lnt id=hl-0-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-8> 8</a>
-</span><span class=lnt id=hl-0-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-9> 9</a>
-</span><span class=lnt id=hl-0-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-10>10</a>
-</span><span class=lnt id=hl-0-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-11>11</a>
-</span><span class=lnt id=hl-0-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-12>12</a>
-</span><span class=lnt id=hl-0-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-13>13</a>
-</span><span class=lnt id=hl-0-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-14>14</a>
-</span><span class=lnt id=hl-0-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-15>15</a>
-</span><span class=lnt id=hl-0-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-16>16</a>
-</span><span class=lnt id=hl-0-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-17>17</a>
-</span><span class=lnt id=hl-0-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-18>18</a>
-</span><span class=lnt id=hl-0-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-19>19</a>
-</span><span class=lnt id=hl-0-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-20>20</a>
-</span><span class=lnt id=hl-0-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-21>21</a>
-</span><span class=lnt id=hl-0-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-22>22</a>
-</span><span class=lnt id=hl-0-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-23>23</a>
-</span><span class=lnt id=hl-0-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-24>24</a>
-</span><span class=lnt id=hl-0-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-25>25</a>
-</span><span class=lnt id=hl-0-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-26>26</a>
-</span><span class=lnt id=hl-0-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-27>27</a>
-</span><span class=lnt id=hl-0-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-28>28</a>
-</span><span class=lnt id=hl-0-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-29>29</a>
-</span><span class=lnt id=hl-0-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-30>30</a>
-</span><span class=lnt id=hl-0-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-31>31</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># yum update
 </span></span><span class=line><span class=cl>Loaded plugins: fastestmirror
@@ -126,24 +126,24 @@ to update my OS!</p><div class=highlight><div class=chroma>
 the root cause is the missmatch of python version. &lsquo;yum&rsquo; command need python 2.7
 on /usr/bin/python symbol link, which I changed to python 3.6 before.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1> 1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2> 2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3> 3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4> 4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5> 5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6> 6</a>
-</span><span class=lnt id=hl-1-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-7> 7</a>
-</span><span class=lnt id=hl-1-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-8> 8</a>
-</span><span class=lnt id=hl-1-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-9> 9</a>
-</span><span class=lnt id=hl-1-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-10>10</a>
-</span><span class=lnt id=hl-1-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-11>11</a>
-</span><span class=lnt id=hl-1-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-12>12</a>
-</span><span class=lnt id=hl-1-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-13>13</a>
-</span><span class=lnt id=hl-1-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-14>14</a>
-</span><span class=lnt id=hl-1-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-15>15</a>
-</span><span class=lnt id=hl-1-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-16>16</a>
-</span><span class=lnt id=hl-1-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-17>17</a>
-</span><span class=lnt id=hl-1-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-18>18</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># head /usr/bin/yum
 </span></span><span class=line><span class=cl>#!/usr/bin/python
@@ -165,7 +165,7 @@ on /usr/bin/python symbol link, which I changed to python 3.6 before.</p><div cl
 </span></span><span class=line><span class=cl>-rwxr-xr-x. 2 root root 11312 Apr  7  2017 python3.6m
 </span></span></code></pre></td></tr></table></div></div><p>The workaround is to change the first line of <code>/usr/bin/yum</code> to use python2</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>#!/usr/bin/python2
 </span></span></code></pre></td></tr></table></div></div></div><footer class=post-footer>

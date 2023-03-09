@@ -80,8 +80,8 @@ sticky bitパーミッションは、ファイルの削除に関する特殊な�
 <td>o+t(sticky)</td><td>影響なし</td><td>フォルダに書き込みパーミションを持つユーザは、自分が所有しているファイルのみ削除できる。他のユーザが所有するファイルの削除または編集はできない。</td></tr></tbody></table><h1 id=特殊パーミションの設定>特殊パーミションの設定<a hidden class=anchor aria-hidden=true href=#特殊パーミションの設定>#</a></h1><p>記号を使用: setuid = u+s; setgid = g+s; sticky = o+t
 数字を使用: setuid = 4; setgid = 2; sticky = 1</p><p>例</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># chmod g+s file  // fileに対してsetgidビットを追加
 </span></span><span class=line><span class=cl># chmod 1755 file // fileに対してstickyビットを追加 

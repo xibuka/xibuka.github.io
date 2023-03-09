@@ -67,12 +67,12 @@ a CLI to launch and manage the Linux instances. The downloading of a cloud
 image is also automatically, and a VM can be up and running within minutes.</p><p><a href=https://multipass.run/>https://multipass.run/</a></p><p>But in my case, I tried multipass 1.1.0 to quick launch an instance, but it
 failed with a <code>Network timeout</code> error.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4>4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5>5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ multipass version
 </span></span><span class=line><span class=cl> multipass  1.1.0
@@ -85,8 +85,8 @@ time of the image may too long to some timeout value in multipass.
 Can we download it manually and start the instance by it? Sure we can.
 You can download the images and pass the image path as a parameter.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ multipass launch file:///home/wshi/Downloads/ubuntu-18.04-server-cloudimg-amd64.img
 </span></span><span class=line><span class=cl>Launched: lucrative-eelpout 

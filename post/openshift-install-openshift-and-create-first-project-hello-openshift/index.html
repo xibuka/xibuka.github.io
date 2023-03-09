@@ -74,19 +74,19 @@ requirement is</p><table>
 the installation, check your IP address to make sure you have available IP to
 use. The following example shows the IP address at eth0 is &ldquo;192.168.122.45&rdquo;</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1> 1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2> 2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3> 3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4> 4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5> 5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6> 6</a>
-</span><span class=lnt id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7> 7</a>
-</span><span class=lnt id=hl-0-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-8> 8</a>
-</span><span class=lnt id=hl-0-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-9> 9</a>
-</span><span class=lnt id=hl-0-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-10>10</a>
-</span><span class=lnt id=hl-0-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-11>11</a>
-</span><span class=lnt id=hl-0-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-12>12</a>
-</span><span class=lnt id=hl-0-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-13>13</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># ip a</span>
 </span></span><span class=line><span class=cl>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class=m>65536</span> qdisc noqueue state UNKNOWN qlen <span class=m>1</span>
@@ -105,9 +105,9 @@ use. The following example shows the IP address at eth0 is &ldquo;192.168.122.45
 to set a hostname. And use &ldquo;hostname&rdquo; to confirm your setting. The following
 example show the hostname is &ldquo;openshift.example.com&rdquo;</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># hostnamectl set-hostname openshift.example.com</span>
 </span></span><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># hostname</span>
@@ -115,13 +115,13 @@ example show the hostname is &ldquo;openshift.example.com&rdquo;</p><div class=h
 </span></span></code></pre></td></tr></table></div></div><h1 id=install-docker>Install docker<a hidden class=anchor aria-hidden=true href=#install-docker>#</a></h1><p>Openshift use docker as a container engine. Install docker by following
 command.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># yum install -y docker</span>
 </span></span></code></pre></td></tr></table></div></div><p>After the installation is done, start the docker service and enable it.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># systemctl start docker</span>
 </span></span><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># systemctl enable docker</span>
@@ -131,17 +131,17 @@ little app was a go program and will listen 8080 and 8888 port.
 (Run command for the first time will take some time because no image is existed
 locally, docker need to pull it from the internet.)</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
-</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># docker run -it openshift/hello-openshift</span>
 </span></span><span class=line><span class=cl>Unable to find image <span class=s1>&#39;openshift/hello-openshift:latest&#39;</span> locally
@@ -158,13 +158,13 @@ locally, docker need to pull it from the internet.)</p><div class=highlight><div
 download the binaries of OpenShift server and deploy it manually.
 You can find the download link at <a href=https://www.openshift.org/download.html>Download OpenShift Origin</a>. For now the latest version is <a href=https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-server-v1.5.1-7b451fc-linux-64bit.tar.gz>v1.5.1-7b451fc-linux-64bit.tar.gz</a>.</p><p>Download the file and untar it to /opt/</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
-</span><span class=lnt id=hl-5-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-2>2</a>
-</span><span class=lnt id=hl-5-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-3>3</a>
-</span><span class=lnt id=hl-5-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-4>4</a>
-</span><span class=lnt id=hl-5-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-5>5</a>
-</span><span class=lnt id=hl-5-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-6>6</a>
-</span><span class=lnt id=hl-5-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># wget https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-server-v1.5.1-7b451fc-linux-64bit.tar.gz</span>
 </span></span><span class=line><span class=cl>&lt;snip&gt;
@@ -175,22 +175,22 @@ You can find the download link at <a href=https://www.openshift.org/download.htm
 </span></span><span class=line><span class=cl><span class=o>[</span>root@openshift opt<span class=o>]</span><span class=c1># ln -s openshift-origin-server-v1.5.1-7b451fc-linux-64bit/ openshift</span>
 </span></span></code></pre></td></tr></table></div></div><p>Add Openshift path to $PATH by add following text to the end of /etc/profile.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>PATH=$PATH:/opt/openshift
 </span></span></code></pre></td></tr></table></div></div><p>Run source command to make the configuration enable,</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># source /etc/profile</span>
 </span></span></code></pre></td></tr></table></div></div><p>After this we can check if the shell can find the command of openshift. Try
 following command to check the version. From the output we can see the version
 of Openshift is 1.5.1, Kubernetes is 1.5.2, and etcd is 3.1.0.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-1>1</a>
-</span><span class=lnt id=hl-8-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-2>2</a>
-</span><span class=lnt id=hl-8-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-3>3</a>
-</span><span class=lnt id=hl-8-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># openshift version</span>
 </span></span><span class=line><span class=cl>openshift v1.5.1+7b451fc
@@ -199,8 +199,8 @@ of Openshift is 1.5.1, Kubernetes is 1.5.2, and etcd is 3.1.0.</p><div class=hig
 </span></span></code></pre></td></tr></table></div></div><h1 id=start-openshift>Start OpenShift<a hidden class=anchor aria-hidden=true href=#start-openshift>#</a></h1><p>Just type &ldquo;openshift start&rdquo; to start openshift. There will be a lot of logs
 output in the terminal. OpenShift will started when the logs output is stopped.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-1>1</a>
-</span><span class=lnt id=hl-9-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># openshift start</span>
 </span></span><span class=line><span class=cl>&lt;snip&gt;
@@ -230,8 +230,8 @@ is attached to the pod. Following example shows the IP address of the pod is &ld
 The hello-openshift service will return a string &ldquo;Hello OpenShift!&rdquo; to each
 request from the 8080 or 8888 port.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-1>1</a>
-</span><span class=lnt id=hl-10-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>root@openshift ~<span class=o>]</span><span class=c1># curl 172.17.0.3:8080</span>
 </span></span><span class=line><span class=cl>Hello OpenShift!

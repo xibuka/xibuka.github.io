@@ -64,19 +64,19 @@ do not need to worry about the setting of IPv6. But in some case people want to
 disable IPv6 inside the container without effecting other container/pods or
 host OS.</p><p>Here is an example of the IPv6 info outputed from a container.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1> 1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2> 2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3> 3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4> 4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5> 5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6> 6</a>
-</span><span class=lnt id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7> 7</a>
-</span><span class=lnt id=hl-0-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-8> 8</a>
-</span><span class=lnt id=hl-0-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-9> 9</a>
-</span><span class=lnt id=hl-0-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-10>10</a>
-</span><span class=lnt id=hl-0-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-11>11</a>
-</span><span class=lnt id=hl-0-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-12>12</a>
-</span><span class=lnt id=hl-0-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-13>13</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[root@ocp37 ~]# oc exec django-ex-4-6gmsj -- ip a
 </span></span><span class=line><span class=cl>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1
@@ -94,9 +94,9 @@ host OS.</p><p>Here is an example of the IPv6 info outputed from a container.</p
 </span></span></code></pre></td></tr></table></div></div><p>It is not allowed to run <code>sysctl -w</code> to update a kernel parameter inside
 a container for security.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[root@ocp37 ~]# oc exec django-ex-4-6gmsj -- sysctl -w net.ipv6.conf.all.disable_ipv6=1
 </span></span><span class=line><span class=cl>sysctl: setting key &#34;net.ipv6.conf.all.disable_ipv6&#34;: Read-only file system
@@ -106,9 +106,9 @@ For namespaced sysctl, please refer <a href=https://docs.openshift.com/container
 <li>
 <p>Add below setting to kubeletArguments field in the /etc/origin/node/node-config.yaml file. This will enable Unsafe Sysctls.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubeletArguments:
 </span></span><span class=line><span class=cl>  experimental-allowed-unsafe-sysctls:
@@ -116,24 +116,24 @@ For namespaced sysctl, please refer <a href=https://docs.openshift.com/container
 </span></span></code></pre></td></tr></table></div></div></li><li>
 <p>Restart the node service to apply the changes:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># systemctl restart atomic-openshift-node
 </span></span></code></pre></td></tr></table></div></div></li><li>
 <p>Edit DeploymentConfig of the target pod.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># oc edit dc/&lt;DeploymentConfig of your pod&gt;
 </span></span></code></pre></td></tr></table></div></div></li><li>
 <p>Add below settings to the metadata filed inside of template filed, then save and quit. (You may need to create annotations filed if it is not exist.)</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
-</span><span class=lnt id=hl-5-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-2>2</a>
-</span><span class=lnt id=hl-5-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-3>3</a>
-</span><span class=lnt id=hl-5-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-4>4</a>
-</span><span class=lnt id=hl-5-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-5>5</a>
-</span><span class=lnt id=hl-5-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>spec:
 </span></span><span class=line><span class=cl>  ....
@@ -144,21 +144,21 @@ For namespaced sysctl, please refer <a href=https://docs.openshift.com/container
 </span></span></code></pre></td></tr></table></div></div></li><li>
 <p>Deploy a new container/pod using this updated DeploymentConfig</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># oc deploy dc/&lt;DeploymentConfig of your pod&gt;  --latest
 </span></span></code></pre></td></tr></table></div></div></li><li>
 <p>When the pod is ready, confirm ipv6 is diabled.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
-</span><span class=lnt id=hl-7-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-2>2</a>
-</span><span class=lnt id=hl-7-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-3>3</a>
-</span><span class=lnt id=hl-7-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-4>4</a>
-</span><span class=lnt id=hl-7-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-5>5</a>
-</span><span class=lnt id=hl-7-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-6>6</a>
-</span><span class=lnt id=hl-7-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-7>7</a>
-</span><span class=lnt id=hl-7-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-8>8</a>
-</span><span class=lnt id=hl-7-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-9>9</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[root@ocp37 ~]# oc exec django-ex-2-22znd -- ip a
 </span></span><span class=line><span class=cl>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1

@@ -86,10 +86,10 @@ RancherのContinuous Delivery機能で簡単GitOpsを実現できる
 <li><a href=#k3s-1>k3s-1</a></li><li><a href=#k3s-2>k3s-2</a></li></ul></li><li><a href=#step-3-add-k3s-cluster-to-rancher>Step 3: Add k3s cluster to Rancher</a></li><li><a href=#step-4-cluster-group>Step 4: Cluster Group</a></li><li><a href=#step-5-git-repos>Step 5: Git Repos</a></li><li><a href=#step-6-deploy-application>Step 6: Deploy Application</a></li><li><a href=#step-7-upgrade>Step 7: Upgrade</a></li></ul></nav></div></details>
 </div><div class=post-content><p>この記事では、Single nodeのRancher server と二つのk3sクラスタ環境を構築し、 そRancherのContinuous Delivery機能で、二つのk3sクラスタをGitOpsで操作します。</p><h2 id=step-1-deploying-a-rancher-server>Step 1: Deploying a Rancher Server<a hidden class=anchor aria-hidden=true href=#step-1-deploying-a-rancher-server>#</a></h2><p>まずはrancherノードで、以下のdocker コマンドを実行しSingle nodeのRancher serverを構築します。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo docker run -d --restart=unless-stopped \
 </span></span><span class=line><span class=cl>  -p 80:80 -p 443:443 \
@@ -97,17 +97,17 @@ RancherのContinuous Delivery機能で簡単GitOpsを実現できる
 </span></span><span class=line><span class=cl>  rancher/rancher:v2.5.10
 </span></span></code></pre></td></tr></table></div></div><p>Rancher serverが1分程度で立ち上がりますので、rancherノードのIPアドレスをブラウザで開いてRancher UIをアクセスしてください。</p><p>今回の場合、Rancherは自己署名証明書を使用しているため、ブラウザに証明書の警告が表示されます。この警告はスキップしても問題ありません。 また、一部のブラウザでは、スキップボタンが表示されない場合があります。 この場合は、エラーページの任意の場所をクリックして、<code>thisisunsafe</code>と入力します。 これにより、ブラウザは警告をバイパスして証明書を受け入れるようになります。</p><p>初回アクセスの時パスワードの初期設定が必要です。画面のガイドに従って設定してください。</p><h2 id=step-2-deploy-k3s-kubernetes-cluster>Step 2: Deploy k3s Kubernetes Cluster<a hidden class=anchor aria-hidden=true href=#step-2-deploy-k3s-kubernetes-cluster>#</a></h2><p>次はk3sクラスタをデプロイします。手順はとても簡単で、以下のコマンドをk3s-1とk3s-2ノードで実行するだけです。</p><p>後でアップグレードもやる予定なので、ここではあえてちょっと古いバージョンを指定しk3sのクラスタをデプロイします。</p><h3 id=k3s-1>k3s-1<a hidden class=anchor aria-hidden=true href=#k3s-1>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo curl -sfL https://get.k3s.io <span class=p>|</span> <span class=nv>INSTALL_K3S_VERSION</span><span class=o>=</span>v1.19.15+k3s2 sh -
 </span></span></code></pre></td></tr></table></div></div><h3 id=k3s-2>k3s-2<a hidden class=anchor aria-hidden=true href=#k3s-2>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo curl -sfL https://get.k3s.io <span class=p>|</span> <span class=nv>INSTALL_K3S_VERSION</span><span class=o>=</span>v1.19.15+k3s2 sh -
 </span></span></code></pre></td></tr></table></div></div><p>デプロイが完了したら、以下のコマンドでクラスタを確認してください。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo kubectl get node
 </span></span></code></pre></td></tr></table></div></div><p>Note: K3sは<code>root</code>ユーザの操作を想定しているので<code>sudo</code> 権限が必要です。</p><h2 id=step-3-add-k3s-cluster-to-rancher>Step 3: Add k3s cluster to Rancher<a hidden class=anchor aria-hidden=true href=#step-3-add-k3s-cluster-to-rancher>#</a></h2><p>次はk3sクラスタをRancher にImportします。 以下の手順で、k3s-1を登録してください。</p><ol>
@@ -126,40 +126,40 @@ RancherのContinuous Delivery機能で簡単GitOpsを実現できる
 </p><hr>
 <p>次に、deployment以下に新しいファイル<code>nginx.yaml</code>を追加しましょう。以下の内容で追加したら、Continuous Deliveryがこのファイルを検知し、<code>Cluster Group</code>にデプロイします。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
-</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
-</span><span class=lnt id=hl-4-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-12>12</a>
-</span><span class=lnt id=hl-4-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-13>13</a>
-</span><span class=lnt id=hl-4-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-14>14</a>
-</span><span class=lnt id=hl-4-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-15>15</a>
-</span><span class=lnt id=hl-4-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-16>16</a>
-</span><span class=lnt id=hl-4-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-17>17</a>
-</span><span class=lnt id=hl-4-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-18>18</a>
-</span><span class=lnt id=hl-4-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-19>19</a>
-</span><span class=lnt id=hl-4-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-20>20</a>
-</span><span class=lnt id=hl-4-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-21>21</a>
-</span><span class=lnt id=hl-4-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-22>22</a>
-</span><span class=lnt id=hl-4-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-23>23</a>
-</span><span class=lnt id=hl-4-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-24>24</a>
-</span><span class=lnt id=hl-4-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-25>25</a>
-</span><span class=lnt id=hl-4-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-26>26</a>
-</span><span class=lnt id=hl-4-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-27>27</a>
-</span><span class=lnt id=hl-4-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-28>28</a>
-</span><span class=lnt id=hl-4-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-29>29</a>
-</span><span class=lnt id=hl-4-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-30>30</a>
-</span><span class=lnt id=hl-4-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-31>31</a>
-</span><span class=lnt id=hl-4-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-32>32</a>
-</span><span class=lnt id=hl-4-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-33>33</a>
-</span><span class=lnt id=hl-4-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-34>34</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>apps/v1</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Deployment</span><span class=w>
@@ -199,10 +199,10 @@ RancherのContinuous Delivery機能で簡単GitOpsを実現できる
 <img loading=lazy src=https://tva1.sinaimg.cn/large/008i3skNgy1gw0lqbftl3j31mz0u0grg.jpg alt=img>
 </p><p>同じく、監視先のファイルに変更がある場合も、その修正内容は随時<code>cluster group</code>にデプロイされます。 試しに、上記のYAMLの以下の２行を変更してみてください。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
-</span><span class=lnt id=hl-5-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-2>2</a>
-</span><span class=lnt id=hl-5-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-3>3</a>
-</span><span class=lnt id=hl-5-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nn>...</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>nginx:1.20</span><span class=w>
@@ -215,8 +215,8 @@ RancherのContinuous Delivery機能で簡単GitOpsを実現できる
 <img loading=lazy src=https://tva1.sinaimg.cn/large/008i3skNgy1gw0lsl6bt5j31si0gaq4v.jpg alt=img>
 </p><h2 id=step-7-upgrade>Step 7: Upgrade<a hidden class=anchor aria-hidden=true href=#step-7-upgrade>#</a></h2><p>このステップでは、Git Repoの登録から二つのk3sクラスタをアップグレードします。アップグレードを実現するために、以下のAutomated Upgrades機能を利用します。</p><p><a href=https://rancher.com/docs/k3s/latest/en/upgrades/automated/>https://rancher.com/docs/k3s/latest/en/upgrades/automated/</a></p><p>まずはこの機能に必要なリソースを準備します。以下のコマンドを一回ずつクリックし各クラスタで実行させてください。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
-</span><span class=lnt id=hl-6-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.6.2/system-upgrade-controller.yaml
 </span></span><span class=line><span class=cl>sudo kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.6.2/system-upgrade-controller.yaml

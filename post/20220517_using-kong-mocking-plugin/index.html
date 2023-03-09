@@ -92,26 +92,26 @@ Kongの Mocking Plugingを使ってみる
 <a href=https://docs.konghq.com/hub/kong-inc/mocking/>https://docs.konghq.com/hub/kong-inc/mocking/</a></p><p>注意点として、このプラグインは、200、201と204の応答をレスポンスすることができます。正常動作をテストするために開発されたもので、200番台以外のコードをを返すことができません。</p><p>今回は、db-less環境のKong-gatewayをDocker containerで構築し、その上に Mocking Pluginを試してみます。</p><h2 id=kong-gatewayをデプロイする前に>Kong-gatewayをデプロイする前に<a hidden class=anchor aria-hidden=true href=#kong-gatewayをデプロイする前に>#</a></h2><p>db-lessの環境のため、Admin APIやGUIで設定を変更することはできません（保存先はないから）。そのため、起動時にDeclarative Configurationという名の設定ファイルを事前にコンテナーに食わせる必要があります。</p><p><a href=https://docs.konghq.com/gateway/2.8.x/reference/db-less-and-declarative-config/#main>https://docs.konghq.com/gateway/2.8.x/reference/db-less-and-declarative-config/#main</a></p><p>今回の目標は Mockingを試したいので、 Mockingの設定内容も事前にこのファイルに記述していきます。Mocking Pluginの<a href=https://docs.konghq.com/hub/kong-inc/mocking/#stock-spec>紹介ページ</a>で書いたように、設定自体はとてもシンプルです。ただ、肝心なのはapi_specificationとapi_specification_filenameの二つです。この二つのパラメータは、模擬のエンドポイントのスペック内容を定義するために使われますが、違いは以下の通りです。</p><ul>
 <li><code>api_specification_filename</code>: スペック内容が保存されたファイル名を設定する。</li><li><code>api_specification</code>: スペック内容をそのままパラメータに設定する。</li></ul><p><code>api_specification_filename</code>は、設定するファイルを事前にDev Portalにアップロードしてから、パスなしで設定してください。設定の例は<a href=https://docs.konghq.com/hub/kong-inc/mocking/#deploy-spec-portal>ここ</a>に書いています。しかし、今回はdb-lessの環境を構築するため、そもそもdev protalが利用できないし、api_specification_filenameを利用できません。</p><p>そのため、<code>api_specification</code>にサンプルのAPIのスペック内容をそのまま設定し、コンテナーを立ち上げます。スペックのサンプルは、Mocking Pluginの<a href=https://docs.konghq.com/hub/kong-inc/mocking/#stock-spec>紹介ページ</a>にあります。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1> 1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2> 2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3> 3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4> 4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5> 5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6> 6</a>
-</span><span class=lnt id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7> 7</a>
-</span><span class=lnt id=hl-0-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-8> 8</a>
-</span><span class=lnt id=hl-0-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-9> 9</a>
-</span><span class=lnt id=hl-0-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-10>10</a>
-</span><span class=lnt id=hl-0-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-11>11</a>
-</span><span class=lnt id=hl-0-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-12>12</a>
-</span><span class=lnt id=hl-0-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-13>13</a>
-</span><span class=lnt id=hl-0-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-14>14</a>
-</span><span class=lnt id=hl-0-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-15>15</a>
-</span><span class=lnt id=hl-0-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-16>16</a>
-</span><span class=lnt id=hl-0-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-17>17</a>
-</span><span class=lnt id=hl-0-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-18>18</a>
-</span><span class=lnt id=hl-0-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-19>19</a>
-</span><span class=lnt id=hl-0-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-20>20</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>_format_version</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;1.1&#34;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>_transform</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
@@ -135,31 +135,31 @@ Kongの Mocking Plugingを使ってみる
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>random_delay</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h2 id=db-lessのkong-gateway環境を構築>db-lessのKong-gateway環境を構築<a hidden class=anchor aria-hidden=true href=#db-lessのkong-gateway環境を構築>#</a></h2><p>ライセンスを環境変数に設定した後、以下のコマンドでコンテナーを立ち上げます。<code>KONG_DATABASE</code>が<code>off</code>になっているところと、<code>KONG_DECLARATIVE_CONFIG</code>に設定ファイルのパスが書かれているところが重要です。設定ファイルは、<code>-v</code>でローカルからMountされています。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1> 1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2> 2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3> 3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4> 4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5> 5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6> 6</a>
-</span><span class=lnt id=hl-1-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-7> 7</a>
-</span><span class=lnt id=hl-1-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-8> 8</a>
-</span><span class=lnt id=hl-1-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-9> 9</a>
-</span><span class=lnt id=hl-1-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-10>10</a>
-</span><span class=lnt id=hl-1-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-11>11</a>
-</span><span class=lnt id=hl-1-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-12>12</a>
-</span><span class=lnt id=hl-1-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-13>13</a>
-</span><span class=lnt id=hl-1-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-14>14</a>
-</span><span class=lnt id=hl-1-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-15>15</a>
-</span><span class=lnt id=hl-1-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-16>16</a>
-</span><span class=lnt id=hl-1-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-17>17</a>
-</span><span class=lnt id=hl-1-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-18>18</a>
-</span><span class=lnt id=hl-1-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-19>19</a>
-</span><span class=lnt id=hl-1-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-20>20</a>
-</span><span class=lnt id=hl-1-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-21>21</a>
-</span><span class=lnt id=hl-1-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-22>22</a>
-</span><span class=lnt id=hl-1-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-23>23</a>
-</span><span class=lnt id=hl-1-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-24>24</a>
-</span><span class=lnt id=hl-1-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-25>25</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ docker run -d --name kong-dbless <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span>  --network<span class=o>=</span>kong-net <span class=se>\
@@ -188,68 +188,68 @@ Kongの Mocking Plugingを使ってみる
 </span></span><span class=line><span class=cl>28917c9510f8   kong/kong-gateway:2.8.1.0-alpine   <span class=s2>&#34;/docker-entrypoint.…&#34;</span>   <span class=m>18</span> seconds ago   Up <span class=m>17</span> seconds <span class=o>(</span>healthy<span class=o>)</span>   0.0.0.0:8000-8004-&gt;8000-8004/tcp, :::8000-8004-&gt;8000-8004/tcp, 0.0.0.0:8443-8445-&gt;8443-8445/tcp, :::8443-8445-&gt;8443-8445/tcp, 8446-8447/tcp   kong-dbless
 </span></span></code></pre></td></tr></table></div></div><h2 id=検証>検証<a hidden class=anchor aria-hidden=true href=#検証>#</a></h2><p>Mocking Pluginのスペックに書いたパスを指定すれば、backendのサービスではなく、このスペックに定義した内容がResponseされていました。これでMocking Pluginが有効に働いていることが検証できました。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1> 1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2> 2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3> 3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4> 4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5> 5</a>
-</span><span class=lnt id=hl-2-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-6> 6</a>
-</span><span class=lnt id=hl-2-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-7> 7</a>
-</span><span class=lnt id=hl-2-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-8> 8</a>
-</span><span class=lnt id=hl-2-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-9> 9</a>
-</span><span class=lnt id=hl-2-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-10>10</a>
-</span><span class=lnt id=hl-2-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-11>11</a>
-</span><span class=lnt id=hl-2-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-12>12</a>
-</span><span class=lnt id=hl-2-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-13>13</a>
-</span><span class=lnt id=hl-2-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-14>14</a>
-</span><span class=lnt id=hl-2-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-15>15</a>
-</span><span class=lnt id=hl-2-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-16>16</a>
-</span><span class=lnt id=hl-2-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-17>17</a>
-</span><span class=lnt id=hl-2-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-18>18</a>
-</span><span class=lnt id=hl-2-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-19>19</a>
-</span><span class=lnt id=hl-2-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-20>20</a>
-</span><span class=lnt id=hl-2-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-21>21</a>
-</span><span class=lnt id=hl-2-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-22>22</a>
-</span><span class=lnt id=hl-2-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-23>23</a>
-</span><span class=lnt id=hl-2-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-24>24</a>
-</span><span class=lnt id=hl-2-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-25>25</a>
-</span><span class=lnt id=hl-2-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-26>26</a>
-</span><span class=lnt id=hl-2-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-27>27</a>
-</span><span class=lnt id=hl-2-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-28>28</a>
-</span><span class=lnt id=hl-2-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-29>29</a>
-</span><span class=lnt id=hl-2-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-30>30</a>
-</span><span class=lnt id=hl-2-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-31>31</a>
-</span><span class=lnt id=hl-2-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-32>32</a>
-</span><span class=lnt id=hl-2-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-33>33</a>
-</span><span class=lnt id=hl-2-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-34>34</a>
-</span><span class=lnt id=hl-2-35><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-35>35</a>
-</span><span class=lnt id=hl-2-36><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-36>36</a>
-</span><span class=lnt id=hl-2-37><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-37>37</a>
-</span><span class=lnt id=hl-2-38><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-38>38</a>
-</span><span class=lnt id=hl-2-39><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-39>39</a>
-</span><span class=lnt id=hl-2-40><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-40>40</a>
-</span><span class=lnt id=hl-2-41><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-41>41</a>
-</span><span class=lnt id=hl-2-42><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-42>42</a>
-</span><span class=lnt id=hl-2-43><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-43>43</a>
-</span><span class=lnt id=hl-2-44><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-44>44</a>
-</span><span class=lnt id=hl-2-45><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-45>45</a>
-</span><span class=lnt id=hl-2-46><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-46>46</a>
-</span><span class=lnt id=hl-2-47><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-47>47</a>
-</span><span class=lnt id=hl-2-48><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-48>48</a>
-</span><span class=lnt id=hl-2-49><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-49>49</a>
-</span><span class=lnt id=hl-2-50><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-50>50</a>
-</span><span class=lnt id=hl-2-51><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-51>51</a>
-</span><span class=lnt id=hl-2-52><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-52>52</a>
-</span><span class=lnt id=hl-2-53><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-53>53</a>
-</span><span class=lnt id=hl-2-54><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-54>54</a>
-</span><span class=lnt id=hl-2-55><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-55>55</a>
-</span><span class=lnt id=hl-2-56><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-56>56</a>
-</span><span class=lnt id=hl-2-57><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-57>57</a>
-</span><span class=lnt id=hl-2-58><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-58>58</a>
-</span><span class=lnt id=hl-2-59><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-59>59</a>
-</span><span class=lnt id=hl-2-60><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-60>60</a>
-</span><span class=lnt id=hl-2-61><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-61>61</a>
-</span><span class=lnt id=hl-2-62><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-62>62</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=err>$</span> <span class=err>http</span> <span class=err>:</span><span class=mi>8000</span><span class=err>/mock/stock/historical</span>
 </span></span><span class=line><span class=cl><span class=err>HTTP/</span><span class=mf>1.1</span> <span class=mi>200</span> <span class=err>OK</span>

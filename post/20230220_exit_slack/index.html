@@ -75,34 +75,34 @@ Kong Gatewayで実装！リクエストが失敗したらSlackWebhookで通知
 </div><div class=post-content><h2 id=背景>背景<a hidden class=anchor aria-hidden=true href=#背景>#</a></h2><p>Kong Gatewayを使ってAPIにアクセスする時には、もしリクエストが失敗したら通知して欲しいですね。通常のやり方はLog系のプラグインでLogを保存してから、3rd partyの製品（ELK）でAlertを設定して通知することです。でも他の製品を使うとデプロイも面倒だし、ライセンスや設定内容も必要だし、できればKong内部で実現したいな。。という要望があると思います。
 今回は、<a href=https://docs.konghq.com/hub/kong-inc/exit-transformer/><code>Exit Transformer</code></a> プラグインを使って、リクエストがエラーだったらLuaスクリプトでSlack Webhookを叩くことをメモします。このプラグインは、Lua 関数を使用して、Kong 応答終了メッセージを変換およびカスタマイズすることができます。メッセージ、ステータスコード、ヘッダーの変更から、Kong 応答の構造の完全な変換まで、さまざまな機能があります。</p><h2 id=プラグインを試す>プラグインを試す<a hidden class=anchor aria-hidden=true href=#プラグインを試す>#</a></h2><p>まずはページ上にある例を試してみよう。</p><h3 id=サービスとルートを作成>サービスとルートを作成<a hidden class=anchor aria-hidden=true href=#サービスとルートを作成>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ http :8001/services name=example.com host=mockbin.org
 </span></span><span class=line><span class=cl>$ http -f :8001/services/example.com/routes hosts=example.com
 </span></span></code></pre></td></tr></table></div></div><h3 id=失敗させるため-key-auth-プラグインを実装>失敗させるため key auth プラグインを実装<a hidden class=anchor aria-hidden=true href=#失敗させるため-key-auth-プラグインを実装>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ http :8001/services/example.com/plugins name=key-auth
 </span></span></code></pre></td></tr></table></div></div><h3 id=luaスクリプトを作成>Luaスクリプトを作成<a hidden class=anchor aria-hidden=true href=#luaスクリプトを作成>#</a></h3><p>以下のコードでは、<code>x-some-header</code>のヘッダーを追加し、メッセージの最後に<code>, arr</code>を追加した。
 この内容をtransform.luaとして保存する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1> 1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2> 2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3> 3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4> 4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5> 5</a>
-</span><span class=lnt id=hl-2-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-6> 6</a>
-</span><span class=lnt id=hl-2-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-7> 7</a>
-</span><span class=lnt id=hl-2-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-8> 8</a>
-</span><span class=lnt id=hl-2-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-9> 9</a>
-</span><span class=lnt id=hl-2-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-10>10</a>
-</span><span class=lnt id=hl-2-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-11>11</a>
-</span><span class=lnt id=hl-2-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-12>12</a>
-</span><span class=lnt id=hl-2-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-13>13</a>
-</span><span class=lnt id=hl-2-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-14>14</a>
-</span><span class=lnt id=hl-2-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-15>15</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>    -- transform.lua
 </span></span><span class=line><span class=cl>    return function(status, body, headers)
@@ -121,31 +121,31 @@ Kong Gatewayで実装！リクエストが失敗したらSlackWebhookで通知
 </span></span><span class=line><span class=cl>    end
 </span></span></code></pre></td></tr></table></div></div><h3 id=スクリプトを使ってプラグインをデプロイ>スクリプトを使ってプラグインをデプロイ<a hidden class=anchor aria-hidden=true href=#スクリプトを使ってプラグインをデプロイ>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>   http -f :8001/services/example.com/plugins \
 </span></span><span class=line><span class=cl>     name=exit-transformer \
 </span></span><span class=line><span class=cl>     config.functions=@transform.lua
 </span></span></code></pre></td></tr></table></div></div><h3 id=動作確認>動作確認<a hidden class=anchor aria-hidden=true href=#動作確認>#</a></h3><p>ここまで設定したらアクセスしてみましょう。ヘッダーと最後のメッセージarrがちゃんとレスポンスに追加されました。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
-</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
-</span><span class=lnt id=hl-4-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-12>12</a>
-</span><span class=lnt id=hl-4-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-13>13</a>
-</span><span class=lnt id=hl-4-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-14>14</a>
-</span><span class=lnt id=hl-4-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-15>15</a>
-</span><span class=lnt id=hl-4-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-16>16</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>❯ http :8000 Host:example.com
 </span></span><span class=line><span class=cl>HTTP/1.1 401 Unauthorized
@@ -165,24 +165,24 @@ Kong Gatewayで実装！リクエストが失敗したらSlackWebhookで通知
 </span></span><span class=line><span class=cl>}
 </span></span></code></pre></td></tr></table></div></div><h2 id=webhookをスクリプトに実装>Webhookをスクリプトに実装<a hidden class=anchor aria-hidden=true href=#webhookをスクリプトに実装>#</a></h2><p>今回はSlackのWebhookを利用します。メッセージに内容を追加した後にWebhookをキックする実装にします。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1> 1</a>
-</span><span class=lnt id=hl-5-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-2> 2</a>
-</span><span class=lnt id=hl-5-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-3> 3</a>
-</span><span class=lnt id=hl-5-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-4> 4</a>
-</span><span class=lnt id=hl-5-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-5> 5</a>
-</span><span class=lnt id=hl-5-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-6> 6</a>
-</span><span class=lnt id=hl-5-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-7> 7</a>
-</span><span class=lnt id=hl-5-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-8> 8</a>
-</span><span class=lnt id=hl-5-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-9> 9</a>
-</span><span class=lnt id=hl-5-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-10>10</a>
-</span><span class=lnt id=hl-5-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-11>11</a>
-</span><span class=lnt id=hl-5-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-12>12</a>
-</span><span class=lnt id=hl-5-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-13>13</a>
-</span><span class=lnt id=hl-5-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-14>14</a>
-</span><span class=lnt id=hl-5-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-15>15</a>
-</span><span class=lnt id=hl-5-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-16>16</a>
-</span><span class=lnt id=hl-5-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-17>17</a>
-</span><span class=lnt id=hl-5-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-18>18</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=p>...</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>local</span><span class=w> </span><span class=n>httpc</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>require</span><span class=p>(</span><span class=s2>&#34;resty.http&#34;</span><span class=p>).</span><span class=nf>new</span><span class=p>()</span><span class=w>
@@ -204,27 +204,27 @@ Kong Gatewayで実装！リクエストが失敗したらSlackWebhookで通知
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=p>...</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>リクエストを送るために、<a href=https://github.com/ledgetech/lua-resty-http>lua-resty-http</a>を利用しています。一般的には<code>require</code>を利用してリクエストを出しますが、nginx イベント ループでうまく機能するとは思わない心配があります。つまり、hooks.slack.com からの応答を待機している間、nginx が他のリクエストを処理できなくなる可能性があります。</p><p>もう一つ注意すべきところは、外部のライブラリを呼び出しているため、<a href=https://docs.konghq.com/gateway/latest/reference/configuration/#untrusted_lua>untrusted_lua</a>パラメータをOnにする必要があります。これをしないと以下のようなエラーが出ます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>2023/02/10 02:19:13 [error] 2175#0: *15812 lua entry thread aborted: runtime error: /usr/local/share/lua/5.1/kong/tools/sandbox.lua:88: require &#39;ssl.https&#39; not allowed within sandbox
 </span></span></code></pre></td></tr></table></div></div><h2 id=もう一度動作確認>もう一度動作確認<a hidden class=anchor aria-hidden=true href=#もう一度動作確認>#</a></h2><p>さてさっきのAPIにもう一度アクセスしてSlackのメッセージを確認しましょう！</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1> 1</a>
-</span><span class=lnt id=hl-7-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-2> 2</a>
-</span><span class=lnt id=hl-7-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-3> 3</a>
-</span><span class=lnt id=hl-7-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-4> 4</a>
-</span><span class=lnt id=hl-7-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-5> 5</a>
-</span><span class=lnt id=hl-7-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-6> 6</a>
-</span><span class=lnt id=hl-7-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-7> 7</a>
-</span><span class=lnt id=hl-7-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-8> 8</a>
-</span><span class=lnt id=hl-7-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-9> 9</a>
-</span><span class=lnt id=hl-7-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-10>10</a>
-</span><span class=lnt id=hl-7-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-11>11</a>
-</span><span class=lnt id=hl-7-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-12>12</a>
-</span><span class=lnt id=hl-7-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-13>13</a>
-</span><span class=lnt id=hl-7-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-14>14</a>
-</span><span class=lnt id=hl-7-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-15>15</a>
-</span><span class=lnt id=hl-7-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-16>16</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>❯ http :8000 Host:example.com
 </span></span><span class=line><span class=cl>HTTP/1.1 401 Unauthorized

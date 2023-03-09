@@ -71,17 +71,17 @@ Certified Kubernetes Administrator (CKA) learning note
 </div><div class=post-content><h1 id=install>Install<a hidden class=anchor aria-hidden=true href=#install>#</a></h1><ol>
 <li>Install docker.io</li></ol><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>apt install docker.io
 </span></span></code></pre></td></tr></table></div></div><p>If you install docker with other cgroup driver, you have to make sure that
 docker and Kubernetes will use same cgroup driver.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4>4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>cat &lt;&lt; EOF &gt;&gt; /etc/docker/daemon.json
 </span></span><span class=line><span class=cl>{
@@ -91,11 +91,11 @@ docker and Kubernetes will use same cgroup driver.</p><div class=highlight><div 
 </span></span></code></pre></td></tr></table></div></div><ol>
 <li>install apt key and source to system</li></ol><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3>3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4>4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>root@kube-master:~# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 </span></span><span class=line><span class=cl>OK
@@ -104,8 +104,8 @@ docker and Kubernetes will use same cgroup driver.</p><div class=highlight><div 
 </span></span><span class=line><span class=cl>&gt; EOF
 </span></span></code></pre></td></tr></table></div></div><p>Then install kubernetes packages</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>root@kube-master:~# apt update -y
 </span></span><span class=line><span class=cl>root@kube-master:~# apt install -y kubelet kubeadm kubectl
@@ -113,28 +113,28 @@ docker and Kubernetes will use same cgroup driver.</p><div class=highlight><div 
 <li>setup and config with kubeadm</li></ol><p>You must choose a CNI when you execute <code>kubeadm init</code>, in this post I choose
 flunnel, so I have to add <code>--pod-network-cidr</code> options.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>root@k8sm:~# kubeadm init --pod-network-cidr=10.244.0.0/16
 </span></span></code></pre></td></tr></table></div></div><p>after waiting for some while, you should see below message that shows the
 install is complete</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1> 1</a>
-</span><span class=lnt id=hl-5-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-2> 2</a>
-</span><span class=lnt id=hl-5-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-3> 3</a>
-</span><span class=lnt id=hl-5-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-4> 4</a>
-</span><span class=lnt id=hl-5-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-5> 5</a>
-</span><span class=lnt id=hl-5-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-6> 6</a>
-</span><span class=lnt id=hl-5-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-7> 7</a>
-</span><span class=lnt id=hl-5-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-8> 8</a>
-</span><span class=lnt id=hl-5-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-9> 9</a>
-</span><span class=lnt id=hl-5-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-10>10</a>
-</span><span class=lnt id=hl-5-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-11>11</a>
-</span><span class=lnt id=hl-5-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-12>12</a>
-</span><span class=lnt id=hl-5-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-13>13</a>
-</span><span class=lnt id=hl-5-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-14>14</a>
-</span><span class=lnt id=hl-5-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-15>15</a>
-</span><span class=lnt id=hl-5-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-16>16</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Your Kubernetes master has initialized successfully!
 </span></span><span class=line><span class=cl>
@@ -154,9 +154,9 @@ install is complete</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>  kubeadm join 192.168.122.75:6443 --token .....&lt;snip&gt;
 </span></span></code></pre></td></tr></table></div></div><p>Follow the instruction, run below comand as a regular user</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
-</span><span class=lnt id=hl-6-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-2>2</a>
-</span><span class=lnt id=hl-6-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>  mkdir -p $HOME/.kube
 </span></span><span class=line><span class=cl>  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -166,30 +166,30 @@ exeute this command on your kubernetes node to join to the cluster</p><p>In orde
 pod networking. We are going to use Flannel for our Container Network Interface
 (CNI) because it&rsquo;s easy to install and reliable. Enter this command:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 </span></span></code></pre></td></tr></table></div></div><p>Next run below command to make sure everything is coming up.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl get pods --all-namespaces
 </span></span></code></pre></td></tr></table></div></div><p>If you see the coredns-xxxxxx pod is running, and your master node is Ready,
 your cluster is ready to accept worker nodes.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-1> 1</a>
-</span><span class=lnt id=hl-9-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-2> 2</a>
-</span><span class=lnt id=hl-9-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-3> 3</a>
-</span><span class=lnt id=hl-9-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-4> 4</a>
-</span><span class=lnt id=hl-9-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-5> 5</a>
-</span><span class=lnt id=hl-9-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-6> 6</a>
-</span><span class=lnt id=hl-9-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-7> 7</a>
-</span><span class=lnt id=hl-9-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-8> 8</a>
-</span><span class=lnt id=hl-9-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-9> 9</a>
-</span><span class=lnt id=hl-9-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-10>10</a>
-</span><span class=lnt id=hl-9-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-11>11</a>
-</span><span class=lnt id=hl-9-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-12>12</a>
-</span><span class=lnt id=hl-9-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-13>13</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>wshi@k8sm:~$ kubectl get pods --all-namespaces
 </span></span><span class=line><span class=cl>NAMESPACE     NAME                           READY     STATUS    RESTARTS   AGE
@@ -210,11 +210,11 @@ and docker refer above, then execute the <code>kubeadm join ...</code> command w
 mentioned before.
 After a while, you should see all worker nodes are ready to use.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-1>1</a>
-</span><span class=lnt id=hl-10-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-2>2</a>
-</span><span class=lnt id=hl-10-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-3>3</a>
-</span><span class=lnt id=hl-10-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-4>4</a>
-</span><span class=lnt id=hl-10-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>wshi@k8sm:~$ kubectl get node
 </span></span><span class=line><span class=cl>NAME      STATUS    ROLES     AGE       VERSION
@@ -223,19 +223,19 @@ After a while, you should see all worker nodes are ready to use.</p><div class=h
 </span></span><span class=line><span class=cl>k8sn2     Ready     &lt;none&gt;    11m       v1.11.2
 </span></span></code></pre></td></tr></table></div></div><h1 id=run-a-job>Run a Job<a hidden class=anchor aria-hidden=true href=#run-a-job>#</a></h1><p>Applications that running inside a pod are called &ldquo;jobs&rdquo;.</p><p>Most Kubernetes objects are created using yaml. Here is a sample yaml for a job which uses perl to calculate pi to 2000 digits and then stops.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-1> 1</a>
-</span><span class=lnt id=hl-11-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-2> 2</a>
-</span><span class=lnt id=hl-11-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-3> 3</a>
-</span><span class=lnt id=hl-11-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-4> 4</a>
-</span><span class=lnt id=hl-11-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-5> 5</a>
-</span><span class=lnt id=hl-11-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-6> 6</a>
-</span><span class=lnt id=hl-11-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-7> 7</a>
-</span><span class=lnt id=hl-11-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-8> 8</a>
-</span><span class=lnt id=hl-11-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-9> 9</a>
-</span><span class=lnt id=hl-11-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-10>10</a>
-</span><span class=lnt id=hl-11-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-11>11</a>
-</span><span class=lnt id=hl-11-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-12>12</a>
-</span><span class=lnt id=hl-11-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-13>13</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>batch/v1</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Job</span><span class=w>
@@ -252,72 +252,72 @@ After a while, you should see all worker nodes are ready to use.</p><div class=h
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>backoffLimit</span><span class=p>:</span><span class=w> </span><span class=m>4</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>Create this yaml file on your master node and call it &ldquo;pi-job.yaml&rdquo;. Run the job with the command:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl create -f pi-job.yaml
 </span></span></code></pre></td></tr></table></div></div><p>Get the detail information of this job with the command:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-1> 1</a>
-</span><span class=lnt id=hl-13-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-2> 2</a>
-</span><span class=lnt id=hl-13-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-3> 3</a>
-</span><span class=lnt id=hl-13-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-4> 4</a>
-</span><span class=lnt id=hl-13-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-5> 5</a>
-</span><span class=lnt id=hl-13-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-6> 6</a>
-</span><span class=lnt id=hl-13-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-7> 7</a>
-</span><span class=lnt id=hl-13-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-8> 8</a>
-</span><span class=lnt id=hl-13-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-9> 9</a>
-</span><span class=lnt id=hl-13-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-10>10</a>
-</span><span class=lnt id=hl-13-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-11>11</a>
-</span><span class=lnt id=hl-13-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-12>12</a>
-</span><span class=lnt id=hl-13-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-13>13</a>
-</span><span class=lnt id=hl-13-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-14>14</a>
-</span><span class=lnt id=hl-13-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-15>15</a>
-</span><span class=lnt id=hl-13-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-16>16</a>
-</span><span class=lnt id=hl-13-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-17>17</a>
-</span><span class=lnt id=hl-13-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-18>18</a>
-</span><span class=lnt id=hl-13-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-19>19</a>
-</span><span class=lnt id=hl-13-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-20>20</a>
-</span><span class=lnt id=hl-13-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-21>21</a>
-</span><span class=lnt id=hl-13-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-22>22</a>
-</span><span class=lnt id=hl-13-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-23>23</a>
-</span><span class=lnt id=hl-13-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-24>24</a>
-</span><span class=lnt id=hl-13-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-25>25</a>
-</span><span class=lnt id=hl-13-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-26>26</a>
-</span><span class=lnt id=hl-13-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-27>27</a>
-</span><span class=lnt id=hl-13-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-28>28</a>
-</span><span class=lnt id=hl-13-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-29>29</a>
-</span><span class=lnt id=hl-13-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-30>30</a>
-</span><span class=lnt id=hl-13-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-31>31</a>
-</span><span class=lnt id=hl-13-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-32>32</a>
-</span><span class=lnt id=hl-13-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-33>33</a>
-</span><span class=lnt id=hl-13-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-34>34</a>
-</span><span class=lnt id=hl-13-35><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-35>35</a>
-</span><span class=lnt id=hl-13-36><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-36>36</a>
-</span><span class=lnt id=hl-13-37><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-37>37</a>
-</span><span class=lnt id=hl-13-38><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-38>38</a>
-</span><span class=lnt id=hl-13-39><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-39>39</a>
-</span><span class=lnt id=hl-13-40><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-40>40</a>
-</span><span class=lnt id=hl-13-41><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-41>41</a>
-</span><span class=lnt id=hl-13-42><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-42>42</a>
-</span><span class=lnt id=hl-13-43><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-43>43</a>
-</span><span class=lnt id=hl-13-44><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-44>44</a>
-</span><span class=lnt id=hl-13-45><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-45>45</a>
-</span><span class=lnt id=hl-13-46><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-46>46</a>
-</span><span class=lnt id=hl-13-47><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-47>47</a>
-</span><span class=lnt id=hl-13-48><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-48>48</a>
-</span><span class=lnt id=hl-13-49><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-49>49</a>
-</span><span class=lnt id=hl-13-50><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-50>50</a>
-</span><span class=lnt id=hl-13-51><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-51>51</a>
-</span><span class=lnt id=hl-13-52><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-52>52</a>
-</span><span class=lnt id=hl-13-53><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-53>53</a>
-</span><span class=lnt id=hl-13-54><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-54>54</a>
-</span><span class=lnt id=hl-13-55><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-55>55</a>
-</span><span class=lnt id=hl-13-56><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-56>56</a>
-</span><span class=lnt id=hl-13-57><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-57>57</a>
-</span><span class=lnt id=hl-13-58><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-58>58</a>
-</span><span class=lnt id=hl-13-59><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-59>59</a>
-</span><span class=lnt id=hl-13-60><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-60>60</a>
-</span><span class=lnt id=hl-13-61><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-61>61</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ kubectl get pod
 </span></span><span class=line><span class=cl>NAME                                               READY     STATUS      RESTARTS   AGE
@@ -382,26 +382,26 @@ After a while, you should see all worker nodes are ready to use.</p><div class=h
 </span></span><span class=line><span class=cl>  Normal  Started    1m    kubelet, juju-cfb27c-2  Started container
 </span></span></code></pre></td></tr></table></div></div><p>And view the log(STDOUT) with below command:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-1>1</a>
-</span><span class=lnt id=hl-14-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ kubectl logs pi-72c7r
 </span></span><span class=line><span class=cl>3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632788659361533818279682303019520353018529689957736225994138912497217752834791315155748572424541506959508295331168617278558890750983817546374649393192550604009277016711390098488240128583616035637076601047101819429555961989467678374494482553797747268471040475346462080466842590694912933136770289891521047521620569660240580381501935112533824300355876402474964732639141992726042699227967823547816360093417216412199245863150302861829745557067498385054945885869269956909272107975093029553211653449872027559602364806654991198818347977535663698074265425278625518184175746728909777727938000816470600161452491921732172147723501414419735685481613611573525521334757418494684385233239073941433345477624168625189835694855620992192221842725502542568876717904946016534668049886272327917860857843838279679766814541009538837863609506800642251252051173929848960841284886269456042419652850222106611863067442786220391949450471237137869609563643719172874677646575739624138908658326459958133904780275898
 </span></span></code></pre></td></tr></table></div></div><p>Here is another example YAML file for job which use the image &ldquo;busybox&rdquo; and sleep for 10 seconds</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-15-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-1> 1</a>
-</span><span class=lnt id=hl-15-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-2> 2</a>
-</span><span class=lnt id=hl-15-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-3> 3</a>
-</span><span class=lnt id=hl-15-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-4> 4</a>
-</span><span class=lnt id=hl-15-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-5> 5</a>
-</span><span class=lnt id=hl-15-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-6> 6</a>
-</span><span class=lnt id=hl-15-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-7> 7</a>
-</span><span class=lnt id=hl-15-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-8> 8</a>
-</span><span class=lnt id=hl-15-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-9> 9</a>
-</span><span class=lnt id=hl-15-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-10>10</a>
-</span><span class=lnt id=hl-15-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-11>11</a>
-</span><span class=lnt id=hl-15-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-12>12</a>
-</span><span class=lnt id=hl-15-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-13>13</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>batch/v1</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Job</span><span class=w>
@@ -418,20 +418,20 @@ After a while, you should see all worker nodes are ready to use.</p><div class=h
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>backoffLimit</span><span class=p>:</span><span class=w> </span><span class=m>4</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=deploy-a-pod>Deploy a Pod<a hidden class=anchor aria-hidden=true href=#deploy-a-pod>#</a></h1><p>Pods usually represent running applications in a Kubernetes cluster. Here is an example of some yaml which defines a pod:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-16-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-1> 1</a>
-</span><span class=lnt id=hl-16-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-2> 2</a>
-</span><span class=lnt id=hl-16-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-3> 3</a>
-</span><span class=lnt id=hl-16-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-4> 4</a>
-</span><span class=lnt id=hl-16-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-5> 5</a>
-</span><span class=lnt id=hl-16-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-6> 6</a>
-</span><span class=lnt id=hl-16-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-7> 7</a>
-</span><span class=lnt id=hl-16-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-8> 8</a>
-</span><span class=lnt id=hl-16-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-9> 9</a>
-</span><span class=lnt id=hl-16-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-10>10</a>
-</span><span class=lnt id=hl-16-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-11>11</a>
-</span><span class=lnt id=hl-16-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-12>12</a>
-</span><span class=lnt id=hl-16-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-13>13</a>
-</span><span class=lnt id=hl-16-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-14>14</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Pod</span><span class=w>
@@ -449,59 +449,59 @@ After a while, you should see all worker nodes are ready to use.</p><div class=h
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>restartPolicy</span><span class=p>:</span><span class=w> </span><span class=l>Always</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h2 id=run-a-pod>run a Pod<a hidden class=anchor aria-hidden=true href=#run-a-pod>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-17-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl create -f alpine.yaml
 </span></span></code></pre></td></tr></table></div></div><h2 id=delete-a-pod>delete a Pod<a hidden class=anchor aria-hidden=true href=#delete-a-pod>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-18-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl delete -f alpine.yaml
 </span></span></code></pre></td></tr></table></div></div><p>Or</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-19-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl delete pod alpine
 </span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-20-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl delete pod/alpine
 </span></span></code></pre></td></tr></table></div></div><h1 id=examine-the-current-status>Examine the current status<a hidden class=anchor aria-hidden=true href=#examine-the-current-status>#</a></h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-21-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-1>1</a>
-</span><span class=lnt id=hl-21-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-2>2</a>
-</span><span class=lnt id=hl-21-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl get nodes
 </span></span><span class=line><span class=cl>kubectl describe node node-name
 </span></span><span class=line><span class=cl>kubectl get pods --all-namespaces -o wide
 </span></span></code></pre></td></tr></table></div></div><p>Use <code>-n</code> will specify the namespace in use</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-22-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl get pods -n kube-system
 </span></span></code></pre></td></tr></table></div></div><h1 id=deployment>Deployment<a hidden class=anchor aria-hidden=true href=#deployment>#</a></h1><p>A yaml file for an nginx deployment</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-23-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-1> 1</a>
-</span><span class=lnt id=hl-23-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-2> 2</a>
-</span><span class=lnt id=hl-23-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-3> 3</a>
-</span><span class=lnt id=hl-23-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-4> 4</a>
-</span><span class=lnt id=hl-23-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-5> 5</a>
-</span><span class=lnt id=hl-23-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-6> 6</a>
-</span><span class=lnt id=hl-23-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-7> 7</a>
-</span><span class=lnt id=hl-23-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-8> 8</a>
-</span><span class=lnt id=hl-23-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-9> 9</a>
-</span><span class=lnt id=hl-23-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-10>10</a>
-</span><span class=lnt id=hl-23-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-11>11</a>
-</span><span class=lnt id=hl-23-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-12>12</a>
-</span><span class=lnt id=hl-23-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-13>13</a>
-</span><span class=lnt id=hl-23-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-14>14</a>
-</span><span class=lnt id=hl-23-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-15>15</a>
-</span><span class=lnt id=hl-23-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-16>16</a>
-</span><span class=lnt id=hl-23-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-17>17</a>
-</span><span class=lnt id=hl-23-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-18>18</a>
-</span><span class=lnt id=hl-23-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-19>19</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>apiVersion: apps/v1beta2
 </span></span><span class=line><span class=cl>kind: Deployment
@@ -524,73 +524,73 @@ After a while, you should see all worker nodes are ready to use.</p><div class=h
 </span></span><span class=line><span class=cl>        - containerPort: 80
 </span></span></code></pre></td></tr></table></div></div><h2 id=create-the-deployment-and-pod>Create the deployment and pod<a hidden class=anchor aria-hidden=true href=#create-the-deployment-and-pod>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-24-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl create -f nginx-deployment.yaml
 </span></span></code></pre></td></tr></table></div></div><p>Find the detail info</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-25-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl describe deployment nginx-deployment
 </span></span></code></pre></td></tr></table></div></div><p>Check pod is running on which node</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-26-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-1>1</a>
-</span><span class=lnt id=hl-26-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-2>2</a>
-</span><span class=lnt id=hl-26-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ kubectl get pod nginx-deployment-7fc9b7bd96-c6wwh -o wide
 </span></span><span class=line><span class=cl>NAME                                READY     STATUS    RESTARTS   AGE       IP          NODE            NOMINATED NODE
 </span></span><span class=line><span class=cl>nginx-deployment-7fc9b7bd96-c6wwh   1/1       Running   0          21h       10.1.33.6   juju-cfb27c-2   &lt;none&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=rollout-image-version>rollout image version<a hidden class=anchor aria-hidden=true href=#rollout-image-version>#</a></h2><p>Change the image version to 1.8, you run below command</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-27-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl set image deployment nginx-deployment nginx=nginx:1.8
 </span></span></code></pre></td></tr></table></div></div><p>Or, you can update the line in the yaml to 1.8 version of the image, and apply
 the changes with</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-28-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl apply -f nginx-deployment.yaml
 </span></span></code></pre></td></tr></table></div></div><p>Check the status of the rollout with below command</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-29-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl rollout status deployment nginx-deployment
 </span></span></code></pre></td></tr></table></div></div><p>Undo the previous rollout</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-30-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl rollout undo deployment nginx-deployment
 </span></span></code></pre></td></tr></table></div></div><p>View the history</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-31-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-31-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl rollout history deployment nginx-deployment
 </span></span></code></pre></td></tr></table></div></div><p>Go to a specific point in history</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-32-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-32-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl rollout history deployment nginx-deployment --revision=x
 </span></span></code></pre></td></tr></table></div></div><h1 id=setting-container-environment-variables>Setting Container Environment Variables<a hidden class=anchor aria-hidden=true href=#setting-container-environment-variables>#</a></h1><p>Deploy a pod to print Environment Variables</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-33-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-1> 1</a>
-</span><span class=lnt id=hl-33-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-2> 2</a>
-</span><span class=lnt id=hl-33-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-3> 3</a>
-</span><span class=lnt id=hl-33-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-4> 4</a>
-</span><span class=lnt id=hl-33-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-5> 5</a>
-</span><span class=lnt id=hl-33-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-6> 6</a>
-</span><span class=lnt id=hl-33-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-7> 7</a>
-</span><span class=lnt id=hl-33-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-8> 8</a>
-</span><span class=lnt id=hl-33-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-9> 9</a>
-</span><span class=lnt id=hl-33-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-10>10</a>
-</span><span class=lnt id=hl-33-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-11>11</a>
-</span><span class=lnt id=hl-33-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-12>12</a>
-</span><span class=lnt id=hl-33-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-13>13</a>
-</span><span class=lnt id=hl-33-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-14>14</a>
-</span><span class=lnt id=hl-33-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-15>15</a>
-</span><span class=lnt id=hl-33-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-16>16</a>
-</span><span class=lnt id=hl-33-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-17>17</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>apiVersion: v1
 </span></span><span class=line><span class=cl>kind: Pod
@@ -611,12 +611,12 @@ the changes with</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>      value: &#34;is awesome&#34;
 </span></span></code></pre></td></tr></table></div></div><p>After executed the pod, you can check Environment Viriables by log</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-34-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-34-1>1</a>
-</span><span class=lnt id=hl-34-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-34-2>2</a>
-</span><span class=lnt id=hl-34-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-34-3>3</a>
-</span><span class=lnt id=hl-34-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-34-4>4</a>
-</span><span class=lnt id=hl-34-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-34-5>5</a>
-</span><span class=lnt id=hl-34-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-34-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ kubectl logs env-dump
 </span></span><span class=line><span class=cl>....
@@ -626,20 +626,20 @@ the changes with</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>....
 </span></span></code></pre></td></tr></table></div></div><h1 id=scaling-pod>Scaling pod<a hidden class=anchor aria-hidden=true href=#scaling-pod>#</a></h1><h2 id=command-line>command line<a hidden class=anchor aria-hidden=true href=#command-line>#</a></h2><p>Use scale to deployment with &ndash;replicas=X</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-35-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-1> 1</a>
-</span><span class=lnt id=hl-35-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-2> 2</a>
-</span><span class=lnt id=hl-35-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-3> 3</a>
-</span><span class=lnt id=hl-35-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-4> 4</a>
-</span><span class=lnt id=hl-35-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-5> 5</a>
-</span><span class=lnt id=hl-35-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-6> 6</a>
-</span><span class=lnt id=hl-35-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-7> 7</a>
-</span><span class=lnt id=hl-35-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-8> 8</a>
-</span><span class=lnt id=hl-35-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-9> 9</a>
-</span><span class=lnt id=hl-35-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-10>10</a>
-</span><span class=lnt id=hl-35-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-11>11</a>
-</span><span class=lnt id=hl-35-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-12>12</a>
-</span><span class=lnt id=hl-35-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-13>13</a>
-</span><span class=lnt id=hl-35-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-14>14</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ kubectl get deployment
 </span></span><span class=line><span class=cl>NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -657,7 +657,7 @@ the changes with</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>nginx-deployment-7fc9b7bd96-s86gc                  1/1       Running     0          21h
 </span></span></code></pre></td></tr></table></div></div><h2 id=yaml-file>yaml file<a hidden class=anchor aria-hidden=true href=#yaml-file>#</a></h2><p>Update <code>replicas: x</code> part in yaml file, and apply the changes with</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-36-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl apply -f nginx-deployment.yml 
 </span></span></code></pre></td></tr></table></div></div><h1 id=replication-controllers-replica-sets-and-deployments>Replication Controllers, Replica Sets, and Deployments<a hidden class=anchor aria-hidden=true href=#replication-controllers-replica-sets-and-deployments>#</a></h1><p>Deployments replaced the older ReplicationController functionality, but it never
@@ -667,25 +667,25 @@ A Replication Controller ensures that a specified number of pod replicas are run
 at any one time. In other words, a Replication Controller makes sure that a pod or
 a homogeneous set of pods is always up and available.</p><p>To maintain three copies of an nginx container</p><h2 id=replication-controllers>Replication Controllers<a hidden class=anchor aria-hidden=true href=#replication-controllers>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-37-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-1> 1</a>
-</span><span class=lnt id=hl-37-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-2> 2</a>
-</span><span class=lnt id=hl-37-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-3> 3</a>
-</span><span class=lnt id=hl-37-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-4> 4</a>
-</span><span class=lnt id=hl-37-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-5> 5</a>
-</span><span class=lnt id=hl-37-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-6> 6</a>
-</span><span class=lnt id=hl-37-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-7> 7</a>
-</span><span class=lnt id=hl-37-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-8> 8</a>
-</span><span class=lnt id=hl-37-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-9> 9</a>
-</span><span class=lnt id=hl-37-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-10>10</a>
-</span><span class=lnt id=hl-37-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-11>11</a>
-</span><span class=lnt id=hl-37-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-12>12</a>
-</span><span class=lnt id=hl-37-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-13>13</a>
-</span><span class=lnt id=hl-37-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-14>14</a>
-</span><span class=lnt id=hl-37-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-15>15</a>
-</span><span class=lnt id=hl-37-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-16>16</a>
-</span><span class=lnt id=hl-37-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-17>17</a>
-</span><span class=lnt id=hl-37-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-18>18</a>
-</span><span class=lnt id=hl-37-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-19>19</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>apiVersion: v1
 </span></span><span class=line><span class=cl>kind: ReplicationController
@@ -708,27 +708,27 @@ a homogeneous set of pods is always up and available.</p><p>To maintain three co
 </span></span><span class=line><span class=cl>        - containerPort: 80
 </span></span></code></pre></td></tr></table></div></div><h2 id=replicaset>ReplicaSet<a hidden class=anchor aria-hidden=true href=#replicaset>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-38-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-1> 1</a>
-</span><span class=lnt id=hl-38-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-2> 2</a>
-</span><span class=lnt id=hl-38-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-3> 3</a>
-</span><span class=lnt id=hl-38-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-4> 4</a>
-</span><span class=lnt id=hl-38-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-5> 5</a>
-</span><span class=lnt id=hl-38-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-6> 6</a>
-</span><span class=lnt id=hl-38-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-7> 7</a>
-</span><span class=lnt id=hl-38-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-8> 8</a>
-</span><span class=lnt id=hl-38-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-9> 9</a>
-</span><span class=lnt id=hl-38-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-10>10</a>
-</span><span class=lnt id=hl-38-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-11>11</a>
-</span><span class=lnt id=hl-38-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-12>12</a>
-</span><span class=lnt id=hl-38-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-13>13</a>
-</span><span class=lnt id=hl-38-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-14>14</a>
-</span><span class=lnt id=hl-38-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-15>15</a>
-</span><span class=lnt id=hl-38-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-16>16</a>
-</span><span class=lnt id=hl-38-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-17>17</a>
-</span><span class=lnt id=hl-38-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-18>18</a>
-</span><span class=lnt id=hl-38-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-19>19</a>
-</span><span class=lnt id=hl-38-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-20>20</a>
-</span><span class=lnt id=hl-38-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-21>21</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>apiVersion: apps/v1beta2
 </span></span><span class=line><span class=cl>kind: ReplicaSet
@@ -753,27 +753,27 @@ a homogeneous set of pods is always up and available.</p><p>To maintain three co
 </span></span><span class=line><span class=cl>        - containerPort: 80
 </span></span></code></pre></td></tr></table></div></div><h2 id=deployment-1>Deployment<a hidden class=anchor aria-hidden=true href=#deployment-1>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-39-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-1> 1</a>
-</span><span class=lnt id=hl-39-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-2> 2</a>
-</span><span class=lnt id=hl-39-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-3> 3</a>
-</span><span class=lnt id=hl-39-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-4> 4</a>
-</span><span class=lnt id=hl-39-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-5> 5</a>
-</span><span class=lnt id=hl-39-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-6> 6</a>
-</span><span class=lnt id=hl-39-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-7> 7</a>
-</span><span class=lnt id=hl-39-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-8> 8</a>
-</span><span class=lnt id=hl-39-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-9> 9</a>
-</span><span class=lnt id=hl-39-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-10>10</a>
-</span><span class=lnt id=hl-39-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-11>11</a>
-</span><span class=lnt id=hl-39-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-12>12</a>
-</span><span class=lnt id=hl-39-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-13>13</a>
-</span><span class=lnt id=hl-39-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-14>14</a>
-</span><span class=lnt id=hl-39-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-15>15</a>
-</span><span class=lnt id=hl-39-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-16>16</a>
-</span><span class=lnt id=hl-39-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-17>17</a>
-</span><span class=lnt id=hl-39-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-18>18</a>
-</span><span class=lnt id=hl-39-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-19>19</a>
-</span><span class=lnt id=hl-39-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-20>20</a>
-</span><span class=lnt id=hl-39-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-21>21</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
 </span></span><span class=line><span class=cl>kind: Deployment
@@ -798,10 +798,10 @@ a homogeneous set of pods is always up and available.</p><p>To maintain three co
 </span></span><span class=line><span class=cl>        - containerPort: 80
 </span></span></code></pre></td></tr></table></div></div><h1 id=label>Label<a hidden class=anchor aria-hidden=true href=#label>#</a></h1><p>Label node with colors</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-40-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-1>1</a>
-</span><span class=lnt id=hl-40-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-2>2</a>
-</span><span class=lnt id=hl-40-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-3>3</a>
-</span><span class=lnt id=hl-40-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl label node node1-name color=black
 </span></span><span class=line><span class=cl>kubectl label node node2-name color=red
@@ -809,42 +809,42 @@ a homogeneous set of pods is always up and available.</p><p>To maintain three co
 </span></span><span class=line><span class=cl>kubectl label node node4-name color=blue
 </span></span></code></pre></td></tr></table></div></div><p>Label all pod in default namespace by using <code>--all</code></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-41-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl label pods -n default color=white --all
 </span></span></code></pre></td></tr></table></div></div><p>Get pod/node/etc with specific label</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-42-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl get pods -l color=white -n default
 </span></span></code></pre></td></tr></table></div></div><p>Get pod with multi labels</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-43-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl get pods -l color=white,app=nginx
 </span></span></code></pre></td></tr></table></div></div><h1 id=daemonset>DaemonSet<a hidden class=anchor aria-hidden=true href=#daemonset>#</a></h1><p>Deploy nginx pod on all node with</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-44-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-1> 1</a>
-</span><span class=lnt id=hl-44-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-2> 2</a>
-</span><span class=lnt id=hl-44-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-3> 3</a>
-</span><span class=lnt id=hl-44-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-4> 4</a>
-</span><span class=lnt id=hl-44-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-5> 5</a>
-</span><span class=lnt id=hl-44-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-6> 6</a>
-</span><span class=lnt id=hl-44-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-7> 7</a>
-</span><span class=lnt id=hl-44-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-8> 8</a>
-</span><span class=lnt id=hl-44-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-9> 9</a>
-</span><span class=lnt id=hl-44-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-10>10</a>
-</span><span class=lnt id=hl-44-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-11>11</a>
-</span><span class=lnt id=hl-44-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-12>12</a>
-</span><span class=lnt id=hl-44-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-13>13</a>
-</span><span class=lnt id=hl-44-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-14>14</a>
-</span><span class=lnt id=hl-44-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-15>15</a>
-</span><span class=lnt id=hl-44-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-16>16</a>
-</span><span class=lnt id=hl-44-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-17>17</a>
-</span><span class=lnt id=hl-44-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-18>18</a>
-</span><span class=lnt id=hl-44-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-19>19</a>
-</span><span class=lnt id=hl-44-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-20>20</a>
-</span><span class=lnt id=hl-44-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-21>21</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>apiVersion: apps/v1
 </span></span><span class=line><span class=cl>kind: DaemonSet
@@ -869,11 +869,11 @@ a homogeneous set of pods is always up and available.</p><p>To maintain three co
 </span></span><span class=line><span class=cl>        image: nginx
 </span></span></code></pre></td></tr></table></div></div><p>Confirm that pod is running on each node</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-45-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-1>1</a>
-</span><span class=lnt id=hl-45-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-2>2</a>
-</span><span class=lnt id=hl-45-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-3>3</a>
-</span><span class=lnt id=hl-45-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-4>4</a>
-</span><span class=lnt id=hl-45-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ kubectl get pod -o wide
 </span></span><span class=line><span class=cl>NAME                                               READY     STATUS             RESTARTS   AGE       IP              NODE            NOMINATED NODE
@@ -882,28 +882,28 @@ a homogeneous set of pods is always up and available.</p><p>To maintain three co
 </span></span><span class=line><span class=cl>cthulu-x8hdf                                       1/1       Running            0          2m        10.1.31.9       juju-cfb27c-3   &lt;none&gt;
 </span></span></code></pre></td></tr></table></div></div><h1 id=label-a-node--schedule-a-pod>Label a Node & Schedule a Pod<a hidden class=anchor aria-hidden=true href=#label-a-node--schedule-a-pod>#</a></h1><p>Label a Node to let you can schedule a pod on it.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-46-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-46-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl label node juju-cfb27c-3 deploy=here
 </span></span></code></pre></td></tr></table></div></div><p>use <code>nodeSelector</code> in yaml file to let a pod being deployed on the specific
 node</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-47-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-1> 1</a>
-</span><span class=lnt id=hl-47-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-2> 2</a>
-</span><span class=lnt id=hl-47-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-3> 3</a>
-</span><span class=lnt id=hl-47-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-4> 4</a>
-</span><span class=lnt id=hl-47-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-5> 5</a>
-</span><span class=lnt id=hl-47-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-6> 6</a>
-</span><span class=lnt id=hl-47-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-7> 7</a>
-</span><span class=lnt id=hl-47-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-8> 8</a>
-</span><span class=lnt id=hl-47-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-9> 9</a>
-</span><span class=lnt id=hl-47-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-10>10</a>
-</span><span class=lnt id=hl-47-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-11>11</a>
-</span><span class=lnt id=hl-47-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-12>12</a>
-</span><span class=lnt id=hl-47-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-13>13</a>
-</span><span class=lnt id=hl-47-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-14>14</a>
-</span><span class=lnt id=hl-47-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-15>15</a>
-</span><span class=lnt id=hl-47-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-16>16</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>apiVersion: v1
 </span></span><span class=line><span class=cl>kind: Pod
@@ -923,9 +923,9 @@ node</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>    deploy: here 
 </span></span></code></pre></td></tr></table></div></div><p>Confirm</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-48-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-1>1</a>
-</span><span class=lnt id=hl-48-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-2>2</a>
-</span><span class=lnt id=hl-48-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ kubectl get pod busybox -o wide
 </span></span><span class=line><span class=cl>NAME      READY     STATUS    RESTARTS   AGE       IP           NODE            NOMINATED NODE
@@ -934,19 +934,19 @@ node</p><div class=highlight><div class=chroma>
 single default one. Sometimes, however, developers need to have custom schedulers in charge of
 placing pods due to legacy or specialized hardware constraints.</p><p>Use <code>schedulerName</code> in yaml to specific a customer scheduler</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-49-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-1> 1</a>
-</span><span class=lnt id=hl-49-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-2> 2</a>
-</span><span class=lnt id=hl-49-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-3> 3</a>
-</span><span class=lnt id=hl-49-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-4> 4</a>
-</span><span class=lnt id=hl-49-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-5> 5</a>
-</span><span class=lnt id=hl-49-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-6> 6</a>
-</span><span class=lnt id=hl-49-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-7> 7</a>
-</span><span class=lnt id=hl-49-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-8> 8</a>
-</span><span class=lnt id=hl-49-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-9> 9</a>
-</span><span class=lnt id=hl-49-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-10>10</a>
-</span><span class=lnt id=hl-49-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-11>11</a>
-</span><span class=lnt id=hl-49-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-12>12</a>
-</span><span class=lnt id=hl-49-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-13>13</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>apiVersion: v1
 </span></span><span class=line><span class=cl>kind: Pod
@@ -963,37 +963,37 @@ placing pods due to legacy or specialized hardware constraints.</p><p>Use <code>
 </span></span><span class=line><span class=cl>    image: k8s.gcr.io/pause:2.0
 </span></span></code></pre></td></tr></table></div></div><h1 id=logs>Logs<a hidden class=anchor aria-hidden=true href=#logs>#</a></h1><p>View the current logs of a pod</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-50-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl logs pod-name
 </span></span></code></pre></td></tr></table></div></div><p>View the current logs of a pod interactively</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-51-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl logs pod-name -f
 </span></span></code></pre></td></tr></table></div></div><p>Print last 10 lines of the log.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-52-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-52-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl logs pod-name --tail=10
 </span></span></code></pre></td></tr></table></div></div><p>Log file in master/node machine can be found at <code>/var/log/containers</code> directory</p><h1 id=node-maintenance>Node maintenance<a hidden class=anchor aria-hidden=true href=#node-maintenance>#</a></h1><p>Maintenance a node by preventing the scheduler from putting new pods on to it and
 evicting any existing pods. Ignore the DaemonSets &ndash; those pods are only providing
 services to other local pods and will come back up when the node comes back up.</p><p>In this example I&rsquo;m going to remove juju-cfb27c-2 from cluster.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-53-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-53-1>1</a>
-</span><span class=lnt id=hl-53-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-53-2>2</a>
-</span><span class=lnt id=hl-53-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-53-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>root@juju-cfb27c-0:~# kubectl drain juju-cfb27c-2 --ignore-daemonsets
 </span></span><span class=line><span class=cl>node/juju-cfb27c-2 cordoned
 </span></span><span class=line><span class=cl>WARNING: Ignoring DaemonSet-managed pods: cthulu-kvbk9, nginx-ingress-kubernetes-worker-controller-t6qh9
 </span></span></code></pre></td></tr></table></div></div><p>juju-cfb27c-2 is marked as &ldquo;SchedulingDisabled&rdquo;</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-54-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-1>1</a>
-</span><span class=lnt id=hl-54-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-2>2</a>
-</span><span class=lnt id=hl-54-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-3>3</a>
-</span><span class=lnt id=hl-54-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-4>4</a>
-</span><span class=lnt id=hl-54-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># kubectl get node
 </span></span><span class=line><span class=cl>NAME            STATUS                     ROLES     AGE       VERSION
@@ -1003,13 +1003,13 @@ services to other local pods and will come back up when the node comes back up.<
 </span></span></code></pre></td></tr></table></div></div><p>Now -2 node can be shutdown and do maintenance work, no pod will be schedule on
 it. If you create some new pods, they will only placed on juju-cfb27c-1 and -3.</p><p>Next, when -2 node is ready to use, you can get it back with</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-55-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-1>1</a>
-</span><span class=lnt id=hl-55-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-2>2</a>
-</span><span class=lnt id=hl-55-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-3>3</a>
-</span><span class=lnt id=hl-55-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-4>4</a>
-</span><span class=lnt id=hl-55-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-5>5</a>
-</span><span class=lnt id=hl-55-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-6>6</a>
-</span><span class=lnt id=hl-55-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># kubectl uncordon juju-cfb27c-2 
 </span></span><span class=line><span class=cl>node/juju-cfb27c-2 uncordoned
@@ -1020,49 +1020,49 @@ it. If you create some new pods, they will only placed on juju-cfb27c-1 and -3.<
 </span></span><span class=line><span class=cl>juju-cfb27c-3   Ready     &lt;none&gt;    4d        v1.11.2
 </span></span></code></pre></td></tr></table></div></div><h1 id=upgrading-kubernetes-components>Upgrading Kubernetes Components<a hidden class=anchor aria-hidden=true href=#upgrading-kubernetes-components>#</a></h1><p>Confirm the current version with</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-56-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl get nodes
 </span></span></code></pre></td></tr></table></div></div><ol>
 <li>Upgrade kubeadm on the master node</li></ol><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-57-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-57-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo apt upgrade kubeadm
 </span></span></code></pre></td></tr></table></div></div><p>And confirm the version of kubeadm with</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-58-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-58-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubeadm version
 </span></span></code></pre></td></tr></table></div></div><ol>
 <li>check the upgrade plan</li></ol><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-59-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo kubeadm upgrade plan
 </span></span></code></pre></td></tr></table></div></div><ol>
 <li>apply the upgrade plan</li></ol><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-60-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo kubeadm upgrade apply v1.x.x
 </span></span></code></pre></td></tr></table></div></div><ol>
 <li>upgrade kubelet</li></ol><p>Before upgrade kubelet, first you need to drain the node which you want to
 upgrade</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-61-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl drain NODENAME --ignore-daemonsets
 </span></span></code></pre></td></tr></table></div></div><p>Then, update kubelet manaully with</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-62-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-1>1</a>
-</span><span class=lnt id=hl-62-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo apt update
 </span></span><span class=line><span class=cl>sudo apt upgrade kubelet
 </span></span></code></pre></td></tr></table></div></div><p>Don&rsquo;t forget to make your node avaliable after the upgrade.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-63-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl uncordon NODENAME
 </span></span></code></pre></td></tr></table></div></div><h1 id=network>Network<a hidden class=anchor aria-hidden=true href=#network>#</a></h1><h2 id=inbound-node-port-requirements>Inbound Node Port Requirements<a hidden class=anchor aria-hidden=true href=#inbound-node-port-requirements>#</a></h2><ul>
@@ -1072,25 +1072,25 @@ upgrade</p><div class=highlight><div class=chroma>
 <ul>
 <li>TCP 10250 &ndash; Kubelet API</li><li>TCP 10255 &ndash; Read-only Kubelet API</li><li>TCP 30000-32767 &ndash; Node Port Services</li></ul></li></ul><h2 id=export-pod-to-the-internet>export pod to the internet<a hidden class=anchor aria-hidden=true href=#export-pod-to-the-internet>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-64-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-64-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># kubectl expost deployment NAME --type=&#34;NodePort&#34; --port XX
 </span></span></code></pre></td></tr></table></div></div><h2 id=deploying-a-load-balancer>Deploying a Load Balancer<a hidden class=anchor aria-hidden=true href=#deploying-a-load-balancer>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-65-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-1> 1</a>
-</span><span class=lnt id=hl-65-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-2> 2</a>
-</span><span class=lnt id=hl-65-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-3> 3</a>
-</span><span class=lnt id=hl-65-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-4> 4</a>
-</span><span class=lnt id=hl-65-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-5> 5</a>
-</span><span class=lnt id=hl-65-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-6> 6</a>
-</span><span class=lnt id=hl-65-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-7> 7</a>
-</span><span class=lnt id=hl-65-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-8> 8</a>
-</span><span class=lnt id=hl-65-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-9> 9</a>
-</span><span class=lnt id=hl-65-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-10>10</a>
-</span><span class=lnt id=hl-65-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-11>11</a>
-</span><span class=lnt id=hl-65-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-12>12</a>
-</span><span class=lnt id=hl-65-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-13>13</a>
-</span><span class=lnt id=hl-65-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-14>14</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Kind:Service
 </span></span><span class=line><span class=cl>apiVersion: v1

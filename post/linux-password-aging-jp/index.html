@@ -66,32 +66,32 @@ Linux ユーザパスワードの有効期限の管理
 </p><ul>
 <li>last chage (-d) : パスワードが最後に変更した日数</li><li>min days (-m) : パスワードが変更可能の最小日数</li><li>max days (-M) : パスワードの変更が必要となる最大日数</li><li>warn days (-W) : パスワードの有効期限が近づき、変更を促す（ワーニング）の日数</li><li>password expiration date : パスワード有効期限</li><li>inactive days (-l) : パスワードの有効期限が切れた後に、アカウントが保持される日数</li><li>inactive date : アカウントが非アクティブになる期限</li></ul><p>上記情報の変更は、chage コマンドで実現できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># chage -m 0 -M 60 -W 7 -l 30
 </span></span></code></pre></td></tr></table></div></div><p>また、chage コマンドに対し以下の使い方もある。</p><ul>
 <li>次回ログイン時に強制パスワードを変更させる</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># chage -d 0 username
 </span></span></code></pre></td></tr></table></div></div><ul>
 <li>現在の設定一覧を表示</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># chage -l username
 </span></span></code></pre></td></tr></table></div></div><ul>
 <li>指定した日付でアカウントが期限切れになる</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># chage -E YYYY-MM-DD username
 </span></span></code></pre></td></tr></table></div></div><p>ユーザアカウントに関連する内容で他にも</p><ul>
 <li>ロックとアンロック</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1>1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># usermod -L username
 </span></span><span class=line><span class=cl># usermod -U username

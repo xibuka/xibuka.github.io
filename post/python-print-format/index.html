@@ -70,10 +70,10 @@ Pythonの出力フォーマット
 </h1><div class=post-meta><span title="2016-10-29 00:28:06 +0000 UTC">October 29, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;58 words&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href=https://github.com/%3cpath_to_repo%3e/content/post/Python-Print-format.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div></header><div class=post-content><p>今日もCodeWarの問題を練習した。<a href=https://www.codewars.com/kata/513e08acc600c94f01000001>RGB To Hex Conversion</a></p><p>問題を簡略化にすると、rgbの数字を16進に変換し出力する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>rgb(255, 255, 255) # returns FFFFFF
 </span></span><span class=line><span class=cl>rgb(255, 255, 300) # returns FFFFFF
@@ -83,11 +83,11 @@ Pythonの出力フォーマット
 sprintf見たいな関数が無いかなっと思いながら、このサイトを見つけた。
 <a href=http://d.hatena.ne.jp/m_py_study/20100128/1264630396>Cのsprintfのような文字列フォーマット</a></p><p>なんと、フォーマットを指定すれば数字が直接変換される！桁数の指定も出来る。</p><p>そして自分の答えは</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4>4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>limit</span><span class=p>(</span><span class=n>a</span><span class=p>):</span>
 </span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nb>min</span><span class=p>(</span><span class=nb>max</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=mi>0</span><span class=p>),</span> <span class=mi>255</span><span class=p>)</span>

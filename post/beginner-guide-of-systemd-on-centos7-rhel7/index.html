@@ -75,43 +75,43 @@ system.</p><p>From CentOS 7, the systemd become the new system controller. The b
 change is it can start task parallel and will improve the startup speed. And as
 the its PID is 1, the systemd is controlling every process in the system!</p><p>This article will only shows the information of &ldquo;service&rdquo;, &ldquo;start up task&rdquo;, and &ldquo;log manage&rdquo; by systemd.</p><h1 id=check-the-service-status-of-the-system>Check the Service status of the system<a hidden class=anchor aria-hidden=true href=#check-the-service-status-of-the-system>#</a></h1><h2 id=check-all-services-in-the-system>Check all services in the system<a hidden class=anchor aria-hidden=true href=#check-all-services-in-the-system>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl  list-unit-files --type=service
 </span></span></code></pre></td></tr></table></div></div><p><code>PageUp</code> and <code>PageDown</code> to go up and down, type <code>q</code> to quit.</p><h2 id=check-all-running-services-in-the-system>Check all running services in the system<a hidden class=anchor aria-hidden=true href=#check-all-running-services-in-the-system>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl  list-units --type=service
 </span></span></code></pre></td></tr></table></div></div><p>If there is a big point ● in front of a service, it means this service has some
 problems.</p><h2 id=check-all-services-which-will-start-when-the-os-boot>Check all services which will start when the OS boot<a hidden class=anchor aria-hidden=true href=#check-all-services-which-will-start-when-the-os-boot>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl list-unit-files --type=service |  grep enabled
 </span></span></code></pre></td></tr></table></div></div><h2 id=check-the-detail-information-of-a-service>Check the detail information of a service<a hidden class=anchor aria-hidden=true href=#check-the-detail-information-of-a-service>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl status &lt;name of service&gt;
 </span></span></code></pre></td></tr></table></div></div><p>The output will contain the status of activity, PID, path of the service, and
 the latest 10 logs.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
-</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
-</span><span class=lnt id=hl-4-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-12>12</a>
-</span><span class=lnt id=hl-4-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-13>13</a>
-</span><span class=lnt id=hl-4-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-14>14</a>
-</span><span class=lnt id=hl-4-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-15>15</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl status rsyslog
 </span></span><span class=line><span class=cl>● rsyslog.service - System Logging Service
@@ -130,83 +130,83 @@ the latest 10 logs.</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>Sep 11 09:36:02 diablo rsyslogd[1417]:  [origin software=&#34;rsyslogd&#34; swVersion=&#34;8.27.0&#34; x-pid=&#34;1417&#34; x-info=&#34;http://www.rsyslog.com&#34;] rsyslogd was HUPed
 </span></span></code></pre></td></tr></table></div></div><h2 id=check-the-services-which-got-failed>Check the services which got failed<a hidden class=anchor aria-hidden=true href=#check-the-services-which-got-failed>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl list-units --type=service --state=failed
 </span></span></code></pre></td></tr></table></div></div><h2 id=check-the-time-of-system-start-up>Check the time of system start up<a hidden class=anchor aria-hidden=true href=#check-the-time-of-system-start-up>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
-</span><span class=lnt id=hl-6-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemd-analyze
 </span></span><span class=line><span class=cl>Startup finished in 1.858s (kernel) + 3.654s (initrd) + 29.878s (userspace) = 35.392s
 </span></span></code></pre></td></tr></table></div></div><h2 id=check-the-time-of-system-start-up-by-service>Check the time of system start up by service<a hidden class=anchor aria-hidden=true href=#check-the-time-of-system-start-up-by-service>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemd-analyze blame | grep .service
 </span></span></code></pre></td></tr></table></div></div><h1 id=manage-the-service>Manage the service<a hidden class=anchor aria-hidden=true href=#manage-the-service>#</a></h1><h2 id=start-a-service>Start a service<a hidden class=anchor aria-hidden=true href=#start-a-service>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl start &lt;service name&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=stop-a-service>Stop a service<a hidden class=anchor aria-hidden=true href=#stop-a-service>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl stop &lt;service name&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=restart-a-service>Restart a service<a hidden class=anchor aria-hidden=true href=#restart-a-service>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl restart &lt;service name&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=reload-the-configuration-of-a-service>Reload the configuration of a service<a hidden class=anchor aria-hidden=true href=#reload-the-configuration-of-a-service>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl reload &lt;service name&gt;
 </span></span></code></pre></td></tr></table></div></div><p>If the service can&rsquo;t be restart but need to change the settings, reload is a
 good choice.</p><h2 id=set-the-service-to-start-when-os-boot>Set the service to start when OS boot<a hidden class=anchor aria-hidden=true href=#set-the-service-to-start-when-os-boot>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl enable &lt;service name&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=set-the-service-not-to-start-when-os-boot>Set the service NOT to start when OS boot<a hidden class=anchor aria-hidden=true href=#set-the-service-not-to-start-when-os-boot>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl disable &lt;service name&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=mask-a-service>mask a service<a hidden class=anchor aria-hidden=true href=#mask-a-service>#</a></h2><p>Mask a service to make it can&rsquo;t be started by other service nor <code>start</code>
 <code>restart</code> command.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl mask &lt;service name&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=unmask-a-service>unmask a service<a hidden class=anchor aria-hidden=true href=#unmask-a-service>#</a></h2><p>Unmask a service which has already been masked.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-15-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl unmask &lt;service name&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=reload-all-the-service-units>reload all the service units<a hidden class=anchor aria-hidden=true href=#reload-all-the-service-units>#</a></h2><p>Do this when you add/remove service units.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-16-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl daemon-reload
 </span></span></code></pre></td></tr></table></div></div><h1 id=create-a-simple-service-unit-file>Create a simple service unit file<a hidden class=anchor aria-hidden=true href=#create-a-simple-service-unit-file>#</a></h1><h2 id=path-of-the-unit-file>Path of the unit file<a hidden class=anchor aria-hidden=true href=#path-of-the-unit-file>#</a></h2><p>When can create a unit file an put it into <code>/etc/systemd/system</code>.</p><h2 id=an-example-of-unit-file>An example of unit file<a hidden class=anchor aria-hidden=true href=#an-example-of-unit-file>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-17-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-1> 1</a>
-</span><span class=lnt id=hl-17-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-2> 2</a>
-</span><span class=lnt id=hl-17-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-3> 3</a>
-</span><span class=lnt id=hl-17-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-4> 4</a>
-</span><span class=lnt id=hl-17-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-5> 5</a>
-</span><span class=lnt id=hl-17-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-6> 6</a>
-</span><span class=lnt id=hl-17-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-7> 7</a>
-</span><span class=lnt id=hl-17-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-8> 8</a>
-</span><span class=lnt id=hl-17-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-9> 9</a>
-</span><span class=lnt id=hl-17-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-10>10</a>
-</span><span class=lnt id=hl-17-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-11>11</a>
-</span><span class=lnt id=hl-17-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-12>12</a>
-</span><span class=lnt id=hl-17-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-13>13</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[Unit]
 </span></span><span class=line><span class=cl>Description=&lt;the description of the service&gt;
@@ -223,48 +223,48 @@ good choice.</p><h2 id=set-the-service-to-start-when-os-boot>Set the service to 
 </span></span><span class=line><span class=cl>WantedBy=multi-user.target
 </span></span></code></pre></td></tr></table></div></div><p>Run <code>daemon-reload</code> after create a new service unit file.</p><h1 id=target-and-runlevel>Target and runlevel<a hidden class=anchor aria-hidden=true href=#target-and-runlevel>#</a></h1><h2 id=check-the-default-runlevel>check the default runlevel<a hidden class=anchor aria-hidden=true href=#check-the-default-runlevel>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-18-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl get-default
 </span></span></code></pre></td></tr></table></div></div><h2 id=set-the-default-runlevel>set the default runlevel<a hidden class=anchor aria-hidden=true href=#set-the-default-runlevel>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-19-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl set-default &lt;target name&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=change-the-runlevel>change the runlevel<a hidden class=anchor aria-hidden=true href=#change-the-runlevel>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-20-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl isolate &lt;target name&gt;
 </span></span></code></pre></td></tr></table></div></div><h1 id=manage-logs>Manage logs<a hidden class=anchor aria-hidden=true href=#manage-logs>#</a></h1><h1 id=check-the-logs-from-the-latest-boot>Check the logs from the latest boot<a hidden class=anchor aria-hidden=true href=#check-the-logs-from-the-latest-boot>#</a></h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-21-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>journalctl -e -f
 </span></span></code></pre></td></tr></table></div></div><h1 id=check-the-logs-of-a-unitservice>Check the logs of a unit(service)<a hidden class=anchor aria-hidden=true href=#check-the-logs-of-a-unitservice>#</a></h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-22-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>journalctl -e -f -u &lt;unit name&gt;
 </span></span></code></pre></td></tr></table></div></div><h1 id=check-the-logs-between-specify-times>Check the logs between specify times<a hidden class=anchor aria-hidden=true href=#check-the-logs-between-specify-times>#</a></h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-23-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>journalctl --since=&#34;yyyy-MM-dd hh:mm:ss&#34; --until=&#34;yyyy-MM-dd hh:mm:ss&#34;
 </span></span></code></pre></td></tr></table></div></div><h1 id=check-the-disk-usage-of-the-logs>Check the disk usage of the logs<a hidden class=anchor aria-hidden=true href=#check-the-disk-usage-of-the-logs>#</a></h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-24-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>journalctl --disk-usage
 </span></span></code></pre></td></tr></table></div></div><h1 id=change-the-max-disk-usage-of-the-logs>Change the max disk usage of the logs.<a hidden class=anchor aria-hidden=true href=#change-the-max-disk-usage-of-the-logs>#</a></h1><p>Uncomment of <code>SystemMaxUse=..</code> in <code>/etc/systemd/journald.conf</code>, and set value
 to this parameter.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-25-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>SystemMaxUse=50M
 </span></span></code></pre></td></tr></table></div></div><p>After this, restart journald service</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-26-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl restart systemd-journald.service
 </span></span></code></pre></td></tr></table></div></div><h1 id=refs>refs<a hidden class=anchor aria-hidden=true href=#refs>#</a></h1><ul>

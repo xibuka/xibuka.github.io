@@ -62,17 +62,17 @@ The difference between server-side healing and client-side healing in GlusterFS
 </div></header><div class=post-content><p>There are 2 kinds of healing functions in GlusterFS, server-side heal and client-side heal.</p><p>Server side heal is automatically executed by self-heal daemon on all gluster server nodes. It does healing by crawling file/directory information from .glusterfs directory on brick path. So it will keep the file-data and meta-data to be consistent from server side.</p><p>Client side heal is different, it will triggers heal for the particular file whenever client accesses files from mount path, which means a file operation on file descriptor. It will lead to some performance impact as every file access operation will go through extra set of function calls for file check and heal.
 Client-side heal is enable by default, and can be turned off by below command</p><p>File data</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># gluster volume set &lt;volume name&gt; cluster.data-self-heal off
 </span></span></code></pre></td></tr></table></div></div><p>Entry data (contents/entries of a directory)</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># gluster volume set &lt;volume name&gt; cluster.entry-self-heal off
 </span></span></code></pre></td></tr></table></div></div><p>Meta data</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># gluster volume set &lt;volume name&gt; cluster.metadata-self-heal off
 </span></span></code></pre></td></tr></table></div></div><p>Note that turn off client side healing doesn&rsquo;t mean to compromise data

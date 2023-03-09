@@ -68,20 +68,20 @@ Hexoをインストール
 </div></header><div class=post-content><p>ここのURLを参考しながら、HexoのBlogを設定した。
 <a href=https://liginc.co.jp/web/programming/server/104594>https://liginc.co.jp/web/programming/server/104594</a></p><p>Install の途中で、以下のエラーが出た。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>% hexo deploy
 </span></span><span class=line><span class=cl>ERROR Deployer not found: github
 </span></span></code></pre></td></tr></table></div></div><p><a href=https://github.com/hexojs/hexo/issues/1040>https://github.com/hexojs/hexo/issues/1040</a> を参考にして、直した。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>% npm install hexo-deployer-git --save
 </span></span></code></pre></td></tr></table></div></div><p>_config.ymlのtypeもgitに変更</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-_config.yml data-lang=_config.yml><span class=line><span class=cl><span class=nt>deploy</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>git</span><span class=w>

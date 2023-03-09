@@ -69,17 +69,17 @@ Kong GatewayのPlugin Ordering機能を試す
 PoCの要件は以下になる</p><ul>
 <li>Key-authプラグインでGateway全体を保護</li><li>Request-transformerプラグインで必要なAPI KeyをHeaderに付与し認証を突破</li></ul><p>二つのプラグインを設定した後、API keyをrequestに追加されても認証されない</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1> 1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2> 2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3> 3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4> 4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5> 5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6> 6</a>
-</span><span class=lnt id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7> 7</a>
-</span><span class=lnt id=hl-0-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-8> 8</a>
-</span><span class=lnt id=hl-0-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-9> 9</a>
-</span><span class=lnt id=hl-0-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-10>10</a>
-</span><span class=lnt id=hl-0-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-11>11</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># key-auth is enabled
 </span></span><span class=line><span class=cl>❯ http --header localhost:8000/demo | head -1
@@ -94,13 +94,13 @@ PoCの要件は以下になる</p><ul>
 </span></span><span class=line><span class=cl>HTTP/1.1 401 Unauthorized
 </span></span></code></pre></td></tr></table></div></div><p>理由を調べたら、どうやらPluginのデフォルトの実行順番があるらしいです。</p><p><a href=https://docs.konghq.com/gateway/latest/plugin-development/custom-logic/#plugins-execution-order>https://docs.konghq.com/gateway/latest/plugin-development/custom-logic/#plugins-execution-order</a></p><p>key-authのプライオリティは<code>1250</code>、request-transformer-advの<code>801</code>より高いです。よってkey-authが実行するときに、Headerに必要なAPI Keyがまだ付与されていない状態になります。</p><p>解決方法として、Kong Gateway 3.0に新しく追加された機能、plugin orderingでプラグインの実行順番を明示すればOKです。</p><p><a href=https://docs.konghq.com/gateway/3.0.x/kong-enterprise/plugin-ordering/get-started/>https://docs.konghq.com/gateway/3.0.x/kong-enterprise/plugin-ordering/get-started/</a></p><p>よしでは実装してみよう。<code>request-transformer-advanced</code>のプラグインを設定するときに、<code>key-auth</code>の前にすると宣言します。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4>4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5>5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6>6</a>
-</span><span class=lnt id=hl-1-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>❯ curl -X POST http://localhost:8001/services/testsvc/plugins \
 </span></span><span class=line><span class=cl>    --data &#34;name=request-transformer-advanced&#34;  \

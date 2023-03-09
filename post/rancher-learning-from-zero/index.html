@@ -93,21 +93,21 @@ Rancher ゼロから勉強
 </div><div class=post-content><h1 id=紹介>紹介<a hidden class=anchor aria-hidden=true href=#紹介>#</a></h1><p>Rancherは<code>rancher-server</code> と<code>rancher-agent</code>、そして一つ以上の<code>kubernetes cluster</code>によって構成されている。この中、<code>rancher-agent</code>は管理された<code>kubernetes</code>に実行され、<code>rancher-server</code>と通信し、クラスタの情報を送信する。</p><p><code>rancher-server</code>は<code>kubernetes</code>を管理するためのWebUIとAPIを提供している。<code>rancher-server</code>はHTTPSのみアクセスできる。</p><h1 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h1><h2 id=シングルノード>シングルノード<a hidden class=anchor aria-hidden=true href=#シングルノード>#</a></h2><p>シングルノードの構築は以下二つの方法があります。</p><ul>
 <li><code>docker</code>で直接<code>rancher-server</code>を実行</li><li><code>rke</code>で一つのノードに全ての<code>role</code>を有効</li></ul><p><code>rke</code>の方法は後でも出てくるので割愛、ここでは<code>docker</code>の方法を示す。</p><p><code>rancher-server</code>を実行したいノードで、下記のコマンドを入力する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run -d --restart<span class=o>=</span>unless-stopped <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span>  -p 80:80 -p 443:443 <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span>  rancher/rancher:latest
 </span></span></code></pre></td></tr></table></div></div><p>これでシングルノードの<code>rancher-server</code>を起動した。<code>http://&lt;IP Address></code>でアクセスできる。</p><h2 id=マルチノード>マルチノード<a hidden class=anchor aria-hidden=true href=#マルチノード>#</a></h2><p><code>rke</code>を使ってHA環境の<code>rancher-server</code>を構築する。</p><p><code>rke(rancher k8s engine)</code>は<code>kubernetes</code>を構築するためのコマンドで、環境を用意すればコマンド一つでクラスターを構築できる。</p><h3 id=マシンの用意>マシンの用意<a hidden class=anchor aria-hidden=true href=#マシンの用意>#</a></h3><p>今回は<code>multipass</code> でマシンを準備する。以下のコマンドで６台の仮想マシンを作成する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4>4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5>5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>multipass launch -c <span class=m>2</span> -m 4096M -d 20G --cloud-init<span class=o>=</span>./cloud-init.yaml -n kmaster1
 </span></span><span class=line><span class=cl>multipass launch -c <span class=m>2</span> -m 4096M -d 20G --cloud-init<span class=o>=</span>./cloud-init.yaml -n kmaster2
@@ -123,48 +123,48 @@ Rancher ゼロから勉強
 <p>必要カーネルモジュールのロード</p></li><li>
 <p>swap領域の停止</p></li></ul><p>詳細の内容は以下に示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1> 1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2> 2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3> 3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4> 4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5> 5</a>
-</span><span class=lnt id=hl-2-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-6> 6</a>
-</span><span class=lnt id=hl-2-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-7> 7</a>
-</span><span class=lnt id=hl-2-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-8> 8</a>
-</span><span class=lnt id=hl-2-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-9> 9</a>
-</span><span class=lnt id=hl-2-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-10>10</a>
-</span><span class=lnt id=hl-2-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-11>11</a>
-</span><span class=lnt id=hl-2-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-12>12</a>
-</span><span class=lnt id=hl-2-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-13>13</a>
-</span><span class=lnt id=hl-2-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-14>14</a>
-</span><span class=lnt id=hl-2-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-15>15</a>
-</span><span class=lnt id=hl-2-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-16>16</a>
-</span><span class=lnt id=hl-2-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-17>17</a>
-</span><span class=lnt id=hl-2-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-18>18</a>
-</span><span class=lnt id=hl-2-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-19>19</a>
-</span><span class=lnt id=hl-2-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-20>20</a>
-</span><span class=lnt id=hl-2-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-21>21</a>
-</span><span class=lnt id=hl-2-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-22>22</a>
-</span><span class=lnt id=hl-2-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-23>23</a>
-</span><span class=lnt id=hl-2-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-24>24</a>
-</span><span class=lnt id=hl-2-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-25>25</a>
-</span><span class=lnt id=hl-2-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-26>26</a>
-</span><span class=lnt id=hl-2-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-27>27</a>
-</span><span class=lnt id=hl-2-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-28>28</a>
-</span><span class=lnt id=hl-2-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-29>29</a>
-</span><span class=lnt id=hl-2-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-30>30</a>
-</span><span class=lnt id=hl-2-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-31>31</a>
-</span><span class=lnt id=hl-2-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-32>32</a>
-</span><span class=lnt id=hl-2-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-33>33</a>
-</span><span class=lnt id=hl-2-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-34>34</a>
-</span><span class=lnt id=hl-2-35><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-35>35</a>
-</span><span class=lnt id=hl-2-36><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-36>36</a>
-</span><span class=lnt id=hl-2-37><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-37>37</a>
-</span><span class=lnt id=hl-2-38><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-38>38</a>
-</span><span class=lnt id=hl-2-39><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-39>39</a>
-</span><span class=lnt id=hl-2-40><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-40>40</a>
-</span><span class=lnt id=hl-2-41><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-41>41</a>
-</span><span class=lnt id=hl-2-42><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-42>42</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>#cloud-config
 </span></span><span class=line><span class=cl>
@@ -210,14 +210,14 @@ Rancher ゼロから勉強
 </span></span><span class=line><span class=cl>    - swapoff -a
 </span></span></code></pre></td></tr></table></div></div><p>最終的に以下ようにな６台のマシンができた</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3>3</a>
-</span><span class=lnt id=hl-3-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-4>4</a>
-</span><span class=lnt id=hl-3-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-5>5</a>
-</span><span class=lnt id=hl-3-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-6>6</a>
-</span><span class=lnt id=hl-3-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-7>7</a>
-</span><span class=lnt id=hl-3-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ multipass list
 </span></span><span class=line><span class=cl>Name                    State             IPv4             Image
@@ -229,39 +229,39 @@ Rancher ゼロから勉強
 </span></span><span class=line><span class=cl>kworker3                Running           10.131.158.166   Not Available
 </span></span></code></pre></td></tr></table></div></div><h3 id=rkeでkubernetes環境作成>rkeでKubernetes環境作成<a hidden class=anchor aria-hidden=true href=#rkeでkubernetes環境作成>#</a></h3><p><a href=https://rancher.com/products/rke/>rke</a>で説明した通り、バイナリをダウンロードし実行権限を追加する。</p><p>上記の６ノードの情報とそれぞれの役割を設定する。他にもいろいろ設定できるが、今回は割愛</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
-</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
-</span><span class=lnt id=hl-4-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-12>12</a>
-</span><span class=lnt id=hl-4-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-13>13</a>
-</span><span class=lnt id=hl-4-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-14>14</a>
-</span><span class=lnt id=hl-4-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-15>15</a>
-</span><span class=lnt id=hl-4-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-16>16</a>
-</span><span class=lnt id=hl-4-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-17>17</a>
-</span><span class=lnt id=hl-4-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-18>18</a>
-</span><span class=lnt id=hl-4-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-19>19</a>
-</span><span class=lnt id=hl-4-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-20>20</a>
-</span><span class=lnt id=hl-4-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-21>21</a>
-</span><span class=lnt id=hl-4-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-22>22</a>
-</span><span class=lnt id=hl-4-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-23>23</a>
-</span><span class=lnt id=hl-4-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-24>24</a>
-</span><span class=lnt id=hl-4-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-25>25</a>
-</span><span class=lnt id=hl-4-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-26>26</a>
-</span><span class=lnt id=hl-4-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-27>27</a>
-</span><span class=lnt id=hl-4-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-28>28</a>
-</span><span class=lnt id=hl-4-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-29>29</a>
-</span><span class=lnt id=hl-4-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-30>30</a>
-</span><span class=lnt id=hl-4-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-31>31</a>
-</span><span class=lnt id=hl-4-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-32>32</a>
-</span><span class=lnt id=hl-4-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-33>33</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>nodes</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>address</span><span class=p>:</span><span class=w> </span><span class=m>10.131.158.97</span><span class=w>
@@ -298,16 +298,16 @@ Rancher ゼロから勉強
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use-forwarded-headers</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;true&#39;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p><code>rke</code>コマンドにこの`Yamlファイルをパラメータにして実行すると、Kubernetes環境が作成できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>rke_linux-amd64 up --config ./rancher_cluster.yaml
 </span></span></code></pre></td></tr></table></div></div><p>無事クラスタが作成された後、元のYamlファイル以外に、新しいファイルが二つ生成されます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
-</span><span class=lnt id=hl-6-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-2>2</a>
-</span><span class=lnt id=hl-6-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-3>3</a>
-</span><span class=lnt id=hl-6-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-4>4</a>
-</span><span class=lnt id=hl-6-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ ll
 </span></span><span class=line><span class=cl>total 132K
@@ -316,14 +316,14 @@ Rancher ゼロから勉強
 </span></span><span class=line><span class=cl>-rw-rw-r-- 1 wshi wshi  748 Jun  8 16:53 rancher_cluster.yaml
 </span></span></code></pre></td></tr></table></div></div><p>この中の<code>kube_config_rancher_cluster.yaml</code>はクラスタにアクセスするための設定ファイルのため、<code>kubectl</code>に読み込まれるように、<code>~/kube/config</code>にコピーする。これによってクラスタにアクセスができるようになった。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
-</span><span class=lnt id=hl-7-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-2>2</a>
-</span><span class=lnt id=hl-7-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-3>3</a>
-</span><span class=lnt id=hl-7-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-4>4</a>
-</span><span class=lnt id=hl-7-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-5>5</a>
-</span><span class=lnt id=hl-7-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-6>6</a>
-</span><span class=lnt id=hl-7-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-7>7</a>
-</span><span class=lnt id=hl-7-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ kubectl get node
 </span></span><span class=line><span class=cl>NAME             STATUS   ROLES                      AGE   VERSION
@@ -337,41 +337,41 @@ Rancher ゼロから勉強
 <li>
 <p><code>helm</code>のインストール</p><p><a href=https://helm.sh/docs/intro/install/>helmのホームページ</a>を参考にして<code>helm</code>をインストールする</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo snap install helm --classic
 </span></span></code></pre></td></tr></table></div></div></li><li>
 <p><code>helm</code>に<code>rancher</code>のリポジトリを追加</p><p>今回は<code>stable</code>を選択する</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 </span></span></code></pre></td></tr></table></div></div></li><li>
 <p><code>rancher</code>インストールのため<code>namespace</code>を追加</p><p><code>namespace</code>の名前は必ず<code>cattle-system</code>にする</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>kubectl create namespace cattle-system
 </span></span></code></pre></td></tr></table></div></div></li><li>
 <p><code>cert-manager</code>をインストール</p><p>他にも証明書作成の方法はありますが、今回は<code>rancher</code>に生成してもらう</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-1> 1</a>
-</span><span class=lnt id=hl-11-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-2> 2</a>
-</span><span class=lnt id=hl-11-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-3> 3</a>
-</span><span class=lnt id=hl-11-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-4> 4</a>
-</span><span class=lnt id=hl-11-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-5> 5</a>
-</span><span class=lnt id=hl-11-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-6> 6</a>
-</span><span class=lnt id=hl-11-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-7> 7</a>
-</span><span class=lnt id=hl-11-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-8> 8</a>
-</span><span class=lnt id=hl-11-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-9> 9</a>
-</span><span class=lnt id=hl-11-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-10>10</a>
-</span><span class=lnt id=hl-11-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-11>11</a>
-</span><span class=lnt id=hl-11-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-12>12</a>
-</span><span class=lnt id=hl-11-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-13>13</a>
-</span><span class=lnt id=hl-11-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-14>14</a>
-</span><span class=lnt id=hl-11-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-15>15</a>
-</span><span class=lnt id=hl-11-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-16>16</a>
-</span><span class=lnt id=hl-11-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-17>17</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># Install the CustomResourceDefinition resources separately
 </span></span><span class=line><span class=cl>kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager.crds.yaml
@@ -392,11 +392,11 @@ Rancher ゼロから勉強
 </span></span><span class=line><span class=cl>  --version v0.15.0
 </span></span></code></pre></td></tr></table></div></div><p><code>cert-manager</code>の状態を確認</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-1>1</a>
-</span><span class=lnt id=hl-12-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-2>2</a>
-</span><span class=lnt id=hl-12-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-3>3</a>
-</span><span class=lnt id=hl-12-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-4>4</a>
-</span><span class=lnt id=hl-12-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ kubectl get pods --namespace cert-manager
 </span></span><span class=line><span class=cl>NAME                                       READY   STATUS    RESTARTS   AGE
@@ -406,20 +406,20 @@ Rancher ゼロから勉強
 </span></span></code></pre></td></tr></table></div></div></li><li>
 <p><code>rancher-server</code>をインストール</p><p>Rancher-generated certificatesを利用して、<code>rancher-server</code>をインストール</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-1>1</a>
-</span><span class=lnt id=hl-13-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-2>2</a>
-</span><span class=lnt id=hl-13-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>helm install rancher rancher-stable/rancher \
 </span></span><span class=line><span class=cl>  --namespace cattle-system \
 </span></span><span class=line><span class=cl>  --set hostname=rancher.my.org
 </span></span></code></pre></td></tr></table></div></div><p><code>rancher-server</code>の状態を確認</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-1>1</a>
-</span><span class=lnt id=hl-14-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-2>2</a>
-</span><span class=lnt id=hl-14-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-3>3</a>
-</span><span class=lnt id=hl-14-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-4>4</a>
-</span><span class=lnt id=hl-14-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ kubectl get pod -n cattle-system -o wide
 </span></span><span class=line><span class=cl>NAME                       READY   STATUS    RESTARTS   AGE   IP          NODE             NOMINATED NODE   READINESS GATES

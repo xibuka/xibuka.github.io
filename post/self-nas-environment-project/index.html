@@ -74,27 +74,27 @@ to manage them.</p><h1 id=overview>Overview<a hidden class=anchor aria-hidden=tr
 to NAS. Use smartctl to check the disk condition, if anything need attention
 send a mail to me.</p><h1 id=file-share-samba>File share (Samba)<a hidden class=anchor aria-hidden=true href=#file-share-samba>#</a></h1><p>Install Samba by the following:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo apt-get install samba smbfs
 </span></span></code></pre></td></tr></table></div></div><p>Configure samba settings by opening <code>/etc/samba/smb.conf</code>,
 If needed, change your workgroup</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># Change this to the workgroup/NT-domain name your Samba server will part of
 </span></span><span class=line><span class=cl>   workgroup = WORKGROUP
 </span></span></code></pre></td></tr></table></div></div><p>Next is to set your share folder, input something like this at the end of the
 file.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3>3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4>4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5>5</a>
-</span><span class=lnt id=hl-2-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-6>6</a>
-</span><span class=lnt id=hl-2-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[share]
 </span></span><span class=line><span class=cl>   comment = Share directory for my self-nas
@@ -105,25 +105,25 @@ file.</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>   share modes = yes
 </span></span></code></pre></td></tr></table></div></div><p>Restart <code>smbd</code> service and confirm the service is running.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1> 1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2> 2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3> 3</a>
-</span><span class=lnt id=hl-3-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-4> 4</a>
-</span><span class=lnt id=hl-3-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-5> 5</a>
-</span><span class=lnt id=hl-3-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-6> 6</a>
-</span><span class=lnt id=hl-3-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-7> 7</a>
-</span><span class=lnt id=hl-3-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-8> 8</a>
-</span><span class=lnt id=hl-3-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-9> 9</a>
-</span><span class=lnt id=hl-3-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-10>10</a>
-</span><span class=lnt id=hl-3-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-11>11</a>
-</span><span class=lnt id=hl-3-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-12>12</a>
-</span><span class=lnt id=hl-3-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-13>13</a>
-</span><span class=lnt id=hl-3-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-14>14</a>
-</span><span class=lnt id=hl-3-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-15>15</a>
-</span><span class=lnt id=hl-3-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-16>16</a>
-</span><span class=lnt id=hl-3-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-17>17</a>
-</span><span class=lnt id=hl-3-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-18>18</a>
-</span><span class=lnt id=hl-3-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-19>19</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>wshi@nuc:~$ sudo systemctl restart smbd
 </span></span><span class=line><span class=cl>wshi@nuc:~$ sudo systemctl status smbd
@@ -147,28 +147,28 @@ file.</p><div class=highlight><div class=chroma>
 </span></span></code></pre></td></tr></table></div></div><p>Set the password of the user which you want to use to access the samba server.
 You can use this command again if you forgot the password.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>wshi@nuc:~$ sudo smbpasswd -a wshi
 </span></span></code></pre></td></tr></table></div></div><p>Finially, create the share folder and set the right permissions <code>0777</code></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
-</span><span class=lnt id=hl-5-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo mkdir /share
 </span></span><span class=line><span class=cl>$ sudo chmod 0777 /share
 </span></span></code></pre></td></tr></table></div></div><h1 id=disk-check---smart>Disk Check - SMART<a hidden class=anchor aria-hidden=true href=#disk-check---smart>#</a></h1><p>The NAS system will be 24x7 running so we need some script to monitor its
 health. SMART is a good tool for monitoring HDD,SSD and eMMC drives.</p><h2 id=installation>Installation<a hidden class=anchor aria-hidden=true href=#installation>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo apt-get install smartmontools
 </span></span></code></pre></td></tr></table></div></div><h2 id=confirm-smart-status>Confirm SMART status<a hidden class=anchor aria-hidden=true href=#confirm-smart-status>#</a></h2><p>Scan hard disk,</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
-</span><span class=lnt id=hl-7-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-2>2</a>
-</span><span class=lnt id=hl-7-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-3>3</a>
-</span><span class=lnt id=hl-7-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl --scan     
 </span></span><span class=line><span class=cl>/dev/sda -d scsi # /dev/sda, SCSI device
@@ -176,24 +176,24 @@ health. SMART is a good tool for monitoring HDD,SSD and eMMC drives.</p><h2 id=i
 </span></span><span class=line><span class=cl>/dev/nvme0 -d nvme # /dev/nvme0, NVMe device
 </span></span></code></pre></td></tr></table></div></div><p>Ensure the hard disk support SMART and is enable</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-1> 1</a>
-</span><span class=lnt id=hl-8-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-2> 2</a>
-</span><span class=lnt id=hl-8-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-3> 3</a>
-</span><span class=lnt id=hl-8-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-4> 4</a>
-</span><span class=lnt id=hl-8-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-5> 5</a>
-</span><span class=lnt id=hl-8-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-6> 6</a>
-</span><span class=lnt id=hl-8-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-7> 7</a>
-</span><span class=lnt id=hl-8-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-8> 8</a>
-</span><span class=lnt id=hl-8-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-9> 9</a>
-</span><span class=lnt id=hl-8-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-10>10</a>
-</span><span class=lnt id=hl-8-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-11>11</a>
-</span><span class=lnt id=hl-8-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-12>12</a>
-</span><span class=lnt id=hl-8-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-13>13</a>
-</span><span class=lnt id=hl-8-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-14>14</a>
-</span><span class=lnt id=hl-8-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-15>15</a>
-</span><span class=lnt id=hl-8-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-16>16</a>
-</span><span class=lnt id=hl-8-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-17>17</a>
-</span><span class=lnt id=hl-8-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-18>18</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl -i /dev/sda  
 </span></span><span class=line><span class=cl>smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-25-generic] (local build)
@@ -215,31 +215,31 @@ health. SMART is a good tool for monitoring HDD,SSD and eMMC drives.</p><h2 id=i
 </span></span><span class=line><span class=cl>SMART support is: Enabled
 </span></span></code></pre></td></tr></table></div></div><p>The last 2 lines show whether SMART support is available and enabled.</p><h2 id=show-smart-infomation>Show SMART infomation<a hidden class=anchor aria-hidden=true href=#show-smart-infomation>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-1> 1</a>
-</span><span class=lnt id=hl-9-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-2> 2</a>
-</span><span class=lnt id=hl-9-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-3> 3</a>
-</span><span class=lnt id=hl-9-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-4> 4</a>
-</span><span class=lnt id=hl-9-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-5> 5</a>
-</span><span class=lnt id=hl-9-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-6> 6</a>
-</span><span class=lnt id=hl-9-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-7> 7</a>
-</span><span class=lnt id=hl-9-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-8> 8</a>
-</span><span class=lnt id=hl-9-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-9> 9</a>
-</span><span class=lnt id=hl-9-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-10>10</a>
-</span><span class=lnt id=hl-9-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-11>11</a>
-</span><span class=lnt id=hl-9-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-12>12</a>
-</span><span class=lnt id=hl-9-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-13>13</a>
-</span><span class=lnt id=hl-9-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-14>14</a>
-</span><span class=lnt id=hl-9-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-15>15</a>
-</span><span class=lnt id=hl-9-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-16>16</a>
-</span><span class=lnt id=hl-9-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-17>17</a>
-</span><span class=lnt id=hl-9-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-18>18</a>
-</span><span class=lnt id=hl-9-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-19>19</a>
-</span><span class=lnt id=hl-9-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-20>20</a>
-</span><span class=lnt id=hl-9-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-21>21</a>
-</span><span class=lnt id=hl-9-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-22>22</a>
-</span><span class=lnt id=hl-9-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-23>23</a>
-</span><span class=lnt id=hl-9-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-24>24</a>
-</span><span class=lnt id=hl-9-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-25>25</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl -A /dev/sda
 </span></span><span class=line><span class=cl>smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-25-generic] (local build)
@@ -273,19 +273,19 @@ dividing it into 3 different segments. The following areas are tested.</p><ul>
 Conveyance Test and Select Test.</p><h2 id=perform-a-test>Perform a test<a hidden class=anchor aria-hidden=true href=#perform-a-test>#</a></h2><p>Before performing a test, you can use following command to show the time
 duration of the various tests</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl -c /dev/sdc
 </span></span></code></pre></td></tr></table></div></div><p>Example output</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-1>1</a>
-</span><span class=lnt id=hl-11-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-2>2</a>
-</span><span class=lnt id=hl-11-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-3>3</a>
-</span><span class=lnt id=hl-11-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-4>4</a>
-</span><span class=lnt id=hl-11-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-5>5</a>
-</span><span class=lnt id=hl-11-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-6>6</a>
-</span><span class=lnt id=hl-11-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-7>7</a>
-</span><span class=lnt id=hl-11-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>...
 </span></span><span class=line><span class=cl>Short self-test routine 
@@ -297,22 +297,22 @@ duration of the various tests</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>...
 </span></span></code></pre></td></tr></table></div></div><p>The following command starts the desired test (in Background Mode)</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl -t &lt;short|long|conveyance|select&gt; /dev/sda
 </span></span></code></pre></td></tr></table></div></div><p>For example,</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-1> 1</a>
-</span><span class=lnt id=hl-13-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-2> 2</a>
-</span><span class=lnt id=hl-13-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-3> 3</a>
-</span><span class=lnt id=hl-13-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-4> 4</a>
-</span><span class=lnt id=hl-13-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-5> 5</a>
-</span><span class=lnt id=hl-13-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-6> 6</a>
-</span><span class=lnt id=hl-13-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-7> 7</a>
-</span><span class=lnt id=hl-13-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-8> 8</a>
-</span><span class=lnt id=hl-13-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-9> 9</a>
-</span><span class=lnt id=hl-13-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-10>10</a>
-</span><span class=lnt id=hl-13-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-11>11</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl -t short /dev/sda
 </span></span><span class=line><span class=cl>smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-25-generic] (local build)
@@ -333,21 +333,21 @@ the test with a &ldquo;CHECK CONDITION&rdquo; status. Therefore, this mode is on
 recommended when the hard disk is not used. In principle, the background mode
 is the preferred mode.</p><p>To perform the tests in Foreground Mode a <code>-C</code> must be added to the command.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl -t short -C /dev/sda
 </span></span></code></pre></td></tr></table></div></div><h2 id=verify-the-test-result>Verify the test result<a hidden class=anchor aria-hidden=true href=#verify-the-test-result>#</a></h2><p>The test results are included in the output of the following:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-15-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl -a /dev/sda
 </span></span></code></pre></td></tr></table></div></div><p>Example output</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-16-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-1>1</a>
-</span><span class=lnt id=hl-16-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-2>2</a>
-</span><span class=lnt id=hl-16-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-3>3</a>
-</span><span class=lnt id=hl-16-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-4>4</a>
-</span><span class=lnt id=hl-16-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>...
 </span></span><span class=line><span class=cl>SMART Self-test log structure revision number 1
@@ -356,14 +356,14 @@ is the preferred mode.</p><p>To perform the tests in Foreground Mode a <code>-C<
 </span></span><span class=line><span class=cl>...
 </span></span></code></pre></td></tr></table></div></div><p>Or use the following, if only the test results should are displayed:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-17-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-1>1</a>
-</span><span class=lnt id=hl-17-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-2>2</a>
-</span><span class=lnt id=hl-17-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-3>3</a>
-</span><span class=lnt id=hl-17-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-4>4</a>
-</span><span class=lnt id=hl-17-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-5>5</a>
-</span><span class=lnt id=hl-17-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-6>6</a>
-</span><span class=lnt id=hl-17-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-7>7</a>
-</span><span class=lnt id=hl-17-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl -l selftest /dev/sda
 </span></span><span class=line><span class=cl>smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-25-generic] (local build)
@@ -375,13 +375,13 @@ is the preferred mode.</p><p>To perform the tests in Foreground Mode a <code>-C<
 </span></span><span class=line><span class=cl># 1  Short offline       Completed without error       00%      1946         -
 </span></span></code></pre></td></tr></table></div></div><h2 id=force-stop-the-test>Force stop the test<a hidden class=anchor aria-hidden=true href=#force-stop-the-test>#</a></h2><p>Use <code>-X</code> if you want to stop the test when performing.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-18-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-1>1</a>
-</span><span class=lnt id=hl-18-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-2>2</a>
-</span><span class=lnt id=hl-18-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-3>3</a>
-</span><span class=lnt id=hl-18-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-4>4</a>
-</span><span class=lnt id=hl-18-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-5>5</a>
-</span><span class=lnt id=hl-18-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-6>6</a>
-</span><span class=lnt id=hl-18-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo smartctl -X /dev/sda
 </span></span><span class=line><span class=cl>smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-25-generic] (local build)
@@ -397,20 +397,20 @@ SendEmail is a lightweight, completely command line-based SMTP email delivery
 program. If you have the need to send email from a command prompt this tool is
 perfect.</p><p>Install SendEmail by following command</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-19-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo apt install sendemail
 </span></span></code></pre></td></tr></table></div></div><p>OK, let&rsquo;s send a test mail by it.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-20-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-1>1</a>
-</span><span class=lnt id=hl-20-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-2>2</a>
-</span><span class=lnt id=hl-20-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-3>3</a>
-</span><span class=lnt id=hl-20-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-4>4</a>
-</span><span class=lnt id=hl-20-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-5>5</a>
-</span><span class=lnt id=hl-20-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-6>6</a>
-</span><span class=lnt id=hl-20-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-7>7</a>
-</span><span class=lnt id=hl-20-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-8>8</a>
-</span><span class=lnt id=hl-20-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-9>9</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sendEmail -f &lt;FROM ADDRESS&gt;@gmail.com \
 </span></span><span class=line><span class=cl>            -s smtp.gmail.com:587 \
@@ -423,15 +423,15 @@ perfect.</p><p>Install SendEmail by following command</p><div class=highlight><d
 </span></span><span class=line><span class=cl>Apr 06 14:33:25 nuc sendEmail[24438]: ERROR =&gt; Received: 	530 5.7.0 Must issue a STARTTLS command first. mm18sm11195078pjb.39 - gsmtp
 </span></span></code></pre></td></tr></table></div></div><p>Oops, it failed with unsupported error. And looks related to tls.</p><p>Let&rsquo;s specify the tls supported and re-run the command.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-21-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-1>1</a>
-</span><span class=lnt id=hl-21-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-2>2</a>
-</span><span class=lnt id=hl-21-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-3>3</a>
-</span><span class=lnt id=hl-21-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-4>4</a>
-</span><span class=lnt id=hl-21-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-5>5</a>
-</span><span class=lnt id=hl-21-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-6>6</a>
-</span><span class=lnt id=hl-21-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-7>7</a>
-</span><span class=lnt id=hl-21-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-8>8</a>
-</span><span class=lnt id=hl-21-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-9>9</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sendEmail -f &lt;FROM ADDRESS&gt;@gmail.com \
 </span></span><span class=line><span class=cl>            -s smtp.gmail.com:587 \
@@ -445,14 +445,14 @@ perfect.</p><p>Install SendEmail by following command</p><div class=highlight><d
 </span></span></code></pre></td></tr></table></div></div><p>We got a different message, and the root cause is we need more libraries. There
 are 2 packages we need to install.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-22-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-1>1</a>
-</span><span class=lnt id=hl-22-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo apt-get install libnet-ssleay-perl
 </span></span><span class=line><span class=cl>$ sudo apt-get install libio-socket-ssl-perl
 </span></span></code></pre></td></tr></table></div></div><p>Re-run the command and we can send email from CLI. :-)</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-23-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Apr 06 15:17:28 nuc sendEmail[25507]: Email was sent successfully!
 </span></span></code></pre></td></tr></table></div></div><h1 id=docker-management---portainer>docker management - portainer<a hidden class=anchor aria-hidden=true href=#docker-management---portainer>#</a></h1><p>There are a lot of docker image for a better NAS life, so let&rsquo;s install and
@@ -462,8 +462,8 @@ you to manage your containers, images, networks and volumes.
 Install protainer is easy as it can be deployed as a container. Use the
 following command to deploy the Portainer Server.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-24-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-1>1</a>
-</span><span class=lnt id=hl-24-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ docker volume create portainer_data
 </span></span><span class=line><span class=cl>$ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
@@ -476,23 +476,23 @@ to a variety of devices.</p><p>The install is very easy, you can start a contain
 is a Installation Guide on <img loading=lazy src=https://hub.docker.com/r/emby/embyserver#installation alt=dockerhub>
 </p><p>First pull the latest image</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-25-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>docker pull emby/embyserver:latest
 </span></span></code></pre></td></tr></table></div></div><p>Then just launch a new container using the following command</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-26-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-1> 1</a>
-</span><span class=lnt id=hl-26-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-2> 2</a>
-</span><span class=lnt id=hl-26-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-3> 3</a>
-</span><span class=lnt id=hl-26-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-4> 4</a>
-</span><span class=lnt id=hl-26-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-5> 5</a>
-</span><span class=lnt id=hl-26-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-6> 6</a>
-</span><span class=lnt id=hl-26-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-7> 7</a>
-</span><span class=lnt id=hl-26-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-8> 8</a>
-</span><span class=lnt id=hl-26-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-9> 9</a>
-</span><span class=lnt id=hl-26-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-10>10</a>
-</span><span class=lnt id=hl-26-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-11>11</a>
-</span><span class=lnt id=hl-26-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-12>12</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>docker run -d \
 </span></span><span class=line><span class=cl>    --volume /path/to/programdata:/config \ # This is mandatory
@@ -510,11 +510,11 @@ is a Installation Guide on <img loading=lazy src=https://hub.docker.com/r/emby/e
 Some of the options are not necessary to change, if you ignore it the default
 setting will work. Let me paste the command works for me.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-27-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-1>1</a>
-</span><span class=lnt id=hl-27-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-2>2</a>
-</span><span class=lnt id=hl-27-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-3>3</a>
-</span><span class=lnt id=hl-27-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-4>4</a>
-</span><span class=lnt id=hl-27-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo docker run -d  --volume /share/movie:/mnt/share1 \
 </span></span><span class=line><span class=cl>                      --publish 8096:8096  \
@@ -532,9 +532,9 @@ See the standard modules page for a list of all the functions built into
 Webmin.</p><p>The install of webmin is easy. First need to import the webmin GPG key and the
 apt-repository. Then you can just install webmin via <code>apt</code> command.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-28-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-1>1</a>
-</span><span class=lnt id=hl-28-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-2>2</a>
-</span><span class=lnt id=hl-28-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
 </span></span><span class=line><span class=cl>$ sudo add-apt-repository &#34;deb [arch=amd64] http://download.webmin.com/download/repository sarge contrib&#34;
@@ -542,9 +542,9 @@ apt-repository. Then you can just install webmin via <code>apt</code> command.</
 </span></span></code></pre></td></tr></table></div></div><p>After the install, a message will be displayed as follows. Access the URL with
 the username and password in the host machine to login to the webUI.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-29-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-1>1</a>
-</span><span class=lnt id=hl-29-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-2>2</a>
-</span><span class=lnt id=hl-29-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Webmin install complete. You can now login to https://&lt;SERVER IP ADDR&gt;:10000/
 </span></span><span class=line><span class=cl>as root with your root password, or as any user who can use sudo
@@ -556,7 +556,7 @@ For example, to check the files, click <code>Others->FIle Manager</code>.</p><p>
 </p><p>If your system is behind a UFW firewall, you may need to open the 10000 port
 which is used by default to listen connections.</p><p>To alow traffic on port <code>10000</code> run the following command.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-30-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo ufw allow 10000/tcp
 </span></span></code></pre></td></tr></table></div></div><p>Refers to</p><p><a href=https://www.digitalocean.com/community/tutorials/how-to-install-webmin-on-ubuntu-18-04>https://www.digitalocean.com/community/tutorials/how-to-install-webmin-on-ubuntu-18-04</a></p><p><a href=https://linuxize.com/post/how-to-install-webmin-on-ubuntu-18-04/>https://linuxize.com/post/how-to-install-webmin-on-ubuntu-18-04/</a></p></div><footer class=post-footer>

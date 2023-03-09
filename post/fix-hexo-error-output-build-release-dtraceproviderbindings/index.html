@@ -64,7 +64,7 @@ fix hexo error output './build/Release/DTraceProviderBindings'
 </h1><div class=post-meta><span title="2017-04-21 00:56:19 +0000 UTC">April 21, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;180 words&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href=https://github.com/%3cpath_to_repo%3e/content/post/fix-hexo-error-output-build-Release-DTraceProviderBindings.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div></header><div class=post-content><p>There is a noisy error message appears each time when I run hexo command</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Error: Cannot find module &#39;./build/Release/DTraceProviderBindings&#39;
 </span></span></code></pre></td></tr></table></div></div><p>It is just a trace error and doesn&rsquo;t stop my work, but , it was so NOISY and I
@@ -73,21 +73,21 @@ realy want to remove it.</p><p>From the follow links,
 <a href=https://github.com/yarnpkg/yarn/issues/1915>https://github.com/yarnpkg/yarn/issues/1915</a></p><p>I know the root cause is because the dtrace-provider package.
 And I don&rsquo;t use is at all, so I just want to uninstall it.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># npm uninstall dtrace-provider -g
 </span></span></code></pre></td></tr></table></div></div><p>but as this package is related to hexo, it will not be removed&mldr;
 you can still see it by follow commands</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># npm list | grep dtrace
 </span></span></code></pre></td></tr></table></div></div><p>OK, Let clean up the enviroment, by uninstall hexo-cli and dtrace-provider
 both.</p><ul>
 <li>NOTE: you must use sudo to run the command</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># sudo npm uninstall hexo-cli -g
 </span></span><span class=line><span class=cl># sudo npm uninstall dtrace-provider -g
@@ -95,7 +95,7 @@ both.</p><ul>
 is not installed.</p><ul>
 <li>NOTE: you must use sudo to run the command</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># sudo npm install hexo-cli --no-optional -g
 </span></span></code></pre></td></tr></table></div></div><p>Finially, the world become quiet again. :)</p></div><footer class=post-footer>

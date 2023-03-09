@@ -80,13 +80,13 @@ KongのCanary Release pluginを使ってみる
 <li><a href=#一定期間set-a-period>一定期間(Set a Period)</a></li><li><a href=#一定割合set-a-percentage>一定割合(Set a Percentage)</a></li><li><a href=#whitelist-and-blacklist>Whitelist and Blacklist</a></li></ul></li><li><a href=#アップグレードを完了させる>アップグレードを完了させる</a></li></ul></nav></div></details>
 </div><div class=post-content><h2 id=紹介>紹介<a hidden class=anchor aria-hidden=true href=#紹介>#</a></h2><p>Kong Gatewayのプラグインを利用すれば、カナリアリリースが簡単に設定することができます。しかもカナリアリリースのモードは単なるパーセンテージではなく、徐々に利用拡大や、Writelist&blacklistの設定もできます。</p><p>この記事では、カナリアリリースのやり方についてメモします。</p><p><a href=https://docs.konghq.com/hub/kong-inc/canary/>https://docs.konghq.com/hub/kong-inc/canary/</a></p><h2 id=serviceとrouteの作成>ServiceとRouteの作成<a hidden class=anchor aria-hidden=true href=#serviceとrouteの作成>#</a></h2><p>デモの例として、現在のバージョンを<a href=http://httpbin.org/xml>http://httpbin.org/xml</a>に、新規リリースのバージョンを<a href=http://httpbin.org/json>http://httpbin.org/json</a>にします。なので、現在のバージョンの場合は、xmlのレスポンス、新規リリースのバージョンの場合は、jsonのレスポンスが帰ってくるはず。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4>4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5>5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6>6</a>
-</span><span class=lnt id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http POST localhost:8001/services <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span><span class=nv>name</span><span class=o>=</span>canary-api-service <span class=se>\
@@ -97,43 +97,43 @@ KongのCanary Release pluginを使ってみる
 </span></span></span><span class=line><span class=cl><span class=se></span><span class=nv>paths</span><span class=o>=</span>/api/canary
 </span></span></code></pre></td></tr></table></div></div><p>動作確認、xmlのレスポンスが帰ってきた。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1> 1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2> 2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3> 3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4> 4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5> 5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6> 6</a>
-</span><span class=lnt id=hl-1-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-7> 7</a>
-</span><span class=lnt id=hl-1-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-8> 8</a>
-</span><span class=lnt id=hl-1-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-9> 9</a>
-</span><span class=lnt id=hl-1-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-10>10</a>
-</span><span class=lnt id=hl-1-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-11>11</a>
-</span><span class=lnt id=hl-1-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-12>12</a>
-</span><span class=lnt id=hl-1-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-13>13</a>
-</span><span class=lnt id=hl-1-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-14>14</a>
-</span><span class=lnt id=hl-1-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-15>15</a>
-</span><span class=lnt id=hl-1-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-16>16</a>
-</span><span class=lnt id=hl-1-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-17>17</a>
-</span><span class=lnt id=hl-1-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-18>18</a>
-</span><span class=lnt id=hl-1-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-19>19</a>
-</span><span class=lnt id=hl-1-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-20>20</a>
-</span><span class=lnt id=hl-1-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-21>21</a>
-</span><span class=lnt id=hl-1-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-22>22</a>
-</span><span class=lnt id=hl-1-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-23>23</a>
-</span><span class=lnt id=hl-1-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-24>24</a>
-</span><span class=lnt id=hl-1-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-25>25</a>
-</span><span class=lnt id=hl-1-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-26>26</a>
-</span><span class=lnt id=hl-1-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-27>27</a>
-</span><span class=lnt id=hl-1-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-28>28</a>
-</span><span class=lnt id=hl-1-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-29>29</a>
-</span><span class=lnt id=hl-1-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-30>30</a>
-</span><span class=lnt id=hl-1-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-31>31</a>
-</span><span class=lnt id=hl-1-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-32>32</a>
-</span><span class=lnt id=hl-1-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-33>33</a>
-</span><span class=lnt id=hl-1-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-34>34</a>
-</span><span class=lnt id=hl-1-35><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-35>35</a>
-</span><span class=lnt id=hl-1-36><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-36>36</a>
-</span><span class=lnt id=hl-1-37><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-37>37</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http GET localhost:8000/api/canary
 </span></span><span class=line><span class=cl>HTTP/1.1 <span class=m>200</span> OK
@@ -174,15 +174,15 @@ KongのCanary Release pluginを使ってみる
 </span></span><span class=line><span class=cl>&lt;/slideshow&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=カナリアリリースモード>カナリアリリースモード<a hidden class=anchor aria-hidden=true href=#カナリアリリースモード>#</a></h2><h3 id=一定期間set-a-period>一定期間(Set a Period)<a hidden class=anchor aria-hidden=true href=#一定期間set-a-period>#</a></h3><p>翻訳が合っているかどうかが分からないが、リリースの開始時刻と移行期間を決めるモードです。リリース期間の初期段階はほとんど現バージョンで、そして徐々に新バージョンの出現確率が高くなり、最終的に新バージョンのみになるモードです。</p><p>以下のコマンドの設定から、リリースの開始が<code>10</code>秒後、移行期間が<code>120</code>秒となります。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3>3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4>4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5>5</a>
-</span><span class=lnt id=hl-2-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-6>6</a>
-</span><span class=lnt id=hl-2-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-7>7</a>
-</span><span class=lnt id=hl-2-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-8>8</a>
-</span><span class=lnt id=hl-2-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-9>9</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>❯ <span class=nv>current_time</span><span class=o>=</span><span class=sb>`</span>expr <span class=k>$(</span>date <span class=s2>&#34;+%s&#34;</span><span class=k>)</span> + 10<span class=sb>`</span> <span class=o>&amp;&amp;</span> http -f POST http://localhost:8001/routes/canary-api-route/plugins <span class=se>\
@@ -195,11 +195,11 @@ KongのCanary Release pluginを使ってみる
 </span></span></span><span class=line><span class=cl><span class=se></span>config.hash<span class=o>=</span>none
 </span></span></code></pre></td></tr></table></div></div><p>この設定で以下のコマンドを実行すると、最初はxmlのレスポンスになるが、徐々にJsonの方が増えていて、最終的に全部Jsonのレスポンスになります。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3>3</a>
-</span><span class=lnt id=hl-3-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-4>4</a>
-</span><span class=lnt id=hl-3-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ <span class=k>for</span> num in <span class=o>{</span>1..70<span class=o>}</span><span class=p>;</span> <span class=k>do</span>
 </span></span><span class=line><span class=cl> <span class=nb>echo</span> <span class=s2>&#34;Calling API #</span><span class=nv>$num</span><span class=s2>&#34;</span>
@@ -208,40 +208,40 @@ KongのCanary Release pluginを使ってみる
 </span></span><span class=line><span class=cl><span class=k>done</span>
 </span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
-</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
-</span><span class=lnt id=hl-4-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-12>12</a>
-</span><span class=lnt id=hl-4-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-13>13</a>
-</span><span class=lnt id=hl-4-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-14>14</a>
-</span><span class=lnt id=hl-4-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-15>15</a>
-</span><span class=lnt id=hl-4-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-16>16</a>
-</span><span class=lnt id=hl-4-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-17>17</a>
-</span><span class=lnt id=hl-4-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-18>18</a>
-</span><span class=lnt id=hl-4-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-19>19</a>
-</span><span class=lnt id=hl-4-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-20>20</a>
-</span><span class=lnt id=hl-4-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-21>21</a>
-</span><span class=lnt id=hl-4-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-22>22</a>
-</span><span class=lnt id=hl-4-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-23>23</a>
-</span><span class=lnt id=hl-4-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-24>24</a>
-</span><span class=lnt id=hl-4-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-25>25</a>
-</span><span class=lnt id=hl-4-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-26>26</a>
-</span><span class=lnt id=hl-4-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-27>27</a>
-</span><span class=lnt id=hl-4-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-28>28</a>
-</span><span class=lnt id=hl-4-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-29>29</a>
-</span><span class=lnt id=hl-4-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-30>30</a>
-</span><span class=lnt id=hl-4-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-31>31</a>
-</span><span class=lnt id=hl-4-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-32>32</a>
-</span><span class=lnt id=hl-4-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-33>33</a>
-</span><span class=lnt id=hl-4-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-34>34</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http GET localhost:8000/api/canary
 </span></span><span class=line><span class=cl>HTTP/1.1 <span class=m>200</span> OK
@@ -279,18 +279,18 @@ KongのCanary Release pluginを使ってみる
 </span></span><span class=line><span class=cl><span class=o>}</span>
 </span></span></code></pre></td></tr></table></div></div><p>これで動作確認が終わったので、次のリリース方式をテストするために、カナリアリリースプラグインを削除する</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ <span class=nv>plugin_id</span><span class=o>=</span><span class=k>$(</span>http -f http://localhost:8001/routes/canary-api-route/plugins <span class=p>|</span> jq -r <span class=s1>&#39;.data[].id&#39;</span><span class=k>)</span> <span class=o>&amp;&amp;</span>  http DELETE http://localhost:8001/plugins/<span class=nv>$plugin_id</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=一定割合set-a-percentage>一定割合(Set a Percentage)<a hidden class=anchor aria-hidden=true href=#一定割合set-a-percentage>#</a></h3><p>トラフィックが現バージョンと新バージョンにアクセスする確率を一定にするモードです。設定した割合はパーセンテージであり、新バージョンにアクセスする割合となります。</p><p>以下のコマンドの設定、config.percentageから、現バージョンと新バージョンの割合が５割５割となっています。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
-</span><span class=lnt id=hl-6-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-2>2</a>
-</span><span class=lnt id=hl-6-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-3>3</a>
-</span><span class=lnt id=hl-6-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-4>4</a>
-</span><span class=lnt id=hl-6-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-5>5</a>
-</span><span class=lnt id=hl-6-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-6>6</a>
-</span><span class=lnt id=hl-6-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http -f POST http://localhost:8001/routes/canary-api-route/plugins <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span><span class=nv>name</span><span class=o>=</span>canary <span class=se>\
@@ -301,11 +301,11 @@ KongのCanary Release pluginを使ってみる
 </span></span></span><span class=line><span class=cl><span class=se></span>config.hash<span class=o>=</span>none
 </span></span></code></pre></td></tr></table></div></div><p>以下のコマンドで確認すると、大体ですけど半分ずつとなっているはずです。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
-</span><span class=lnt id=hl-7-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-2>2</a>
-</span><span class=lnt id=hl-7-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-3>3</a>
-</span><span class=lnt id=hl-7-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-4>4</a>
-</span><span class=lnt id=hl-7-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ <span class=k>for</span> num in <span class=o>{</span>1..10<span class=o>}</span><span class=p>;</span> <span class=k>do</span>
 </span></span><span class=line><span class=cl> <span class=nb>echo</span> <span class=s2>&#34;Calling API #</span><span class=nv>$num</span><span class=s2>&#34;</span>
@@ -314,14 +314,14 @@ KongのCanary Release pluginを使ってみる
 </span></span><span class=line><span class=cl><span class=k>done</span>
 </span></span></code></pre></td></tr></table></div></div><p>もしパーセンテージのテストを段階的に行いたい場合、以下のコマンドで割合を変更することもできます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-1>1</a>
-</span><span class=lnt id=hl-8-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-2>2</a>
-</span><span class=lnt id=hl-8-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-3>3</a>
-</span><span class=lnt id=hl-8-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-4>4</a>
-</span><span class=lnt id=hl-8-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-5>5</a>
-</span><span class=lnt id=hl-8-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-6>6</a>
-</span><span class=lnt id=hl-8-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-7>7</a>
-</span><span class=lnt id=hl-8-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ <span class=nv>plugin_id</span><span class=o>=</span><span class=k>$(</span>http -f http://localhost:8001/routes/canary-api-route/plugins <span class=p>|</span> jq -r <span class=s1>&#39;.data[].id&#39;</span><span class=k>)</span>
 </span></span><span class=line><span class=cl>$ http -f PUT http://localhost:8001/routes/canary-api-route/plugins/<span class=nv>$plugin_id</span> <span class=se>\
@@ -333,20 +333,20 @@ KongのCanary Release pluginを使ってみる
 </span></span></span><span class=line><span class=cl><span class=se></span>config.hash<span class=o>=</span>none
 </span></span></code></pre></td></tr></table></div></div><p>これで動作確認が終わったので、次のリリース方式をテストするために、カナリアリリースプラグインを削除する</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ <span class=nv>plugin_id</span><span class=o>=</span><span class=k>$(</span>http -f http://localhost:8001/routes/canary-api-route/plugins <span class=p>|</span> jq -r <span class=s1>&#39;.data[].id&#39;</span><span class=k>)</span> <span class=o>&amp;&amp;</span>  http DELETE http://localhost:8001/plugins/<span class=nv>$plugin_id</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=whitelist-and-blacklist>Whitelist and Blacklist<a hidden class=anchor aria-hidden=true href=#whitelist-and-blacklist>#</a></h3><p>こちらのモードでは、リクエストに含まれた<code>API Key</code>でユーザ<code>Consumer</code>を特定し、<code>Consumer</code>が所属するグループに基づいてどのバージョンにアクセスしにいくのかを設定できます。
 <code>Consumer</code>の特定とグループの登録は、<code>key-auth</code>と<code>acl</code>のプラグインを利用します。</p><p>まずは<code>key-auth</code>のプラグインを登録し、これで<code>API key</code>なしだとアクセスができなくなります。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http http://localhost:8001/routes/canary-api-route/plugins <span class=nv>name</span><span class=o>=</span>key-auth
 </span></span></code></pre></td></tr></table></div></div><p>次に、今回は２種類の<code>Consumer</code>を準備し、それぞれ別のグループに登録します。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-1>1</a>
-</span><span class=lnt id=hl-11-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-2>2</a>
-</span><span class=lnt id=hl-11-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http :8001/consumers <span class=nv>username</span><span class=o>=</span>vip-consumer <span class=o>&amp;&amp;</span> http :8001/consumers/vip-consumer/key-auth <span class=nv>key</span><span class=o>=</span>vip-api <span class=o>&amp;&amp;</span> http :8001/consumers/vip-consumer/acls <span class=nv>group</span><span class=o>=</span>vip-acl
 </span></span><span class=line><span class=cl>
@@ -354,13 +354,13 @@ KongのCanary Release pluginを使ってみる
 </span></span></code></pre></td></tr></table></div></div><p>上の設定が終わったら、グループ情報を用いてカナリアリリースプラグインを作成します。
 ここで注意してほしいのは、<code>config.hash</code>です。<code>whitelist</code>か<code>blacklist</code>を設定する必要がありまして、<code>whitelist</code>に設定したグループは新バージョンにアクセスしにいきます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-1>1</a>
-</span><span class=lnt id=hl-12-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-2>2</a>
-</span><span class=lnt id=hl-12-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-3>3</a>
-</span><span class=lnt id=hl-12-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-4>4</a>
-</span><span class=lnt id=hl-12-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-5>5</a>
-</span><span class=lnt id=hl-12-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-6>6</a>
-</span><span class=lnt id=hl-12-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http -f POST http://localhost:8001/routes/canary-api-route/plugins <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span><span class=nv>name</span><span class=o>=</span>canary <span class=se>\
@@ -371,40 +371,40 @@ KongのCanary Release pluginを使ってみる
 </span></span></span><span class=line><span class=cl><span class=se></span>config.upstream_uri<span class=o>=</span>/json
 </span></span></code></pre></td></tr></table></div></div><p><code>vip-api</code>を持ってアクセスするクライアント、つまり<code>Consumer</code>のグループは<code>vip-acl</code>であり、<code>whitelist</code>に登録されているので新バージョンにアクセスしにいきます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-1> 1</a>
-</span><span class=lnt id=hl-13-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-2> 2</a>
-</span><span class=lnt id=hl-13-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-3> 3</a>
-</span><span class=lnt id=hl-13-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-4> 4</a>
-</span><span class=lnt id=hl-13-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-5> 5</a>
-</span><span class=lnt id=hl-13-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-6> 6</a>
-</span><span class=lnt id=hl-13-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-7> 7</a>
-</span><span class=lnt id=hl-13-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-8> 8</a>
-</span><span class=lnt id=hl-13-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-9> 9</a>
-</span><span class=lnt id=hl-13-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-10>10</a>
-</span><span class=lnt id=hl-13-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-11>11</a>
-</span><span class=lnt id=hl-13-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-12>12</a>
-</span><span class=lnt id=hl-13-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-13>13</a>
-</span><span class=lnt id=hl-13-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-14>14</a>
-</span><span class=lnt id=hl-13-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-15>15</a>
-</span><span class=lnt id=hl-13-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-16>16</a>
-</span><span class=lnt id=hl-13-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-17>17</a>
-</span><span class=lnt id=hl-13-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-18>18</a>
-</span><span class=lnt id=hl-13-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-19>19</a>
-</span><span class=lnt id=hl-13-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-20>20</a>
-</span><span class=lnt id=hl-13-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-21>21</a>
-</span><span class=lnt id=hl-13-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-22>22</a>
-</span><span class=lnt id=hl-13-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-23>23</a>
-</span><span class=lnt id=hl-13-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-24>24</a>
-</span><span class=lnt id=hl-13-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-25>25</a>
-</span><span class=lnt id=hl-13-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-26>26</a>
-</span><span class=lnt id=hl-13-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-27>27</a>
-</span><span class=lnt id=hl-13-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-28>28</a>
-</span><span class=lnt id=hl-13-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-29>29</a>
-</span><span class=lnt id=hl-13-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-30>30</a>
-</span><span class=lnt id=hl-13-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-31>31</a>
-</span><span class=lnt id=hl-13-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-32>32</a>
-</span><span class=lnt id=hl-13-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-33>33</a>
-</span><span class=lnt id=hl-13-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-34>34</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http http://localhost:8000/api/canary apiKey:vip-api
 </span></span><span class=line><span class=cl>HTTP/1.1 <span class=m>200</span> OK
@@ -442,43 +442,43 @@ KongのCanary Release pluginを使ってみる
 </span></span><span class=line><span class=cl><span class=o>}</span>
 </span></span></code></pre></td></tr></table></div></div><p>一方、<code>general-api</code>を持ってアクセスするクライアント、つまり<code>Consumer</code>のグループは<code>general-acl</code>のため、現バージョンにアクセスしにいきます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-1> 1</a>
-</span><span class=lnt id=hl-14-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-2> 2</a>
-</span><span class=lnt id=hl-14-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-3> 3</a>
-</span><span class=lnt id=hl-14-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-4> 4</a>
-</span><span class=lnt id=hl-14-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-5> 5</a>
-</span><span class=lnt id=hl-14-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-6> 6</a>
-</span><span class=lnt id=hl-14-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-7> 7</a>
-</span><span class=lnt id=hl-14-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-8> 8</a>
-</span><span class=lnt id=hl-14-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-9> 9</a>
-</span><span class=lnt id=hl-14-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-10>10</a>
-</span><span class=lnt id=hl-14-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-11>11</a>
-</span><span class=lnt id=hl-14-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-12>12</a>
-</span><span class=lnt id=hl-14-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-13>13</a>
-</span><span class=lnt id=hl-14-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-14>14</a>
-</span><span class=lnt id=hl-14-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-15>15</a>
-</span><span class=lnt id=hl-14-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-16>16</a>
-</span><span class=lnt id=hl-14-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-17>17</a>
-</span><span class=lnt id=hl-14-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-18>18</a>
-</span><span class=lnt id=hl-14-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-19>19</a>
-</span><span class=lnt id=hl-14-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-20>20</a>
-</span><span class=lnt id=hl-14-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-21>21</a>
-</span><span class=lnt id=hl-14-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-22>22</a>
-</span><span class=lnt id=hl-14-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-23>23</a>
-</span><span class=lnt id=hl-14-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-24>24</a>
-</span><span class=lnt id=hl-14-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-25>25</a>
-</span><span class=lnt id=hl-14-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-26>26</a>
-</span><span class=lnt id=hl-14-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-27>27</a>
-</span><span class=lnt id=hl-14-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-28>28</a>
-</span><span class=lnt id=hl-14-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-29>29</a>
-</span><span class=lnt id=hl-14-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-30>30</a>
-</span><span class=lnt id=hl-14-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-31>31</a>
-</span><span class=lnt id=hl-14-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-32>32</a>
-</span><span class=lnt id=hl-14-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-33>33</a>
-</span><span class=lnt id=hl-14-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-34>34</a>
-</span><span class=lnt id=hl-14-35><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-35>35</a>
-</span><span class=lnt id=hl-14-36><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-36>36</a>
-</span><span class=lnt id=hl-14-37><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-37>37</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http http://localhost:8000/api/canary apiKey:general-api
 </span></span><span class=line><span class=cl>HTTP/1.1 <span class=m>200</span> OK
@@ -519,12 +519,12 @@ KongのCanary Release pluginを使ってみる
 </span></span><span class=line><span class=cl>&lt;/slideshow&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=アップグレードを完了させる>アップグレードを完了させる<a hidden class=anchor aria-hidden=true href=#アップグレードを完了させる>#</a></h2><p>カナリアリリースのテストが終わったら、特に問題がない場合、全てのトラフィックをプラグインなしで新バージョンにrouteしていきたい。</p><p>そこで実行すべきのは、serviceのUpstream Endpointを更新し、カナリアリリースプラグインを削除することです。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-15-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-1>1</a>
-</span><span class=lnt id=hl-15-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-2>2</a>
-</span><span class=lnt id=hl-15-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-3>3</a>
-</span><span class=lnt id=hl-15-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-4>4</a>
-</span><span class=lnt id=hl-15-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-5>5</a>
-</span><span class=lnt id=hl-15-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># update service</span>
 </span></span><span class=line><span class=cl>❯ http -f PUT :8001/services/canary-api-service <span class=nv>url</span><span class=o>=</span>http://httpbin.org/json
@@ -534,40 +534,40 @@ KongのCanary Release pluginを使ってみる
 </span></span><span class=line><span class=cl><span class=k>done</span>
 </span></span></code></pre></td></tr></table></div></div><p>これでカナリアリリースで新バージョンのサービスのアップグレードが完了した！</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-16-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-1> 1</a>
-</span><span class=lnt id=hl-16-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-2> 2</a>
-</span><span class=lnt id=hl-16-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-3> 3</a>
-</span><span class=lnt id=hl-16-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-4> 4</a>
-</span><span class=lnt id=hl-16-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-5> 5</a>
-</span><span class=lnt id=hl-16-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-6> 6</a>
-</span><span class=lnt id=hl-16-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-7> 7</a>
-</span><span class=lnt id=hl-16-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-8> 8</a>
-</span><span class=lnt id=hl-16-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-9> 9</a>
-</span><span class=lnt id=hl-16-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-10>10</a>
-</span><span class=lnt id=hl-16-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-11>11</a>
-</span><span class=lnt id=hl-16-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-12>12</a>
-</span><span class=lnt id=hl-16-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-13>13</a>
-</span><span class=lnt id=hl-16-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-14>14</a>
-</span><span class=lnt id=hl-16-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-15>15</a>
-</span><span class=lnt id=hl-16-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-16>16</a>
-</span><span class=lnt id=hl-16-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-17>17</a>
-</span><span class=lnt id=hl-16-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-18>18</a>
-</span><span class=lnt id=hl-16-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-19>19</a>
-</span><span class=lnt id=hl-16-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-20>20</a>
-</span><span class=lnt id=hl-16-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-21>21</a>
-</span><span class=lnt id=hl-16-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-22>22</a>
-</span><span class=lnt id=hl-16-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-23>23</a>
-</span><span class=lnt id=hl-16-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-24>24</a>
-</span><span class=lnt id=hl-16-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-25>25</a>
-</span><span class=lnt id=hl-16-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-26>26</a>
-</span><span class=lnt id=hl-16-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-27>27</a>
-</span><span class=lnt id=hl-16-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-28>28</a>
-</span><span class=lnt id=hl-16-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-29>29</a>
-</span><span class=lnt id=hl-16-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-30>30</a>
-</span><span class=lnt id=hl-16-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-31>31</a>
-</span><span class=lnt id=hl-16-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-32>32</a>
-</span><span class=lnt id=hl-16-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-33>33</a>
-</span><span class=lnt id=hl-16-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-34>34</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ http http://localhost:8000/api/canary
 </span></span><span class=line><span class=cl>HTTP/1.1 <span class=m>200</span> OK

@@ -101,10 +101,10 @@ Ansible 入門 - 基本操作(チュートリアル)
 <a href=http://wenhan.blog/2018/04/09/Getting-started-with-Ansible-JP-adv/>Ansible 入門 - 応用</a></p><p>本章では、簡単な例を使ってAnsibleの基本的な使い方を説明する。</p><ol>
 <li>インストール</li><li>管理対象のサーバー（サーバリストの管理）</li><li>コマンドラインによるサーバー管理(Ad-hoc command)</li><li>スクリプトによるサーバー管理(スクリプト言語 Playbook)</li><li>モジュール</li></ol><h1 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h1><p>ここでは Red Hat 系 Linux でのインストールを前提に解説にする。他のOSに関していAnsibleのWebページをご参照ください。</p><h2 id=管理者ノード>管理者ノード<a hidden class=anchor aria-hidden=true href=#管理者ノード>#</a></h2><h3 id=ansible-パッケージをインストール>Ansible パッケージをインストール<a hidden class=anchor aria-hidden=true href=#ansible-パッケージをインストール>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Redhat/CentOS Linuxの場合, epolリポジトリをインストールする必要がある。</span>
 </span></span><span class=line><span class=cl><span class=c1># Fedoraの場合、デフォルトのリポジトリにAnsibleを含まれているため，直接インストールできる</span>
@@ -112,12 +112,12 @@ Ansible 入門 - 基本操作(チュートリアル)
 </span></span><span class=line><span class=cl>sudo yum install ansible -y
 </span></span></code></pre></td></tr></table></div></div><h3 id=管理者ノードからリモートノードの接続設定>管理者ノードからリモートノードの接続設定<a hidden class=anchor aria-hidden=true href=#管理者ノードからリモートノードの接続設定>#</a></h3><p>SSH keyによる認証パスワードレス）方式を設定する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4>4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5>5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># ssh key を生成</span>
 </span></span><span class=line><span class=cl>ssh-keygen
@@ -127,7 +127,7 @@ Ansible 入門 - 基本操作(チュートリアル)
 </span></span><span class=line><span class=cl>ssh-keyscan remote_servers &gt;&gt; ~/.ssh/known_hosts
 </span></span></code></pre></td></tr></table></div></div><h3 id=設定確認>設定確認<a hidden class=anchor aria-hidden=true href=#設定確認>#</a></h3><p>管理者ノードで下記コマンドを実行し、パスワードの入力とSSH keyの保存確認がなかったら設定完了。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ssh remoteuser@remoteserver
 </span></span></code></pre></td></tr></table></div></div><h2 id=リモートノード>リモートノード<a hidden class=anchor aria-hidden=true href=#リモートノード>#</a></h2><p>Python 2.4以上が必要だが、通常はデフォルトでインストールされている。そのため、別途パッケージのインストールは必要ない。</p><h1 id=管理対象のサーバーサーバーリストの管理>管理対象のサーバー（サーバーリストの管理）<a hidden class=anchor aria-hidden=true href=#管理対象のサーバーサーバーリストの管理>#</a></h1><h2 id=サーバリストhost-inventoryとは>サーバリスト（Host Inventory）とは<a hidden class=anchor aria-hidden=true href=#サーバリストhost-inventoryとは>#</a></h2><p>Host InventoryはAnsibleの設定ファイルであり、管理対象となるリモートノードの一覧をAnsibleに教える。
@@ -135,25 +135,25 @@ Ansible 入門 - 基本操作(チュートリアル)
 使い道によってカテゴリ化する：データベースノード、サービスノード。
 ロケーションによってカテゴリ化する：中部データセンター、西部データセンター</p><h2 id=host-inventoryファイル>Host Inventoryファイル<a hidden class=anchor aria-hidden=true href=#host-inventoryファイル>#</a></h2><p>デフォルトのファイルパス： <code>/etc/ansible/hosts</code></p><p>他のファイルパスへ変更することもできる、詳細については後程紹介する。</p><p>例：</p><p>一番シンプルのhosts ファイル</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=m>192.168.1.50</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>aserver.example.org</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>bserver.example.org</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>カテゴリを持つhosts ファイル</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>mail.example.com</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -167,57 +167,57 @@ Ansible 入門 - 基本操作(チュートリアル)
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>three.example.com</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h1 id=コマンドラインによるサーバー管理ad-hoc-command>コマンドラインによるサーバー管理(Ad-hoc command)<a hidden class=anchor aria-hidden=true href=#コマンドラインによるサーバー管理ad-hoc-command>#</a></h1><p>Ansibleではコマンドラインツールを提供していて、オフィシャルドキュメントでは Ad-Hoc Commandsと名付けている。ansibleコマンドのフォーマットを以下に示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible &lt;host-pattern&gt; <span class=o>[</span>options<span class=o>]</span>
 </span></span></code></pre></td></tr></table></div></div><h2 id=ansible-コマンドができること>Ansible コマンドができること<a hidden class=anchor aria-hidden=true href=#ansible-コマンドができること>#</a></h2><p>コマンドの構文の詳細を置いといて、&ldquo;命令”モジュールの説明が終わったら構文の理解が深まりにいく。ここでは、下記のコマンドの例を通して、ansibleコマンドの役割を体感しましょう</p><h3 id=環境を確認する>環境を確認する<a hidden class=anchor aria-hidden=true href=#環境を確認する>#</a></h3><p>ansible管理者ノードからユーザ bruce で各リモートノードをアクセスすることを確認する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible all -m ping -u bruce
 </span></span></code></pre></td></tr></table></div></div><h3 id=コマンド実行>コマンド実行<a hidden class=anchor aria-hidden=true href=#コマンド実行>#</a></h3><p>現在bash ユーザと同名のユーザがすべてのリモートノードに対し"echo”コマンドを実行する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible all -a <span class=s2>&#34;/bin/echo hello&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=ファイルコピー>ファイルコピー<a hidden class=anchor aria-hidden=true href=#ファイルコピー>#</a></h3><p><code>/etc/hosts</code> ファイル を全リモートノードのweb グループにコピーし、コピー先は<code>/tmp/hosts</code></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible web -m copy -a <span class=s2>&#34;src=/etc/hosts dest=/tmp/hosts&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=パッケージインストール>パッケージインストール<a hidden class=anchor aria-hidden=true href=#パッケージインストール>#</a></h3><p>全リモートノードのweb グループのマシンにyum でacmeパッケージをインストール</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible web -m yum -a <span class=s2>&#34;name=acme state=present&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=ユーザ追加>ユーザ追加<a hidden class=anchor aria-hidden=true href=#ユーザ追加>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible all -m user -a <span class=s2>&#34;name=foo password=&lt;crypted password here&gt;&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=パッケージダウンロード>パッケージダウンロード<a hidden class=anchor aria-hidden=true href=#パッケージダウンロード>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible web -m git -a <span class=s2>&#34;repo=git://foo.example.org/repo.git dest=/srv/myapp version=HEAD&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=サービス起動>サービス起動<a hidden class=anchor aria-hidden=true href=#サービス起動>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible web -m service -a <span class=s2>&#34;name=httpd state=started&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=並列実行>並列実行<a hidden class=anchor aria-hidden=true href=#並列実行>#</a></h3><p>リブート命令を10並列で実行する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible lb -a <span class=s2>&#34;/sbin/reboot&#34;</span> -f <span class=m>10</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=リモートノード情報取得>リモートノード情報取得<a hidden class=anchor aria-hidden=true href=#リモートノード情報取得>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible all -m setup
 </span></span></code></pre></td></tr></table></div></div><h1 id=スクリプトによるサーバー管理>スクリプトによるサーバー管理<a hidden class=anchor aria-hidden=true href=#スクリプトによるサーバー管理>#</a></h1><p>重複な入力を避けるため、Ansibleをスクリプトの実行に対応する。AnsibleのスクリプトはPlaybookと読んで、YAML形式で、拡張子はymlである。Note: YAMLとJSONは似ていて、データを表示するフォーマットである。</p><h2 id=playbookの実行方法>Playbookの実行方法<a hidden class=anchor aria-hidden=true href=#playbookの実行方法>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-15-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook deploy.yml
 </span></span></code></pre></td></tr></table></div></div><h3 id=playbookの例>Playbookの例<a hidden class=anchor aria-hidden=true href=#playbookの例>#</a></h3><p>Playbook deploy.ymlを通して、webグループのリモートサーバに対しapacheをデプロイする。ステップとしては</p><ol>
@@ -233,29 +233,29 @@ Ansible 入門 - 基本操作(チュートリアル)
 <td>handers</td><td>Playbookのイベントで、デフォルトでは実行されず、action内でトリガーの条件に満足したら実行する。複数のトリガー条件にマッチしても1回のみ実行する。</td><td></td></tr><tr>
 <td>[^1]よく利用するモジュールはyum, copy, templateなど。Ansibleの中のmodule は、bash の中のyum, copyの命令に似ている。詳細は後程紹介する。</td><td></td><td></td></tr></tbody></table><p>以下はdeploy.ymlの内容を示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-16-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-1> 1</a>
-</span><span class=lnt id=hl-16-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-2> 2</a>
-</span><span class=lnt id=hl-16-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-3> 3</a>
-</span><span class=lnt id=hl-16-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-4> 4</a>
-</span><span class=lnt id=hl-16-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-5> 5</a>
-</span><span class=lnt id=hl-16-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-6> 6</a>
-</span><span class=lnt id=hl-16-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-7> 7</a>
-</span><span class=lnt id=hl-16-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-8> 8</a>
-</span><span class=lnt id=hl-16-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-9> 9</a>
-</span><span class=lnt id=hl-16-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-10>10</a>
-</span><span class=lnt id=hl-16-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-11>11</a>
-</span><span class=lnt id=hl-16-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-12>12</a>
-</span><span class=lnt id=hl-16-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-13>13</a>
-</span><span class=lnt id=hl-16-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-14>14</a>
-</span><span class=lnt id=hl-16-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-15>15</a>
-</span><span class=lnt id=hl-16-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-16>16</a>
-</span><span class=lnt id=hl-16-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-17>17</a>
-</span><span class=lnt id=hl-16-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-18>18</a>
-</span><span class=lnt id=hl-16-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-19>19</a>
-</span><span class=lnt id=hl-16-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-20>20</a>
-</span><span class=lnt id=hl-16-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-21>21</a>
-</span><span class=lnt id=hl-16-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-22>22</a>
-</span><span class=lnt id=hl-16-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-23>23</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>web</span><span class=w>
@@ -282,43 +282,43 @@ Ansible 入門 - 基本操作(チュートリアル)
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>service</span><span class=p>:</span><span class=w> </span><span class=l>name=httpd state=restarted</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>YAMLが分からなかったら、上記deploy.ymlをJSON形式に変換することも可能だ。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-17-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-1> 1</a>
-</span><span class=lnt id=hl-17-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-2> 2</a>
-</span><span class=lnt id=hl-17-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-3> 3</a>
-</span><span class=lnt id=hl-17-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-4> 4</a>
-</span><span class=lnt id=hl-17-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-5> 5</a>
-</span><span class=lnt id=hl-17-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-6> 6</a>
-</span><span class=lnt id=hl-17-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-7> 7</a>
-</span><span class=lnt id=hl-17-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-8> 8</a>
-</span><span class=lnt id=hl-17-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-9> 9</a>
-</span><span class=lnt id=hl-17-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-10>10</a>
-</span><span class=lnt id=hl-17-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-11>11</a>
-</span><span class=lnt id=hl-17-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-12>12</a>
-</span><span class=lnt id=hl-17-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-13>13</a>
-</span><span class=lnt id=hl-17-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-14>14</a>
-</span><span class=lnt id=hl-17-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-15>15</a>
-</span><span class=lnt id=hl-17-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-16>16</a>
-</span><span class=lnt id=hl-17-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-17>17</a>
-</span><span class=lnt id=hl-17-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-18>18</a>
-</span><span class=lnt id=hl-17-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-19>19</a>
-</span><span class=lnt id=hl-17-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-20>20</a>
-</span><span class=lnt id=hl-17-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-21>21</a>
-</span><span class=lnt id=hl-17-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-22>22</a>
-</span><span class=lnt id=hl-17-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-23>23</a>
-</span><span class=lnt id=hl-17-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-24>24</a>
-</span><span class=lnt id=hl-17-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-25>25</a>
-</span><span class=lnt id=hl-17-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-26>26</a>
-</span><span class=lnt id=hl-17-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-27>27</a>
-</span><span class=lnt id=hl-17-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-28>28</a>
-</span><span class=lnt id=hl-17-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-29>29</a>
-</span><span class=lnt id=hl-17-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-30>30</a>
-</span><span class=lnt id=hl-17-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-31>31</a>
-</span><span class=lnt id=hl-17-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-32>32</a>
-</span><span class=lnt id=hl-17-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-33>33</a>
-</span><span class=lnt id=hl-17-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-34>34</a>
-</span><span class=lnt id=hl-17-35><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-35>35</a>
-</span><span class=lnt id=hl-17-36><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-36>36</a>
-</span><span class=lnt id=hl-17-37><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-37>37</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-JSON data-lang=JSON><span class=line><span class=cl><span class=p>[</span>
 </span></span><span class=line><span class=cl>  <span class=p>{</span>
@@ -359,12 +359,12 @@ Ansible 入門 - 基本操作(チュートリアル)
 </span></span><span class=line><span class=cl><span class=p>]</span>
 </span></span></code></pre></td></tr></table></div></div><p>JSON と YAMLをお互いに変換するオンラインツール：<a href=http://www.json2yaml.com/>http://www.json2yaml.com/</a></p><h2 id=play-vs-playbook>Play vs. Playbook<a hidden class=anchor aria-hidden=true href=#play-vs-playbook>#</a></h2><p>Playbookは Ansibleで実行可能な YAMLファイルである。一般的な構文を以下の例に示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-18-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-1>1</a>
-</span><span class=lnt id=hl-18-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-2>2</a>
-</span><span class=lnt id=hl-18-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-3>3</a>
-</span><span class=lnt id=hl-18-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-4>4</a>
-</span><span class=lnt id=hl-18-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-5>5</a>
-</span><span class=lnt id=hl-18-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>web</span><span class=w>
@@ -374,20 +374,20 @@ Ansible 入門 - 基本操作(チュートリアル)
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>yum</span><span class=p>:</span><span class=w> </span><span class=l>pkg=httpd state=latest</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>一つのPlaybookファイルの中で、二つのリモートノードグループに対しそれぞれ異る操作を存在することができる。例えば、webノードにhttpdパッケージのインストールと、lbノードにmysqlパッケージのインストール処理を一つのPlaybook ファイルに設定することができる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-19-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-1> 1</a>
-</span><span class=lnt id=hl-19-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-2> 2</a>
-</span><span class=lnt id=hl-19-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-3> 3</a>
-</span><span class=lnt id=hl-19-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-4> 4</a>
-</span><span class=lnt id=hl-19-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-5> 5</a>
-</span><span class=lnt id=hl-19-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-6> 6</a>
-</span><span class=lnt id=hl-19-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-7> 7</a>
-</span><span class=lnt id=hl-19-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-8> 8</a>
-</span><span class=lnt id=hl-19-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-9> 9</a>
-</span><span class=lnt id=hl-19-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-10>10</a>
-</span><span class=lnt id=hl-19-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-11>11</a>
-</span><span class=lnt id=hl-19-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-12>12</a>
-</span><span class=lnt id=hl-19-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-13>13</a>
-</span><span class=lnt id=hl-19-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-14>14</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=c># apache をインストールのplay</span><span class=w>
@@ -406,19 +406,19 @@ Ansible 入門 - 基本操作(チュートリアル)
 </span></span></span></code></pre></td></tr></table></div></div><p>上記の例では、一つのサーバに対する操作処理は、一つのPlayになる。一般的には一つのPlaybookでは一つのPlayしか実行しないため、その場合にはPlaybookとPlayは同じである。</p><h1 id=ansibleのモジュール>Ansibleのモジュール<a hidden class=anchor aria-hidden=true href=#ansibleのモジュール>#</a></h1><h2 id=ansibleのモジュールとは>Ansibleのモジュールとは<a hidden class=anchor aria-hidden=true href=#ansibleのモジュールとは>#</a></h2><p>Bashを利用する時、コマンドラインでもスクリプト内でも、cd, ls, copy, yumなどの命令を実行する必要がある。AnsibleのモジュールはAnsibleの命令であり、Ansibleのコマンドラインやスクリプト上にて実行されている。よく使うモジュールとしてyum, copy, templateなどがある。</p><p>Bashでのコマンドを利用するときに、さまざまなオプションが利用できて、このオプションはコマンドごとに定義されている。それと同じように、Ansibleのモジュールを実行する時に複数のオプションをつけることができて、各モジュールのオプションはモジュール内に定義されている。</p><p>モジュールの利用方法は以下のドキュメントを参照で
 <a href=http://docs.ansible.com/ansible/modules_by_category.html>http://docs.ansible.com/ansible/modules_by_category.html</a></p><h2 id=コマンドラインにてansibleモジュールを利用>コマンドラインにてAnsibleモジュールを利用<a hidden class=anchor aria-hidden=true href=#コマンドラインにてansibleモジュールを利用>#</a></h2><p>Ansible コマンドラインでは、以下の様にモジュールを利用できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-20-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-1>1</a>
-</span><span class=lnt id=hl-20-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-2>2</a>
-</span><span class=lnt id=hl-20-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>  -m &lt;モジュール名&gt;
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>  -a モジュールのパラメータ
 </span></span></code></pre></td></tr></table></div></div><p>例えば</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-21-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-1>1</a>
-</span><span class=lnt id=hl-21-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-2>2</a>
-</span><span class=lnt id=hl-21-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-3>3</a>
-</span><span class=lnt id=hl-21-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># module copyを利用し、管理者ノードの/etc/hostsをリモートノードの/tmp/hostsにコピー</span>
 </span></span><span class=line><span class=cl>ansible all -m copy -a <span class=s2>&#34;src=/etc/hosts dest=/tmp/hosts&#34;</span>
@@ -426,14 +426,14 @@ Ansible 入門 - 基本操作(チュートリアル)
 </span></span><span class=line><span class=cl>ansible web -m yum -a <span class=s2>&#34;name=httpd state=present&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h2 id=playbookにてansibleモジュールを利用>PlaybookにてAnsibleモジュールを利用<a hidden class=anchor aria-hidden=true href=#playbookにてansibleモジュールを利用>#</a></h2><p>Playbookスクリプトでは、task内一つのactionは一つのモジュールを実行している。各actionに対し、</p><p>: の前はモジュールの名前</p><p>: の後ろはモジュールのパラメータ</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-22-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-1>1</a>
-</span><span class=lnt id=hl-22-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-2>2</a>
-</span><span class=lnt id=hl-22-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-3>3</a>
-</span><span class=lnt id=hl-22-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-4>4</a>
-</span><span class=lnt id=hl-22-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-5>5</a>
-</span><span class=lnt id=hl-22-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-6>6</a>
-</span><span class=lnt id=hl-22-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-7>7</a>
-</span><span class=lnt id=hl-22-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tasks</span><span class=p>:</span><span class=w>
@@ -457,23 +457,23 @@ Ansible 入門 - 基本操作(チュートリアル)
 <p>Shell命令実行</p><ul>
 <li>shell: リモートノード上shell命令を実行、$HOMEや&rdquo;&lt;”, ”>”, &ldquo;|”と“&”などは利用可能</li><li>command: リモートノード上shell命令を実行、$HOMEや&rdquo;&lt;”, ”>”, &ldquo;|”と“&”などは利用不可</li></ul></li></ul><h3 id=ping>ping<a hidden class=anchor aria-hidden=true href=#ping>#</a></h3><p>管理者ノードからリモートノードへの接続状態を確認するときに一番よく使われているモジュールである。ただShellのpingコマンドみたいにただリモートノードを"ping”するだけではなく、パスワードレスのSSHログインと、リモートノードのpythonのversionを確認し、両方問題なかったらpongを返す。</p><p>pingモジュールを使う時にパラメータが必要ない。リモートノードの接続状況を確認するためコマンドラインでの利用がplaybookの中より多くなっている。下記はコマンドラインでのpingモジュールの例を示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-23-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible servers -m ping
 </span></span></code></pre></td></tr></table></div></div><h3 id=debug>debug<a hidden class=anchor aria-hidden=true href=#debug>#</a></h3><p>Shellのechoコマンドに似ていて。メッセージを出力する。
 msgパラメータに出力したいメッセージ内容を設定する。下の例では、システム情報をメッセージ内容に含めて出力している。Ansibleが実行する前にシステム情報を集めて定数にしているため、playbook内に定義しなくても利用できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-24-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-1>1</a>
-</span><span class=lnt id=hl-24-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>debug</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>msg</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;System \{\{ inventory_hostname \}\} has gateway \{\{ ansible_default_ipv4.gateway \}\}&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>実行結果</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-25-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-1>1</a>
-</span><span class=lnt id=hl-25-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-2>2</a>
-</span><span class=lnt id=hl-25-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-3>3</a>
-</span><span class=lnt id=hl-25-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>TASK <span class=o>[</span>debug<span class=o>]</span> *******************************************************************
 </span></span><span class=line><span class=cl>ok: <span class=o>[</span>localhost<span class=o>]</span> <span class=o>=</span>&gt; <span class=o>{</span>
@@ -482,19 +482,19 @@ msgパラメータに出力したいメッセージ内容を設定する。下�
 </span></span></code></pre></td></tr></table></div></div><p>出力したい情報をvar パラメータを定義し出力させることができる。情報はシステム情報でも、モジュール実行結果を取り込むことができ、キーワードregesterを用いて変数に設定する。
 例えば、システム情報を出力するため、以下の内容をPlaybookに記入する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-26-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-1>1</a>
-</span><span class=lnt id=hl-26-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-2>2</a>
-</span><span class=lnt id=hl-26-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Display all variables/facts known for a host</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>debug</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>var</span><span class=p>:</span><span class=w> </span><span class=l>hostvars[inventory_hostname][&#34;ansible_default_ipv4&#34;][&#34;gateway&#34;]</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>実行結果</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-27-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-1>1</a>
-</span><span class=lnt id=hl-27-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-2>2</a>
-</span><span class=lnt id=hl-27-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-3>3</a>
-</span><span class=lnt id=hl-27-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>  TASK <span class=o>[</span>Display part of variables/facts known <span class=k>for</span> a host<span class=o>]</span> ************************
 </span></span><span class=line><span class=cl>  ok: <span class=o>[</span>localhost<span class=o>]</span> <span class=o>=</span>&gt; <span class=o>{</span>
@@ -502,11 +502,11 @@ msgパラメータに出力したいメッセージ内容を設定する。下�
 </span></span><span class=line><span class=cl>  <span class=o>}</span>
 </span></span></code></pre></td></tr></table></div></div><p>また、モジュールの実行結果など動的な情報を出力するためのPlaybook内容を以下に示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-28-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-1>1</a>
-</span><span class=lnt id=hl-28-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-2>2</a>
-</span><span class=lnt id=hl-28-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-3>3</a>
-</span><span class=lnt id=hl-28-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-4>4</a>
-</span><span class=lnt id=hl-28-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>/usr/bin/uptime</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>register</span><span class=p>:</span><span class=w> </span><span class=l>result</span><span class=w>
@@ -515,27 +515,27 @@ msgパラメータに出力したいメッセージ内容を設定する。下�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>var</span><span class=p>:</span><span class=w> </span><span class=l>result</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>実行結果</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-29-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-1> 1</a>
-</span><span class=lnt id=hl-29-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-2> 2</a>
-</span><span class=lnt id=hl-29-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-3> 3</a>
-</span><span class=lnt id=hl-29-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-4> 4</a>
-</span><span class=lnt id=hl-29-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-5> 5</a>
-</span><span class=lnt id=hl-29-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-6> 6</a>
-</span><span class=lnt id=hl-29-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-7> 7</a>
-</span><span class=lnt id=hl-29-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-8> 8</a>
-</span><span class=lnt id=hl-29-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-9> 9</a>
-</span><span class=lnt id=hl-29-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-10>10</a>
-</span><span class=lnt id=hl-29-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-11>11</a>
-</span><span class=lnt id=hl-29-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-12>12</a>
-</span><span class=lnt id=hl-29-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-13>13</a>
-</span><span class=lnt id=hl-29-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-14>14</a>
-</span><span class=lnt id=hl-29-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-15>15</a>
-</span><span class=lnt id=hl-29-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-16>16</a>
-</span><span class=lnt id=hl-29-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-17>17</a>
-</span><span class=lnt id=hl-29-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-18>18</a>
-</span><span class=lnt id=hl-29-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-19>19</a>
-</span><span class=lnt id=hl-29-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-20>20</a>
-</span><span class=lnt id=hl-29-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-21>21</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>  TASK <span class=o>[</span>command<span class=o>]</span> *****************************************************************
 </span></span><span class=line><span class=cl>  changed: <span class=o>[</span>localhost<span class=o>]</span>
@@ -560,12 +560,12 @@ msgパラメータに出力したいメッセージ内容を設定する。下�
 </span></span><span class=line><span class=cl>  <span class=o>}</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=copy>copy<a hidden class=anchor aria-hidden=true href=#copy>#</a></h3><p>ローカルマシン上のファイルをリモートノードにコピーし、適切なファイルパーミッションを設定する。注意すべきなのは、ファイルをコピーする前に、コピー元とコピー先のファイルのchecksumを比較する。同一の場合はコピーせず、OK状態を返す。異なっている場合のみコピーを実行し、changed状態を返す。</p><h4 id=ファイルパーミッション設定>ファイルパーミッション設定<a hidden class=anchor aria-hidden=true href=#ファイルパーミッション設定>#</a></h4><p>modeパラメータを使ってパーミッションを設定する。設定の方式は数字でも、符号形式"u=rw,g=r,o=r”, ”u+rw,g-wx,o-rwx” でも問題ない。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-30-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-1>1</a>
-</span><span class=lnt id=hl-30-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-2>2</a>
-</span><span class=lnt id=hl-30-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-3>3</a>
-</span><span class=lnt id=hl-30-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-4>4</a>
-</span><span class=lnt id=hl-30-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-5>5</a>
-</span><span class=lnt id=hl-30-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>copy</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>src</span><span class=p>:</span><span class=w> </span><span class=l>/srv/myfiles/foo.conf</span><span class=w>
@@ -575,10 +575,10 @@ msgパラメータに出力したいメッセージ内容を設定する。下�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>mode</span><span class=p>:</span><span class=w> </span><span class=m>0644</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=リモートノード上ファイルのバックアップ>リモートノード上ファイルのバックアップ<a hidden class=anchor aria-hidden=true href=#リモートノード上ファイルのバックアップ>#</a></h4><p>backupパラメータがyesになっている時に、コピーする前にリモートノード上のファイルのバックアップを取るようになる。もしコピー元＆先のファイルが同一であれば、コピー処理が実行されず、バックアップも実行されなくなる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-31-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-31-1>1</a>
-</span><span class=lnt id=hl-31-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-31-2>2</a>
-</span><span class=lnt id=hl-31-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-31-3>3</a>
-</span><span class=lnt id=hl-31-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-31-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>copy</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>src</span><span class=p>:</span><span class=w> </span><span class=l>sudoers</span><span class=w>
@@ -586,10 +586,10 @@ msgパラメータに出力したいメッセージ内容を設定する。下�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>backup</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=コピー後の検証>コピー後の検証<a hidden class=anchor aria-hidden=true href=#コピー後の検証>#</a></h4><p>validate パラメータに検証の為のコマンドを設定する。通常の場合、検証が必要なのはコピー後のファイルなので、%s で指定することができる。copyモジュールにvalidate変数が存在する場合は、コピー処理が正常に終了したことに加えて、validataの命令も正常と返す時のみ、copyモジュールの実行が成功になる。</p><p>以下の例では、visudo -cf /etc/sudoers は sudoers ファイルを検証するための命令である。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-32-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-32-1>1</a>
-</span><span class=lnt id=hl-32-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-32-2>2</a>
-</span><span class=lnt id=hl-32-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-32-3>3</a>
-</span><span class=lnt id=hl-32-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-32-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>copy</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>src</span><span class=p>:</span><span class=w> </span><span class=l>/mine/sudoers</span><span class=w>
@@ -599,17 +599,17 @@ msgパラメータに出力したいメッセージ内容を設定する。下�
 例えば、apacheをインストールした後、テストのためリモートノードにindex.htmlファイルをコピーし、リモートノードのホスト名とIPアドレスを表示させたい時、templateを利用したほうがいい。
 Index.html内、変更したい部分を変数として記入する。templateはpythonのj2テンプレートを利用している。j2を理解する必要がないが、変数の書き方は<code>\{\{</code> <code>\}\}</code>で囲むことを分かれば問題がない。</p><h4 id=templateファイルの構文>templateファイルの構文<a hidden class=anchor aria-hidden=true href=#templateファイルの構文>#</a></h4><p>Templateなので、可読性のため j2 拡張子をファイルにつける。下記の index.html.j2 ファイルに二つの変数ansible_hostname と ansible_default_ipv4.address が書かれている。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-33-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-1> 1</a>
-</span><span class=lnt id=hl-33-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-2> 2</a>
-</span><span class=lnt id=hl-33-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-3> 3</a>
-</span><span class=lnt id=hl-33-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-4> 4</a>
-</span><span class=lnt id=hl-33-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-5> 5</a>
-</span><span class=lnt id=hl-33-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-6> 6</a>
-</span><span class=lnt id=hl-33-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-7> 7</a>
-</span><span class=lnt id=hl-33-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-8> 8</a>
-</span><span class=lnt id=hl-33-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-9> 9</a>
-</span><span class=lnt id=hl-33-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-10>10</a>
-</span><span class=lnt id=hl-33-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-11>11</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-HTML data-lang=HTML><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>html</span><span class=p>&gt;</span>
 </span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>Demo<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
@@ -624,17 +624,17 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>html</span><span class=p>&gt;</span>
 </span></span></code></pre></td></tr></table></div></div><h4 id=facts変数を利用するtemplate>facts変数を利用するtemplate<a hidden class=anchor aria-hidden=true href=#facts変数を利用するtemplate>#</a></h4><p>index.html.j2で使われている変数ansible_hostnameとansible_default_ipv4.addressはfacts変数であり、ansibleはその内容を調べ、直接Playbookで利用することができるし、templateで利用することもできる。そのため、templateにこの変数を記入した場合は特にパラメータを入力する必要はない。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-34-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-34-1>1</a>
-</span><span class=lnt id=hl-34-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-34-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Write the default index.html file</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>template</span><span class=p>:</span><span class=w> </span><span class=l>src=templates/index.html.j2 dest=/var/www/html/index.html</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=一般変数を利用するtemplate>一般変数を利用するtemplate<a hidden class=anchor aria-hidden=true href=#一般変数を利用するtemplate>#</a></h4><p>例えば、httpd.conf.j2をリモートノードにコピーした後、デフォルトのhttpポートを設定したい場合、templateの一般変数を利用して実現できる。templateファイル httpd.conf.j2の中での一般変数の利用方法は同じく<code>\{\{\}\}</code>:</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-35-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-1>1</a>
-</span><span class=lnt id=hl-35-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-2>2</a>
-</span><span class=lnt id=hl-35-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-3>3</a>
-</span><span class=lnt id=hl-35-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>ServerRoot &#34;/etc/httpd&#34;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nn>...</span><span class=w>
@@ -642,14 +642,14 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nn>...</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>一般変数はtemplateを読み込む時ではなく、Playbook内のvars キーワードで定義される。もちろんPlaybook内で直接利用できる変数は、template内でも利用できる。inventory内の変数の定義については後章で説明する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-36-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-1>1</a>
-</span><span class=lnt id=hl-36-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-2>2</a>
-</span><span class=lnt id=hl-36-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-3>3</a>
-</span><span class=lnt id=hl-36-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-4>4</a>
-</span><span class=lnt id=hl-36-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-5>5</a>
-</span><span class=lnt id=hl-36-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-6>6</a>
-</span><span class=lnt id=hl-36-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-7>7</a>
-</span><span class=lnt id=hl-36-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>localhost</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>vars</span><span class=p>:</span><span class=w>
@@ -661,14 +661,14 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>template</span><span class=p>:</span><span class=w> </span><span class=l>src=templates/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>templateモジュールはcopyモジュールと同じく、ファイルをリモートノードにコピーするだけではなく、パーミッションの設定、バックアップ、検証機能などもできる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-37-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-1>1</a>
-</span><span class=lnt id=hl-37-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-2>2</a>
-</span><span class=lnt id=hl-37-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-3>3</a>
-</span><span class=lnt id=hl-37-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-4>4</a>
-</span><span class=lnt id=hl-37-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-5>5</a>
-</span><span class=lnt id=hl-37-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-6>6</a>
-</span><span class=lnt id=hl-37-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-7>7</a>
-</span><span class=lnt id=hl-37-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>template</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>src</span><span class=p>:</span><span class=w> </span><span class=l>etc/ssh/sshd_config.j2</span><span class=w>
@@ -680,13 +680,13 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>backup</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=file>file<a hidden class=anchor aria-hidden=true href=#file>#</a></h3><p>fileモジュールは、リモートノード上のファイル、シンボリック、フォルダの作成、削除、またはパーミションの設定を行う。</p><h4 id=ファイルのパーミッションの変更>ファイルのパーミッションの変更<a hidden class=anchor aria-hidden=true href=#ファイルのパーミッションの変更>#</a></h4><p>mode変数には直接数字(頭1文字は 0)でも、パーミッション設定内容でも、パーミッションの追加/削除でも設定することができます。詳細については以下の例で示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-38-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-1>1</a>
-</span><span class=lnt id=hl-38-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-2>2</a>
-</span><span class=lnt id=hl-38-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-3>3</a>
-</span><span class=lnt id=hl-38-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-4>4</a>
-</span><span class=lnt id=hl-38-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-5>5</a>
-</span><span class=lnt id=hl-38-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-6>6</a>
-</span><span class=lnt id=hl-38-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>file</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/etc/foo.conf</span><span class=w>
@@ -697,12 +697,12 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c>#mode: &#34;u+rw,g-wx,o-rwx&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=シンボリックリンク作成>シンボリックリンク作成<a hidden class=anchor aria-hidden=true href=#シンボリックリンク作成>#</a></h4><p>ここで注意すべきところは、srcとdestパラメータの意味はcopyモジュールと異なり、fileモジュールの操作対象のファイルは全てリモートノード上にある。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-39-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-1>1</a>
-</span><span class=lnt id=hl-39-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-2>2</a>
-</span><span class=lnt id=hl-39-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-3>3</a>
-</span><span class=lnt id=hl-39-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-4>4</a>
-</span><span class=lnt id=hl-39-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-5>5</a>
-</span><span class=lnt id=hl-39-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>file</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>src</span><span class=p>:</span><span class=w> </span><span class=l>/file/to/link/to</span><span class=w>
@@ -712,10 +712,10 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>link</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=新しいファイル作成>新しいファイル作成<a hidden class=anchor aria-hidden=true href=#新しいファイル作成>#</a></h4><p>Touchコマンドのように新しいファイルを作成</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-40-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-1>1</a>
-</span><span class=lnt id=hl-40-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-2>2</a>
-</span><span class=lnt id=hl-40-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-3>3</a>
-</span><span class=lnt id=hl-40-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>file</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/etc/foo.conf</span><span class=w>
@@ -723,11 +723,11 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>mode</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;u=rw,g=r,o=r&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>新しいフォルダを作成</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-41-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-1>1</a>
-</span><span class=lnt id=hl-41-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-2>2</a>
-</span><span class=lnt id=hl-41-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-3>3</a>
-</span><span class=lnt id=hl-41-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-4>4</a>
-</span><span class=lnt id=hl-41-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=c># create a directory if it doesn&#39;t exist</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>file</span><span class=p>:</span><span class=w>
@@ -736,11 +736,11 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>mode</span><span class=p>:</span><span class=w> </span><span class=m>0755</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=user>user<a hidden class=anchor aria-hidden=true href=#user>#</a></h3><p>ユーザモジュールはリモートノードのユーザアカウントを追加／削除／変更することができ、アカウントの属性を設定することもできる。</p><h4 id=アカウント追加>アカウント追加<a hidden class=anchor aria-hidden=true href=#アカウント追加>#</a></h4><p>ユーザアカウントjohndを追加、uid を 1040に、primary groupをadminに設定する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-42-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-1>1</a>
-</span><span class=lnt id=hl-42-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-2>2</a>
-</span><span class=lnt id=hl-42-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-3>3</a>
-</span><span class=lnt id=hl-42-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-4>4</a>
-</span><span class=lnt id=hl-42-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>user</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>johnd</span><span class=w>
@@ -749,11 +749,11 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=l>admin</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>ユーザアカウントjamesを作成し、このアカウントに二つのグループを追加する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-43-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-1>1</a>
-</span><span class=lnt id=hl-43-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-2>2</a>
-</span><span class=lnt id=hl-43-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-3>3</a>
-</span><span class=lnt id=hl-43-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-4>4</a>
-</span><span class=lnt id=hl-43-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>user</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>james</span><span class=w>
@@ -762,10 +762,10 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>append</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=アカウント削除>アカウント削除<a hidden class=anchor aria-hidden=true href=#アカウント削除>#</a></h4><p>ユーザアカウントjohndを削除する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-44-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-1>1</a>
-</span><span class=lnt id=hl-44-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-2>2</a>
-</span><span class=lnt id=hl-44-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-3>3</a>
-</span><span class=lnt id=hl-44-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>user</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>johnd</span><span class=w>
@@ -773,11 +773,11 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>remove</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=アカウントの属性を変更>アカウントの属性を変更<a hidden class=anchor aria-hidden=true href=#アカウントの属性を変更>#</a></h4><p>アカウントjsmithに対し2048-bit のSSH keyを作成し、~jsmith/.ssh/id_rsaに保存する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-45-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-1>1</a>
-</span><span class=lnt id=hl-45-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-2>2</a>
-</span><span class=lnt id=hl-45-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-3>3</a>
-</span><span class=lnt id=hl-45-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-4>4</a>
-</span><span class=lnt id=hl-45-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>user</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>jsmith</span><span class=w>
@@ -786,11 +786,11 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>ssh_key_file</span><span class=p>:</span><span class=w> </span><span class=l>.ssh/id_rsa</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>アカウントの無効時刻を追加</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-46-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-46-1>1</a>
-</span><span class=lnt id=hl-46-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-46-2>2</a>
-</span><span class=lnt id=hl-46-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-46-3>3</a>
-</span><span class=lnt id=hl-46-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-46-4>4</a>
-</span><span class=lnt id=hl-46-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-46-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>user</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>james18</span><span class=w>
@@ -799,10 +799,10 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>expires</span><span class=p>:</span><span class=w> </span><span class=m>1422403387</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=yum>yum<a hidden class=anchor aria-hidden=true href=#yum>#</a></h3><p>yum モジュールはRed Hat系Linuxのパッケージを管理する。RHEL, CentOS, fedora 21以下のOSをサポートする。fedora 22以上からはdnfを利用するため、dnfモジュールの利用をお勧めする。</p><h4 id=パッケージのinstallとremove>パッケージのinstallとremove<a hidden class=anchor aria-hidden=true href=#パッケージのinstallとremove>#</a></h4><p>最新のパッケージをインストール。もし古いパッケージが存在する場合、最新versionにアップデートする。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-47-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-1>1</a>
-</span><span class=lnt id=hl-47-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-2>2</a>
-</span><span class=lnt id=hl-47-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-3>3</a>
-</span><span class=lnt id=hl-47-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>install the latest version of Apache</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>yum</span><span class=p>:</span><span class=w>
@@ -810,10 +810,10 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>latest</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>指定したversionのパッケージをinstall</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-48-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-1>1</a>
-</span><span class=lnt id=hl-48-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-2>2</a>
-</span><span class=lnt id=hl-48-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-3>3</a>
-</span><span class=lnt id=hl-48-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>install one specific version of Apache</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>yum</span><span class=p>:</span><span class=w>
@@ -821,10 +821,10 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>present</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>httpdパッケージをremove</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-49-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-1>1</a>
-</span><span class=lnt id=hl-49-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-2>2</a>
-</span><span class=lnt id=hl-49-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-3>3</a>
-</span><span class=lnt id=hl-49-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>remove the Apache package</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>yum</span><span class=p>:</span><span class=w>
@@ -832,11 +832,11 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>absent</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>指定したリポジトリtestingからパッケージをinstall</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-50-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-1>1</a>
-</span><span class=lnt id=hl-50-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-2>2</a>
-</span><span class=lnt id=hl-50-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-3>3</a>
-</span><span class=lnt id=hl-50-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-4>4</a>
-</span><span class=lnt id=hl-50-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>install the latest version of Apache from the testing repo</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>yum</span><span class=p>:</span><span class=w>
@@ -845,15 +845,15 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>present</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>パッケージグループをinstall</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-51-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-1>1</a>
-</span><span class=lnt id=hl-51-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-2>2</a>
-</span><span class=lnt id=hl-51-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-3>3</a>
-</span><span class=lnt id=hl-51-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-4>4</a>
-</span><span class=lnt id=hl-51-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-5>5</a>
-</span><span class=lnt id=hl-51-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-6>6</a>
-</span><span class=lnt id=hl-51-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-7>7</a>
-</span><span class=lnt id=hl-51-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-8>8</a>
-</span><span class=lnt id=hl-51-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-9>9</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>install the &#39;Development tools&#39; package group</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>yum</span><span class=p>:</span><span class=w>
@@ -866,10 +866,10 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>present</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>ローカルファイルからパッケージをinstall</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-52-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-52-1>1</a>
-</span><span class=lnt id=hl-52-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-52-2>2</a>
-</span><span class=lnt id=hl-52-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-52-3>3</a>
-</span><span class=lnt id=hl-52-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-52-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>install nginx rpm from a local file</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>yum</span><span class=p>:</span><span class=w>
@@ -877,10 +877,10 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>present</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>URLからパッケージをinstall</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-53-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-53-1>1</a>
-</span><span class=lnt id=hl-53-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-53-2>2</a>
-</span><span class=lnt id=hl-53-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-53-3>3</a>
-</span><span class=lnt id=hl-53-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-53-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>install the nginx rpm from a remote repo</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>yum</span><span class=p>:</span><span class=w>
@@ -888,55 +888,55 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>present</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=service>service<a hidden class=anchor aria-hidden=true href=#service>#</a></h3><p>リモートノード上のサービスを管理する。一般的によく利用されるサービスは、httpd, sshd, nfs, crondなどがある。</p><h4 id=起動停止再起動>起動/停止/再起動<a hidden class=anchor aria-hidden=true href=#起動停止再起動>#</a></h4><p>httpdサービスを起動</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-54-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-1>1</a>
-</span><span class=lnt id=hl-54-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-2>2</a>
-</span><span class=lnt id=hl-54-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>service</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>httpd</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>started</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>httpdサービスを停止</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-55-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-1>1</a>
-</span><span class=lnt id=hl-55-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-2>2</a>
-</span><span class=lnt id=hl-55-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>service</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>httpd</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>stopped</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>httpdサービスを再起動</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-56-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-1>1</a>
-</span><span class=lnt id=hl-56-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-2>2</a>
-</span><span class=lnt id=hl-56-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>service</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>httpd</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>restarted</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>httpdサービスをreload</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-57-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-57-1>1</a>
-</span><span class=lnt id=hl-57-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-57-2>2</a>
-</span><span class=lnt id=hl-57-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-57-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>service</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>httpd</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>reloaded</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>httpdサービスをブート時自動起動に設定</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-58-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-58-1>1</a>
-</span><span class=lnt id=hl-58-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-58-2>2</a>
-</span><span class=lnt id=hl-58-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-58-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>service</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>httpd</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>ネットワークサービスのポートを起動する</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-59-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-1>1</a>
-</span><span class=lnt id=hl-59-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-2>2</a>
-</span><span class=lnt id=hl-59-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-3>3</a>
-</span><span class=lnt id=hl-59-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>service</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>network</span><span class=w>
@@ -944,16 +944,16 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>args</span><span class=p>:</span><span class=w> </span><span class=l>eth0</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=firewalld>firewalld<a hidden class=anchor aria-hidden=true href=#firewalld>#</a></h3><p>firewalldモジュールは、サービスやポートに対しfirewalldのルールを設定する。実行中のルールと、永久のルールの両方が設定できる。ただし、firewalldモジュールの条件として、リモートノードのfirewalldのversionは0.2.11以上である必要がある。</p><h4 id=サービスに対しfirewalldルールを追加>サービスに対しfirewalldルールを追加<a hidden class=anchor aria-hidden=true href=#サービスに対しfirewalldルールを追加>#</a></h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-60-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-1> 1</a>
-</span><span class=lnt id=hl-60-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-2> 2</a>
-</span><span class=lnt id=hl-60-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-3> 3</a>
-</span><span class=lnt id=hl-60-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-4> 4</a>
-</span><span class=lnt id=hl-60-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-5> 5</a>
-</span><span class=lnt id=hl-60-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-6> 6</a>
-</span><span class=lnt id=hl-60-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-7> 7</a>
-</span><span class=lnt id=hl-60-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-8> 8</a>
-</span><span class=lnt id=hl-60-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-9> 9</a>
-</span><span class=lnt id=hl-60-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-10>10</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>firewalld</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>service</span><span class=p>:</span><span class=w> </span><span class=l>https</span><span class=w>
@@ -967,15 +967,15 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>enabled</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=ポートに対しfirewalldルールを追加>ポートに対しfirewalldルールを追加<a hidden class=anchor aria-hidden=true href=#ポートに対しfirewalldルールを追加>#</a></h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-61-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-1>1</a>
-</span><span class=lnt id=hl-61-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-2>2</a>
-</span><span class=lnt id=hl-61-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-3>3</a>
-</span><span class=lnt id=hl-61-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-4>4</a>
-</span><span class=lnt id=hl-61-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-5>5</a>
-</span><span class=lnt id=hl-61-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-6>6</a>
-</span><span class=lnt id=hl-61-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-7>7</a>
-</span><span class=lnt id=hl-61-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-8>8</a>
-</span><span class=lnt id=hl-61-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-9>9</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>firewalld</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>port</span><span class=p>:</span><span class=w> </span><span class=m>8081</span><span class=l>/tcp</span><span class=w>
@@ -988,27 +988,27 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>enabled</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=その他のfirewalldルールの例>その他のfirewalldルールの例<a hidden class=anchor aria-hidden=true href=#その他のfirewalldルールの例>#</a></h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-62-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-1> 1</a>
-</span><span class=lnt id=hl-62-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-2> 2</a>
-</span><span class=lnt id=hl-62-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-3> 3</a>
-</span><span class=lnt id=hl-62-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-4> 4</a>
-</span><span class=lnt id=hl-62-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-5> 5</a>
-</span><span class=lnt id=hl-62-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-6> 6</a>
-</span><span class=lnt id=hl-62-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-7> 7</a>
-</span><span class=lnt id=hl-62-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-8> 8</a>
-</span><span class=lnt id=hl-62-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-9> 9</a>
-</span><span class=lnt id=hl-62-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-10>10</a>
-</span><span class=lnt id=hl-62-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-11>11</a>
-</span><span class=lnt id=hl-62-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-12>12</a>
-</span><span class=lnt id=hl-62-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-13>13</a>
-</span><span class=lnt id=hl-62-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-14>14</a>
-</span><span class=lnt id=hl-62-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-15>15</a>
-</span><span class=lnt id=hl-62-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-16>16</a>
-</span><span class=lnt id=hl-62-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-17>17</a>
-</span><span class=lnt id=hl-62-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-18>18</a>
-</span><span class=lnt id=hl-62-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-19>19</a>
-</span><span class=lnt id=hl-62-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-20>20</a>
-</span><span class=lnt id=hl-62-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-21>21</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>firewalld</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>rich_rule</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;rule service name=&#34;ftp&#34; audit limit value=&#34;1/m&#34; accept&#39;</span><span class=w>
@@ -1036,43 +1036,43 @@ Index.html内、変更したい部分を変数として記入する。template�
 また、shellモジュールは操作後の戻り値やstatusをチェックしていないため、実行する必要がない場合でも、もう一回実行される。</p><p>$home, $HOME, &ldquo;&lt;”, &ldquo;>”, “|”, “;” と“&”が利用できる。</p><ul>
 <li>$home</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-63-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-1>1</a>
-</span><span class=lnt id=hl-63-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>test $home</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>echo &#34;Test1&#34; &gt; ~/tmp/test1</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><ul>
 <li>&&</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-64-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-64-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>service jboss start &amp;&amp; chkconfig jboss on</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><ul>
 <li>>></li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-65-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>echo foo &gt;&gt; /tmp/testfoo</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=スクリプト実行>スクリプト実行<a hidden class=anchor aria-hidden=true href=#スクリプト実行>#</a></h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-66-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-66-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>somescript.sh &gt;&gt; somelog.txt</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>命令実行前にカレントディレクトリを変更</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-67-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-67-1>1</a>
-</span><span class=lnt id=hl-67-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-67-2>2</a>
-</span><span class=lnt id=hl-67-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-67-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>somescript.sh &gt;&gt; somelog.txt</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>args</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>chdir</span><span class=p>:</span><span class=w> </span><span class=l>somedir/</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>命令実行前にカレントディレクトリを変更し、somelog.txtが存在しない時にのみactionを実行する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-68-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-1>1</a>
-</span><span class=lnt id=hl-68-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-2>2</a>
-</span><span class=lnt id=hl-68-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-3>3</a>
-</span><span class=lnt id=hl-68-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>somescript.sh &gt;&gt; somelog.txt</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>args</span><span class=p>:</span><span class=w>
@@ -1080,9 +1080,9 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>creates</span><span class=p>:</span><span class=w> </span><span class=l>somelog.txt</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>Bashを指定し命令を実行する</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-69-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-69-1>1</a>
-</span><span class=lnt id=hl-69-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-69-2>2</a>
-</span><span class=lnt id=hl-69-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-69-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>cat &lt; /tmp/\*txt</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>args</span><span class=p>:</span><span class=w>
@@ -1090,16 +1090,16 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=command>Command<a hidden class=anchor aria-hidden=true href=#command>#</a></h3><p>Shellモジュールと似ていて、リモートノードで命令を実行する。しかし、commandモジュールは $HOME または &ldquo;&lt;&rdquo;, “>”, “|”, “;” and “&”を利用できない</p><h4 id=shell-と似た部分>Shell と似た部分<a hidden class=anchor aria-hidden=true href=#shell-と似た部分>#</a></h4><ul>
 <li>一つの命令を実行する</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-70-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-70-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=l>/sbin/shutdown -t now</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><ul>
 <li>命令を実行する前にカレントディレクトリを変更し、databaseファイルがない時に命令を実行</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-71-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-71-1>1</a>
-</span><span class=lnt id=hl-71-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-71-2>2</a>
-</span><span class=lnt id=hl-71-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-71-3>3</a>
-</span><span class=lnt id=hl-71-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-71-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=l>/usr/bin/make_database.sh arg1 arg2</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>args</span><span class=p>:</span><span class=w>
@@ -1108,14 +1108,14 @@ Index.html内、変更したい部分を変数として記入する。template�
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=shell-と異る部分>Shell と異る部分<a hidden class=anchor aria-hidden=true href=#shell-と異る部分>#</a></h4><ul>
 <li>パラメータを渡す方法はShellより一つ多い</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-72-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=l>/usr/bin/make_database.sh arg1 arg2 creates=/path/to/database</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><ul>
 <li>&& または &#187; は利用できない。</li></ul><p>下記の書き方で、~/tmp/test3と~/tmp/test4は作成できない。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-73-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-1>1</a>
-</span><span class=lnt id=hl-73-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>test $home</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=l>echo &#34;test3&#34; &gt; ~/tmp/test3 &amp;&amp; echo &#34;test4&#34; &gt; ~/tmp/test4</span><span class=w>

@@ -79,8 +79,8 @@ Linux文件的特殊权限设置 setuid setgit sticky
 <td>o+t(sticky)</td><td>无影响</td><td>对文件夹有w权限的用户，仅允许更改和删除属于自己的文件。也就是owner是自己的文件。对其他用户的文件无法更改或删除。</td></tr></tbody></table><h1 id=特殊权限的设定>特殊权限的设定。<a hidden class=anchor aria-hidden=true href=#特殊权限的设定>#</a></h1><p>用记号设定: setuid = u+s; setgid = g+s; sticky = o+t
 用数字设定: setuid = 4; setgid = 2; sticky = 1</p><p>例</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># chmod g+s file 
 </span></span><span class=line><span class=cl># chmod 1755 file

@@ -104,43 +104,43 @@ Kong Managerをホストネームでデプロイための設定
 </p><p>それでは、KongはLoadBalancer/Ingress/&mldr;の後ろにインストールされ、Kong Managerを<code>https://kong-manager.my-company.example.com</code>のような素敵なホスト名でを公開していると仮定しましょう。これを開くと、Kongマネージャが表示されますが、デフォルトのワークスペースは消えていて、新しいワークスペースを作成するボタンもありません。では、何が起こったのでしょうか？</p><p><img loading=lazy src=https://svenwal.de/img/Kong_Manager_broken.jpeg alt=image>
 </p><p>KongのすべてがAPIであり、Kong Managerのユーザーインターフェイス全体が、ローカルのブラウザで動作するブラウザベースのアプリケーションであリます。そして、設定を変更していない場合、デフォルトのAdmin-APIアドレス（http://localhost:8001）への呼び出しが開始されます。</p><p>KongはAdmin-APIの外部URLを知ることができないため、設定でそれを指定する必要があります。例えば、8001-Portを<code>https://kong-admin.my-company.example.com</code> のようにマッピングしたとすると、次のように設定する必要があります。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>admin_api_uri = https://kong-admin.my-company.example.com</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>または（環境変数を使用している場合）</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>kong_admin_api_uri = https://kong-admin.my-company.example.com</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>これで、ブラウザはAdmin APIがどこにあるかを知り、呼び出しを開始するようになりました。しかし、実際に試してみると、やはりうまくアクセスできません。では、何が足りないのでしょうか？</p><p>私たちはKong ManagerとAdmin APIに異なるホスト名を作成しましたが、これはブラウザのCORS保護をトリガーします。<code>https://kong-manager.my-company.example.com</code> 上の JavaScript は <code>https://kong-admin.my-company.example.com</code> への呼び出しを試み、ブラウザはそれを拒否します（クロスオリジンのため）。そこで、第二段階として、Admin-API が正しい <code>Allow-Origin-Header</code> を送信しているかどうかを確認する必要があります。そのためには、Kong ManagerのURLがどのようなものであるかをKongに伝える必要があります。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>admin_gui_url = https://kong-manager.my-company.example.com</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>または（環境変数を使用している場合）</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>KONG_ADMIN_GUI_URL = https://kong-manager.my-company.example.com</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p><img loading=lazy src=https://svenwal.de/img/Kong_Manager_behind_loadbalancer.jpeg alt=image>
 </p><p>これで無事Workspaceにアクセスすることができました。</p><p><img loading=lazy src=https://svenwal.de/img/Kong_Manager_working.jpeg alt=image>
 </p><h2 id=rbacとロギングを有効に>RBACとロギングを有効に<a hidden class=anchor aria-hidden=true href=#rbacとロギングを有効に>#</a></h2><p>Kong Enterpriseを使用する場合、通常、RBACを使用してAdmin-APIとKong Managerを保護する必要があります。Basic-authに対しすべてをセットアップし、<code>Kong-Admin-Token</code> headerがadmin APIでうまく機能すると仮定してみましょう。しかし、ブラウザを開いてログインすると（ヒント：起動時にパスワードを設定した場合、標準のユーザ名はkong_adminです）、うまくいきません。</p><p>上記の例では、ログイン自体はうまくいきますが、作成されたセッションcookieが両方のドメインで有効ではありません（<code>https://kong-manager.my-company.example.com</code> でログインすると、cookieは UI でのみ有効で、Admin-API では有効ではありません）。</p><p>このcookieをブラウザがDNS名で受け入れるようにするためには、両方のDNSエントリで有効になるように設定する必要があります。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>admin_gui_session_conf = {&#34;cookie_domain&#34;: &#34;my-company.example.com&#34;, &#34;secret&#34;: &#34;your-random-secret&#34;, &#34;cookie_secure&#34;:false} </span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>または (環境変数を使っている場合)</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>KONG_ADMIN_GUI_SESSION_CONF = {&#34;cookie_domain&#34;: &#34;my-company.example.com&#34;, &#34;secret&#34;: &#34;your-random-secret&#34;, &#34;cookie_secure&#34;: false}.</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>ここで重要なのは <code>cookie_domain</code> です。両方の URL が共通に持つサブドメインを設定する必要があります。この例では <code>my-company.example.com</code> が両方の URL で共有されています。</p><p>ヒント: この例では、Cookie_secureも追加しています。httpのみでKongを公開している場合に備えて、ここに追加しておきたいと思っただけです。</p><blockquote>
 <p><strong><em>NOTE:</em></strong> 特定のドメイン、特にクラウドプロバイダーからのドメイン（例えば<code>.amazonaws.com</code>）は、ブラウザ内でcookieがブロックされています。cookieに問題がある場合は、<a href=https://stackoverflow.com/questions/43520667/cookies-are-not-being-set-for-amazonaws-com-in-chrome-57-and-58-browsers>StackOverflow</a>のこの投稿を参照してください。</p></blockquote><h2 id=developer-portalも>Developer Portalも<a hidden class=anchor aria-hidden=true href=#developer-portalも>#</a></h2><p>API ベースのユーザーインターフェースの主要な原則について多くを学んだので、Developer Portal(開発者ポータル)についても同じ原則（ウェブベースのユーザーインターフェースと API）を共有しています。そのため、これを動作させるために同様のことをしなければならないです。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
-</span><span class=lnt id=hl-6-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-2>2</a>
-</span><span class=lnt id=hl-6-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-3>3</a>
-</span><span class=lnt id=hl-6-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>portal_gui_protocol = https</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>portal_gui_host = kong-portal.my-company.example.com</span><span class=w>
@@ -148,10 +148,10 @@ Kong Managerをホストネームでデプロイための設定
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>portal_session_conf = {&#34;cookie_name&#34;:&#34;portal_session&#34;,&#34;secret&#34;:&#34;another-random-secret&#34;,&#34;cookie_secure&#34;:false,&#34;cookie_domain&#34;:&#34;my-company.example.com&#34;} </span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>または (環境変数を使っている場合)</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
-</span><span class=lnt id=hl-7-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-2>2</a>
-</span><span class=lnt id=hl-7-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-3>3</a>
-</span><span class=lnt id=hl-7-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>KONG_PORTAL_GUI_PROTOCOL = https</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>KONG_PORTAL_GUI_HOST = kong-portal.my-company.example.com</span><span class=w>

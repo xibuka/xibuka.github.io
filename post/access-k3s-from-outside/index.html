@@ -65,28 +65,28 @@ Access K3s From Outside
 </div><div class=post-content><h1 id=access-k3s-cluster-from-outside>Access k3s cluster from outside<a hidden class=anchor aria-hidden=true href=#access-k3s-cluster-from-outside>#</a></h1><p>When you have created a k3s cluster with the default settings, it only can be access inside the node where you&rsquo;re using.
 Bring the kubeconfig file <code>/etc/rancher/k3s/k3s.yaml</code> outside the node and import it to another host, you will get below issue when trying to access.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ kubectl get node
 </span></span><span class=line><span class=cl>Unable to connect to the server: x509: certificate is valid <span class=k>for</span> 10.0.140.68, 10.43.0.1, 127.0.0.1, not xxx.xxx.xxx.xxx
 </span></span></code></pre></td></tr></table></div></div><p>To make it possible for access k3s cluster outside the node, you can use the below parameter when create the cluster.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>--tls-san value                            <span class=o>(</span>listener<span class=o>)</span> Add additional hostname or IP as a Subject Alternative Name in the TLS cert
 </span></span></code></pre></td></tr></table></div></div><p>for details of this parameter refers to <a href=https://rancher.com/docs/k3s/latest/en/installation/install-options/#registration-options-for-the-k3s-server>https://rancher.com/docs/k3s/latest/en/installation/install-options/#registration-options-for-the-k3s-server</a></p><p>So the install command should like this.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>curl -sfL https://get.k3s.io <span class=p>|</span> <span class=nv>INSTALL_K3S_EXEC</span><span class=o>=</span><span class=s2>&#34;--tls-san &lt;your node public ip address&gt;&#34;</span> sh -
 </span></span></code></pre></td></tr></table></div></div><p>Then you can copy the contents from <code>/etc/rancher/k3s/k3s.yaml</code> and save it in your local machine. Modifying the server&rsquo;s IP address from <code>127.0.0.1</code> to the real address you want to access with.</p><p>Try to fetch the cluster&rsquo;s info and all went well this time.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>❯ kubectl get node
 </span></span><span class=line><span class=cl>NAME         STATUS   ROLES                  AGE   VERSION

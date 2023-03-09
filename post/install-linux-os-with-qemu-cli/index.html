@@ -70,12 +70,12 @@ virtualization solution, could help you to test it on virtual machines. Qemu
 can help you to do a GUI install with Desktop or live Server install ISO, or
 use text-mode installation with a Server install CD.</p><h1 id=install>Install<a hidden class=anchor aria-hidden=true href=#install>#</a></h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ sudo apt install qemu
 </span></span></code></pre></td></tr></table></div></div><p>And also you need a ISO for installation.</p><h1 id=simplefied-case>simplefied case<a hidden class=anchor aria-hidden=true href=#simplefied-case>#</a></h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ qemu-system-x86_64 -cdrom ubuntu.iso
 </span></span></code></pre></td></tr></table></div></div><p>But above command should not work and will be a kernel panic.
@@ -83,11 +83,11 @@ Be default qemu will only allocates 128MB of memory by default which is not
 enough in most case. And ther is no hard drive attached to the VM for the
 instalation to complete.</p><h1 id=with-a-specified-hard-drive-and-a-proper-memory>With a specified hard drive and a proper memory<a hidden class=anchor aria-hidden=true href=#with-a-specified-hard-drive-and-a-proper-memory>#</a></h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3>3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4>4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ qemu-img create -f qcow2 disk.qcow2 10G
 </span></span><span class=line><span class=cl>Formatting &#39;disk.qcow2&#39;, fmt=qcow2 size=10737418240 cluster_size=65536 lazy_refcounts=off refcount_bits=16
@@ -98,10 +98,10 @@ instalation to complete.</p><h1 id=with-a-specified-hard-drive-and-a-proper-memo
 <code>-enable-kvm</code> option to let QEMU to run in KVM mode. To use this option you
 need to make sure KVM is supported by your processor and kernel.</p><p>So, try below command and you can have a GUI to install the OS.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3>3</a>
-</span><span class=lnt id=hl-3-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ qemu-system-x86_64 -cdrom ubuntu-18.04.4-desktop-amd64.iso \
 </span></span><span class=line><span class=cl>                     -hda disk.qcow2                         \
@@ -110,22 +110,22 @@ need to make sure KVM is supported by your processor and kernel.</p><p>So, try b
 </span></span></code></pre></td></tr></table></div></div><p><img loading=lazy src=/img/2020-04-15_13-57.png alt="install screen">
 </p><h1 id=other-scenarios>Other scenarios<a hidden class=anchor aria-hidden=true href=#other-scenarios>#</a></h1><h2 id=with-more-than-one-disks>With more than one disks<a hidden class=anchor aria-hidden=true href=#with-more-than-one-disks>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ qemu-system-x86_64 -cdrom ubuntu.iso -hda disk1.qcow2 -hdb disk2.qcow2
 </span></span></code></pre></td></tr></table></div></div><h2 id=with-a-boot-menu>With a boot menu<a hidden class=anchor aria-hidden=true href=#with-a-boot-menu>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ qemu-system-x86_64 -boot menu=on -cdrom ubuntu.iso -hda disk.qcow2
 </span></span></code></pre></td></tr></table></div></div><h2 id=with-physical-usb-drive-requires-root-hdb-is-used-to-avoid-conflict>With physical USB drive (requires root, hdb is used to avoid conflict)<a hidden class=anchor aria-hidden=true href=#with-physical-usb-drive-requires-root-hdb-is-used-to-avoid-conflict>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ qemu-system-x86_64 -usb /dev/sdb1 -hdb disk.qcow2
 </span></span></code></pre></td></tr></table></div></div><h2 id=with-an-image-as-usb-drive>With an image as USB drive<a hidden class=anchor aria-hidden=true href=#with-an-image-as-usb-drive>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ qemu-system-x86_64 -usb usb.img -hdb disk.qcow2
 </span></span></code></pre></td></tr></table></div></div><h1 id=refers>refers<a hidden class=anchor aria-hidden=true href=#refers>#</a></h1><p><a href=http://manpages.ubuntu.com/manpages/bionic/man1/qemu-system.1.html>http://manpages.ubuntu.com/manpages/bionic/man1/qemu-system.1.html</a></p></div><footer class=post-footer>

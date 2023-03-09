@@ -78,27 +78,27 @@ Kong Gatewayの Route By Header Pluginを使ってみる
 <li><a href=#紹介>紹介</a></li><li><a href=#デモ>デモ</a></li><li><a href=#検証>検証</a></li></ul></nav></div></details>
 </div><div class=post-content><h2 id=紹介>紹介<a hidden class=anchor aria-hidden=true href=#紹介>#</a></h2><p>Kong GatewayではRouteでサブパスを定義し、どのServiceにアクセスするかを決めています。例えば、以下のURLの後ろのサブパスがpathAの場合は、トラフィックがserviceAにルーティングされ、最終的に後ろにあるendpointAにアクセスされます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>http://mykong.org:8000/pathA =&gt; serviceA =&gt; endpointA
 </span></span></code></pre></td></tr></table></div></div><p>しかし、サブパスではなくて、もっと動的にリクエストの転送先を決めたい場合があります。このプラグインは、事前に定義されたヘッダーと転送先をルールに、リクエストヘッダ情報を見て転送先を決めています。ルールに二つのパラメータがあり、<code>condition</code>は定義したヘッダーと値、<code>upstream_name</code>は転送先のUpstreamオブジェクトです。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span><span class=nt>&#34;rules&#34;</span><span class=p>:[{</span><span class=nt>&#34;condition&#34;</span><span class=p>:</span> <span class=p>{</span><span class=nt>&#34;location&#34;</span><span class=p>:</span><span class=s2>&#34;us-east&#34;</span><span class=p>},</span> <span class=nt>&#34;upstream_name&#34;</span><span class=p>:</span> <span class=s2>&#34;east.doamin.com&#34;</span><span class=p>}]}</span>
 </span></span></code></pre></td></tr></table></div></div><p>この記事では、このプラグインの実装についてメモします。
 注：このプラグインを操作できるのはAdmin APIを通す方法のみ。Kong Managerでの操作はできない。</p><p><a href=https://docs.konghq.com/hub/kong-inc/route-by-header/>https://docs.konghq.com/hub/kong-inc/route-by-header/</a></p><h2 id=デモ>デモ<a hidden class=anchor aria-hidden=true href=#デモ>#</a></h2><p>実際にこのプラグインを使ってみましょう。まずは作業用の<code>service</code>と<code>route</code>を作成する。<code>service</code>のendpointは<a href=http://httpbin.org/anything>http://httpbin.org/anything</a> となりますが、このプラグインのルールに当てはまらない時にアクセスされます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1> 1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2> 2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3> 3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4> 4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5> 5</a>
-</span><span class=lnt id=hl-2-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-6> 6</a>
-</span><span class=lnt id=hl-2-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-7> 7</a>
-</span><span class=lnt id=hl-2-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-8> 8</a>
-</span><span class=lnt id=hl-2-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-9> 9</a>
-</span><span class=lnt id=hl-2-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-10>10</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -i -X POST http://localhost:8001/services <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span>  --data <span class=nv>protocol</span><span class=o>=</span>http <span class=se>\
@@ -112,11 +112,11 @@ Kong Gatewayの Route By Header Pluginを使ってみる
 </span></span><span class=line><span class=cl>  --data <span class=nv>name</span><span class=o>=</span>demo
 </span></span></code></pre></td></tr></table></div></div><p>次に、転送先の<code>Upstream</code>を二つ用意し、<code>myip</code>と<code>date</code>をそれぞれアクセスするとIPアドレスと時間が表示されます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3>3</a>
-</span><span class=lnt id=hl-3-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-4>4</a>
-</span><span class=lnt id=hl-3-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -i -X POST http://localhost:8001/upstreams -d <span class=nv>name</span><span class=o>=</span>myip
 </span></span><span class=line><span class=cl>curl -i -X POST http://localhost:8001/upstreams/myip/targets --data <span class=nv>target</span><span class=o>=</span><span class=s2>&#34;ip.jsontest.com:80&#34;</span>
@@ -125,29 +125,29 @@ Kong Gatewayの Route By Header Pluginを使ってみる
 </span></span><span class=line><span class=cl>curl -i -X POST http://localhost:8001/upstreams/date/targets --data <span class=nv>target</span><span class=o>=</span><span class=s2>&#34;date.jsontest.com:80&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><p>最後はrouteに対してこのプラグインを作ります。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1>1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2>2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -i -X POST http://localhost:8001/routes/demo/plugins <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span>  -H <span class=s1>&#39;Content-Type: application/json&#39;</span> <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span>  --data <span class=s1>&#39;{&#34;name&#34;: &#34;route-by-header&#34;, &#34;config&#34;: {&#34;rules&#34;:[{&#34;condition&#34;: {&#34;info&#34;:&#34;myip&#34;}, &#34;upstream_name&#34;: &#34;myip&#34;}, {&#34;condition&#34;: {&#34;info&#34;:&#34;date&#34;}, &#34;upstream_name&#34;: &#34;date&#34;}]}}&#39;</span>
 </span></span></code></pre></td></tr></table></div></div><p><code>--data</code>の部分はJsonで記載した振り分けのルールです。headerに<code>info:myip</code>が存在したら、<code>myip</code>のupstreamにふりわけされ、<code>info:date</code>が存在したら、<code>date</code>のupstreamに振り分けられます。</p><h2 id=検証>検証<a hidden class=anchor aria-hidden=true href=#検証>#</a></h2><p>リクエストのヘッダーに<code>info:myip</code>を設定したら、<code>myip</code>のUpstreamに転送されました。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1> 1</a>
-</span><span class=lnt id=hl-5-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-2> 2</a>
-</span><span class=lnt id=hl-5-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-3> 3</a>
-</span><span class=lnt id=hl-5-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-4> 4</a>
-</span><span class=lnt id=hl-5-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-5> 5</a>
-</span><span class=lnt id=hl-5-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-6> 6</a>
-</span><span class=lnt id=hl-5-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-7> 7</a>
-</span><span class=lnt id=hl-5-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-8> 8</a>
-</span><span class=lnt id=hl-5-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-9> 9</a>
-</span><span class=lnt id=hl-5-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-10>10</a>
-</span><span class=lnt id=hl-5-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-11>11</a>
-</span><span class=lnt id=hl-5-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-12>12</a>
-</span><span class=lnt id=hl-5-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-13>13</a>
-</span><span class=lnt id=hl-5-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-14>14</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ curl -i -X GET http://localhost:8000/ -H <span class=s2>&#34;info:myip&#34;</span>
 </span></span><span class=line><span class=cl>HTTP/1.1 <span class=m>200</span> OK
@@ -165,24 +165,24 @@ Kong Gatewayの Route By Header Pluginを使ってみる
 </span></span><span class=line><span class=cl><span class=o>{</span><span class=s2>&#34;ip&#34;</span>: <span class=s2>&#34;18.181.83.240&#34;</span><span class=o>}</span>
 </span></span></code></pre></td></tr></table></div></div><p>リクエストのヘッダーに<code>info:date</code>を設定したら、<code>date</code>のUpstreamに転送されました。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1> 1</a>
-</span><span class=lnt id=hl-6-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-2> 2</a>
-</span><span class=lnt id=hl-6-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-3> 3</a>
-</span><span class=lnt id=hl-6-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-4> 4</a>
-</span><span class=lnt id=hl-6-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-5> 5</a>
-</span><span class=lnt id=hl-6-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-6> 6</a>
-</span><span class=lnt id=hl-6-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-7> 7</a>
-</span><span class=lnt id=hl-6-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-8> 8</a>
-</span><span class=lnt id=hl-6-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-9> 9</a>
-</span><span class=lnt id=hl-6-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-10>10</a>
-</span><span class=lnt id=hl-6-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-11>11</a>
-</span><span class=lnt id=hl-6-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-12>12</a>
-</span><span class=lnt id=hl-6-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-13>13</a>
-</span><span class=lnt id=hl-6-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-14>14</a>
-</span><span class=lnt id=hl-6-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-15>15</a>
-</span><span class=lnt id=hl-6-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-16>16</a>
-</span><span class=lnt id=hl-6-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-17>17</a>
-</span><span class=lnt id=hl-6-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-18>18</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ curl -i -X GET http://localhost:8000/ -H <span class=s2>&#34;info:date&#34;</span>
 </span></span><span class=line><span class=cl>HTTP/1.1 <span class=m>200</span> OK
@@ -204,37 +204,37 @@ Kong Gatewayの Route By Header Pluginを使ってみる
 </span></span><span class=line><span class=cl><span class=o>}</span>
 </span></span></code></pre></td></tr></table></div></div><p>リクエストのヘッダーを設定せず、つまりどのルールにも当てはまらない時は、serviceの元のendpoint、<a href=http://httpbin.org/anything>http://httpbin.org/anything</a> に転送されました。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1> 1</a>
-</span><span class=lnt id=hl-7-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-2> 2</a>
-</span><span class=lnt id=hl-7-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-3> 3</a>
-</span><span class=lnt id=hl-7-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-4> 4</a>
-</span><span class=lnt id=hl-7-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-5> 5</a>
-</span><span class=lnt id=hl-7-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-6> 6</a>
-</span><span class=lnt id=hl-7-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-7> 7</a>
-</span><span class=lnt id=hl-7-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-8> 8</a>
-</span><span class=lnt id=hl-7-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-9> 9</a>
-</span><span class=lnt id=hl-7-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-10>10</a>
-</span><span class=lnt id=hl-7-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-11>11</a>
-</span><span class=lnt id=hl-7-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-12>12</a>
-</span><span class=lnt id=hl-7-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-13>13</a>
-</span><span class=lnt id=hl-7-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-14>14</a>
-</span><span class=lnt id=hl-7-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-15>15</a>
-</span><span class=lnt id=hl-7-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-16>16</a>
-</span><span class=lnt id=hl-7-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-17>17</a>
-</span><span class=lnt id=hl-7-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-18>18</a>
-</span><span class=lnt id=hl-7-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-19>19</a>
-</span><span class=lnt id=hl-7-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-20>20</a>
-</span><span class=lnt id=hl-7-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-21>21</a>
-</span><span class=lnt id=hl-7-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-22>22</a>
-</span><span class=lnt id=hl-7-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-23>23</a>
-</span><span class=lnt id=hl-7-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-24>24</a>
-</span><span class=lnt id=hl-7-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-25>25</a>
-</span><span class=lnt id=hl-7-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-26>26</a>
-</span><span class=lnt id=hl-7-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-27>27</a>
-</span><span class=lnt id=hl-7-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-28>28</a>
-</span><span class=lnt id=hl-7-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-29>29</a>
-</span><span class=lnt id=hl-7-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-30>30</a>
-</span><span class=lnt id=hl-7-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-31>31</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>ec2-user@ip-10-0-18-228 ~<span class=o>]</span>$ curl -i -X GET http://localhost:8000/
 </span></span><span class=line><span class=cl>HTTP/1.1 <span class=m>200</span> OK

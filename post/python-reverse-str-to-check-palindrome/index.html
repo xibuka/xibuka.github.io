@@ -80,10 +80,10 @@ Pythonで回文チェック
 数字の場合も同じく、5,44,171,4884が回文であり、43,194,4773が回文ではない。</p><p>そして、今回の問題は、引数の数字に対し、特定な計算方法で、何回計算したら回文になるかを算出する。
 ここでの特定な計算方法は、「自分の数字の各桁を反転し、元の数字と足し算する」のこと。</p><p>例えば、87が与えられ、4回の計算で回文数字になったため、戻り値を４にする。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>87 + 78     = 165; 
 </span></span><span class=line><span class=cl>165 + 561   = 726; 
@@ -92,19 +92,19 @@ Pythonで回文チェック
 </span></span></code></pre></td></tr></table></div></div><p>ここで難しいのは、数字をどうやって反転するか。
 いろいろ調べた結果、意外と簡単でした。しかも一行で済む。<a href=http://d.hatena.ne.jp/redcat_prog/20111104/1320395840>Python で文字列反転</a></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>str</span><span class=p>(</span><span class=n>n</span><span class=p>)</span>       <span class=c1># 数字を文字列に変換</span>
 </span></span><span class=line><span class=cl><span class=nb>str</span><span class=p>(</span><span class=n>n</span><span class=p>)[::</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span> <span class=c1># 数字を文字列に変換し、逆順に変換する。</span>
 </span></span></code></pre></td></tr></table></div></div><p>このような書き方は、「文字列の末尾から一つずつ遡って先頭まで要素を取り出す」の操作となる。</p><p>そしてさっきの問題に対し自分の答えは</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3>3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4>4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5>5</a>
-</span><span class=lnt id=hl-2-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>palindrome_chain_length</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
 </span></span><span class=line><span class=cl>    <span class=n>cnt</span><span class=o>=</span><span class=mi>0</span>

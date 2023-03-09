@@ -76,14 +76,14 @@ Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント
 </div><div class=post-content><h2 id=背景>背景<a hidden class=anchor aria-hidden=true href=#背景>#</a></h2><p>Kong Gatewayをデプロイする時に、データベースへの接続情報など平文で保存したくないデータが存在しています。これを解決するためにKong Secret Managerが開発され、AWS Secrets Managerなどの3rdパーティのサービスを利用すれば解決できます。しかし、環境によって外部のセキュリティサービスに接続できない時にこの機能は利用できません。ここで、Mozilaが開発したSOPSという暗号化ツールとGithub ActionのCI/CD workflowを利用し、普段暗号化されている設定ファイルをデプロイ時だけ復号し、Kong GWをインストールする実現することができました。</p><h2 id=事前準備>事前準備<a hidden class=anchor aria-hidden=true href=#事前準備>#</a></h2><p>CI/CD workflowを構築する前に、まずはローカル環境で暗号と復号を試してみましょう。以下の必要なツールをローカル環境にインストールします。</p><ol>
 <li><a href=https://github.com/FiloSottile/age/releases>age</a></li><li><a href=https://github.com/mozilla/sops/releases>sops</a></li></ol><p>SOPSはとても便利な暗号化・復号化のツールで人気があります。PGP, age, Google cloud&rsquo;s KMS, Azure&rsquo;s key valut, Hashicorp Vaultなどをサポートしています。今回は他のクラウドサービスを極力利用しない方針のため、ageを選択しました。</p><p>ツールのインストールができましたら、<code>age-kengen --help</code>を試してみましょう。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4>4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5>5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6>6</a>
-</span><span class=lnt id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7>7</a>
-</span><span class=lnt id=hl-0-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ age-keygen --help
 </span></span><span class=line><span class=cl>Usage:
@@ -95,13 +95,13 @@ Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント
 </span></span><span class=line><span class=cl>    -y                        Convert an identity file to a recipients file.
 </span></span></code></pre></td></tr></table></div></div><p>見た感じ大丈夫そうなので、早速Keyを生成しましょう。</p><h2 id=keyの生成>keyの生成<a hidden class=anchor aria-hidden=true href=#keyの生成>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4>4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5>5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6>6</a>
-</span><span class=lnt id=hl-1-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ age-keygen -o sops-key.txt
 </span></span><span class=line><span class=cl>Public key: age1hhpnj4ylj5z7qwaek0ncrq882ygmvnv4unup78u3djgmlezrmgkqshyatc
@@ -112,27 +112,27 @@ Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント
 </span></span><span class=line><span class=cl>AGE-SECRET-KEY-1UHJNXS6RKYWA72RVED0ERGZVQ98N6MDFV6Y3CSPPN9JKLKSRH9GSQRLFAE
 </span></span></code></pre></td></tr></table></div></div><p><code>sops-key.txt</code>ファイルに２種類のkeyが生成されました。Public keyは暗号化用、Private Keyは復号化用です。</p><h2 id=設定ファイルの暗号化>設定ファイルの暗号化<a hidden class=anchor aria-hidden=true href=#設定ファイルの暗号化>#</a></h2><p>SOPSをもっと便利に使うために、一つの設定ファイル <code>.sops.yaml</code>を作りましょう。これでコマンドラインからkeyを指定する必要がなくなります。ageの後ろに先ほど生成したPublic keyを記入しまして、encrypted_regexの部分は、どのセクションの内容を暗号化するかを設定するところです。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>creation_rules</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>encrypted_regex</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;^(env|admin|proxy|enterprise|manager|portal|portalapi|postgresql)$&#39;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>age</span><span class=p>:</span><span class=w> </span><span class=l>age1hhpnj4ylj5z7qwaek0ncrq882ygmvnv4unup78u3djgmlezrmgkqshyatc</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>上記の設定で、以下のコマンドで、Kong GWデプロイのファイルを暗号化することができます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1> 1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2> 2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3> 3</a>
-</span><span class=lnt id=hl-3-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-4> 4</a>
-</span><span class=lnt id=hl-3-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-5> 5</a>
-</span><span class=lnt id=hl-3-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-6> 6</a>
-</span><span class=lnt id=hl-3-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-7> 7</a>
-</span><span class=lnt id=hl-3-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-8> 8</a>
-</span><span class=lnt id=hl-3-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-9> 9</a>
-</span><span class=lnt id=hl-3-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-10>10</a>
-</span><span class=lnt id=hl-3-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-11>11</a>
-</span><span class=lnt id=hl-3-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-12>12</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sops -e -i values.yaml
 </span></span><span class=line><span class=cl>$ head values.yaml
@@ -149,18 +149,18 @@ Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント
 </span></span></code></pre></td></tr></table></div></div><p><code>image</code>のセクションは暗号化対象<code>encrypted_regex</code>にないので、平文のままになっております。</p><h2 id=設定ファイルの復号化>設定ファイルの復号化<a hidden class=anchor aria-hidden=true href=#設定ファイルの復号化>#</a></h2><p>複合するために、まずはPrivate Keyを<code>.config/sops/age/keys.txt</code>にコピーします。このパスはデフォルトのパスなので、 sopsコマンドを実行する時にはPrivate Keyを指定する必要がなくなります。
 Private Keyの設定したら、以下のコマンドで上で暗号化したファイルを複合化することができます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
-</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
-</span><span class=lnt id=hl-4-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-12>12</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sops -d -i values.yaml
 </span></span><span class=line><span class=cl>$ head values.yaml

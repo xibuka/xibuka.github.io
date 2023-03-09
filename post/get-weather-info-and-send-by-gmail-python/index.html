@@ -82,35 +82,35 @@ Python每日获取天气情报并通过邮件通知
 </p><p>代码如下
 注：soup.find之后需要将内容转换为string格式，不然python2环境下无法发送邮件</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1> 1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2> 2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3> 3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4> 4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5> 5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6> 6</a>
-</span><span class=lnt id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7> 7</a>
-</span><span class=lnt id=hl-0-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-8> 8</a>
-</span><span class=lnt id=hl-0-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-9> 9</a>
-</span><span class=lnt id=hl-0-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-10>10</a>
-</span><span class=lnt id=hl-0-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-11>11</a>
-</span><span class=lnt id=hl-0-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-12>12</a>
-</span><span class=lnt id=hl-0-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-13>13</a>
-</span><span class=lnt id=hl-0-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-14>14</a>
-</span><span class=lnt id=hl-0-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-15>15</a>
-</span><span class=lnt id=hl-0-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-16>16</a>
-</span><span class=lnt id=hl-0-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-17>17</a>
-</span><span class=lnt id=hl-0-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-18>18</a>
-</span><span class=lnt id=hl-0-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-19>19</a>
-</span><span class=lnt id=hl-0-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-20>20</a>
-</span><span class=lnt id=hl-0-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-21>21</a>
-</span><span class=lnt id=hl-0-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-22>22</a>
-</span><span class=lnt id=hl-0-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-23>23</a>
-</span><span class=lnt id=hl-0-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-24>24</a>
-</span><span class=lnt id=hl-0-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-25>25</a>
-</span><span class=lnt id=hl-0-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-26>26</a>
-</span><span class=lnt id=hl-0-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-27>27</a>
-</span><span class=lnt id=hl-0-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-28>28</a>
-</span><span class=lnt id=hl-0-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-29>29</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/root/.pyenv/shims/python</span>
 </span></span><span class=line><span class=cl><span class=c1>#-*- coding: UTF-8 -*-</span>
@@ -145,62 +145,62 @@ Python每日获取天气情报并通过邮件通知
 使用MIMEMultipart,MIMEText来设置邮件内容，
 使用smtplib来发送邮件。在这里我们用gmail账户来发送邮件。</p><p>下面是代码</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1> 1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2> 2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3> 3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4> 4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5> 5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6> 6</a>
-</span><span class=lnt id=hl-1-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-7> 7</a>
-</span><span class=lnt id=hl-1-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-8> 8</a>
-</span><span class=lnt id=hl-1-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-9> 9</a>
-</span><span class=lnt id=hl-1-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-10>10</a>
-</span><span class=lnt id=hl-1-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-11>11</a>
-</span><span class=lnt id=hl-1-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-12>12</a>
-</span><span class=lnt id=hl-1-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-13>13</a>
-</span><span class=lnt id=hl-1-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-14>14</a>
-</span><span class=lnt id=hl-1-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-15>15</a>
-</span><span class=lnt id=hl-1-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-16>16</a>
-</span><span class=lnt id=hl-1-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-17>17</a>
-</span><span class=lnt id=hl-1-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-18>18</a>
-</span><span class=lnt id=hl-1-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-19>19</a>
-</span><span class=lnt id=hl-1-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-20>20</a>
-</span><span class=lnt id=hl-1-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-21>21</a>
-</span><span class=lnt id=hl-1-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-22>22</a>
-</span><span class=lnt id=hl-1-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-23>23</a>
-</span><span class=lnt id=hl-1-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-24>24</a>
-</span><span class=lnt id=hl-1-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-25>25</a>
-</span><span class=lnt id=hl-1-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-26>26</a>
-</span><span class=lnt id=hl-1-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-27>27</a>
-</span><span class=lnt id=hl-1-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-28>28</a>
-</span><span class=lnt id=hl-1-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-29>29</a>
-</span><span class=lnt id=hl-1-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-30>30</a>
-</span><span class=lnt id=hl-1-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-31>31</a>
-</span><span class=lnt id=hl-1-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-32>32</a>
-</span><span class=lnt id=hl-1-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-33>33</a>
-</span><span class=lnt id=hl-1-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-34>34</a>
-</span><span class=lnt id=hl-1-35><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-35>35</a>
-</span><span class=lnt id=hl-1-36><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-36>36</a>
-</span><span class=lnt id=hl-1-37><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-37>37</a>
-</span><span class=lnt id=hl-1-38><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-38>38</a>
-</span><span class=lnt id=hl-1-39><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-39>39</a>
-</span><span class=lnt id=hl-1-40><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-40>40</a>
-</span><span class=lnt id=hl-1-41><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-41>41</a>
-</span><span class=lnt id=hl-1-42><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-42>42</a>
-</span><span class=lnt id=hl-1-43><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-43>43</a>
-</span><span class=lnt id=hl-1-44><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-44>44</a>
-</span><span class=lnt id=hl-1-45><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-45>45</a>
-</span><span class=lnt id=hl-1-46><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-46>46</a>
-</span><span class=lnt id=hl-1-47><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-47>47</a>
-</span><span class=lnt id=hl-1-48><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-48>48</a>
-</span><span class=lnt id=hl-1-49><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-49>49</a>
-</span><span class=lnt id=hl-1-50><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-50>50</a>
-</span><span class=lnt id=hl-1-51><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-51>51</a>
-</span><span class=lnt id=hl-1-52><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-52>52</a>
-</span><span class=lnt id=hl-1-53><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-53>53</a>
-</span><span class=lnt id=hl-1-54><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-54>54</a>
-</span><span class=lnt id=hl-1-55><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-55>55</a>
-</span><span class=lnt id=hl-1-56><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-56>56</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/root/.pyenv/shims/python</span>
 </span></span><span class=line><span class=cl><span class=c1>#-*- coding: UTF-8 -*-</span>

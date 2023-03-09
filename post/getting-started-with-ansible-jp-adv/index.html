@@ -123,41 +123,41 @@ Ansible 入門 - 応用
 <li>ANSIBLE_CONFIG (an environment variable)</li><li>ansible.cfg (in the current directory)</li><li>.ansible.cfg (in the home directory)</li><li>/etc/ansible/ansible.cfg</li></ol><p>Ansible 1.5以前の順番は</p><ol>
 <li>ansible.cfg (in the current directory)</li><li>ANSIBLE_CONFIG (an environment variable)</li><li>.ansible.cfg (in the home directory)</li><li>/etc/ansible/ansible.cfg</li></ol><h1 id=host-inventoryサーバーリスト>Host Inventory(サーバーリスト)<a hidden class=anchor aria-hidden=true href=#host-inventoryサーバーリスト>#</a></h1><p>サーバーリストとは、管理対象のリモートノード情報と、カテゴリやグループなどの情報をAnsibleに教えるためのファイルである。カテゴリは自分のニーズ、ロケーション、役割などによって分類できる。</p><h2 id=ファイルパス>ファイルパス<a hidden class=anchor aria-hidden=true href=#ファイルパス>#</a></h2><h3 id=デフォルトのファイルパス>デフォルトのファイルパス<a hidden class=anchor aria-hidden=true href=#デフォルトのファイルパス>#</a></h3><p><code>/etc/ansible/hosts</code></p><h3 id=ファイルパスの変更>ファイルパスの変更<a hidden class=anchor aria-hidden=true href=#ファイルパスの変更>#</a></h3><p><code>/etc/ansible/ansible.cfg</code> の以下の部分を変更</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>...</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>inventory      = /etc/ansible/hosts</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nn>...</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=コマンドライン上で指定>コマンドライン上で指定<a hidden class=anchor aria-hidden=true href=#コマンドライン上で指定>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook -i hosts site.yml
 </span></span></code></pre></td></tr></table></div></div><p>或者参数–inventory-file</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook --inventory-file hosts site.yml
 </span></span></code></pre></td></tr></table></div></div><h2 id=サーバーのカテゴリ化>サーバーのカテゴリ化<a hidden class=anchor aria-hidden=true href=#サーバーのカテゴリ化>#</a></h2><p><code>[]</code>内でグループ名を書く</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1> 1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2> 2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3> 3</a>
-</span><span class=lnt id=hl-3-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-4> 4</a>
-</span><span class=lnt id=hl-3-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-5> 5</a>
-</span><span class=lnt id=hl-3-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-6> 6</a>
-</span><span class=lnt id=hl-3-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-7> 7</a>
-</span><span class=lnt id=hl-3-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-8> 8</a>
-</span><span class=lnt id=hl-3-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-9> 9</a>
-</span><span class=lnt id=hl-3-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-10>10</a>
-</span><span class=lnt id=hl-3-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-11>11</a>
-</span><span class=lnt id=hl-3-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-12>12</a>
-</span><span class=lnt id=hl-3-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-13>13</a>
-</span><span class=lnt id=hl-3-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-14>14</a>
-</span><span class=lnt id=hl-3-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-15>15</a>
-</span><span class=lnt id=hl-3-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-16>16</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>mail.example.com</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -177,23 +177,23 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>db-[a:f].example.com</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>グループは子グループを持つこともできる。以下の例では、southeaseグループは[usa:children]の子グループであり、atlantaとreleighは[southease:children]の子グループである。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
-</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
-</span><span class=lnt id=hl-4-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-12>12</a>
-</span><span class=lnt id=hl-4-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-13>13</a>
-</span><span class=lnt id=hl-4-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-14>14</a>
-</span><span class=lnt id=hl-4-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-15>15</a>
-</span><span class=lnt id=hl-4-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-16>16</a>
-</span><span class=lnt id=hl-4-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-17>17</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=p>[</span><span class=l>atlanta]</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>host1</span><span class=w>
@@ -214,15 +214,15 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>northwest</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h2 id=接続パラメータと変数>接続パラメータと変数<a hidden class=anchor aria-hidden=true href=#接続パラメータと変数>#</a></h2><h3 id=パラメータ>パラメータ<a hidden class=anchor aria-hidden=true href=#パラメータ>#</a></h3><p>リモートノードに接続する方法とユーザを、パラメータに設定できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
-</span><span class=lnt id=hl-5-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-2>2</a>
-</span><span class=lnt id=hl-5-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-3>3</a>
-</span><span class=lnt id=hl-5-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-4>4</a>
-</span><span class=lnt id=hl-5-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-5>5</a>
-</span><span class=lnt id=hl-5-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-6>6</a>
-</span><span class=lnt id=hl-5-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-7>7</a>
-</span><span class=lnt id=hl-5-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-8>8</a>
-</span><span class=lnt id=hl-5-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-9>9</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=p>[</span><span class=l>targets]</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -236,13 +236,13 @@ Ansible 入門 - 応用
 </span></span></span></code></pre></td></tr></table></div></div><p>指定可能なパラメータの一覧は以下を参照する。
 <a href=http://docs.ansible.com/ansible/intro_inventory.html#list-of-behavioral-inventory-parameters>http://docs.ansible.com/ansible/intro_inventory.html#list-of-behavioral-inventory-parameters</a></p><h3 id=変数>変数<a hidden class=anchor aria-hidden=true href=#変数>#</a></h3><p>グループに対して変数を設定することができる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
-</span><span class=lnt id=hl-6-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-2>2</a>
-</span><span class=lnt id=hl-6-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-3>3</a>
-</span><span class=lnt id=hl-6-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-4>4</a>
-</span><span class=lnt id=hl-6-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-5>5</a>
-</span><span class=lnt id=hl-6-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-6>6</a>
-</span><span class=lnt id=hl-6-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=p>[</span><span class=l>atlanta]</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>host1</span><span class=w>
@@ -253,47 +253,47 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>proxy=proxy.atlanta.example.com</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h2 id=ディレクトリ構造での変数保存>ディレクトリ構造での変数保存<a hidden class=anchor aria-hidden=true href=#ディレクトリ構造での変数保存>#</a></h2><p>例えば、inventoryファイルは<code>/etc/ansible/hosts</code>の場合、関連するhostsとgroup変数は以下のディレクトリに保存できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
-</span><span class=lnt id=hl-7-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-2>2</a>
-</span><span class=lnt id=hl-7-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>/etc/ansible/group_vars/raleigh <span class=c1># can optionally end in &#39;.yml&#39;, &#39;.yaml&#39;, or &#39;.json&#39;</span>
 </span></span><span class=line><span class=cl>/etc/ansible/group_vars/webservers
 </span></span><span class=line><span class=cl>/etc/ansible/host_vars/foosball
 </span></span></code></pre></td></tr></table></div></div><p><code>/etc/ansible/group_vars/raleigh</code> ファイルの内容は</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-1>1</a>
-</span><span class=lnt id=hl-8-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-2>2</a>
-</span><span class=lnt id=hl-8-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>ntp_server</span><span class=p>:</span><span class=w> </span><span class=l>acme.example.org</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>database_server</span><span class=p>:</span><span class=w> </span><span class=l>storage.example.org</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>もし対応する名前はディレクトリ名の場合、Ansibleはこのディレクトリ以下のすべてのファイルの内容を読み込む。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-1>1</a>
-</span><span class=lnt id=hl-9-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>/etc/ansible/group_vars/raleigh/db_settings
 </span></span><span class=line><span class=cl>/etc/ansible/group_vars/raleigh/cluster_settings
 </span></span></code></pre></td></tr></table></div></div><p><code>group_vars/</code>と<code>host_vars/</code> は<code>inventory/</code>以下または<code>playbook/</code>以下に置くことができる。もし両方(<code>inventory/</code>または<code>playbook/</code>)の下にファイルがある場合、playbook以下の配置はinventoryより<strong>優先的に</strong>読み込まれる。</p><h1 id=ansibleのスクリプトplaybook>Ansibleのスクリプト(Playbook)<a hidden class=anchor aria-hidden=true href=#ansibleのスクリプトplaybook>#</a></h1><h2 id=フォーマット>フォーマット<a hidden class=anchor aria-hidden=true href=#フォーマット>#</a></h2><p>AnsibleのスクリプトはYAML形式を利用している。Playbookを書く前に既存のPlaybookを参考したほうが効率良く作成することができる効率。</p><h3 id=オフィシャルの例>オフィシャルの例<a hidden class=anchor aria-hidden=true href=#オフィシャルの例>#</a></h3><p>Ansibleの公式Githubリポジトリに存在するテスト済みのPlaybookをシェアしている。</p><p><a href=https://github.com/ansible/ansible-examples>https://github.com/ansible/ansible-examples</a></p><h3 id=他のユーザがシェアしたplaybook>他のユーザがシェアしたPlaybook<a hidden class=anchor aria-hidden=true href=#他のユーザがシェアしたplaybook>#</a></h3><p>「Ansible Galaxy」というPlaybookをシェアするためのサイトがある。このサイトにある例はユーザが自分でアップロードしたもので、Playbookの勉強や参考にするとは良いが、実際に利用する前には必ずテストが必要である。</p><p><a href=https://galaxy.ansible.com/>https://galaxy.ansible.com/</a></p><h2 id=playbookの基本>Playbookの基本<a hidden class=anchor aria-hidden=true href=#playbookの基本>#</a></h2><p>本節ではPlaybookを書くための基本を説明する。</p><h3 id=playbookの実行>Playbookの実行<a hidden class=anchor aria-hidden=true href=#playbookの実行>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook deploy.yml
 </span></span></code></pre></td></tr></table></div></div><p>詳細な実行ログを出力</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook playbook.yml  --verbose
 </span></span></code></pre></td></tr></table></div></div><p>影響するリモートノードの一覧</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook playbook.yml --list-hosts
 </span></span></code></pre></td></tr></table></div></div><p>スクリプトを並行に実行する</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook playbook.yml -f <span class=m>10</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=簡単なplaybookの例>簡単なPlaybookの例<a hidden class=anchor aria-hidden=true href=#簡単なplaybookの例>#</a></h3><p>基本のplaybookのスクリプトの例では、以下三つの部分がある。</p><ol>
@@ -305,24 +305,24 @@ Ansible 入門 - 応用
 <ol>
 <li>handles</li></ol></li></ol><p><code>deploy.yml</code></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-1> 1</a>
-</span><span class=lnt id=hl-14-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-2> 2</a>
-</span><span class=lnt id=hl-14-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-3> 3</a>
-</span><span class=lnt id=hl-14-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-4> 4</a>
-</span><span class=lnt id=hl-14-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-5> 5</a>
-</span><span class=lnt id=hl-14-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-6> 6</a>
-</span><span class=lnt id=hl-14-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-7> 7</a>
-</span><span class=lnt id=hl-14-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-8> 8</a>
-</span><span class=lnt id=hl-14-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-9> 9</a>
-</span><span class=lnt id=hl-14-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-10>10</a>
-</span><span class=lnt id=hl-14-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-11>11</a>
-</span><span class=lnt id=hl-14-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-12>12</a>
-</span><span class=lnt id=hl-14-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-13>13</a>
-</span><span class=lnt id=hl-14-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-14>14</a>
-</span><span class=lnt id=hl-14-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-15>15</a>
-</span><span class=lnt id=hl-14-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-16>16</a>
-</span><span class=lnt id=hl-14-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-17>17</a>
-</span><span class=lnt id=hl-14-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-18>18</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>webservers</span><span class=w>
@@ -353,55 +353,55 @@ Ansible 入門 - 応用
 <td>become_method</td><td>becomeと一緒に利用、‘sudo’ / ’su’ / ’pbrun’ / ’pfexec’ / ’doas’などを指定</td></tr><tr>
 <td>become_user</td><td>becomeと一緒に利用、rootまたは他のユーザ名</td></tr></tbody></table><p>スクリプト上でbecomeを利用する時、&ndash;ask-become-passを追加することで、playbook実行後にsudoパスワードを入力することが要求される。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-15-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook deploy.yml --ask-become-pass
 </span></span></code></pre></td></tr></table></div></div><h3 id=実行するタスクtasks>実行するタスク(Tasks)<a hidden class=anchor aria-hidden=true href=#実行するタスクtasks>#</a></h3><ul>
 <li>タスクはPlaybookの上から下まで実行する。途中でエラーが発生した場合、Playbookの実行が中止される。スクリプトファイルを修正した後、再度スクリプトを実行する。</li><li>各taskはモジュールの読み出しであり、パラメータと変数を適切に設定する。</li><li>各taskはname 属性を持ったほうが、人間にとって理解しやすくなる。name属性は内容を出力するだけで、実行の進捗をユーザに提示することができる。</li></ul><h4 id=構文>構文<a hidden class=anchor aria-hidden=true href=#構文>#</a></h4><p>Tasksの基本構文を以下に示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-16-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-1>1</a>
-</span><span class=lnt id=hl-16-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-2>2</a>
-</span><span class=lnt id=hl-16-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>make sure apache is running</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>service</span><span class=p>:</span><span class=w> </span><span class=l>name=httpd state=running</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>name変数は必須ではないので、上記の例を下記のように記載することもできる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-17-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-1>1</a>
-</span><span class=lnt id=hl-17-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>service</span><span class=p>:</span><span class=w> </span><span class=l>name=httpd state=running</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>name変数が書かれた場合、Playbookがこのタスクを実行する時に、name変数の内容が出力されスクリプトの進捗が分かりやすくなる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-18-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-1>1</a>
-</span><span class=lnt id=hl-18-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>TASK: <span class=o>[</span>make sure apache is running<span class=o>]</span> *************************************************************
 </span></span><span class=line><span class=cl>changed: <span class=o>[</span>yourhost<span class=o>]</span>
 </span></span></code></pre></td></tr></table></div></div><p>Name変数が書かれていない場合、taskのモジュール実行の構文がそのまま出力される。複数のモジュールが使われている場合、スクリプトの進捗が分からなくなる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-19-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-1>1</a>
-</span><span class=lnt id=hl-19-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>TASK: <span class=o>[</span>service <span class=nv>name</span><span class=o>=</span>httpd <span class=nv>state</span><span class=o>=</span>running<span class=o>]</span> **************************************
 </span></span><span class=line><span class=cl>changed: <span class=o>[</span>yourhost<span class=o>]</span>
 </span></span></code></pre></td></tr></table></div></div><h4 id=変数の渡し方>変数の渡し方<a hidden class=anchor aria-hidden=true href=#変数の渡し方>#</a></h4><p>上記の構文の例では、モジュールに変数を渡す方法を示している：<code>key=value</code></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-20-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-1>1</a>
-</span><span class=lnt id=hl-20-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-2>2</a>
-</span><span class=lnt id=hl-20-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>make sure apache is running</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>service</span><span class=p>:</span><span class=w> </span><span class=l>name=httpd state=running</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>変数が多い場合、改行して複数行に書くこともできる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-21-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-1>1</a>
-</span><span class=lnt id=hl-21-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-2>2</a>
-</span><span class=lnt id=hl-21-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-3>3</a>
-</span><span class=lnt id=hl-21-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Copy ansible inventory file to client</span><span class=w>
@@ -409,14 +409,14 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>            </span><span class=l>owner=root group=root mode=0644</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>またはYAMLのハッシュ形式でパラメータを入力する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-22-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-1>1</a>
-</span><span class=lnt id=hl-22-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-2>2</a>
-</span><span class=lnt id=hl-22-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-3>3</a>
-</span><span class=lnt id=hl-22-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-4>4</a>
-</span><span class=lnt id=hl-22-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-5>5</a>
-</span><span class=lnt id=hl-22-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-6>6</a>
-</span><span class=lnt id=hl-22-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-7>7</a>
-</span><span class=lnt id=hl-22-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Copy ansible inventory file to client</span><span class=w>
@@ -429,9 +429,9 @@ Ansible 入門 - 応用
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=実行状態>実行状態<a hidden class=anchor aria-hidden=true href=#実行状態>#</a></h4><p>タスク内の各actionは一つのモジュールを実行し、最初にリモートノードの状態を確認し、実行が必要かどうかを判断する。</p><ul>
 <li>モジュールが実行された場合、モジュールからactionへの戻り値は changed になる。</li><li>実行が必要ないと判断した時、モジュールからactionへの戻り値は OK になる。</li></ul><p>実行必要性の判断は各モジュール内で決めている。例えば、copy モジュールの判断方式は、ファイルのchecksum値を比較する。copyモジュールのコードを以下に示す。</p><p><a href=https://github.com/ansible/ansible-modules-core/blob/devel/files/copy.py>https://github.com/ansible/ansible-modules-core/blob/devel/files/copy.py</a></p><p>以下のように、copyモジュールを例にする</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-23-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-1>1</a>
-</span><span class=lnt id=hl-23-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-2>2</a>
-</span><span class=lnt id=hl-23-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Copy the /etc/hosts</span><span class=w>
@@ -442,25 +442,25 @@ Ansible 入門 - 応用
 </p><h3 id=イベントハンドラhandler>イベントハンドラ(handler)<a hidden class=anchor aria-hidden=true href=#イベントハンドラhandler>#</a></h3><h4 id=定義>定義<a hidden class=anchor aria-hidden=true href=#定義>#</a></h4><p>一般的なプログラミング言語にevent処理があるように、handleとはplaybookスクリプトでのevent処理である。</p><p>tasksと似ていて、Handlers内の各handlerはモジュールを一回実行している。ただ、tasksと異なっている部分は、tasksは書かれた順によって実行されるが、handlersはtasks内に呼び出す(notify)時のみ実行される。</p><p>また、tasksが実行された後、changedまたはOKの状態になっていて、handlerはtasks実行後状態がchangedの時のみ実行される。</p><h4 id=役割>役割<a hidden class=anchor aria-hidden=true href=#役割>#</a></h4><p>もしtasksの中にapachの設定ファイルを変更した後、apacheを再起動する必要がある。そのほかにapache のプラグインをインストールした後にも、apacheを再起動する必要がある。この場合、「apacheを再起動する」ことは、handlerとして実行することができる。</p><p>handlerは全てのタスクが実行した後に実行する。複数のtasksに呼び出されても、handlerは一回のみ実行する。以下の例では、handlerは一回のみ実行される。
 <a href=https://github.com/ansible-book/ansible-first-book-examples/blob/master/handlers_state.yml>https://github.com/ansible-book/ansible-first-book-examples/blob/master/handlers_state.yml</a></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-24-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-1> 1</a>
-</span><span class=lnt id=hl-24-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-2> 2</a>
-</span><span class=lnt id=hl-24-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-3> 3</a>
-</span><span class=lnt id=hl-24-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-4> 4</a>
-</span><span class=lnt id=hl-24-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-5> 5</a>
-</span><span class=lnt id=hl-24-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-6> 6</a>
-</span><span class=lnt id=hl-24-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-7> 7</a>
-</span><span class=lnt id=hl-24-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-8> 8</a>
-</span><span class=lnt id=hl-24-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-9> 9</a>
-</span><span class=lnt id=hl-24-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-10>10</a>
-</span><span class=lnt id=hl-24-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-11>11</a>
-</span><span class=lnt id=hl-24-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-12>12</a>
-</span><span class=lnt id=hl-24-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-13>13</a>
-</span><span class=lnt id=hl-24-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-14>14</a>
-</span><span class=lnt id=hl-24-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-15>15</a>
-</span><span class=lnt id=hl-24-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-16>16</a>
-</span><span class=lnt id=hl-24-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-17>17</a>
-</span><span class=lnt id=hl-24-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-18>18</a>
-</span><span class=lnt id=hl-24-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-19>19</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>lb</span><span class=w>
@@ -487,26 +487,26 @@ Ansible 入門 - 応用
 <li>1つ目のtaskの状態がOKのため、&ldquo;call by /tmp/hosts”handlerが実行されない。</li><li>2つ目のtaskの状態がchangedのため、&ldquo;call by /tmp/hosts.random_number” handlerが実行される</li></ul></li></ul><p>テストのコードを以下を参照する。
 <a href=https://github.com/shijingjing1221/ansible-first-book-examples/blob/master/handlers_execution_time.yml>https://github.com/shijingjing1221/ansible-first-book-examples/blob/master/handlers_execution_time.yml</a></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-25-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-1> 1</a>
-</span><span class=lnt id=hl-25-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-2> 2</a>
-</span><span class=lnt id=hl-25-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-3> 3</a>
-</span><span class=lnt id=hl-25-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-4> 4</a>
-</span><span class=lnt id=hl-25-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-5> 5</a>
-</span><span class=lnt id=hl-25-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-6> 6</a>
-</span><span class=lnt id=hl-25-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-7> 7</a>
-</span><span class=lnt id=hl-25-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-8> 8</a>
-</span><span class=lnt id=hl-25-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-9> 9</a>
-</span><span class=lnt id=hl-25-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-10>10</a>
-</span><span class=lnt id=hl-25-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-11>11</a>
-</span><span class=lnt id=hl-25-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-12>12</a>
-</span><span class=lnt id=hl-25-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-13>13</a>
-</span><span class=lnt id=hl-25-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-14>14</a>
-</span><span class=lnt id=hl-25-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-15>15</a>
-</span><span class=lnt id=hl-25-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-16>16</a>
-</span><span class=lnt id=hl-25-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-17>17</a>
-</span><span class=lnt id=hl-25-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-18>18</a>
-</span><span class=lnt id=hl-25-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-19>19</a>
-</span><span class=lnt id=hl-25-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-20>20</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>lb</span><span class=w>
@@ -530,31 +530,31 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>debug</span><span class=p>:</span><span class=w> </span><span class=l>msg=&#34;call by /tmp/hosts.random_number&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>handlersはnotifyされる順番ではなく、定義された順番で実行される。下記の例では、定義の順番が1>2>3であり、notifyの順番が3>2>1であっても、実際の実行順番が1>2>3になる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-26-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-1> 1</a>
-</span><span class=lnt id=hl-26-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-2> 2</a>
-</span><span class=lnt id=hl-26-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-3> 3</a>
-</span><span class=lnt id=hl-26-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-4> 4</a>
-</span><span class=lnt id=hl-26-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-5> 5</a>
-</span><span class=lnt id=hl-26-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-6> 6</a>
-</span><span class=lnt id=hl-26-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-7> 7</a>
-</span><span class=lnt id=hl-26-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-8> 8</a>
-</span><span class=lnt id=hl-26-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-9> 9</a>
-</span><span class=lnt id=hl-26-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-10>10</a>
-</span><span class=lnt id=hl-26-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-11>11</a>
-</span><span class=lnt id=hl-26-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-12>12</a>
-</span><span class=lnt id=hl-26-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-13>13</a>
-</span><span class=lnt id=hl-26-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-14>14</a>
-</span><span class=lnt id=hl-26-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-15>15</a>
-</span><span class=lnt id=hl-26-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-16>16</a>
-</span><span class=lnt id=hl-26-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-17>17</a>
-</span><span class=lnt id=hl-26-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-18>18</a>
-</span><span class=lnt id=hl-26-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-19>19</a>
-</span><span class=lnt id=hl-26-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-20>20</a>
-</span><span class=lnt id=hl-26-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-21>21</a>
-</span><span class=lnt id=hl-26-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-22>22</a>
-</span><span class=lnt id=hl-26-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-23>23</a>
-</span><span class=lnt id=hl-26-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-24>24</a>
-</span><span class=lnt id=hl-26-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-25>25</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>lb</span><span class=w>
@@ -584,14 +584,14 @@ Ansible 入門 - 応用
 </span></span></span></code></pre></td></tr></table></div></div><h2 id=playbookで利用可能な変数>Playbookで利用可能な変数<a hidden class=anchor aria-hidden=true href=#playbookで利用可能な変数>#</a></h2><p>本節では、よく使う幾つかの変数を紹介する。次の章からは、複雑な場面での変数の使い方などを紹介する。</p><p>一般的に、Playbookで利用できる変数は以下になる。</p><ol>
 <li>Playbook中ユーザが定義する変数</li><li>ユーザが定義する必要がなく, AnsibleがPlaybookを実行する前に収集したリモートノードのシステム情報として使える変数</li><li>テンプレートでは上記 2つ種類の変数が直接利用できる。</li><li>taskの実行結果を変数として使える。この変数は&lt;register変数>となる</li><li>Playbookをもっと汎用性高く、動的に使いやすくするために、ユーザが実行中に変数を入力することができる。この変数は&lt;extra変数>となる</li></ol><h3 id=playbook中で定義した変数>Playbook中で定義した変数<a hidden class=anchor aria-hidden=true href=#playbook中で定義した変数>#</a></h3><p>ユーザはPlaybook中に、varsキーワードで変数を定義することができる。使用する時は<code>\{\{\}\}</code>で囲んで利用する。下記の例では、ユーザがhttp_port変数を定義し、80と設定している。tasks firewalldの中で、<code>\{\{ http_port \}\}</code>で内容を読み込んでいる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-27-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-1>1</a>
-</span><span class=lnt id=hl-27-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-2>2</a>
-</span><span class=lnt id=hl-27-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-3>3</a>
-</span><span class=lnt id=hl-27-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-4>4</a>
-</span><span class=lnt id=hl-27-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-5>5</a>
-</span><span class=lnt id=hl-27-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-6>6</a>
-</span><span class=lnt id=hl-27-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-7>7</a>
-</span><span class=lnt id=hl-27-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-27-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>web</span><span class=w>
@@ -603,13 +603,13 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>firewalld</span><span class=p>:</span><span class=w> </span><span class=l>port=\{\{ http_port \}\}/tcp permanent=true state=enabled immediate=yes</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=変数を単独ファイルに置く>変数を単独ファイルに置く<a hidden class=anchor aria-hidden=true href=#変数を単独ファイルに置く>#</a></h4><p>変数が多い時、または複数のPlaybook中に共用されたい時に、変数を単独の変数ファイルに置くことができる。var_filesパラメータに該当する変数ファイル名を設定すると、同じ使い方で変数を参照できる。</p><p><code>Playbook</code></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-28-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-1>1</a>
-</span><span class=lnt id=hl-28-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-2>2</a>
-</span><span class=lnt id=hl-28-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-3>3</a>
-</span><span class=lnt id=hl-28-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-4>4</a>
-</span><span class=lnt id=hl-28-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-5>5</a>
-</span><span class=lnt id=hl-28-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-6>6</a>
-</span><span class=lnt id=hl-28-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-28-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>web</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>remote_user</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
@@ -620,39 +620,39 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>firewalld</span><span class=p>:</span><span class=w> </span><span class=l>port=\{\{ http_port \}\}/tcp permanent=true state=enabled immediate=yes</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p><code>vars/server_vars.yml</code></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-29-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-29-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>http_port</span><span class=p>:</span><span class=w> </span><span class=m>80</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=複雑変数の扱い方>複雑変数の扱い方<a hidden class=anchor aria-hidden=true href=#複雑変数の扱い方>#</a></h4><p>利用したい変数は簡単な文字列や数字ではなく、一つのオブジェクトにしたい時がある。その時に以下のようなYAMLのハッシュ形式(または辞書形式)にオブジェクトの内容を設定する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-30-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-1>1</a>
-</span><span class=lnt id=hl-30-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-2>2</a>
-</span><span class=lnt id=hl-30-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-30-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>foo</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>field1</span><span class=p>:</span><span class=w> </span><span class=l>one</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>field2</span><span class=p>:</span><span class=w> </span><span class=l>two</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>こちらの変数を利用したい時は、中括弧またはピリオドで参照できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-31-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-31-1>1</a>
-</span><span class=lnt id=hl-31-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-31-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>foo[&#39;field1&#39;]</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>foo.field1</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=yamlの落とし穴>YAMLの落とし穴<a hidden class=anchor aria-hidden=true href=#yamlの落とし穴>#</a></h4><p>YAMLの変数構文がAnsibleの変数構文と一緒に書くと構文エラーになる場合がある。詳細については、コロン(:)の後ろにすぐ大括弧 { を書くことはできなく、かならずダブルクォーテーション " で囲む必要がある。もしエラー内容が YAMLの構文エラーの場合、ダブルクォーテーション “ を追加して解決する。</p><p>このYAMLは構文エラーになる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-32-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-32-1>1</a>
-</span><span class=lnt id=hl-32-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-32-2>2</a>
-</span><span class=lnt id=hl-32-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-32-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>app_servers</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>vars</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>app_path</span><span class=p>:</span><span class=w> </span><span class=l>\{\{ base_path \}\}/22</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>解決方法は、変数の前後にダブルクォーテーションを追加する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-33-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-1>1</a>
-</span><span class=lnt id=hl-33-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-2>2</a>
-</span><span class=lnt id=hl-33-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-33-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>app_servers</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>vars</span><span class=p>:</span><span class=w>
@@ -660,23 +660,23 @@ Ansible 入門 - 応用
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=システム変数facts>システム変数(facts)<a hidden class=anchor aria-hidden=true href=#システム変数facts>#</a></h3><p>Ansibleはsetup モジュールを通じてリモートノードのシステム情報を収集している。こちらのシステム情報はfactsと呼び、直接変数として利用することができる。
 コマンドラインからsetupモジュールを実行して利用可能な変数の一覧が確認できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-34-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-34-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible all -m setup -u root
 </span></span></code></pre></td></tr></table></div></div><p>Playbookの中では、facts変数を直接利用することができる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-35-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-1> 1</a>
-</span><span class=lnt id=hl-35-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-2> 2</a>
-</span><span class=lnt id=hl-35-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-3> 3</a>
-</span><span class=lnt id=hl-35-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-4> 4</a>
-</span><span class=lnt id=hl-35-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-5> 5</a>
-</span><span class=lnt id=hl-35-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-6> 6</a>
-</span><span class=lnt id=hl-35-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-7> 7</a>
-</span><span class=lnt id=hl-35-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-8> 8</a>
-</span><span class=lnt id=hl-35-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-9> 9</a>
-</span><span class=lnt id=hl-35-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-10>10</a>
-</span><span class=lnt id=hl-35-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-11>11</a>
-</span><span class=lnt id=hl-35-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-35-12>12</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>all</span><span class=w>
@@ -692,34 +692,34 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=l>ansible_os_family == &#34;RedHat&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=複雑なfacts変数>複雑なfacts変数<a hidden class=anchor aria-hidden=true href=#複雑なfacts変数>#</a></h4><p>一般変数と同じく、以下のようなハッシュ変数形式のfacts変数も存在する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-36-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-1> 1</a>
-</span><span class=lnt id=hl-36-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-2> 2</a>
-</span><span class=lnt id=hl-36-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-3> 3</a>
-</span><span class=lnt id=hl-36-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-4> 4</a>
-</span><span class=lnt id=hl-36-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-5> 5</a>
-</span><span class=lnt id=hl-36-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-6> 6</a>
-</span><span class=lnt id=hl-36-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-7> 7</a>
-</span><span class=lnt id=hl-36-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-8> 8</a>
-</span><span class=lnt id=hl-36-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-9> 9</a>
-</span><span class=lnt id=hl-36-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-10>10</a>
-</span><span class=lnt id=hl-36-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-11>11</a>
-</span><span class=lnt id=hl-36-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-12>12</a>
-</span><span class=lnt id=hl-36-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-13>13</a>
-</span><span class=lnt id=hl-36-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-14>14</a>
-</span><span class=lnt id=hl-36-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-15>15</a>
-</span><span class=lnt id=hl-36-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-16>16</a>
-</span><span class=lnt id=hl-36-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-17>17</a>
-</span><span class=lnt id=hl-36-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-18>18</a>
-</span><span class=lnt id=hl-36-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-19>19</a>
-</span><span class=lnt id=hl-36-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-20>20</a>
-</span><span class=lnt id=hl-36-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-21>21</a>
-</span><span class=lnt id=hl-36-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-22>22</a>
-</span><span class=lnt id=hl-36-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-23>23</a>
-</span><span class=lnt id=hl-36-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-24>24</a>
-</span><span class=lnt id=hl-36-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-25>25</a>
-</span><span class=lnt id=hl-36-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-26>26</a>
-</span><span class=lnt id=hl-36-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-27>27</a>
-</span><span class=lnt id=hl-36-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-36-28>28</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-JSON data-lang=JSON><span class=line><span class=cl><span class=err>...</span>
 </span></span><span class=line><span class=cl>        <span class=s2>&#34;ansible_ens3&#34;</span><span class=err>:</span> <span class=p>{</span>
@@ -752,50 +752,50 @@ Ansible 入門 - 応用
 </span></span></code></pre></td></tr></table></div></div><p>以下の二つの方法でハッシュ形式のfacts変数の属性を参照する。</p><ul>
 <li>中括弧</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-37-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-37-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>\{\{ ansible_ens3[&#34;ipv4&#34;][&#34;address&#34;] \}\}</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><ul>
 <li>ピリオド</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-38-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-38-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>\{\{ ansible_ens3.ipv4.address \}\}</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=factsの無効化>factsの無効化<a hidden class=anchor aria-hidden=true href=#factsの無効化>#</a></h4><p>Playbookでは、gather_factsパラメータがfacts変数の収集を設定できる。下記のように no と設定すると、上記のfacts変数はこのPlaybookでの利用ができなくなる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-39-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-1>1</a>
-</span><span class=lnt id=hl-39-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-39-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>whatever</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>gather_facts</span><span class=p>:</span><span class=w> </span><span class=kc>no</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=テンプレートで定義した変数>テンプレートで定義した変数<a hidden class=anchor aria-hidden=true href=#テンプレートで定義した変数>#</a></h3><p>テンプレートはAnsibleでよく使われているため、テンプレートファイルでの変数の使い方を説明する。</p><h4 id=変数の定義>変数の定義<a hidden class=anchor aria-hidden=true href=#変数の定義>#</a></h4><p>Playbook内で定義した変数、factsシステム変数、inventory内で定義したhostとgroup変数は、直接テンプレートで利用できる。Playbook内で利用できる変数は、テンプレートファイルでも利用できる。</p><p>下記のPlaybookスクリプトではtemplate モジュールでindex.html.j2ファイルをコピーし、その中の変数をPlaybookで定義した変数の値に設定する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-40-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-1> 1</a>
-</span><span class=lnt id=hl-40-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-2> 2</a>
-</span><span class=lnt id=hl-40-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-3> 3</a>
-</span><span class=lnt id=hl-40-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-4> 4</a>
-</span><span class=lnt id=hl-40-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-5> 5</a>
-</span><span class=lnt id=hl-40-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-6> 6</a>
-</span><span class=lnt id=hl-40-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-7> 7</a>
-</span><span class=lnt id=hl-40-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-8> 8</a>
-</span><span class=lnt id=hl-40-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-9> 9</a>
-</span><span class=lnt id=hl-40-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-10>10</a>
-</span><span class=lnt id=hl-40-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-11>11</a>
-</span><span class=lnt id=hl-40-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-12>12</a>
-</span><span class=lnt id=hl-40-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-13>13</a>
-</span><span class=lnt id=hl-40-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-14>14</a>
-</span><span class=lnt id=hl-40-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-15>15</a>
-</span><span class=lnt id=hl-40-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-16>16</a>
-</span><span class=lnt id=hl-40-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-17>17</a>
-</span><span class=lnt id=hl-40-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-18>18</a>
-</span><span class=lnt id=hl-40-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-19>19</a>
-</span><span class=lnt id=hl-40-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-20>20</a>
-</span><span class=lnt id=hl-40-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-21>21</a>
-</span><span class=lnt id=hl-40-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-22>22</a>
-</span><span class=lnt id=hl-40-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-23>23</a>
-</span><span class=lnt id=hl-40-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-24>24</a>
-</span><span class=lnt id=hl-40-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-25>25</a>
-</span><span class=lnt id=hl-40-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-40-26>26</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>web</span><span class=w>
@@ -826,17 +826,17 @@ Ansible 入門 - 応用
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=変数の利用>変数の利用<a hidden class=anchor aria-hidden=true href=#変数の利用>#</a></h4><p>Ansibleのテンプレートファイルが利用する構文はPython のテンプレート言語Jinja2。下記のテンプレートの例index.html.j2の中で、変数を直接利用している。</p><ul>
 <li>システム変数 <code>\{\{ ansible_hostname \}\}</code>, <code>\{\{ ansible_default_ipv4.address \}\}</code></li><li>ユーザ定義した変数 <code>\{\{ defined_name \}\}</code></li></ul><p>Index.html.j2ファイルの内容</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-41-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-1> 1</a>
-</span><span class=lnt id=hl-41-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-2> 2</a>
-</span><span class=lnt id=hl-41-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-3> 3</a>
-</span><span class=lnt id=hl-41-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-4> 4</a>
-</span><span class=lnt id=hl-41-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-5> 5</a>
-</span><span class=lnt id=hl-41-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-6> 6</a>
-</span><span class=lnt id=hl-41-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-7> 7</a>
-</span><span class=lnt id=hl-41-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-8> 8</a>
-</span><span class=lnt id=hl-41-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-9> 9</a>
-</span><span class=lnt id=hl-41-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-10>10</a>
-</span><span class=lnt id=hl-41-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-41-11>11</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-HTML data-lang=HTML><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>html</span><span class=p>&gt;</span>
 </span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>Demo<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
@@ -851,20 +851,20 @@ Ansible 入門 - 応用
 </span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>html</span><span class=p>&gt;</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=タスクの実行結果を変数に設定>タスクの実行結果を変数に設定<a hidden class=anchor aria-hidden=true href=#タスクの実行結果を変数に設定>#</a></h3><p>taskの実行結果は変数の値に代入できる。この場合はregisterキーワードを利用し、taskの実行結果を変数に設定し、その後にあるactionに利用される。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-42-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-1> 1</a>
-</span><span class=lnt id=hl-42-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-2> 2</a>
-</span><span class=lnt id=hl-42-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-3> 3</a>
-</span><span class=lnt id=hl-42-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-4> 4</a>
-</span><span class=lnt id=hl-42-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-5> 5</a>
-</span><span class=lnt id=hl-42-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-6> 6</a>
-</span><span class=lnt id=hl-42-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-7> 7</a>
-</span><span class=lnt id=hl-42-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-8> 8</a>
-</span><span class=lnt id=hl-42-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-9> 9</a>
-</span><span class=lnt id=hl-42-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-10>10</a>
-</span><span class=lnt id=hl-42-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-11>11</a>
-</span><span class=lnt id=hl-42-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-12>12</a>
-</span><span class=lnt id=hl-42-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-13>13</a>
-</span><span class=lnt id=hl-42-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-42-14>14</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -882,13 +882,13 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=nt>debug</span><span class=p>:</span><span class=w> </span><span class=l>msg=&#34;\{\{ result.stdout \}\}&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>Register変数はよくdebug モジュールと一緒に利用され、actionの実行の詳細情報を得てトラブルシュッティングに役立つ。</p><h3 id=コマンドラインで変数を渡す>コマンドラインで変数を渡す<a hidden class=anchor aria-hidden=true href=#コマンドラインで変数を渡す>#</a></h3><p>汎用性と便利性のため、コマンドラインでPlaybookに変数の値を渡すことができる。この場合はansible-playbookの&ndash;extra-varsオプションを利用する。</p><h4 id=コマンドライン変数の定義>コマンドライン変数の定義<a hidden class=anchor aria-hidden=true href=#コマンドライン変数の定義>#</a></h4><p>下記のように、release.ymlファイルでは、hostsとuserは変数として定義され、コマンドラインから値を設定する必要がある。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-43-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-1>1</a>
-</span><span class=lnt id=hl-43-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-2>2</a>
-</span><span class=lnt id=hl-43-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-3>3</a>
-</span><span class=lnt id=hl-43-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-4>4</a>
-</span><span class=lnt id=hl-43-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-5>5</a>
-</span><span class=lnt id=hl-43-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-6>6</a>
-</span><span class=lnt id=hl-43-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-43-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -899,27 +899,27 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>...</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=コマンドライン変数の利用>コマンドライン変数の利用<a hidden class=anchor aria-hidden=true href=#コマンドライン変数の利用>#</a></h4><p>以下のようにコマンドラインから変数の値を設定する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-44-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-44-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook e33_var_in_command.yml --extra-vars <span class=s2>&#34;hosts=web user=root&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><p>そのほかに、JSON形式でも利用できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-45-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-45-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook e33_var_in_command.yml --extra-vars <span class=s2>&#34;{&#39;hosts&#39;:&#39;vm-rhel7-1&#39;, &#39;user&#39;:&#39;root&#39;}&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><p>また、変数と値をJSONファイルに書いて、コマンドラインに渡すこともできる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-46-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-46-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook e33_var_in_command.yml --extra-vars <span class=s2>&#34;@vars.json&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h2 id=条件判断ループとブロック>条件判断、ループとブロック<a hidden class=anchor aria-hidden=true href=#条件判断ループとブロック>#</a></h2><ul>
 <li>when： 条件判断のキーワード。ifに似ている</li><li>loop：循環処理（ループ）のキーワード。forに似ている</li><li>block：複数のtasksを一つのブロックにまとめて、異常処理の対応などに利用できる。</li></ul><h3 id=条件判断when>条件判断(when)<a hidden class=anchor aria-hidden=true href=#条件判断when>#</a></h3><p>例えば、特定のversionのシステム上にパッケージをインストールや、ディスク空き容量がない時にファイルを削除するなど、特定の条件に満足している時のみ、特定のtaskを実行したい場合、Playbook内のwhenを利用する。
 サーバーがDebian Linuxの場合すぐシャットダウンする</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-47-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-1>1</a>
-</span><span class=lnt id=hl-47-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-2>2</a>
-</span><span class=lnt id=hl-47-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-3>3</a>
-</span><span class=lnt id=hl-47-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-47-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;shutdown Debian flavored systems&#34;</span><span class=w>
@@ -927,16 +927,16 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=l>ansible_os_family == &#34;Debian&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>actionの実行結果によって、次に実行するactionを決める</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-48-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-1> 1</a>
-</span><span class=lnt id=hl-48-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-2> 2</a>
-</span><span class=lnt id=hl-48-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-3> 3</a>
-</span><span class=lnt id=hl-48-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-4> 4</a>
-</span><span class=lnt id=hl-48-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-5> 5</a>
-</span><span class=lnt id=hl-48-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-6> 6</a>
-</span><span class=lnt id=hl-48-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-7> 7</a>
-</span><span class=lnt id=hl-48-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-8> 8</a>
-</span><span class=lnt id=hl-48-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-9> 9</a>
-</span><span class=lnt id=hl-48-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-48-10>10</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=l>/bin/false</span><span class=w>
@@ -950,11 +950,11 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=l>result|skipped</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>リモートノードのシステム変数factsも 条件としてwhenに判断されることができる。また、| intの書き方で返り値の型変換もできる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-49-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-1>1</a>
-</span><span class=lnt id=hl-49-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-2>2</a>
-</span><span class=lnt id=hl-49-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-3>3</a>
-</span><span class=lnt id=hl-49-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-4>4</a>
-</span><span class=lnt id=hl-49-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-49-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>web</span><span class=w>
@@ -963,16 +963,16 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=l>ansible_os_family == &#34;RedHat&#34; and ansible_lsb.major_release|int &gt;= 6</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=条件式>条件式<a hidden class=anchor aria-hidden=true href=#条件式>#</a></h4><p>真偽（True/False）判断の条件式</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-50-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-1> 1</a>
-</span><span class=lnt id=hl-50-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-2> 2</a>
-</span><span class=lnt id=hl-50-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-3> 3</a>
-</span><span class=lnt id=hl-50-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-4> 4</a>
-</span><span class=lnt id=hl-50-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-5> 5</a>
-</span><span class=lnt id=hl-50-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-6> 6</a>
-</span><span class=lnt id=hl-50-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-7> 7</a>
-</span><span class=lnt id=hl-50-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-8> 8</a>
-</span><span class=lnt id=hl-50-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-9> 9</a>
-</span><span class=lnt id=hl-50-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-50-10>10</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>vars</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>epic</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
@@ -986,12 +986,12 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=l>not epic</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>定義有り無し判断の条件式</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-51-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-1>1</a>
-</span><span class=lnt id=hl-51-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-2>2</a>
-</span><span class=lnt id=hl-51-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-3>3</a>
-</span><span class=lnt id=hl-51-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-4>4</a>
-</span><span class=lnt id=hl-51-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-5>5</a>
-</span><span class=lnt id=hl-51-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-51-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>echo &#34;I&#39;ve got &#39;\{\{ foo \}\}&#39; and am not afraid to use it!&#34;</span><span class=w>
@@ -1001,10 +1001,10 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=l>bar is not defined</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>数値に対する条件式</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-52-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-52-1>1</a>
-</span><span class=lnt id=hl-52-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-52-2>2</a>
-</span><span class=lnt id=hl-52-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-52-3>3</a>
-</span><span class=lnt id=hl-52-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-52-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=l>echo \{\{ item \}\}</span><span class=w>
@@ -1012,27 +1012,27 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=l>item &gt; 5</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>includeと一緒に利用</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-53-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-53-1>1</a>
-</span><span class=lnt id=hl-53-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-53-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>include</span><span class=p>:</span><span class=w> </span><span class=l>tasks/sometasks.yml</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&#39;reticulating splines&#39; in output&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>Roleと一緒に利用</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-54-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-1>1</a>
-</span><span class=lnt id=hl-54-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-2>2</a>
-</span><span class=lnt id=hl-54-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-54-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>webservers</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>roles</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>     </span>- {<span class=w> </span><span class=nt>role: debian_stock_config, when</span><span class=p>:</span><span class=w> </span><span class=l>ansible_os_family == &#39;Debian&#39; }</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=循環処理loop>循環処理(loop)<a hidden class=anchor aria-hidden=true href=#循環処理loop>#</a></h3><h4 id=標準のループwith_items>標準のループ(with_items)<a hidden class=anchor aria-hidden=true href=#標準のループwith_items>#</a></h4><p>コードの読み易さと簡潔のため、重複のタスク内容を以下のように書くことができる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-55-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-1>1</a>
-</span><span class=lnt id=hl-55-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-2>2</a>
-</span><span class=lnt id=hl-55-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-3>3</a>
-</span><span class=lnt id=hl-55-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-4>4</a>
-</span><span class=lnt id=hl-55-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-55-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>add several users</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>user</span><span class=p>:</span><span class=w> </span><span class=l>name=\{\{ item \}\} state=present groups=wheel</span><span class=w>
@@ -1041,12 +1041,12 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>testuser2</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>変数ファイルまたはPlaybookのvarsでYAMLリストを定義した場合、下記のように処理をループすることができる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-56-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-1>1</a>
-</span><span class=lnt id=hl-56-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-2>2</a>
-</span><span class=lnt id=hl-56-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-3>3</a>
-</span><span class=lnt id=hl-56-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-4>4</a>
-</span><span class=lnt id=hl-56-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-5>5</a>
-</span><span class=lnt id=hl-56-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-56-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>vars</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>somelist</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;testuser1&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;testuser2&#34;</span><span class=p>]</span><span class=w>
@@ -1056,11 +1056,11 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>with_items</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;\{\{somelist\}\}&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>with_itemsキーワードで操作できるのは簡単なデータだけではなく、ハッシュ型（辞書型）の変数の値もループできる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-57-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-57-1>1</a>
-</span><span class=lnt id=hl-57-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-57-2>2</a>
-</span><span class=lnt id=hl-57-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-57-3>3</a>
-</span><span class=lnt id=hl-57-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-57-4>4</a>
-</span><span class=lnt id=hl-57-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-57-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>add several users</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>user</span><span class=p>:</span><span class=w> </span><span class=l>name=\{\{ item.name \}\} state=present groups=\{\{ item.groups \}\}</span><span class=w>
@@ -1069,11 +1069,11 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- {<span class=w> </span><span class=nt>name: &#39;testuser2&#39;, groups</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;root&#39;</span><span class=w> </span>}<span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>注意：whenとwith_items（または他のループ）を同時に使用する場合、ループの各実行項目に対してwhenが条件判断を行う。</p><h4 id=ネストループwith_nested>ネストループ(with_nested)<a hidden class=anchor aria-hidden=true href=#ネストループwith_nested>#</a></h4><p>階層形式のデータもループすることができる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-58-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-58-1>1</a>
-</span><span class=lnt id=hl-58-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-58-2>2</a>
-</span><span class=lnt id=hl-58-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-58-3>3</a>
-</span><span class=lnt id=hl-58-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-58-4>4</a>
-</span><span class=lnt id=hl-58-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-58-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>give users access to multiple databases</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>mysql_user</span><span class=p>:</span><span class=w> </span><span class=l>name=\{\{ item[0] \}\} priv=\{\{ item[1] \}\}.*:ALL append_privs=yes password=foo</span><span class=w>
@@ -1082,11 +1082,11 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=p>[</span><span class=w> </span><span class=s1>&#39;clientdb&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;employeedb&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;providerd&#39;</span><span class=p>]</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>または</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-59-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-1>1</a>
-</span><span class=lnt id=hl-59-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-2>2</a>
-</span><span class=lnt id=hl-59-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-3>3</a>
-</span><span class=lnt id=hl-59-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-4>4</a>
-</span><span class=lnt id=hl-59-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-59-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>give users access to multiple databases</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>mysql_user</span><span class=p>:</span><span class=w> </span><span class=l>name=\{\{ item.0 \}\} priv=\{\{ item.1 \}\}.*:ALL append_privs=yes password=foo</span><span class=w>
@@ -1095,19 +1095,19 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=p>[</span><span class=w> </span><span class=s1>&#39;clientdb&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;employeedb&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;providerd&#39;</span><span class=p>]</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=ハッシュループwith_dict>ハッシュループ(with_dict)<a hidden class=anchor aria-hidden=true href=#ハッシュループwith_dict>#</a></h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-60-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-1> 1</a>
-</span><span class=lnt id=hl-60-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-2> 2</a>
-</span><span class=lnt id=hl-60-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-3> 3</a>
-</span><span class=lnt id=hl-60-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-4> 4</a>
-</span><span class=lnt id=hl-60-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-5> 5</a>
-</span><span class=lnt id=hl-60-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-6> 6</a>
-</span><span class=lnt id=hl-60-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-7> 7</a>
-</span><span class=lnt id=hl-60-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-8> 8</a>
-</span><span class=lnt id=hl-60-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-9> 9</a>
-</span><span class=lnt id=hl-60-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-10>10</a>
-</span><span class=lnt id=hl-60-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-11>11</a>
-</span><span class=lnt id=hl-60-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-12>12</a>
-</span><span class=lnt id=hl-60-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-60-13>13</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>vars</span><span class=p>:</span><span class=w>
@@ -1124,15 +1124,15 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>with_dict</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;\{\{users\}\}&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=ファイルリストループwith_fileglob>ファイルリストループ(with_fileglob)<a hidden class=anchor aria-hidden=true href=#ファイルリストループwith_fileglob>#</a></h4><p>with_fileglobを利用し、フォルダ以下のファイルをループに代入することができる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-61-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-1>1</a>
-</span><span class=lnt id=hl-61-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-2>2</a>
-</span><span class=lnt id=hl-61-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-3>3</a>
-</span><span class=lnt id=hl-61-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-4>4</a>
-</span><span class=lnt id=hl-61-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-5>5</a>
-</span><span class=lnt id=hl-61-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-6>6</a>
-</span><span class=lnt id=hl-61-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-7>7</a>
-</span><span class=lnt id=hl-61-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-8>8</a>
-</span><span class=lnt id=hl-61-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-61-9>9</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -1145,20 +1145,20 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=l>/playbooks/files/fooapp/*</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=ブロックblock>ブロック(block)<a hidden class=anchor aria-hidden=true href=#ブロックblock>#</a></h3><p>複数actionをブロックに纏めて、設定した条件に合致した場合、全actionが一括に実行される。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-62-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-1> 1</a>
-</span><span class=lnt id=hl-62-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-2> 2</a>
-</span><span class=lnt id=hl-62-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-3> 3</a>
-</span><span class=lnt id=hl-62-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-4> 4</a>
-</span><span class=lnt id=hl-62-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-5> 5</a>
-</span><span class=lnt id=hl-62-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-6> 6</a>
-</span><span class=lnt id=hl-62-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-7> 7</a>
-</span><span class=lnt id=hl-62-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-8> 8</a>
-</span><span class=lnt id=hl-62-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-9> 9</a>
-</span><span class=lnt id=hl-62-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-10>10</a>
-</span><span class=lnt id=hl-62-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-11>11</a>
-</span><span class=lnt id=hl-62-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-12>12</a>
-</span><span class=lnt id=hl-62-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-13>13</a>
-</span><span class=lnt id=hl-62-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-62-14>14</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=nt>block</span><span class=p>:</span><span class=w>
@@ -1176,17 +1176,17 @@ Ansible 入門 - 応用
 </span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>become_user</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>異常処理をするときに、blockが便利でよく使われている。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-63-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-1> 1</a>
-</span><span class=lnt id=hl-63-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-2> 2</a>
-</span><span class=lnt id=hl-63-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-3> 3</a>
-</span><span class=lnt id=hl-63-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-4> 4</a>
-</span><span class=lnt id=hl-63-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-5> 5</a>
-</span><span class=lnt id=hl-63-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-6> 6</a>
-</span><span class=lnt id=hl-63-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-7> 7</a>
-</span><span class=lnt id=hl-63-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-8> 8</a>
-</span><span class=lnt id=hl-63-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-9> 9</a>
-</span><span class=lnt id=hl-63-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-10>10</a>
-</span><span class=lnt id=hl-63-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-63-11>11</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>block</span><span class=p>:</span><span class=w>
@@ -1207,11 +1207,11 @@ Ansible 入門 - 応用
 <li>Playbookの"函数”みたいで、使い方はちょっと複雑ですが、includeより強力でいろんなことができる。Ansible Galaxyはrole方式でPlaybookをシェアしている。</li></ul></li></ul><h3 id=playbookファイルの-include>Playbookファイルの include<a hidden class=anchor aria-hidden=true href=#playbookファイルの-include>#</a></h3><p>他のPlaybookファイルを include することで、そのファイル内のtasksが利用できる。また、includeでtasksを複数のファイルに分割することで、Playbookの肥大化を防ぐことができる。</p><h4 id=基本の使い方>基本の使い方<a hidden class=anchor aria-hidden=true href=#基本の使い方>#</a></h4><p>直接yamlファイルをincludeする。
 tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-64-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-64-1>1</a>
-</span><span class=lnt id=hl-64-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-64-2>2</a>
-</span><span class=lnt id=hl-64-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-64-3>3</a>
-</span><span class=lnt id=hl-64-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-64-4>4</a>
-</span><span class=lnt id=hl-64-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-64-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=c># possibly saved as tasks/firewall_httpd_default.yml</span><span class=w>
@@ -1220,26 +1220,26 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>firewalld</span><span class=p>:</span><span class=w> </span><span class=l>port=80/tcp permanent=true state=enabled immediate=yes</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>他のPlaybookでのinclude方法は</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-65-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-1>1</a>
-</span><span class=lnt id=hl-65-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-65-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>include</span><span class=p>:</span><span class=w> </span><span class=l>tasks/firewall_httpd_default.yml</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=高度な使い方>高度な使い方<a hidden class=anchor aria-hidden=true href=#高度な使い方>#</a></h4><p>includeされるPlaybookの中で変数を定義することができる。下記の例では、includeされたtasks/firewall_httpd_default.ymlの中に{{ port }}でport変数を定義した。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-66-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-66-1>1</a>
-</span><span class=lnt id=hl-66-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-66-2>2</a>
-</span><span class=lnt id=hl-66-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-66-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>insert firewalld rule for httpd</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>firewalld</span><span class=p>:</span><span class=w> </span><span class=l>port=\{\{ port \}\}/tcp permanent=true state=enabled immediate=yes</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>変数の値をincludeされるPlaybookに渡すために、以下の方法がある。</p><h4 id=includeされるplaybookの後ろに変数名と値を指定>includeされるPlaybookの後ろに、変数名と値を指定<a hidden class=anchor aria-hidden=true href=#includeされるplaybookの後ろに変数名と値を指定>#</a></h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-67-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-67-1>1</a>
-</span><span class=lnt id=hl-67-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-67-2>2</a>
-</span><span class=lnt id=hl-67-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-67-3>3</a>
-</span><span class=lnt id=hl-67-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-67-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>include</span><span class=p>:</span><span class=w> </span><span class=l>tasks/firewall.yml port=80</span><span class=w>
@@ -1247,14 +1247,14 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>include</span><span class=p>:</span><span class=w> </span><span class=l>tasks/firewall.yml port=423</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=yamlのハッシュ形式で変数と値を渡す>YAMLのハッシュ形式で変数と値を渡す<a hidden class=anchor aria-hidden=true href=#yamlのハッシュ形式で変数と値を渡す>#</a></h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-68-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-1>1</a>
-</span><span class=lnt id=hl-68-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-2>2</a>
-</span><span class=lnt id=hl-68-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-3>3</a>
-</span><span class=lnt id=hl-68-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-4>4</a>
-</span><span class=lnt id=hl-68-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-5>5</a>
-</span><span class=lnt id=hl-68-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-6>6</a>
-</span><span class=lnt id=hl-68-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-7>7</a>
-</span><span class=lnt id=hl-68-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-68-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -1266,20 +1266,20 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>            </span>- <span class=l>keys/two.txt</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=taskをjson形式に書いて変数と値を設定する>taskをJSON形式に書いて、変数と値を設定する<a hidden class=anchor aria-hidden=true href=#taskをjson形式に書いて変数と値を設定する>#</a></h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-69-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-69-1>1</a>
-</span><span class=lnt id=hl-69-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-69-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>   </span>- {<span class=w> </span><span class=nt>include: wordpress.yml, wp_user: timmy, ssh_keys</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w> </span><span class=s1>&#39;keys/one.txt&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;keys/two.txt&#39;</span><span class=w> </span><span class=p>]</span><span class=w> </span>}<span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=playbook中で定義済みの変数は特に渡す必要がなくそのままりようされる>Playbook中で定義済みの変数は、特に渡す必要がなく、そのままりようされる。<a hidden class=anchor aria-hidden=true href=#playbook中で定義済みの変数は特に渡す必要がなくそのままりようされる>#</a></h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-70-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-70-1>1</a>
-</span><span class=lnt id=hl-70-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-70-2>2</a>
-</span><span class=lnt id=hl-70-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-70-3>3</a>
-</span><span class=lnt id=hl-70-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-70-4>4</a>
-</span><span class=lnt id=hl-70-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-70-5>5</a>
-</span><span class=lnt id=hl-70-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-70-6>6</a>
-</span><span class=lnt id=hl-70-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-70-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span>---<span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>lb</span><span class=w>
@@ -1291,32 +1291,32 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=includeの落とし穴>Includeの落とし穴<a hidden class=anchor aria-hidden=true href=#includeの落とし穴>#</a></h4><ul>
 <li>handlers内でPlaybook を include する。</li></ul><p>書き方は以下に示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-71-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-71-1>1</a>
-</span><span class=lnt id=hl-71-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-71-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span><span class=nt>handlers</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>include</span><span class=p>:</span><span class=w> </span><span class=l>handlers/handlers.yml</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>ただし、上記の使い方は、有効と書いたドキュメントがあるが、無効と書いたドキュメントもあり、矛盾している。</p><p>無効と書いたURL：<a href=http://docs.ansible.com/ansible/playbooks_intro.html>http://docs.ansible.com/ansible/playbooks_intro.html</a>
 有効と書いたURL：<a href=http://docs.ansible.com/ansible/playbooks_roles.html#task-include-files-and-encouraging-reuse>http://docs.ansible.com/ansible/playbooks_roles.html#task-include-files-and-encouraging-reuse</a></p><p>下記のテストの結果、Ansible 1.9では、includeされたhandlerを呼び出すことができないが、Ansible 2.0以降であれば、includeされたhandlerを呼び出すことができる。そのため、利用しているAnsibleのversionを確認する必要がある。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-72-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-1> 1</a>
-</span><span class=lnt id=hl-72-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-2> 2</a>
-</span><span class=lnt id=hl-72-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-3> 3</a>
-</span><span class=lnt id=hl-72-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-4> 4</a>
-</span><span class=lnt id=hl-72-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-5> 5</a>
-</span><span class=lnt id=hl-72-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-6> 6</a>
-</span><span class=lnt id=hl-72-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-7> 7</a>
-</span><span class=lnt id=hl-72-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-8> 8</a>
-</span><span class=lnt id=hl-72-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-9> 9</a>
-</span><span class=lnt id=hl-72-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-10>10</a>
-</span><span class=lnt id=hl-72-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-11>11</a>
-</span><span class=lnt id=hl-72-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-12>12</a>
-</span><span class=lnt id=hl-72-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-13>13</a>
-</span><span class=lnt id=hl-72-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-14>14</a>
-</span><span class=lnt id=hl-72-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-15>15</a>
-</span><span class=lnt id=hl-72-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-16>16</a>
-</span><span class=lnt id=hl-72-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-17>17</a>
-</span><span class=lnt id=hl-72-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-72-18>18</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span>---<span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>lb</span><span class=w>
@@ -1339,19 +1339,19 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span></code></pre></td></tr></table></div></div><ul>
 <li>Playbook include</li></ul><p>推奨されない使い方で、パラメータが利用できないなどの制限がある。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-73-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-1> 1</a>
-</span><span class=lnt id=hl-73-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-2> 2</a>
-</span><span class=lnt id=hl-73-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-3> 3</a>
-</span><span class=lnt id=hl-73-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-4> 4</a>
-</span><span class=lnt id=hl-73-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-5> 5</a>
-</span><span class=lnt id=hl-73-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-6> 6</a>
-</span><span class=lnt id=hl-73-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-7> 7</a>
-</span><span class=lnt id=hl-73-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-8> 8</a>
-</span><span class=lnt id=hl-73-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-9> 9</a>
-</span><span class=lnt id=hl-73-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-10>10</a>
-</span><span class=lnt id=hl-73-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-11>11</a>
-</span><span class=lnt id=hl-73-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-12>12</a>
-</span><span class=lnt id=hl-73-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-73-13>13</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>this is a play at the top level of a file</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>all</span><span class=w>
@@ -1368,25 +1368,25 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>include</span><span class=p>:</span><span class=w> </span><span class=l>dbservers.yml</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h3 id=playbookのpackagerole>Playbookの"Package”(role)<a hidden class=anchor aria-hidden=true href=#playbookのpackagerole>#</a></h3><p>Roleはincludeよりもっと柔軟で強力なコードシェア方法を提供する。includeは他のプログラミング言語の"include”と似たような使い方で、1つのファイルした利用できない。それに対し、roleは”Package”みたいな使い方で、複数のファイルを同時参照によって1つの機能を利用できる。例えば、apacheのインストールと設定をする時、tasksでパッケージのインストール、テンプレートファイルと設定ファイルのコピー、handlerでのサービス再起動など、こちらの処理を1つのroleに纏めることによって、他のPlaybookに参照し利用されることができる。</p><p>Ansibleではroleの利用を推奨していて、roleをシェアするためのプラットフォーム Ansible Galaxy <a href=https://galaxy.ansible.com/>https://galaxy.ansible.com/</a> を提供している。そこでは他の人が書いたroleを参照し利用することができる。</p><h4 id=roleのディレクトリ構造>roleのディレクトリ構造<a hidden class=anchor aria-hidden=true href=#roleのディレクトリ構造>#</a></h4><p>Ansibleでは、決まったディレクトリ構造でroleを定義する。具体的な例を以下に示す。</p><p>この例では、名前がmyroleのroleが定義され、<code>site.yml</code>で参照している。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-74-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-1> 1</a>
-</span><span class=lnt id=hl-74-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-2> 2</a>
-</span><span class=lnt id=hl-74-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-3> 3</a>
-</span><span class=lnt id=hl-74-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-4> 4</a>
-</span><span class=lnt id=hl-74-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-5> 5</a>
-</span><span class=lnt id=hl-74-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-6> 6</a>
-</span><span class=lnt id=hl-74-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-7> 7</a>
-</span><span class=lnt id=hl-74-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-8> 8</a>
-</span><span class=lnt id=hl-74-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-9> 9</a>
-</span><span class=lnt id=hl-74-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-10>10</a>
-</span><span class=lnt id=hl-74-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-11>11</a>
-</span><span class=lnt id=hl-74-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-12>12</a>
-</span><span class=lnt id=hl-74-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-13>13</a>
-</span><span class=lnt id=hl-74-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-14>14</a>
-</span><span class=lnt id=hl-74-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-15>15</a>
-</span><span class=lnt id=hl-74-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-16>16</a>
-</span><span class=lnt id=hl-74-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-17>17</a>
-</span><span class=lnt id=hl-74-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-18>18</a>
-</span><span class=lnt id=hl-74-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-74-19>19</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>site.yml</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=l>roles/</span><span class=w>
@@ -1409,10 +1409,10 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>        </span><span class=l>└── test.yml</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p><code>site.yml</code>でroleを参照</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-75-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-75-1>1</a>
-</span><span class=lnt id=hl-75-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-75-2>2</a>
-</span><span class=lnt id=hl-75-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-75-3>3</a>
-</span><span class=lnt id=hl-75-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-75-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>webservers</span><span class=w>
@@ -1428,11 +1428,11 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 <td><code>roles/x/vars/main.yml</code></td><td>ファイル内のvariablesがPlaybookに追加される。</td></tr><tr>
 <td><code>roles/x/meta/main.yml</code></td><td>ファイル内のロール情報がPlaybookのrolesリストに追加される。</td></tr></tbody></table><p><code>roles/x/tasks/main.yml</code> でのすべてのtasksは、<code>roles/x/{files,templates,tasks}</code>のファイルを直接参照でき、ファイルパスを指定する必要がない。自分でroleを書くときに、一般的には <code>roles/x/tasks/main.yml</code> を作成する。他のファイルとディレクトリは、必要によって追加する。</p><p>以下では、具体の例を通してroleの書き方と使い方を紹介する。</p><h4 id=roleで変数を使う>Roleで変数を使う<a hidden class=anchor aria-hidden=true href=#roleで変数を使う>#</a></h4><p>変数付きのmyroleのディレクトリ構造を以下に示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-76-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-76-1>1</a>
-</span><span class=lnt id=hl-76-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-76-2>2</a>
-</span><span class=lnt id=hl-76-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-76-3>3</a>
-</span><span class=lnt id=hl-76-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-76-4>4</a>
-</span><span class=lnt id=hl-76-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-76-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>main.yml
 </span></span><span class=line><span class=cl> roles
@@ -1441,21 +1441,21 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>       main.yml
 </span></span></code></pre></td></tr></table></div></div><p>以下の様に、<code>roles/myrole/tasks/main.yml</code> で<code>\{\{ \}\}</code>を使って変数を定義する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-77-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-77-1>1</a>
-</span><span class=lnt id=hl-77-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-77-2>2</a>
-</span><span class=lnt id=hl-77-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-77-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w> </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>use param</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>debug</span><span class=p>:</span><span class=w> </span><span class=l>msg=&#34;\{\{ param \}\}&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>それで、main.ymlで以下のようにmyroleを利用することができる</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-78-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-78-1>1</a>
-</span><span class=lnt id=hl-78-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-78-2>2</a>
-</span><span class=lnt id=hl-78-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-78-3>3</a>
-</span><span class=lnt id=hl-78-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-78-4>4</a>
-</span><span class=lnt id=hl-78-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-78-5>5</a>
-</span><span class=lnt id=hl-78-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-78-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -1465,14 +1465,14 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- {<span class=w> </span><span class=nt>role: myrole, param</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;Call some_role for the 2nd time&#39;</span><span class=w> </span>}<span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>YAMLの辞書型に書くと</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-79-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-79-1>1</a>
-</span><span class=lnt id=hl-79-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-79-2>2</a>
-</span><span class=lnt id=hl-79-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-79-3>3</a>
-</span><span class=lnt id=hl-79-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-79-4>4</a>
-</span><span class=lnt id=hl-79-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-79-5>5</a>
-</span><span class=lnt id=hl-79-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-79-6>6</a>
-</span><span class=lnt id=hl-79-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-79-7>7</a>
-</span><span class=lnt id=hl-79-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-79-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -1484,13 +1484,13 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>param</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;Call some_role for the 2nd time&#39;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=変数のデフォルト値>変数のデフォルト値<a hidden class=anchor aria-hidden=true href=#変数のデフォルト値>#</a></h4><p>変数のデフォルト値が設定された場合、roleを読み込むときにもし変数に対し新しい値が渡された場合、その新しい値を利用する。もし変数に新しい値を渡していない場合、変数はデフォルト値を利用する。</p><p>デフォルト値の設定はとても簡単で、上記のrole_with_varを例にする</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-80-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-80-1>1</a>
-</span><span class=lnt id=hl-80-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-80-2>2</a>
-</span><span class=lnt id=hl-80-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-80-3>3</a>
-</span><span class=lnt id=hl-80-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-80-4>4</a>
-</span><span class=lnt id=hl-80-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-80-5>5</a>
-</span><span class=lnt id=hl-80-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-80-6>6</a>
-</span><span class=lnt id=hl-80-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-80-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>main.yml
 </span></span><span class=line><span class=cl>roles:
@@ -1501,16 +1501,16 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>      main.yml
 </span></span></code></pre></td></tr></table></div></div><p><code>roles/myrole/defaults/main.yml</code>でparamの値を定義する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-81-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-81-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>param</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;I am the default value&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>これによって、main.ymlでは以下の二つの方法でroleを読み込むことができる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-82-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-82-1>1</a>
-</span><span class=lnt id=hl-82-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-82-2>2</a>
-</span><span class=lnt id=hl-82-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-82-3>3</a>
-</span><span class=lnt id=hl-82-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-82-4>4</a>
-</span><span class=lnt id=hl-82-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-82-5>5</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>webservers</span><span class=w>
@@ -1519,10 +1519,10 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- {<span class=w> </span><span class=nt>role: role_with_var, param</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;I am the value from external&#39;</span><span class=w> </span>}<span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>他の例については <a href=https://github.com/shijingjing1221/ansible-first-book-examples/blob/master/role_vars.yml>https://github.com/shijingjing1221/ansible-first-book-examples/blob/master/role_vars.yml</a>を参照する</p><h4 id=roleとwhenと一緒に実行>roleとwhenと一緒に実行<a hidden class=anchor aria-hidden=true href=#roleとwhenと一緒に実行>#</a></h4><p>下記の例では、my_roleはRedHat系のサーバー上しか有効にならない。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-83-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-83-1>1</a>
-</span><span class=lnt id=hl-83-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-83-2>2</a>
-</span><span class=lnt id=hl-83-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-83-3>3</a>
-</span><span class=lnt id=hl-83-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-83-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>webservers</span><span class=w>
@@ -1530,12 +1530,12 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- {<span class=w> </span><span class=nt>role: my_role, when</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;ansible_os_family == &#39;RedHat&#39;&#34;</span><span class=w> </span>}<span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>YAML辞書型で書くと以下になる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-84-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-84-1>1</a>
-</span><span class=lnt id=hl-84-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-84-2>2</a>
-</span><span class=lnt id=hl-84-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-84-3>3</a>
-</span><span class=lnt id=hl-84-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-84-4>4</a>
-</span><span class=lnt id=hl-84-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-84-5>5</a>
-</span><span class=lnt id=hl-84-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-84-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -1545,25 +1545,25 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>when</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;ansible_os_family == &#39;RedHat&#39;&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=roleとtaskの実行順番>roleとtaskの実行順番<a hidden class=anchor aria-hidden=true href=#roleとtaskの実行順番>#</a></h4><p>Playbookでは、roleとtasksが同時にある時に、どちらが先に実行になる？答えが以下のようになる。</p><p>pre_tasks > role > tasks > post_tasks</p><p>例で示すと、以下のPlaybookに対し</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-85-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-1> 1</a>
-</span><span class=lnt id=hl-85-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-2> 2</a>
-</span><span class=lnt id=hl-85-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-3> 3</a>
-</span><span class=lnt id=hl-85-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-4> 4</a>
-</span><span class=lnt id=hl-85-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-5> 5</a>
-</span><span class=lnt id=hl-85-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-6> 6</a>
-</span><span class=lnt id=hl-85-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-7> 7</a>
-</span><span class=lnt id=hl-85-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-8> 8</a>
-</span><span class=lnt id=hl-85-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-9> 9</a>
-</span><span class=lnt id=hl-85-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-10>10</a>
-</span><span class=lnt id=hl-85-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-11>11</a>
-</span><span class=lnt id=hl-85-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-12>12</a>
-</span><span class=lnt id=hl-85-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-13>13</a>
-</span><span class=lnt id=hl-85-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-14>14</a>
-</span><span class=lnt id=hl-85-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-15>15</a>
-</span><span class=lnt id=hl-85-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-16>16</a>
-</span><span class=lnt id=hl-85-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-17>17</a>
-</span><span class=lnt id=hl-85-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-18>18</a>
-</span><span class=lnt id=hl-85-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-85-19>19</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nn>---</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -1586,28 +1586,28 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>shell</span><span class=p>:</span><span class=w> </span><span class=l>echo &#39;goodbye&#39;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>実際に実行した結果は以下になる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-86-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-1> 1</a>
-</span><span class=lnt id=hl-86-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-2> 2</a>
-</span><span class=lnt id=hl-86-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-3> 3</a>
-</span><span class=lnt id=hl-86-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-4> 4</a>
-</span><span class=lnt id=hl-86-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-5> 5</a>
-</span><span class=lnt id=hl-86-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-6> 6</a>
-</span><span class=lnt id=hl-86-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-7> 7</a>
-</span><span class=lnt id=hl-86-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-8> 8</a>
-</span><span class=lnt id=hl-86-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-9> 9</a>
-</span><span class=lnt id=hl-86-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-10>10</a>
-</span><span class=lnt id=hl-86-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-11>11</a>
-</span><span class=lnt id=hl-86-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-12>12</a>
-</span><span class=lnt id=hl-86-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-13>13</a>
-</span><span class=lnt id=hl-86-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-14>14</a>
-</span><span class=lnt id=hl-86-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-15>15</a>
-</span><span class=lnt id=hl-86-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-16>16</a>
-</span><span class=lnt id=hl-86-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-17>17</a>
-</span><span class=lnt id=hl-86-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-18>18</a>
-</span><span class=lnt id=hl-86-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-19>19</a>
-</span><span class=lnt id=hl-86-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-20>20</a>
-</span><span class=lnt id=hl-86-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-21>21</a>
-</span><span class=lnt id=hl-86-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-86-22>22</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>PLAY <span class=o>[</span>lb<span class=o>]</span> **********************************************************************
 </span></span><span class=line><span class=cl>
@@ -1633,23 +1633,23 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>rhel7u3                    : <span class=nv>ok</span><span class=o>=</span><span class=m>5</span>    <span class=nv>changed</span><span class=o>=</span><span class=m>3</span>    <span class=nv>unreachable</span><span class=o>=</span><span class=m>0</span>    <span class=nv>failed</span><span class=o>=</span><span class=m>0</span>
 </span></span></code></pre></td></tr></table></div></div><h2 id=tagsで一部のtasksを実行>tagsで一部のtasksを実行<a hidden class=anchor aria-hidden=true href=#tagsで一部のtasksを実行>#</a></h2><p>Playbookの内容が多い時、一部しか実行したくない場合、Playbookのtagsを使って一部のtasksを実行できる。</p><h3 id=tagsの基本の使い方>tagsの基本の使い方<a hidden class=anchor aria-hidden=true href=#tagsの基本の使い方>#</a></h3><p>以下の例では、example.ymlの中にpackagesとconfiguration 二つのtagが書かれている。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-87-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-1> 1</a>
-</span><span class=lnt id=hl-87-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-2> 2</a>
-</span><span class=lnt id=hl-87-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-3> 3</a>
-</span><span class=lnt id=hl-87-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-4> 4</a>
-</span><span class=lnt id=hl-87-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-5> 5</a>
-</span><span class=lnt id=hl-87-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-6> 6</a>
-</span><span class=lnt id=hl-87-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-7> 7</a>
-</span><span class=lnt id=hl-87-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-8> 8</a>
-</span><span class=lnt id=hl-87-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-9> 9</a>
-</span><span class=lnt id=hl-87-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-10>10</a>
-</span><span class=lnt id=hl-87-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-11>11</a>
-</span><span class=lnt id=hl-87-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-12>12</a>
-</span><span class=lnt id=hl-87-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-13>13</a>
-</span><span class=lnt id=hl-87-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-14>14</a>
-</span><span class=lnt id=hl-87-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-15>15</a>
-</span><span class=lnt id=hl-87-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-16>16</a>
-</span><span class=lnt id=hl-87-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-87-17>17</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -1670,37 +1670,37 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>       </span>- <span class=l>configuration</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>tag変数を付けずに実行すると、すべてのtasksが実行される。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-88-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-88-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook example.yml
 </span></span></code></pre></td></tr></table></div></div><p>パッケージのインストールのみ実行したい時に、tagsでpackagesを指定してPlaybook を実行する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-89-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-89-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook example.yml --tags <span class=s2>&#34;packages&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><p>configurationの部分を実行しない場合、skip-tagsでconfigurationを指定してPlaybook を実行する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-90-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-90-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook example.yml --skip-tags <span class=s2>&#34;configuration&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><h3 id=特殊の意味を持つtags>特殊の意味を持つtags<a hidden class=anchor aria-hidden=true href=#特殊の意味を持つtags>#</a></h3><ul>
 <li>always</li></ul><p>タグの名前がユーザで決めるが、alwaysに設定するとタグの意味が特殊になる。Playbookを実行するときに、alwaysタグを実行しないことを明示的に示さないと、このタグは実行される。</p><p>下記の例では、</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-91-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-1> 1</a>
-</span><span class=lnt id=hl-91-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-2> 2</a>
-</span><span class=lnt id=hl-91-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-3> 3</a>
-</span><span class=lnt id=hl-91-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-4> 4</a>
-</span><span class=lnt id=hl-91-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-5> 5</a>
-</span><span class=lnt id=hl-91-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-6> 6</a>
-</span><span class=lnt id=hl-91-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-7> 7</a>
-</span><span class=lnt id=hl-91-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-8> 8</a>
-</span><span class=lnt id=hl-91-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-9> 9</a>
-</span><span class=lnt id=hl-91-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-10>10</a>
-</span><span class=lnt id=hl-91-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-11>11</a>
-</span><span class=lnt id=hl-91-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-12>12</a>
-</span><span class=lnt id=hl-91-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-13>13</a>
-</span><span class=lnt id=hl-91-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-14>14</a>
-</span><span class=lnt id=hl-91-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-91-15>15</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -1719,19 +1719,19 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>         </span>- <span class=l>configuration</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>packagesタグのみ実行しても、alwaysタグのtaskも実行される。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-92-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-92-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-playbook tags_always.yml --tags <span class=s2>&#34;packages&#34;</span>
 </span></span></code></pre></td></tr></table></div></div><ul>
 <li>tagged, untagged, all</li></ul><p>以下のPlaybookに対し</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-93-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-93-1>1</a>
-</span><span class=lnt id=hl-93-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-93-2>2</a>
-</span><span class=lnt id=hl-93-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-93-3>3</a>
-</span><span class=lnt id=hl-93-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-93-4>4</a>
-</span><span class=lnt id=hl-93-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-93-5>5</a>
-</span><span class=lnt id=hl-93-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-93-6>6</a>
-</span><span class=lnt id=hl-93-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-93-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=w> </span><span class=nt>tasks</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>
@@ -1742,24 +1742,24 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>debug</span><span class=p>:</span><span class=w> </span><span class=l>msg=&#34;I am not tagged&#34;</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>それぞれのコマンドにtagged, untagged, allを指定して実行してみましょう</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-94-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-94-1>1</a>
-</span><span class=lnt id=hl-94-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-94-2>2</a>
-</span><span class=lnt id=hl-94-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-94-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl> ansible-playbook tags_tagged_untagged_all.yml --tags tagged
 </span></span><span class=line><span class=cl> ansible-playbook tags_tagged_untagged_all.yml --tags untagged
 </span></span><span class=line><span class=cl> ansible-playbook tags_tagged_untagged_all.yml --tags all
 </span></span></code></pre></td></tr></table></div></div><h3 id=includeとroleでtagsを利用>includeとroleでtagsを利用<a hidden class=anchor aria-hidden=true href=#includeとroleでtagsを利用>#</a></h3><p>下記のようにincludeの中にtagsを設定することができる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-95-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-95-1>1</a>
-</span><span class=lnt id=hl-95-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-95-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl>- <span class=nt>include</span><span class=p>:</span><span class=w> </span><span class=l>foo.yml</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tags</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>web,foo]</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>rolesの中のタグを参照したい場合は、以下の例で示す。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-96-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-96-1>1</a>
-</span><span class=lnt id=hl-96-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-96-2>2</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=nt>roles</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- {<span class=w> </span><span class=nt>role: webserver, port: 5000, tags</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w> </span><span class=s1>&#39;web&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;foo&#39;</span><span class=w> </span><span class=p>]</span><span class=w> </span>}<span class=w>
@@ -1771,22 +1771,22 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 <li>設定やインストールをしてから利用する。</li><li>比較的に使用頻度が低い</li><li>bugが存在している可能性がある。</li></ul></li></ul><h2 id=extra-moduleの使い方>Extra Moduleの使い方<a hidden class=anchor aria-hidden=true href=#extra-moduleの使い方>#</a></h2><p>以下の手順でExtra moduleをのインストールと設定を行うと、コマンドラインとPlaybookで利用できる。Extra Module は Core Module と同じ使い方で利用できる。
 注意：Extra moduleがテストされ問題ない場合はCore Moduleに移動される。</p><h3 id=ansible-module-extraをダウンロード>Ansible module extraをダウンロード<a hidden class=anchor aria-hidden=true href=#ansible-module-extraをダウンロード>#</a></h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-97-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-97-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone https://github.com/ansible/ansible-modules-extras.git
 </span></span></code></pre></td></tr></table></div></div><p>例として、ダウンロード先は/home/jshi/software/になっている。このパスは後で利用する。</p><h3 id=extraモジュールが使えるように設定内容を修正>extraモジュールが使えるように設定内容を修正<a hidden class=anchor aria-hidden=true href=#extraモジュールが使えるように設定内容を修正>#</a></h3><ul>
 <li>方法1：デフォルトのAnsible設定ファイルを変更</li></ul><p><code>/etc/ansible/ansible.cfg</code>を編集し、下記 1 行を追加</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-98-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-98-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-YAML data-lang=YAML><span class=line><span class=cl><span class=l>library    = /home/jshi/software/ansible-modules-extras/</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><ul>
 <li>方法2：カレントディレクトリの下にあるansible.cfgを変更</li></ul><p>この方法は、同じくカレントディレクトリにあるplaybookのみに有効になる。他の親ディレクトリや子ディレクトリのPlaybookには無効になる。</p><p>下記のディレクトリ構造に対し、ansible.cfgを変更した後、use_extra_module.ymlのみextra moduleが利用できる。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-99-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-99-1>1</a>
-</span><span class=lnt id=hl-99-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-99-2>2</a>
-</span><span class=lnt id=hl-99-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-99-3>3</a>
-</span><span class=lnt id=hl-99-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-99-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>library/ansible-modules-extras
 </span></span><span class=line><span class=cl>ansible.cfg
@@ -1794,24 +1794,24 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>subfolder/use_extra_module_will_throw_error.yml
 </span></span></code></pre></td></tr></table></div></div><p>カレントディレクトリにあるため、設定内容は相対パスでも大丈夫。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-100-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-100-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>library = library/ansible-modules-extras/
 </span></span></code></pre></td></tr></table></div></div><ul>
 <li>方法3：環境変数を修正する</li></ul><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-101-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-101-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>export</span> <span class=nv>ANSIBLE_LIBRARY</span><span class=o>=</span>/project/demo/demoansible/library/ansible-module-extras
 </span></span></code></pre></td></tr></table></div></div><p>もし再起動後も有効にしたい場合、~/.bashrcでANSIBLE_LIBRARY環境変数を設定する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-102-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-102-1>1</a>
-</span><span class=lnt id=hl-102-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-102-2>2</a>
-</span><span class=lnt id=hl-102-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-102-3>3</a>
-</span><span class=lnt id=hl-102-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-102-4>4</a>
-</span><span class=lnt id=hl-102-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-102-5>5</a>
-</span><span class=lnt id=hl-102-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-102-6>6</a>
-</span><span class=lnt id=hl-102-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-102-7>7</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ <span class=nb>echo</span> &gt;&gt;~/.bashrc <span class=s>&lt;&lt;EOF
 </span></span></span><span class=line><span class=cl><span class=s>
@@ -1822,60 +1822,60 @@ tasks/firewall_httpd_default.yml</p><div class=highlight><div class=chroma>
 </span></span><span class=line><span class=cl>$ <span class=nb>source</span> ~/.bashrc
 </span></span></code></pre></td></tr></table></div></div><h2 id=コマンドラインでモジュールの使い方を参照>コマンドラインでモジュールの使い方を参照<a hidden class=anchor aria-hidden=true href=#コマンドラインでモジュールの使い方を参照>#</a></h2><p>Bashのman命令みたいに、ansibleはコマンドラインでmoduleの使い方が参照できる。コマンド名は ansible-doc である。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-103-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-103-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-doc module_name
 </span></span></code></pre></td></tr></table></div></div><p>Core Moduleに対しはどこで実行しても問題がない、例えばyumのを参照したい場合</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-104-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-104-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-doc yum
 </span></span></code></pre></td></tr></table></div></div><p>Extra Moduleに対しては、extra moduleの利用を設定したディレクトリの下でコマンドを実行する。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-105-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-105-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ansible-doc yum_repository
 </span></span></code></pre></td></tr></table></div></div><h2 id=より良いplaybookの書き方>より良いPlaybookの書き方<a hidden class=anchor aria-hidden=true href=#より良いplaybookの書き方>#</a></h2><ul>
 <li>Includeとroleを使って、重複がないコードを書く</li><li>大きいファイルを小さいファイルに分割して書く</li></ul><p><a href=https://github.com/ansible/ansible-examples>https://github.com/ansible/ansible-examples</a></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-106-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-1> 1</a>
-</span><span class=lnt id=hl-106-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-2> 2</a>
-</span><span class=lnt id=hl-106-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-3> 3</a>
-</span><span class=lnt id=hl-106-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-4> 4</a>
-</span><span class=lnt id=hl-106-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-5> 5</a>
-</span><span class=lnt id=hl-106-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-6> 6</a>
-</span><span class=lnt id=hl-106-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-7> 7</a>
-</span><span class=lnt id=hl-106-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-8> 8</a>
-</span><span class=lnt id=hl-106-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-9> 9</a>
-</span><span class=lnt id=hl-106-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-10>10</a>
-</span><span class=lnt id=hl-106-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-11>11</a>
-</span><span class=lnt id=hl-106-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-12>12</a>
-</span><span class=lnt id=hl-106-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-13>13</a>
-</span><span class=lnt id=hl-106-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-14>14</a>
-</span><span class=lnt id=hl-106-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-15>15</a>
-</span><span class=lnt id=hl-106-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-16>16</a>
-</span><span class=lnt id=hl-106-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-17>17</a>
-</span><span class=lnt id=hl-106-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-18>18</a>
-</span><span class=lnt id=hl-106-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-19>19</a>
-</span><span class=lnt id=hl-106-20><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-20>20</a>
-</span><span class=lnt id=hl-106-21><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-21>21</a>
-</span><span class=lnt id=hl-106-22><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-22>22</a>
-</span><span class=lnt id=hl-106-23><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-23>23</a>
-</span><span class=lnt id=hl-106-24><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-24>24</a>
-</span><span class=lnt id=hl-106-25><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-25>25</a>
-</span><span class=lnt id=hl-106-26><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-26>26</a>
-</span><span class=lnt id=hl-106-27><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-27>27</a>
-</span><span class=lnt id=hl-106-28><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-28>28</a>
-</span><span class=lnt id=hl-106-29><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-29>29</a>
-</span><span class=lnt id=hl-106-30><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-30>30</a>
-</span><span class=lnt id=hl-106-31><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-31>31</a>
-</span><span class=lnt id=hl-106-32><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-32>32</a>
-</span><span class=lnt id=hl-106-33><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-33>33</a>
-</span><span class=lnt id=hl-106-34><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-34>34</a>
-</span><span class=lnt id=hl-106-35><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-35>35</a>
-</span><span class=lnt id=hl-106-36><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-36>36</a>
-</span><span class=lnt id=hl-106-37><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-37>37</a>
-</span><span class=lnt id=hl-106-38><a style=outline:none;text-decoration:none;color:inherit href=#hl-106-38>38</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>production                <span class=c1># inventory file for production servers</span>
 </span></span><span class=line><span class=cl>staging                   <span class=c1># inventory file for staging environment</span>

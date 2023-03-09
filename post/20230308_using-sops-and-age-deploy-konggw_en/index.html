@@ -65,14 +65,14 @@ Secure deployment Kong Gateway using Mozila SOPS, age and Github Action
 <li><a href=https://github.com/FiloSottile/age/releases>age</a></li><li><a href=https://github.com/mozilla/sops/releases>sops</a></li></ol><p>SOPS is a handy and popular encryption/decryption tool, supporting PGP, age, Google cloud&rsquo;s KMS, Azure&rsquo;s key vault, Hashicorp Vault, etc. We chose age because we intend to use other cloud services as little as possible.
 Once you have installed the tools, try <code>age-kengen --help</code>.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
-</span><span class=lnt id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a>
-</span><span class=lnt id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a>
-</span><span class=lnt id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4>4</a>
-</span><span class=lnt id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5>5</a>
-</span><span class=lnt id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6>6</a>
-</span><span class=lnt id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7>7</a>
-</span><span class=lnt id=hl-0-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-8>8</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ age-keygen --help
 </span></span><span class=line><span class=cl>Usage:
@@ -84,12 +84,12 @@ Once you have installed the tools, try <code>age-kengen --help</code>.</p><div c
 </span></span><span class=line><span class=cl>    -y                        Convert an identity file to a recipients file.
 </span></span></code></pre></td></tr></table></div></div><p>Since it looks OK, let&rsquo;s generate the key.</p><h2 id=generate-key>generate key<a hidden class=anchor aria-hidden=true href=#generate-key>#</a></h2><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4>4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5>5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ age-keygen -o sops-key.txt
 </span></span><span class=line><span class=cl>Public key: age1hhpnj4ylj5z7qwaek0ncrq882ygmvnv4unup78u3djgmlezrmgkqshyatc
@@ -99,27 +99,27 @@ Once you have installed the tools, try <code>age-kengen --help</code>.</p><div c
 </span></span><span class=line><span class=cl>AGE-SECRET-KEY-1UHJNXS6RKYWA72RVED0ERGZVQ98N6MDFV6Y3CSPPN9JKLKSRH9GSQRLFAE<span class=sb>`</span>
 </span></span></code></pre></td></tr></table></div></div><p>Two keys have been generated in the <code>sops-key.txt</code> file: The public key for encryption and the Private key for decryption.</p><h2 id=encryption-of-configuration-file>Encryption of configuration file<a hidden class=anchor aria-hidden=true href=#encryption-of-configuration-file>#</a></h2><p>To use SOPS more conveniently, let&rsquo;s create a single configuration file, <code>.sops.yaml</code>. You no longer need to specify the key from the command line; enter the Public key you just generated after <code>age</code>, and the <code>encrypted_regex</code> part is where you set which sections of the contents to encrypt.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>creation_rules</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>encrypted_regex</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;^(env|admin|proxy|enterprise|manager|portal|portalapi|postgresql)$&#39;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>age</span><span class=p>:</span><span class=w> </span><span class=l>age1hhpnj4ylj5z7qwaek0ncrq882ygmvnv4unup78u3djgmlezrmgkqshyatc</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>The following command will encrypt the files in the Kong GW deployment with the above configuration. Parameter <code>-e</code> means encrypt, and <code>-i</code> means save the changes to the orignal file.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1> 1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2> 2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3> 3</a>
-</span><span class=lnt id=hl-3-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-4> 4</a>
-</span><span class=lnt id=hl-3-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-5> 5</a>
-</span><span class=lnt id=hl-3-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-6> 6</a>
-</span><span class=lnt id=hl-3-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-7> 7</a>
-</span><span class=lnt id=hl-3-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-8> 8</a>
-</span><span class=lnt id=hl-3-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-9> 9</a>
-</span><span class=lnt id=hl-3-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-10>10</a>
-</span><span class=lnt id=hl-3-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-11>11</a>
-</span><span class=lnt id=hl-3-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-12>12</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sops -e -i values.yaml
 </span></span><span class=line><span class=cl>$ head values.yaml
@@ -135,18 +135,18 @@ Once you have installed the tools, try <code>age-kengen --help</code>.</p><div c
 </span></span><span class=line><span class=cl>    admin_api_uri: ENC<span class=o>[</span>AES256_GCM,data:52j0JgFNldx5Qytsqav9nSLLLEUzR7+KsNo8aTsjbS2IyTM1R00<span class=o>=</span>,iv:0RkBMi8k/XhuEzGSRpIQ9VQGbcUOTcb+o/KUVJ5LSYk<span class=o>=</span>,tag:m5o89fI+GCKxD7TcLf5Nqg<span class=o>==</span>,type:str<span class=o>]</span>
 </span></span></code></pre></td></tr></table></div></div><p>The <code>image</code> section is not in the <code>encrypted_regex</code> filed, so it is left in plain text.</p><h2 id=decrypt-the-configuration-file>Decrypt the configuration file<a hidden class=anchor aria-hidden=true href=#decrypt-the-configuration-file>#</a></h2><p>First, we need to copy the Private Key to <code>.config/sops/age/keys.txt</code>. This is the default path of the private key, so you will not need to specify the Private Key when executing the sops command. Once the Private Key is set, you can compound the file encrypted above with the following command. Similar to the above, parameter <code>-d</code> means dencryption.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
-</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
-</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
-</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
-</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
-</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
-</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
-</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
-</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
-</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
-</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
-</span><span class=lnt id=hl-4-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-12>12</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sops -d -i values.yaml
 </span></span><span class=line><span class=cl>$ head values.yaml

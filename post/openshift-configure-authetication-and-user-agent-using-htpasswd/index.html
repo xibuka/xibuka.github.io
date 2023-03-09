@@ -65,22 +65,22 @@ OpenShift Configure authentication and User Agent using HTPasswd
 OpenShift has several identity providers which can help you to manager user authentication. I will use <strong>HTPasswd</strong> this time. You can find more information in
 <a href=https://docs.openshift.com/container-platform/3.5/install_config/configuring_authentication.html>Configuring Authentication and User Agent</a></p><h1 id=install-package>Install package<a hidden class=anchor aria-hidden=true href=#install-package>#</a></h1><p>The htpasswd utility is provided in httpd-tools package.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># yum install httpd-tools
 </span></span></code></pre></td></tr></table></div></div><h1 id=configure-the-master-configuration-file>configure the master configuration file<a hidden class=anchor aria-hidden=true href=#configure-the-master-configuration-file>#</a></h1><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1> 1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2> 2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3> 3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4> 4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5> 5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6> 6</a>
-</span><span class=lnt id=hl-1-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-7> 7</a>
-</span><span class=lnt id=hl-1-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-8> 8</a>
-</span><span class=lnt id=hl-1-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-9> 9</a>
-</span><span class=lnt id=hl-1-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-10>10</a>
-</span><span class=lnt id=hl-1-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-11>11</a>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>oauthConfig:
 </span></span><span class=line><span class=cl>  ...
@@ -95,17 +95,17 @@ OpenShift has several identity providers which can help you to manager user auth
 </span></span><span class=line><span class=cl>      file: /path/to/users.htpasswd 
 </span></span></code></pre></td></tr></table></div></div><p>Need to restart <code>atomic-openshift-master</code> to make the change to take effect.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># systemctl restart atomic-openshift-master
 </span></span></code></pre></td></tr></table></div></div><h1 id=setup-username-and-password>Setup username and password<a hidden class=anchor aria-hidden=true href=#setup-username-and-password>#</a></h1><p>HTPasswd use a flat file to manager the username and the password, in which the
 password is hashed. Run following command to create the file with <em>username</em>,
 and it will ask you to input the password for <em>username</em>.</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3>3</a>
-</span><span class=lnt id=hl-3-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-4>4</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ htpasswd -c &lt;/path/to/users.htpasswd&gt; user1
 </span></span><span class=line><span class=cl>New password:
@@ -113,17 +113,17 @@ and it will ask you to input the password for <em>username</em>.</p><div class=h
 </span></span><span class=line><span class=cl>Adding password for user user1
 </span></span></code></pre></td></tr></table></div></div><p>You can also include the password by adding the <code>-b</code> option</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ htpasswd -c -b user1 &lt;password&gt;
 </span></span></code></pre></td></tr></table></div></div><p>After add a user, you can use it to access OpenShift Container Platform.</p><h2 id=addupdate-an-user>add/update an user<a hidden class=anchor aria-hidden=true href=#addupdate-an-user>#</a></h2><p>To add or update an username, run following command</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ htpasswd &lt;/path/to/users.htpasswd&gt; &lt;user_name&gt;
 </span></span></code></pre></td></tr></table></div></div><h2 id=delete-an-user>delete an user<a hidden class=anchor aria-hidden=true href=#delete-an-user>#</a></h2><p>To delete an username, run following command</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ htpasswd -D &lt;/path/to/users.htpasswd&gt; &lt;user_name&gt;
 </span></span></code></pre></td></tr></table></div></div></div><footer class=post-footer>

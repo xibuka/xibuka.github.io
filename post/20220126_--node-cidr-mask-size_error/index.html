@@ -85,17 +85,17 @@
 </h1><div class=post-meta><span title="2022-01-26 11:33:00 +0900 +0900">January 26, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;61 words&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href=https://github.com/%3cpath_to_repo%3e/content/post/20220126_--node-cidr-mask-size_error.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div></header><div class=post-content><p>rkeクラスタのcidrを弄ったら、以下のようなエラーが出てクラスタの作成が失敗した。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{&#34;log&#34;:&#34;F1203 01:36:22.168496  1 node_ipam_controller.go:115] Controller: Invalid --cluster-cidr, mask size of cluster CIDR must be less than or equal to --node-cidr-mask-size configured for CIDR family\n&#34;,&#34;stream&#34;:&#34;stderr&#34;,&#34;time&#34;:&#34;2021-12-03T01:36:22.16859524Z&#34;}
 </span></span></code></pre></td></tr></table></div></div><p>cluster.yamlの関連部分は以下のようになっています。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
-</span><span class=lnt id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2>2</a>
-</span><span class=lnt id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3>3</a>
-</span><span class=lnt id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4>4</a>
-</span><span class=lnt id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5>5</a>
-</span><span class=lnt id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>services</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>kube-controller</span><span class=p>:</span><span class=w>
@@ -105,12 +105,12 @@
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>service_cluster_ip_range</span><span class=p>:</span><span class=w> </span><span class=m>10.43.0.0</span><span class=l>/25</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>問題になる場所はCIDRのマスクサイズです。このマスクサイズは<code>--node-cidr-mask-size</code>で設定され、クラスタのCIDRのマスクサイズより大きく（IP範囲が少なく）なる必要があります。デフォルトは<code>24</code>のため、上記の設定の<code>25</code>より小さい（IP範囲が溢れた）のでエラーとなりました。</p><p>この<code>--node-cidr-mask-size</code>は、以下のように<code>extra_args</code>で変更することができます。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
-</span><span class=lnt id=hl-2-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-2>2</a>
-</span><span class=lnt id=hl-2-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-3>3</a>
-</span><span class=lnt id=hl-2-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-4>4</a>
-</span><span class=lnt id=hl-2-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-5>5</a>
-</span><span class=lnt id=hl-2-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-6>6</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>services</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>kube-controller</span><span class=p>:</span><span class=w>
@@ -121,9 +121,9 @@
 </span></span></span></code></pre></td></tr></table></div></div><p><code>25</code>, <code>26</code>のような数字に設定したら、クラスタの作成ができるようになります。</p><p>このマスクサイズとノードあたりで利用できるPod数の関係として、Pod の追加 / 削除などを考慮し、確保したIPアドレスの数の半分ぐらいが実際に作成できるPodの数となります。</p><p>例えば、cluster_cidrのマスクが<code>25</code>なので、クラスタレベルのIPアドレス数は<code>128</code>個です。</p><p>1ノードの場合、<code>--node-cidr-mask-size</code>を同じく25を設定したら<code>128</code>個のIPアドレスが確保され、<code>33</code>～<code>64</code>のPodが作成できます。</p><p>3ノードの場合、ノードあたりのIP数は<code>42</code>個までしか使えなくて、<code>--node-cidr-mask-size</code>を<code>27</code>に設定しなければいけません。そうすると、Pod数は <code>9</code>～<code>16</code>になります。
 システムレベルのPod（corednsなど）も<code>10</code>個程度あるので、<code>28</code>にしたら業務Pod用のIPアドレスが足りなくなります。</p><p>また、上記にあわせてmax-podsの設定も必要です。</p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
-</span><span class=lnt id=hl-3-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-2>2</a>
-</span><span class=lnt id=hl-3-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-3>3</a>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
 </span></code></pre></td><td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>    </span><span class=nt>kubelet</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>extra_args</span><span class=p>:</span><span class=w>
