@@ -1,46 +1,108 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="Beware the dark side"><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://wenhan.blog/><link href=https://wenhan.blog/index.xml rel=alternate type=application/rss+xml title="Wenhan Shi Blog"><link href=https://wenhan.blog/index.xml rel=feed type=application/rss+xml title="Wenhan Shi Blog"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Wenhan Shi Blog"><meta property="og:description" content="Beware the dark side"><meta property="og:type" content="website"><meta property="og:url" content="https://wenhan.blog/"><meta property="og:updated_time" content="2023-03-09T16:41:18+09:00"><meta itemprop=name content="Wenhan Shi Blog"><meta itemprop=description content="Beware the dark side"><meta name=twitter:card content="summary"><meta name=twitter:title content="Wenhan Shi Blog"><meta name=twitter:description content="Beware the dark side"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><section id=posts class=posts><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/>systemctl command return 'Failed to connect to bus: No such file or directory' in a docker container</a></h1><div class=post-meta><span class=post-time>2017-09-05</span>
-<span class=more-meta>394 words</span>
-<span class=more-meta>2 mins read</span></div></header><div class=post-content><div class=post-summary>To enable and start a cron job and a httpd server in a docker container, I tried systemctl command but get an error output like this
-1 2 3 4 [root@5f1f0a5cde43 app]# systemctl status crond Failed to connect to bus: No such file or directory [root@5f1f0a5cde43 app]# systemctl status httpd Failed to connect to bus: No such file or directory Fix this issue by add --privileged parameter to docker run command</div><div class=read-more><a href=/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/how-to-change-timezone-in-centos-7-or-rhel-7/>How to change timezone in CentOS 7 or RHEL 7</a></h1><div class=post-meta><span class=post-time>2017-08-10</span>
-<span class=more-meta>190 words</span>
-<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary>check the current timezone status 1 2 3 4 5 6 7 8 9 10 [root@rhel7 ~]# timedatectl Local time: Thu 2017-08-10 05:19:53 UTC Universal time: Thu 2017-08-10 05:19:53 UTC RTC time: Thu 2017-08-10 05:19:52 Time zone: UTC (UTC, +0000) NTP enabled: yes NTP synchronized: yes RTC in local TZ: no DST active: n/a list the avaliable timezones 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 [root@rhel7 ~]# timedatectl list-timezones Asia/Aden Asia/Almaty Asia/Amman Asia/Anadyr Asia/Aqtau Asia/Aqtobe Asia/Ashgabat .</div><div class=read-more><a href=/post/how-to-change-timezone-in-centos-7-or-rhel-7/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/desktop-notifier-by-python/>Desktop Notifier by Python</a></h1><div class=post-meta><span class=post-time>2017-07-28</span>
-<span class=more-meta>256 words</span>
-<span class=more-meta>2 mins read</span></div></header><div class=post-content><div class=post-summary>This article show how to send desktop notice using Python
-Install requirments we need to install notify2 by pip
-1 2 3 4 5 # pip install notify2 Collecting notify2 Downloading notify2-0.3.1-py2.py3-none-any.whl Installing collected packages: notify2 Successfully installed notify2-0.3.1 Coding First we need to import notify2
-1 import notify2 Then need to initialise the d-bus connection. D-Bus is a message bus system, a simple way for applications to talk to one another.</div><div class=read-more><a href=/post/desktop-notifier-by-python/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/>Install Chrome Browser via yum in CentOS or Fedora or RHEL</a></h1><div class=post-meta><span class=post-time>2017-07-14</span>
-<span class=more-meta>366 words</span>
-<span class=more-meta>2 mins read</span></div></header><div class=post-content><div class=post-summary>Create a google yum repository Create a file /etc/yum.repos.d/google-chrome.repo and add the following into it.
-1 2 3 4 5 6 [google-chrome] name=google-chrome baseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch enabled=1 gpgcheck=1 gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub Check the google repository Run following command to check the repository is available.
-1 # yum info google-chrome-stable From the output you should find the lastest version of the package google-chrome-stable
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 # yum info google-chrome-stable Fedora 26 - x86_64 - Updates 6.</div><div class=read-more><a href=/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/openshift-configure-authetication-and-user-agent-using-htpasswd/>OpenShift Configure authentication and User Agent using HTPasswd</a></h1><div class=post-meta><span class=post-time>2017-07-12</span>
-<span class=more-meta>272 words</span>
-<span class=more-meta>2 mins read</span></div></header><div class=post-content><div class=post-summary>As we Install the OpenShift by Ansible method, identity provider is set to Deny all by default, which will deny access from all users. To allow access for users, you must choose another identity provider and configure the master configuration file. By default, the master configuration file is located at /etc/origin/master/master-config.yaml. OpenShift has several identity providers which can help you to manager user authentication. I will use HTPasswd this time. You can find more information in Configuring Authentication and User Agent</div><div class=read-more><a href=/post/openshift-configure-authetication-and-user-agent-using-htpasswd/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/>[OpenShift]Quick install OpenShift to multi nodes</a></h1><div class=post-meta><span class=post-time>2017-07-07</span>
-<span class=more-meta>1523 words</span>
-<span class=more-meta>8 mins read</span></div></header><div class=post-content><div class=post-summary>In this article we will show you how to install OpenShift in mutliple nodes using a quick install command, atomic-openshift-installer, which is powered by ansible.
-Host preparation I use under virtual machines for OpenShift nodes to deploy
-Type CPU Mem HDD hostname OS Master 1 2 GB 20 GB master.example.com RHEL 7 node 1 2 GB 20 GB node1.example.com RHEL 7 node 1 2 GB 20 GB node2.</div><div class=read-more><a href=/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/>How to copy text to the system clipboard in VIM</a></h1><div class=post-meta><span class=post-time>2017-07-04</span>
-<span class=more-meta>163 words</span>
-<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary>Make sure your VIM have +clipboard enabled, Add &ldquo;set clipboard=unnamedplus&rdquo; to .vimrc check +clipboard is enabled 1 2 3 # vim --version | grep clipboard +clipboard +job +path_extra +user_commands +eval +mouse_dec +statusline +xterm_clipboard If it shows &lsquo;-clipboard&rsquo;, you need to compile VIM with this feature.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 $ git clone https://github.</div><div class=read-more><a href=/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/how-to-keep-process-script-running-after-end-the-ssh-session/>How to keep process running after log off</a></h1><div class=post-meta><span class=post-time>2017-06-29</span>
-<span class=more-meta>139 words</span>
-<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary>tmux is an opensource software that can help you to do this. There are a lot of other things tmux can do, but now let me explain how to keep process running even end the ssh session. Please follow the steps:
-start a tmux session by input tmux to the shell. start your process or script inside the tmux session. leave(detach) the tmux session by input Ctrl+b and then d.</div><div class=read-more><a href=/post/how-to-keep-process-script-running-after-end-the-ssh-session/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/vim-use-built-in-spell-check/>[VIM] Use built in Spell Check</a></h1><div class=post-meta><span class=post-time>2017-06-26</span>
-<span class=more-meta>155 words</span>
-<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary>From version 7, VIM has a built in spell check function, but disable by default.
-Enable/Disable You can use :set spell and :set nospell to enable and disable it. The spell check isn't only for English, use :echo &spelllang to confirm the current target langurage. Use:set spelllang=en_GB.UTF-8 to change the target langurage, also you can use set spelllang=en_us,nl,medical to set it to multiple langurage.
-Spell check Use ]s to move to the next, [s to move to the previous spell mistake.</div><div class=read-more><a href=/post/vim-use-built-in-spell-check/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/openshift-install-openshift-and-create-first-project-hello-openshift/>[OpenShift]Install OpenShift and Create first project Hello-OpenShift</a></h1><div class=post-meta><span class=post-time>2017-06-26</span>
-<span class=more-meta>842 words</span>
-<span class=more-meta>4 mins read</span></div></header><div class=post-content><div class=post-summary>Install Linux OS and confirm network setting. You need to create a Linux OS machine to install OpenShift. The minimum requirement is
-CPU Memory hard disk Network x86_64 1 core 2 GB 20 GB IPv4 First you need to install CentOS 7.3, by select minimum setup. After you finish the installation, check your IP address to make sure you have available IP to use.</div><div class=read-more><a href=/post/openshift-install-openshift-and-create-first-project-hello-openshift/ class=read-more-link>Read more...</a></div></div></article></section><nav class=pagination><a class=prev href=/page/4/><i class="iconfont icon-left"></i><span class=prev-text>Prev</span></a>
-<a class=next href=/page/6/><span class=next-text>Next</span>
-<i class="iconfont icon-right"></i></a></nav></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
-<span class=division>|</span>
-<span class=theme-info>Theme -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
-<span class=division>|</span>
-<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
-2016 -
-2023
-<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span>
-<script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
+<!doctype html><html lang=en dir=auto>
+<head>
+<meta name=generator content="Hugo 0.93.1"><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Wenhan blog</title><meta name=keywords content="Blog,Portfolio,PaperMod">
+<meta name=description content="尘归尘，土归土">
+<meta name=author content="Me">
+<link rel=canonical href=https://wenhan.blog/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.6a98292fb8fa8cf0f3ba4042d4b75515c04267550f3ad49ff6271b5af9562443.css integrity="sha256-apgpL7j6jPDzukBC1LdVFcBCZ1UPOtSf9icbWvlWJEM=" rel="preload stylesheet" as=style>
+<link rel=icon href="https://media.licdn.com/dms/image/C4D03AQHsFHxbDCgPsA/profile-displayphoto-shrink_400_400/0/1517015003915?e=1683763200&v=beta&t=PR0k2MbOHcJjtozRAQipgSz2CGprYxywDGgXInkOXmo">
+<link rel=icon type=image/png sizes=16x16 href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<link rel=alternate type=application/rss+xml href=https://wenhan.blog/index.xml>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-87273435-2","auto"),ga("send","pageview"))</script><meta property="og:title" content="Wenhan blog">
+<meta property="og:description" content="尘归尘，土归土">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wenhan.blog/"><meta property="og:image" content="https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="og:site_name" content="Wenhan blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="Wenhan blog">
+<meta name=twitter:description content="尘归尘，土归土">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"Organization","name":"Wenhan blog","url":"https://wenhan.blog/","description":"尘归尘，土归土","thumbnailUrl":"https://media.licdn.com/dms/image/C4D03AQHsFHxbDCgPsA/profile-displayphoto-shrink_400_400/0/1517015003915?e=1683763200\u0026v=beta\u0026t=PR0k2MbOHcJjtozRAQipgSz2CGprYxywDGgXInkOXmo","sameAs":["mailto:shibunkan@gmail.com","https://twitter.com/shi_wenhan","https://www.linkedin.com/in/wenhan-shi-0883a9132/","https://github.com/xibuka","https://www.zhihu.com/people/xibuka"]}</script>
+</head><body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://wenhan.blog/ accesskey=h title="Home (Alt + H)">
+<img src=https://wenhan.blog/apple-touch-icon.png alt aria-label=logo height=35>Home</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</div></div><ul id=menu>
+<li>
+<a href=https://wenhan.blog/tags/ title=tags>
+<span>tags</span>
+</a>
+</li></ul></nav></header><main class=main>
+<article class=post-entry>
+<header class=entry-header>
+<h2>systemctl command return 'Failed to connect to bus: No such file or directory' in a docker container
+</h2></header><footer class=entry-footer><span title="2017-09-05 10:30:55 +0000 UTC">September 5, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;393 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to systemctl command return 'Failed to connect to bus: No such file or directory' in a docker container" href=https://wenhan.blog/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/></a>
+</article><article class=post-entry>
+<header class=entry-header>
+<h2>How to change timezone in CentOS 7 or RHEL 7
+</h2></header><footer class=entry-footer><span title="2017-08-10 14:18:08 +0000 UTC">August 10, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;189 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to How to change timezone in CentOS 7 or RHEL 7" href=https://wenhan.blog/post/how-to-change-timezone-in-centos-7-or-rhel-7/></a>
+</article><article class=post-entry>
+<header class=entry-header>
+<h2>Desktop Notifier by Python
+</h2></header><footer class=entry-footer><span title="2017-07-28 16:37:40 +0000 UTC">July 28, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;256 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to Desktop Notifier by Python" href=https://wenhan.blog/post/desktop-notifier-by-python/></a>
+</article><article class=post-entry>
+<header class=entry-header>
+<h2>Install Chrome Browser via yum in CentOS or Fedora or RHEL
+</h2></header><footer class=entry-footer><span title="2017-07-14 09:29:58 +0000 UTC">July 14, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;366 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to Install Chrome Browser via yum in CentOS or Fedora or RHEL" href=https://wenhan.blog/post/install-chrome-browser-via-yum-in-centos-or-fedora-or-rhel/></a>
+</article><article class=post-entry>
+<header class=entry-header>
+<h2>OpenShift Configure authentication and User Agent using HTPasswd
+</h2></header><footer class=entry-footer><span title="2017-07-12 14:43:47 +0000 UTC">July 12, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;272 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to OpenShift Configure authentication and User Agent using HTPasswd" href=https://wenhan.blog/post/openshift-configure-authetication-and-user-agent-using-htpasswd/></a>
+</article><article class=post-entry>
+<header class=entry-header>
+<h2>[OpenShift]Quick install OpenShift to multi nodes
+</h2></header><footer class=entry-footer><span title="2017-07-07 15:32:15 +0000 UTC">July 7, 2017</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1530 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to [OpenShift]Quick install OpenShift to multi nodes" href=https://wenhan.blog/post/openshift-use-ansible-to-install-openshift-to-multi-nodes/></a>
+</article><article class=post-entry>
+<header class=entry-header>
+<h2>How to copy text to the system clipboard in VIM
+</h2></header><footer class=entry-footer><span title="2017-07-04 11:44:42 +0000 UTC">July 4, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;163 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to How to copy text to the system clipboard in VIM" href=https://wenhan.blog/post/how-to-copy-paste-text-to-from-the-system-clipboard-in-vim/></a>
+</article><article class=post-entry>
+<header class=entry-header>
+<h2>How to keep process running after log off
+</h2></header><footer class=entry-footer><span title="2017-06-29 14:31:14 +0000 UTC">June 29, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;139 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to How to keep process running after log off" href=https://wenhan.blog/post/how-to-keep-process-script-running-after-end-the-ssh-session/></a>
+</article><article class=post-entry>
+<header class=entry-header>
+<h2>[VIM] Use built in Spell Check
+</h2></header><footer class=entry-footer><span title="2017-06-26 16:37:57 +0000 UTC">June 26, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;155 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to [VIM] Use built in Spell Check" href=https://wenhan.blog/post/vim-use-built-in-spell-check/></a>
+</article><article class=post-entry>
+<header class=entry-header>
+<h2>[OpenShift]Install OpenShift and Create first project Hello-OpenShift
+</h2></header><footer class=entry-footer><span title="2017-06-26 13:40:40 +0000 UTC">June 26, 2017</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;842 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to [OpenShift]Install OpenShift and Create first project Hello-OpenShift" href=https://wenhan.blog/post/openshift-install-openshift-and-create-first-project-hello-openshift/></a>
+</article><footer class=page-footer>
+<nav class=pagination>
+<a class=prev href=https://wenhan.blog/page/4/>
+«&nbsp;Prev&nbsp;
+</a>
+<a class=next href=https://wenhan.blog/page/6/>Next&nbsp;&nbsp;»
+</a>
+</nav></footer></main><footer class=footer>
+<span>&copy; 2023 <a href=https://wenhan.blog/>Wenhan blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script>
+</body></html>

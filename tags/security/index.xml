@@ -1,1 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Security on Wenhan Shi Blog</title><link>https://wenhan.blog/tags/security/</link><description>Recent content in Security on Wenhan Shi Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 09 Mar 2023 16:41:18 +0900</lastBuildDate><atom:link href="https://wenhan.blog/tags/security/index.xml" rel="self" type="application/rss+xml"/><item><title>Secure deployment Kong Gateway using Mozila SOPS, age and Github Action</title><link>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw_en/</link><pubDate>Thu, 09 Mar 2023 16:41:18 +0900</pubDate><guid>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw_en/</guid><description>Background When deploying Kong Gateway, there is some data that we do not want to store in plain text, such as connection information to the database. The Kong Secret Manager was developed to solve this problem, which can be solved using a 3rd party service such as AWS Secrets Manager. However, this functionality is unavailable when the environment does not allow connection to external security services. In this case, we can use a encryption tool SOPS, developed by Mozilla to do the encryption and decryption.</description></item><item><title>Mozila SOPS+ageで実現するKong Gatewayセキュアデプロイメント</title><link>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw/</link><pubDate>Wed, 08 Mar 2023 16:41:18 +0900</pubDate><guid>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw/</guid><description>背景 Kong Gatewayをデプロイする時に、データベースへの接続情報など平文で保存したくないデータが存在しています。これを解決するためにKong</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Security on Wenhan blog</title>
+    <link>https://wenhan.blog/tags/security/</link>
+    <description>Recent content in Security on Wenhan blog</description>
+    <image>
+      <title>Wenhan blog</title>
+      <url>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Mar 2023 16:41:18 +0900</lastBuildDate><atom:link href="https://wenhan.blog/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Secure deployment Kong Gateway using Mozila SOPS, age and Github Action</title>
+      <link>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw_en/</link>
+      <pubDate>Thu, 09 Mar 2023 16:41:18 +0900</pubDate>
+      
+      <guid>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw_en/</guid>
+      <description>Background When deploying Kong Gateway, there is some data that we do not want to store in plain text, such as connection information to the database. The Kong Secret Manager was developed to solve this problem, which can be solved using a 3rd party service such as AWS Secrets Manager. However, this functionality is unavailable when the environment does not allow connection to external security services. In this case, we can use a encryption tool SOPS, developed by Mozilla to do the encryption and decryption.</description>
+    </item>
+    
+    <item>
+      <title>Mozila SOPS&#43;ageで実現するKong Gatewayセキュアデプロイメント</title>
+      <link>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw/</link>
+      <pubDate>Wed, 08 Mar 2023 16:41:18 +0900</pubDate>
+      
+      <guid>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw/</guid>
+      <description>背景 Kong Gatewayをデプロイする時に、データベースへの接続情報など平文で保存したくないデータが存在しています。これを解決するためにKong Secret Managerが開発され、AWS Secrets Managerなどの3rdパーティのサービスを利用すれば解決できます。しかし、環境によって外部のセキュリティサービスに接続できない時にこの機能は利用できません。ここで、Mozilaが開発したSOPSという暗号化ツールとGithub ActionのCI/CD workflowを利用し、普段暗号化されている設定ファイルをデプロイ時だけ復号し、Kong GWをインストールする実現することができました。
+事前準備 CI/CD workflowを構築する前に、まずはローカル環境で暗号と復号を試してみましょう。以下の必要なツールをローカル環境にインストールします。
+ age sops  SOPSはとても便利な暗号化・復号化のツールで人気があります。PGP, age, Google cloud&amp;rsquo;s KMS, Azure&amp;rsquo;s key valut, Hashicorp Vaultなどをサポートしています。今回は他のクラウドサービスを極力利用しない方針のため、ageを選択しました。
+ツールのインストールができましたら、age-kengen --helpを試してみましょう。
+1 2 3 4 5 6 7 8  $ age-keygen --help Usage: age-keygen [-o OUTPUT] age-keygen -y [-o OUTPUT] [INPUT] Options: -o, --output OUTPUT Write the result to the file at path OUTPUT. -y Convert an identity file to a recipients file.</description>
+    </item>
+    
+  </channel>
+</rss>

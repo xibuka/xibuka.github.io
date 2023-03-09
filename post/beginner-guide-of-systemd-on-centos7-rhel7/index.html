@@ -1,140 +1,310 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Beginner guide of systemd on CentOS7/RHEL7 - Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system. From CentOS 7, the systemd become the new system"><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Beginner guide of systemd on CentOS7/RHEL7"><meta property="og:description" content="Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system. From CentOS 7, the systemd become the new system"><meta property="og:type" content="article"><meta property="og:url" content="https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/"><meta property="article:published_time" content="2017-09-11T10:19:16+00:00"><meta property="article:modified_time" content="2023-03-09T17:06:04+09:00"><meta itemprop=name content="Beginner guide of systemd on CentOS7/RHEL7"><meta itemprop=description content="Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system. From CentOS 7, the systemd become the new system"><meta itemprop=datePublished content="2017-09-11T10:19:16+00:00"><meta itemprop=dateModified content="2023-03-09T17:06:04+09:00"><meta itemprop=wordCount content="712"><meta itemprop=keywords content="Linux,Systemd,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Beginner guide of systemd on CentOS7/RHEL7"><meta name=twitter:description content="Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system. From CentOS 7, the systemd become the new system"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Beginner guide of systemd on CentOS7/RHEL7</h1><div class=post-meta><span class=post-time>2017-09-11</span>
-<span class=more-meta>712 words</span>
-<span class=more-meta>2 mins read</span>
-<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><a href=#check-all-services-in-the-system>Check all services in the system</a></li><li><a href=#check-all-running-services-in-the-system>Check all running services in the system</a></li><li><a href=#check-all-services-which-will-start-when-the-os-boot>Check all services which will start when the OS boot</a></li><li><a href=#check-the-detail-information-of-a-service>Check the detail information of a service</a></li><li><a href=#check-the-services-which-got-failed>Check the services which got failed</a></li><li><a href=#check-the-time-of-system-start-up>Check the time of system start up</a></li><li><a href=#check-the-time-of-system-start-up-by-service>Check the time of system start up by service</a></li></ul><ul><li><a href=#start-a-service>Start a service</a></li><li><a href=#stop-a-service>Stop a service</a></li><li><a href=#restart-a-service>Restart a service</a></li><li><a href=#reload-the-configuration-of-a-service>Reload the configuration of a service</a></li><li><a href=#set-the-service-to-start-when-os-boot>Set the service to start when OS boot</a></li><li><a href=#set-the-service-not-to-start-when-os-boot>Set the service NOT to start when OS boot</a></li><li><a href=#mask-a-service>mask a service</a></li><li><a href=#unmask-a-service>unmask a service</a></li><li><a href=#reload-all-the-service-units>reload all the service units</a></li></ul><ul><li><a href=#path-of-the-unit-file>Path of the unit file</a></li><li><a href=#an-example-of-unit-file>An example of unit file</a></li></ul><ul><li><a href=#check-the-default-runlevel>check the default runlevel</a></li><li><a href=#set-the-default-runlevel>set the default runlevel</a></li><li><a href=#change-the-runlevel>change the runlevel</a></li></ul></nav></div></div><div class=post-content><h1 id=introduction-of-systemd>Introduction of systemd</h1><p>Before CentOS 7 and RHEL 7, System V was used to be the system controller.
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Beginner guide of systemd on CentOS7/RHEL7 | Wenhan blog</title><meta name=keywords content="Linux,Systemd">
+<meta name=description content="Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system.
+From CentOS 7, the systemd become the new system controller.">
+<meta name=author content="Me">
+<link rel=canonical href=https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.6a98292fb8fa8cf0f3ba4042d4b75515c04267550f3ad49ff6271b5af9562443.css integrity="sha256-apgpL7j6jPDzukBC1LdVFcBCZ1UPOtSf9icbWvlWJEM=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href="https://media.licdn.com/dms/image/C4D03AQHsFHxbDCgPsA/profile-displayphoto-shrink_400_400/0/1517015003915?e=1683763200&v=beta&t=PR0k2MbOHcJjtozRAQipgSz2CGprYxywDGgXInkOXmo">
+<link rel=icon type=image/png sizes=16x16 href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-87273435-2","auto"),ga("send","pageview"))</script><meta property="og:title" content="Beginner guide of systemd on CentOS7/RHEL7">
+<meta property="og:description" content="Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system.
+From CentOS 7, the systemd become the new system controller.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/"><meta property="og:image" content="https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2017-09-11T10:19:16+00:00">
+<meta property="article:modified_time" content="2017-09-11T10:19:16+00:00"><meta property="og:site_name" content="Wenhan blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="Beginner guide of systemd on CentOS7/RHEL7">
+<meta name=twitter:description content="Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system.
+From CentOS 7, the systemd become the new system controller.">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://wenhan.blog/post/"},{"@type":"ListItem","position":2,"name":"Beginner guide of systemd on CentOS7/RHEL7","item":"https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Beginner guide of systemd on CentOS7/RHEL7","name":"Beginner guide of systemd on CentOS7\/RHEL7","description":"Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system.\nFrom CentOS 7, the systemd become the new system controller.","keywords":["Linux","Systemd"],"articleBody":"Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system.\nFrom CentOS 7, the systemd become the new system controller. The biggest change is it can start task parallel and will improve the startup speed. And as the its PID is 1, the systemd is controlling every process in the system!\nThis article will only shows the information of “service”, “start up task”, and “log manage” by systemd.\nCheck the Service status of the system Check all services in the system 1  systemctl list-unit-files --type=service   PageUp and PageDown to go up and down, type q to quit.\nCheck all running services in the system 1  systemctl list-units --type=service   If there is a big point ● in front of a service, it means this service has some problems.\nCheck all services which will start when the OS boot 1  systemctl list-unit-files --type=service | grep enabled   Check the detail information of a service 1  systemctl status   The output will contain the status of activity, PID, path of the service, and the latest 10 logs.\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  systemctl status rsyslog ● rsyslog.service - System Logging Service Loaded: loaded (/usr/lib/systemd/system/rsyslog.service; enabled; vendor preset: enabled) Active: active (running) since Mon 2017-09-11 08:42:46 JST; 1h 57min ago Docs: man:rsyslogd(8) http://www.rsyslog.com/doc/ Main PID: 1417 (rsyslogd) Tasks: 3 (limit: 4915) CGroup: /system.slice/rsyslog.service └─1417 /usr/sbin/rsyslogd -n Sep 11 08:42:43 diablo systemd[1]: Starting System Logging Service... Sep 11 08:42:46 diablo rsyslogd[1417]: [origin software=\"rsyslogd\" swVersion=\"8.27.0\" x-pid=\"1417\" x-info=\"http://www.rsyslog.com\"] start Sep 11 08:42:46 diablo systemd[1]: Started System Logging Service. Sep 11 09:36:02 diablo rsyslogd[1417]: [origin software=\"rsyslogd\" swVersion=\"8.27.0\" x-pid=\"1417\" x-info=\"http://www.rsyslog.com\"] rsyslogd was HUPed   Check the services which got failed 1  systemctl list-units --type=service --state=failed   Check the time of system start up 1 2  systemd-analyze Startup finished in 1.858s (kernel) + 3.654s (initrd) + 29.878s (userspace) = 35.392s   Check the time of system start up by service 1  systemd-analyze blame | grep .service   Manage the service Start a service 1  systemctl start   Stop a service 1  systemctl stop   Restart a service 1  systemctl restart   Reload the configuration of a service 1  systemctl reload   If the service can’t be restart but need to change the settings, reload is a good choice.\nSet the service to start when OS boot 1  systemctl enable   Set the service NOT to start when OS boot 1  systemctl disable   mask a service Mask a service to make it can’t be started by other service nor start restart command.\n1  systemctl mask   unmask a service Unmask a service which has already been masked.\n1  systemctl unmask   reload all the service units Do this when you add/remove service units.\n1  systemctl daemon-reload   Create a simple service unit file Path of the unit file When can create a unit file an put it into /etc/systemd/system.\nAn example of unit file 1 2 3 4 5 6 7 8 9 10 11 12 13  [Unit] Description=After=[Service] Type=forking ExecStart=ExecReload=KillSignal=SIGTERM KillMode=mixed [Install] WantedBy=multi-user.target   Run daemon-reload after create a new service unit file.\nTarget and runlevel check the default runlevel 1  systemctl get-default   set the default runlevel 1  systemctl set-default   change the runlevel 1  systemctl isolate   Manage logs Check the logs from the latest boot 1  journalctl -e -f   Check the logs of a unit(service) 1  journalctl -e -f -u   Check the logs between specify times 1  journalctl --since=\"yyyy-MM-dd hh:mm:ss\" --until=\"yyyy-MM-dd hh:mm:ss\"   Check the disk usage of the logs 1  journalctl --disk-usage   Change the max disk usage of the logs. Uncomment of SystemMaxUse=.. in /etc/systemd/journald.conf, and set value to this parameter.\n1  SystemMaxUse=50M   After this, restart journald service\n1  systemctl restart systemd-journald.service   refs  CentOS 7 Systemd 入门 ，作者: 余泽楠 https://zhuanlan.zhihu.com/p/29217941  ","wordCount":"701","inLanguage":"en","datePublished":"2017-09-11T10:19:16Z","dateModified":"2017-09-11T10:19:16Z","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/"},"publisher":{"@type":"Organization","name":"Wenhan blog","logo":{"@type":"ImageObject","url":"https://media.licdn.com/dms/image/C4D03AQHsFHxbDCgPsA/profile-displayphoto-shrink_400_400/0/1517015003915?e=1683763200\u0026v=beta\u0026t=PR0k2MbOHcJjtozRAQipgSz2CGprYxywDGgXInkOXmo"}}}</script>
+</head><body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://wenhan.blog/ accesskey=h title="Home (Alt + H)">
+<img src=https://wenhan.blog/apple-touch-icon.png alt aria-label=logo height=35>Home</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</div></div><ul id=menu>
+<li>
+<a href=https://wenhan.blog/tags/ title=tags>
+<span>tags</span>
+</a>
+</li></ul></nav></header><main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://wenhan.blog/>Home</a>&nbsp;»&nbsp;<a href=https://wenhan.blog/post/>Posts</a></div><h1 class=post-title>
+Beginner guide of systemd on CentOS7/RHEL7
+</h1><div class=post-meta><span title="2017-09-11 10:19:16 +0000 UTC">September 11, 2017</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;701 words&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href=https://github.com/%3cpath_to_repo%3e/content/post/Beginner-guide-of-systemd-on-CentOS7-RHEL7.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div></header><div class=toc>
+<details open>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><nav id=TableOfContents>
+<ul>
+<li><a href=#check-all-services-in-the-system>Check all services in the system</a></li><li><a href=#check-all-running-services-in-the-system>Check all running services in the system</a></li><li><a href=#check-all-services-which-will-start-when-the-os-boot>Check all services which will start when the OS boot</a></li><li><a href=#check-the-detail-information-of-a-service>Check the detail information of a service</a></li><li><a href=#check-the-services-which-got-failed>Check the services which got failed</a></li><li><a href=#check-the-time-of-system-start-up>Check the time of system start up</a></li><li><a href=#check-the-time-of-system-start-up-by-service>Check the time of system start up by service</a></li></ul><ul>
+<li><a href=#start-a-service>Start a service</a></li><li><a href=#stop-a-service>Stop a service</a></li><li><a href=#restart-a-service>Restart a service</a></li><li><a href=#reload-the-configuration-of-a-service>Reload the configuration of a service</a></li><li><a href=#set-the-service-to-start-when-os-boot>Set the service to start when OS boot</a></li><li><a href=#set-the-service-not-to-start-when-os-boot>Set the service NOT to start when OS boot</a></li><li><a href=#mask-a-service>mask a service</a></li><li><a href=#unmask-a-service>unmask a service</a></li><li><a href=#reload-all-the-service-units>reload all the service units</a></li></ul><ul>
+<li><a href=#path-of-the-unit-file>Path of the unit file</a></li><li><a href=#an-example-of-unit-file>An example of unit file</a></li></ul><ul>
+<li><a href=#check-the-default-runlevel>check the default runlevel</a></li><li><a href=#set-the-default-runlevel>set the default runlevel</a></li><li><a href=#change-the-runlevel>change the runlevel</a></li></ul></nav></div></details>
+</div><div class=post-content><h1 id=introduction-of-systemd>Introduction of systemd<a hidden class=anchor aria-hidden=true href=#introduction-of-systemd>#</a></h1><p>Before CentOS 7 and RHEL 7, System V was used to be the system controller.
 The system controller can manage all processes, services, and start task.
 System V has a performance problem as it is using script to manage the tasks.
 So it can only start the task serially, which will slow down the startup of the
 system.</p><p>From CentOS 7, the systemd become the new system controller. The biggest
 change is it can start task parallel and will improve the startup speed. And as
-the its PID is 1, the systemd is controlling every process in the system!</p><p>This article will only shows the information of &ldquo;service&rdquo;, &ldquo;start up task&rdquo;, and &ldquo;log manage&rdquo; by systemd.</p><h1 id=check-the-service-status-of-the-system>Check the Service status of the system</h1><h2 id=check-all-services-in-the-system>Check all services in the system</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl  list-unit-files --type=service
-</code></pre></td></tr></table></div></div><p><code>PageUp</code> and <code>PageDown</code> to go up and down, type <code>q</code> to quit.</p><h2 id=check-all-running-services-in-the-system>Check all running services in the system</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl  list-units --type=service
-</code></pre></td></tr></table></div></div><p>If there is a big point ● in front of a service, it means this service has some
-problems.</p><h2 id=check-all-services-which-will-start-when-the-os-boot>Check all services which will start when the OS boot</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl list-unit-files --type=service |  grep enabled
-</code></pre></td></tr></table></div></div><h2 id=check-the-detail-information-of-a-service>Check the detail information of a service</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl status &lt;name of service&gt;
-</code></pre></td></tr></table></div></div><p>The output will contain the status of activity, PID, path of the service, and
-the latest 10 logs.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl status rsyslog
-● rsyslog.service - System Logging Service
-   Loaded: loaded (/usr/lib/systemd/system/rsyslog.service; enabled; vendor preset: enabled)
-   Active: active (running) since Mon 2017-09-11 08:42:46 JST; 1h 57min ago
-     Docs: man:rsyslogd(8)
-           http://www.rsyslog.com/doc/
- Main PID: 1417 (rsyslogd)
-    Tasks: 3 (limit: 4915)
-   CGroup: /system.slice/rsyslog.service
-           └─1417 /usr/sbin/rsyslogd -n
-
-Sep 11 08:42:43 diablo systemd[1]: Starting System Logging Service...
-Sep 11 08:42:46 diablo rsyslogd[1417]:  [origin software=&#34;rsyslogd&#34; swVersion=&#34;8.27.0&#34; x-pid=&#34;1417&#34; x-info=&#34;http://www.rsyslog.com&#34;] start
-Sep 11 08:42:46 diablo systemd[1]: Started System Logging Service.
-Sep 11 09:36:02 diablo rsyslogd[1417]:  [origin software=&#34;rsyslogd&#34; swVersion=&#34;8.27.0&#34; x-pid=&#34;1417&#34; x-info=&#34;http://www.rsyslog.com&#34;] rsyslogd was HUPed
-</code></pre></td></tr></table></div></div><h2 id=check-the-services-which-got-failed>Check the services which got failed</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl list-units --type=service --state=failed
-</code></pre></td></tr></table></div></div><h2 id=check-the-time-of-system-start-up>Check the time of system start up</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemd-analyze
-Startup finished in 1.858s (kernel) + 3.654s (initrd) + 29.878s (userspace) = 35.392s
-</code></pre></td></tr></table></div></div><h2 id=check-the-time-of-system-start-up-by-service>Check the time of system start up by service</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemd-analyze blame | grep .service
-</code></pre></td></tr></table></div></div><h1 id=manage-the-service>Manage the service</h1><h2 id=start-a-service>Start a service</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl start &lt;service name&gt;
-</code></pre></td></tr></table></div></div><h2 id=stop-a-service>Stop a service</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl stop &lt;service name&gt;
-</code></pre></td></tr></table></div></div><h2 id=restart-a-service>Restart a service</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl restart &lt;service name&gt;
-</code></pre></td></tr></table></div></div><h2 id=reload-the-configuration-of-a-service>Reload the configuration of a service</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl reload &lt;service name&gt;
-</code></pre></td></tr></table></div></div><p>If the service can't be restart but need to change the settings, reload is a
-good choice.</p><h2 id=set-the-service-to-start-when-os-boot>Set the service to start when OS boot</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl enable &lt;service name&gt;
-</code></pre></td></tr></table></div></div><h2 id=set-the-service-not-to-start-when-os-boot>Set the service NOT to start when OS boot</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl disable &lt;service name&gt;
-</code></pre></td></tr></table></div></div><h2 id=mask-a-service>mask a service</h2><p>Mask a service to make it can't be started by other service nor <code>start</code>
-<code>restart</code> command.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl mask &lt;service name&gt;
-</code></pre></td></tr></table></div></div><h2 id=unmask-a-service>unmask a service</h2><p>Unmask a service which has already been masked.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl unmask &lt;service name&gt;
-</code></pre></td></tr></table></div></div><h2 id=reload-all-the-service-units>reload all the service units</h2><p>Do this when you add/remove service units.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl daemon-reload
-</code></pre></td></tr></table></div></div><h1 id=create-a-simple-service-unit-file>Create a simple service unit file</h1><h2 id=path-of-the-unit-file>Path of the unit file</h2><p>When can create a unit file an put it into <code>/etc/systemd/system</code>.</p><h2 id=an-example-of-unit-file>An example of unit file</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[Unit]
-Description=&lt;the description of the service&gt;
-After=&lt;start after which service(optional)&gt;
-
-[Service]
-Type=forking
-ExecStart=&lt;path to an executable command&gt;
-ExecReload=&lt;reload command of the configuration file(optional)&gt;
-KillSignal=SIGTERM
-KillMode=mixed
-
-[Install]
-WantedBy=multi-user.target
-</code></pre></td></tr></table></div></div><p>Run <code>daemon-reload</code> after create a new service unit file.</p><h1 id=target-and-runlevel>Target and runlevel</h1><h2 id=check-the-default-runlevel>check the default runlevel</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl get-default
-</code></pre></td></tr></table></div></div><h2 id=set-the-default-runlevel>set the default runlevel</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl set-default &lt;target name&gt;
-</code></pre></td></tr></table></div></div><h2 id=change-the-runlevel>change the runlevel</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl isolate &lt;target name&gt;
-</code></pre></td></tr></table></div></div><h1 id=manage-logs>Manage logs</h1><h1 id=check-the-logs-from-the-latest-boot>Check the logs from the latest boot</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>journalctl -e -f
-</code></pre></td></tr></table></div></div><h1 id=check-the-logs-of-a-unitservice>Check the logs of a unit(service)</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>journalctl -e -f -u &lt;unit name&gt;
-</code></pre></td></tr></table></div></div><h1 id=check-the-logs-between-specify-times>Check the logs between specify times</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>journalctl --since=&#34;yyyy-MM-dd hh:mm:ss&#34; --until=&#34;yyyy-MM-dd hh:mm:ss&#34;
-</code></pre></td></tr></table></div></div><h1 id=check-the-disk-usage-of-the-logs>Check the disk usage of the logs</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>journalctl --disk-usage
-</code></pre></td></tr></table></div></div><h1 id=change-the-max-disk-usage-of-the-logs>Change the max disk usage of the logs.</h1><p>Uncomment of <code>SystemMaxUse=..</code> in <code>/etc/systemd/journald.conf</code>, and set value
-to this parameter.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>SystemMaxUse=50M
-</code></pre></td></tr></table></div></div><p>After this, restart journald service</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>systemctl restart systemd-journald.service
-</code></pre></td></tr></table></div></div><h1 id=refs>refs</h1><ul><li>CentOS 7 Systemd 入门 ，作者: 余泽楠 <a href=https://zhuanlan.zhihu.com/p/29217941>https://zhuanlan.zhihu.com/p/29217941</a></li></ul></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
-<span class=item-content>Wenhan Shi</span></p><p class=copyright-item><span class=item-title>LastMod</span>
-<span class=item-content>2023-03-09
-<a href=https://github.com/xibuka/xibuka.github.io.git/commit/156d82f4ff62ee0f000e2a4acb3753dbb9b4fb64 title="fix nest list issue">(156d82f)</a></span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>Linux</a>
-<a href=/tags/systemd/>Systemd</a></div><nav class=post-nav><a class=prev href=/post/how-to-sort-ps-command-output/><i class="iconfont icon-left"></i><span class="prev-text nav-default">How to sort ps command output</span>
-<span class="prev-text nav-mobile">Prev</span></a>
-<a class=next href=/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/><span class="next-text nav-default">systemctl command return 'Failed to connect to bus: No such file or directory' in a docker container</span>
-<span class="next-text nav-mobile">Next</span>
-<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=xibuka/xibuka.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
-<span class=division>|</span>
-<span class=theme-info>Theme -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
-<span class=division>|</span>
-<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
-2016 -
-2023
-<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span>
-<script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
+the its PID is 1, the systemd is controlling every process in the system!</p><p>This article will only shows the information of &ldquo;service&rdquo;, &ldquo;start up task&rdquo;, and &ldquo;log manage&rdquo; by systemd.</p><h1 id=check-the-service-status-of-the-system>Check the Service status of the system<a hidden class=anchor aria-hidden=true href=#check-the-service-status-of-the-system>#</a></h1><h2 id=check-all-services-in-the-system>Check all services in the system<a hidden class=anchor aria-hidden=true href=#check-all-services-in-the-system>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl  list-unit-files --type=service
+</span></span></code></pre></td></tr></table></div></div><p><code>PageUp</code> and <code>PageDown</code> to go up and down, type <code>q</code> to quit.</p><h2 id=check-all-running-services-in-the-system>Check all running services in the system<a hidden class=anchor aria-hidden=true href=#check-all-running-services-in-the-system>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl  list-units --type=service
+</span></span></code></pre></td></tr></table></div></div><p>If there is a big point ● in front of a service, it means this service has some
+problems.</p><h2 id=check-all-services-which-will-start-when-the-os-boot>Check all services which will start when the OS boot<a hidden class=anchor aria-hidden=true href=#check-all-services-which-will-start-when-the-os-boot>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-2-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-2-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl list-unit-files --type=service |  grep enabled
+</span></span></code></pre></td></tr></table></div></div><h2 id=check-the-detail-information-of-a-service>Check the detail information of a service<a hidden class=anchor aria-hidden=true href=#check-the-detail-information-of-a-service>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-3-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-3-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl status &lt;name of service&gt;
+</span></span></code></pre></td></tr></table></div></div><p>The output will contain the status of activity, PID, path of the service, and
+the latest 10 logs.</p><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-4-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-1> 1</a>
+</span><span class=lnt id=hl-4-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-2> 2</a>
+</span><span class=lnt id=hl-4-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-3> 3</a>
+</span><span class=lnt id=hl-4-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-4> 4</a>
+</span><span class=lnt id=hl-4-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-5> 5</a>
+</span><span class=lnt id=hl-4-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-6> 6</a>
+</span><span class=lnt id=hl-4-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-7> 7</a>
+</span><span class=lnt id=hl-4-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-8> 8</a>
+</span><span class=lnt id=hl-4-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-9> 9</a>
+</span><span class=lnt id=hl-4-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-10>10</a>
+</span><span class=lnt id=hl-4-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-11>11</a>
+</span><span class=lnt id=hl-4-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-12>12</a>
+</span><span class=lnt id=hl-4-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-13>13</a>
+</span><span class=lnt id=hl-4-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-14>14</a>
+</span><span class=lnt id=hl-4-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-4-15>15</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl status rsyslog
+</span></span><span class=line><span class=cl>● rsyslog.service - System Logging Service
+</span></span><span class=line><span class=cl>   Loaded: loaded (/usr/lib/systemd/system/rsyslog.service; enabled; vendor preset: enabled)
+</span></span><span class=line><span class=cl>   Active: active (running) since Mon 2017-09-11 08:42:46 JST; 1h 57min ago
+</span></span><span class=line><span class=cl>     Docs: man:rsyslogd(8)
+</span></span><span class=line><span class=cl>           http://www.rsyslog.com/doc/
+</span></span><span class=line><span class=cl> Main PID: 1417 (rsyslogd)
+</span></span><span class=line><span class=cl>    Tasks: 3 (limit: 4915)
+</span></span><span class=line><span class=cl>   CGroup: /system.slice/rsyslog.service
+</span></span><span class=line><span class=cl>           └─1417 /usr/sbin/rsyslogd -n
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Sep 11 08:42:43 diablo systemd[1]: Starting System Logging Service...
+</span></span><span class=line><span class=cl>Sep 11 08:42:46 diablo rsyslogd[1417]:  [origin software=&#34;rsyslogd&#34; swVersion=&#34;8.27.0&#34; x-pid=&#34;1417&#34; x-info=&#34;http://www.rsyslog.com&#34;] start
+</span></span><span class=line><span class=cl>Sep 11 08:42:46 diablo systemd[1]: Started System Logging Service.
+</span></span><span class=line><span class=cl>Sep 11 09:36:02 diablo rsyslogd[1417]:  [origin software=&#34;rsyslogd&#34; swVersion=&#34;8.27.0&#34; x-pid=&#34;1417&#34; x-info=&#34;http://www.rsyslog.com&#34;] rsyslogd was HUPed
+</span></span></code></pre></td></tr></table></div></div><h2 id=check-the-services-which-got-failed>Check the services which got failed<a hidden class=anchor aria-hidden=true href=#check-the-services-which-got-failed>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-5-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-5-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl list-units --type=service --state=failed
+</span></span></code></pre></td></tr></table></div></div><h2 id=check-the-time-of-system-start-up>Check the time of system start up<a hidden class=anchor aria-hidden=true href=#check-the-time-of-system-start-up>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-6-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-1>1</a>
+</span><span class=lnt id=hl-6-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-6-2>2</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemd-analyze
+</span></span><span class=line><span class=cl>Startup finished in 1.858s (kernel) + 3.654s (initrd) + 29.878s (userspace) = 35.392s
+</span></span></code></pre></td></tr></table></div></div><h2 id=check-the-time-of-system-start-up-by-service>Check the time of system start up by service<a hidden class=anchor aria-hidden=true href=#check-the-time-of-system-start-up-by-service>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-7-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-7-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemd-analyze blame | grep .service
+</span></span></code></pre></td></tr></table></div></div><h1 id=manage-the-service>Manage the service<a hidden class=anchor aria-hidden=true href=#manage-the-service>#</a></h1><h2 id=start-a-service>Start a service<a hidden class=anchor aria-hidden=true href=#start-a-service>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-8-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-8-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl start &lt;service name&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=stop-a-service>Stop a service<a hidden class=anchor aria-hidden=true href=#stop-a-service>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-9-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-9-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl stop &lt;service name&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=restart-a-service>Restart a service<a hidden class=anchor aria-hidden=true href=#restart-a-service>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-10-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-10-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl restart &lt;service name&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=reload-the-configuration-of-a-service>Reload the configuration of a service<a hidden class=anchor aria-hidden=true href=#reload-the-configuration-of-a-service>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-11-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-11-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl reload &lt;service name&gt;
+</span></span></code></pre></td></tr></table></div></div><p>If the service can&rsquo;t be restart but need to change the settings, reload is a
+good choice.</p><h2 id=set-the-service-to-start-when-os-boot>Set the service to start when OS boot<a hidden class=anchor aria-hidden=true href=#set-the-service-to-start-when-os-boot>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-12-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-12-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl enable &lt;service name&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=set-the-service-not-to-start-when-os-boot>Set the service NOT to start when OS boot<a hidden class=anchor aria-hidden=true href=#set-the-service-not-to-start-when-os-boot>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-13-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-13-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl disable &lt;service name&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=mask-a-service>mask a service<a hidden class=anchor aria-hidden=true href=#mask-a-service>#</a></h2><p>Mask a service to make it can&rsquo;t be started by other service nor <code>start</code>
+<code>restart</code> command.</p><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-14-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-14-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl mask &lt;service name&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=unmask-a-service>unmask a service<a hidden class=anchor aria-hidden=true href=#unmask-a-service>#</a></h2><p>Unmask a service which has already been masked.</p><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-15-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-15-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl unmask &lt;service name&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=reload-all-the-service-units>reload all the service units<a hidden class=anchor aria-hidden=true href=#reload-all-the-service-units>#</a></h2><p>Do this when you add/remove service units.</p><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-16-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-16-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl daemon-reload
+</span></span></code></pre></td></tr></table></div></div><h1 id=create-a-simple-service-unit-file>Create a simple service unit file<a hidden class=anchor aria-hidden=true href=#create-a-simple-service-unit-file>#</a></h1><h2 id=path-of-the-unit-file>Path of the unit file<a hidden class=anchor aria-hidden=true href=#path-of-the-unit-file>#</a></h2><p>When can create a unit file an put it into <code>/etc/systemd/system</code>.</p><h2 id=an-example-of-unit-file>An example of unit file<a hidden class=anchor aria-hidden=true href=#an-example-of-unit-file>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-17-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-1> 1</a>
+</span><span class=lnt id=hl-17-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-2> 2</a>
+</span><span class=lnt id=hl-17-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-3> 3</a>
+</span><span class=lnt id=hl-17-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-4> 4</a>
+</span><span class=lnt id=hl-17-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-5> 5</a>
+</span><span class=lnt id=hl-17-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-6> 6</a>
+</span><span class=lnt id=hl-17-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-7> 7</a>
+</span><span class=lnt id=hl-17-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-8> 8</a>
+</span><span class=lnt id=hl-17-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-9> 9</a>
+</span><span class=lnt id=hl-17-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-10>10</a>
+</span><span class=lnt id=hl-17-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-11>11</a>
+</span><span class=lnt id=hl-17-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-12>12</a>
+</span><span class=lnt id=hl-17-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-17-13>13</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[Unit]
+</span></span><span class=line><span class=cl>Description=&lt;the description of the service&gt;
+</span></span><span class=line><span class=cl>After=&lt;start after which service(optional)&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[Service]
+</span></span><span class=line><span class=cl>Type=forking
+</span></span><span class=line><span class=cl>ExecStart=&lt;path to an executable command&gt;
+</span></span><span class=line><span class=cl>ExecReload=&lt;reload command of the configuration file(optional)&gt;
+</span></span><span class=line><span class=cl>KillSignal=SIGTERM
+</span></span><span class=line><span class=cl>KillMode=mixed
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[Install]
+</span></span><span class=line><span class=cl>WantedBy=multi-user.target
+</span></span></code></pre></td></tr></table></div></div><p>Run <code>daemon-reload</code> after create a new service unit file.</p><h1 id=target-and-runlevel>Target and runlevel<a hidden class=anchor aria-hidden=true href=#target-and-runlevel>#</a></h1><h2 id=check-the-default-runlevel>check the default runlevel<a hidden class=anchor aria-hidden=true href=#check-the-default-runlevel>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-18-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-18-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl get-default
+</span></span></code></pre></td></tr></table></div></div><h2 id=set-the-default-runlevel>set the default runlevel<a hidden class=anchor aria-hidden=true href=#set-the-default-runlevel>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-19-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-19-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl set-default &lt;target name&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=change-the-runlevel>change the runlevel<a hidden class=anchor aria-hidden=true href=#change-the-runlevel>#</a></h2><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-20-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-20-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl isolate &lt;target name&gt;
+</span></span></code></pre></td></tr></table></div></div><h1 id=manage-logs>Manage logs<a hidden class=anchor aria-hidden=true href=#manage-logs>#</a></h1><h1 id=check-the-logs-from-the-latest-boot>Check the logs from the latest boot<a hidden class=anchor aria-hidden=true href=#check-the-logs-from-the-latest-boot>#</a></h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-21-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-21-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>journalctl -e -f
+</span></span></code></pre></td></tr></table></div></div><h1 id=check-the-logs-of-a-unitservice>Check the logs of a unit(service)<a hidden class=anchor aria-hidden=true href=#check-the-logs-of-a-unitservice>#</a></h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-22-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-22-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>journalctl -e -f -u &lt;unit name&gt;
+</span></span></code></pre></td></tr></table></div></div><h1 id=check-the-logs-between-specify-times>Check the logs between specify times<a hidden class=anchor aria-hidden=true href=#check-the-logs-between-specify-times>#</a></h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-23-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-23-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>journalctl --since=&#34;yyyy-MM-dd hh:mm:ss&#34; --until=&#34;yyyy-MM-dd hh:mm:ss&#34;
+</span></span></code></pre></td></tr></table></div></div><h1 id=check-the-disk-usage-of-the-logs>Check the disk usage of the logs<a hidden class=anchor aria-hidden=true href=#check-the-disk-usage-of-the-logs>#</a></h1><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-24-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-24-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>journalctl --disk-usage
+</span></span></code></pre></td></tr></table></div></div><h1 id=change-the-max-disk-usage-of-the-logs>Change the max disk usage of the logs.<a hidden class=anchor aria-hidden=true href=#change-the-max-disk-usage-of-the-logs>#</a></h1><p>Uncomment of <code>SystemMaxUse=..</code> in <code>/etc/systemd/journald.conf</code>, and set value
+to this parameter.</p><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-25-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-25-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>SystemMaxUse=50M
+</span></span></code></pre></td></tr></table></div></div><p>After this, restart journald service</p><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt id=hl-26-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-26-1>1</a>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>systemctl restart systemd-journald.service
+</span></span></code></pre></td></tr></table></div></div><h1 id=refs>refs<a hidden class=anchor aria-hidden=true href=#refs>#</a></h1><ul>
+<li>CentOS 7 Systemd 入门 ，作者: 余泽楠 <a href=https://zhuanlan.zhihu.com/p/29217941>https://zhuanlan.zhihu.com/p/29217941</a></li></ul></div><footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://wenhan.blog/tags/linux/>Linux</a></li><li><a href=https://wenhan.blog/tags/systemd/>Systemd</a></li></ul><nav class=paginav>
+<a class=prev href=https://wenhan.blog/post/how-to-sort-ps-command-output/>
+<span class=title>« Prev</span>
+<br>
+<span>How to sort ps command output</span>
+</a>
+<a class=next href=https://wenhan.blog/post/systemctl-command-return-failed-to-connect-to-bus-no-such-file-or-directory-in-a-docker-container/>
+<span class=title>Next »</span>
+<br>
+<span>systemctl command return 'Failed to connect to bus: No such file or directory' in a docker container</span>
+</a>
+</nav><div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share Beginner guide of systemd on CentOS7/RHEL7 on twitter" href="https://twitter.com/intent/tweet/?text=Beginner%20guide%20of%20systemd%20on%20CentOS7%2fRHEL7&url=https%3a%2f%2fwenhan.blog%2fpost%2fbeginner-guide-of-systemd-on-centos7-rhel7%2f&hashtags=Linux%2cSystemd"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Beginner guide of systemd on CentOS7/RHEL7 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fwenhan.blog%2fpost%2fbeginner-guide-of-systemd-on-centos7-rhel7%2f&title=Beginner%20guide%20of%20systemd%20on%20CentOS7%2fRHEL7&summary=Beginner%20guide%20of%20systemd%20on%20CentOS7%2fRHEL7&source=https%3a%2f%2fwenhan.blog%2fpost%2fbeginner-guide-of-systemd-on-centos7-rhel7%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Beginner guide of systemd on CentOS7/RHEL7 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fwenhan.blog%2fpost%2fbeginner-guide-of-systemd-on-centos7-rhel7%2f&title=Beginner%20guide%20of%20systemd%20on%20CentOS7%2fRHEL7"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Beginner guide of systemd on CentOS7/RHEL7 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwenhan.blog%2fpost%2fbeginner-guide-of-systemd-on-centos7-rhel7%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Beginner guide of systemd on CentOS7/RHEL7 on whatsapp" href="https://api.whatsapp.com/send?text=Beginner%20guide%20of%20systemd%20on%20CentOS7%2fRHEL7%20-%20https%3a%2f%2fwenhan.blog%2fpost%2fbeginner-guide-of-systemd-on-centos7-rhel7%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Beginner guide of systemd on CentOS7/RHEL7 on telegram" href="https://telegram.me/share/url?text=Beginner%20guide%20of%20systemd%20on%20CentOS7%2fRHEL7&url=https%3a%2f%2fwenhan.blog%2fpost%2fbeginner-guide-of-systemd-on-centos7-rhel7%2f"><svg viewBox="2 2 28 28" height="30" width="30" fill="currentcolor"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div></footer></article></main><footer class=footer>
+<span>&copy; 2023 <a href=https://wenhan.blog/>Wenhan blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script>
+<script>document.querySelectorAll("pre > code").forEach(t=>{const n=t.parentNode.parentNode,e=document.createElement("button");e.classList.add("copy-code"),e.innerHTML="copy";function s(){e.innerHTML="copied!",setTimeout(()=>{e.innerHTML="copy"},2e3)}e.addEventListener("click",o=>{if("clipboard"in navigator){navigator.clipboard.writeText(t.textContent),s();return}const e=document.createRange();e.selectNodeContents(t);const n=window.getSelection();n.removeAllRanges(),n.addRange(e);try{document.execCommand("copy"),s()}catch(e){}n.removeRange(e)}),n.classList.contains("highlight")?n.appendChild(e):n.parentNode.firstChild==n||(t.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?t.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(e):t.parentNode.appendChild(e))})</script>
+</body></html>

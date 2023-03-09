@@ -1,1 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sshd on Wenhan Shi Blog</title><link>https://wenhan.blog/tags/sshd/</link><description>Recent content in sshd on Wenhan Shi Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 16 Feb 2017 16:36:12 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/sshd/index.xml" rel="self" type="application/rss+xml"/><item><title>cannot ssh to server as root</title><link>https://wenhan.blog/post/cannot-ssh-to-server-by-root-user/</link><pubDate>Thu, 16 Feb 2017 16:36:12 +0000</pubDate><guid>https://wenhan.blog/post/cannot-ssh-to-server-by-root-user/</guid><description>rootパスワードを知っているのに、rootでssh接続できない問題の解決方法です。 実はsshdの設定ファイルに、rootでのログイン許可を</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>sshd on Wenhan blog</title>
+    <link>https://wenhan.blog/tags/sshd/</link>
+    <description>Recent content in sshd on Wenhan blog</description>
+    <image>
+      <title>Wenhan blog</title>
+      <url>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Feb 2017 16:36:12 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/sshd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cannot ssh to server as root</title>
+      <link>https://wenhan.blog/post/cannot-ssh-to-server-by-root-user/</link>
+      <pubDate>Thu, 16 Feb 2017 16:36:12 +0000</pubDate>
+      
+      <guid>https://wenhan.blog/post/cannot-ssh-to-server-by-root-user/</guid>
+      <description>rootパスワードを知っているのに、rootでssh接続できない問題の解決方法です。
+実はsshdの設定ファイルに、rootでのログイン許可を設定するパラメータがあります。 Linux環境では、設定ファイル/etc/ssh/sshd_configに対し
+1  PermitRootLogin no   を
+1  PermitRootLogin yes   に変更し、sshdを再起動すれば、アクセス出来るようになる。
+1  # systemctl restart sshd   また、以下のように自動ログインをOFFにするパラメータも存在する
+1  PubkeyAuthentication no   特定のIPに対しての個別設定も可能
+1 2  Match Address 172.25.0.11 PubkeyAuthentication no   </description>
+    </item>
+    
+  </channel>
+</rss>

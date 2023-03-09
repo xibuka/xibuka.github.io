@@ -1,3 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>snap on Wenhan Shi Blog</title><link>https://wenhan.blog/tags/snap/</link><description>Recent content in snap on Wenhan Shi Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 07 Dec 2018 00:33:49 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/snap/index.xml" rel="self" type="application/rss+xml"/><item><title>Presentasion about microk8s at containerDaysTokyo</title><link>https://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</link><pubDate>Fri, 07 Dec 2018 00:33:49 +0000</pubDate><guid>https://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</guid><description>I did a presentation about microk8s and snap at ContainerDays Tokyo. The slide(Japanese) can be found as below.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>snap on Wenhan blog</title>
+    <link>https://wenhan.blog/tags/snap/</link>
+    <description>Recent content in snap on Wenhan blog</description>
+    <image>
+      <title>Wenhan blog</title>
+      <url>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 07 Dec 2018 00:33:49 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/snap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Presentasion about microk8s at containerDaysTokyo</title>
+      <link>https://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</link>
+      <pubDate>Fri, 07 Dec 2018 00:33:49 +0000</pubDate>
+      
+      <guid>https://wenhan.blog/post/presentasion-about-microk8s-at-containerdaystokyo/</guid>
+      <description>I did a presentation about microk8s and snap at ContainerDays Tokyo. The slide(Japanese) can be found as below.
 speakerdeck.com
-Enjoy!</description></item></channel></rss>
+Enjoy!</description>
+    </item>
+    
+  </channel>
+</rss>

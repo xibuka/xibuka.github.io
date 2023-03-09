@@ -1,1 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Systemd on Wenhan Shi Blog</title><link>https://wenhan.blog/tags/systemd/</link><description>Recent content in Systemd on Wenhan Shi Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 11 Sep 2017 10:19:16 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/systemd/index.xml" rel="self" type="application/rss+xml"/><item><title>Beginner guide of systemd on CentOS7/RHEL7</title><link>https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/</link><pubDate>Mon, 11 Sep 2017 10:19:16 +0000</pubDate><guid>https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/</guid><description>Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system. From CentOS 7, the systemd become the new system</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Systemd on Wenhan blog</title>
+    <link>https://wenhan.blog/tags/systemd/</link>
+    <description>Recent content in Systemd on Wenhan blog</description>
+    <image>
+      <title>Wenhan blog</title>
+      <url>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Sep 2017 10:19:16 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/systemd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Beginner guide of systemd on CentOS7/RHEL7</title>
+      <link>https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/</link>
+      <pubDate>Mon, 11 Sep 2017 10:19:16 +0000</pubDate>
+      
+      <guid>https://wenhan.blog/post/beginner-guide-of-systemd-on-centos7-rhel7/</guid>
+      <description>Introduction of systemd Before CentOS 7 and RHEL 7, System V was used to be the system controller. The system controller can manage all processes, services, and start task. System V has a performance problem as it is using script to manage the tasks. So it can only start the task serially, which will slow down the startup of the system.
+From CentOS 7, the systemd become the new system controller.</description>
+    </item>
+    
+  </channel>
+</rss>

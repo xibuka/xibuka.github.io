@@ -1,1 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>iOS on Wenhan Shi Blog</title><link>https://wenhan.blog/tags/ios/</link><description>Recent content in iOS on Wenhan Shi Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 01 Nov 2016 01:16:21 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/ios/index.xml" rel="self" type="application/rss+xml"/><item><title>iPhoneでGoogleマップを表示する時のメモ</title><link>https://wenhan.blog/post/googlemap-on-ios/</link><pubDate>Tue, 01 Nov 2016 01:16:21 +0000</pubDate><guid>https://wenhan.blog/post/googlemap-on-ios/</guid><description>GoogleマップをiPhone上に表示したい時にはまったことを残す。 Google Maps API &amp;gt; iOS向け &amp;gt; Maps SDK for iOSを参考に、とりあえず画面上Google</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>iOS on Wenhan blog</title>
+    <link>https://wenhan.blog/tags/ios/</link>
+    <description>Recent content in iOS on Wenhan blog</description>
+    <image>
+      <title>Wenhan blog</title>
+      <url>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Nov 2016 01:16:21 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/ios/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iPhoneでGoogleマップを表示する時のメモ</title>
+      <link>https://wenhan.blog/post/googlemap-on-ios/</link>
+      <pubDate>Tue, 01 Nov 2016 01:16:21 +0000</pubDate>
+      
+      <guid>https://wenhan.blog/post/googlemap-on-ios/</guid>
+      <description>GoogleマップをiPhone上に表示したい時にはまったことを残す。
+Google Maps API &amp;gt; iOS向け &amp;gt; Maps SDK for iOSを参考に、とりあえず画面上GoogleMapを表示させようの所、画面が真っ白で何も表示されない。
+そして、コンソールには以下のエラーメッセージが出ていた。
+1  ClientParametersRequest failed, 0 attempts remaining (0 vs 6). Error Domain=com.google.HTTPStatus Code=400   ネットで調べたところ、このサイトを見つけた。 そして自分の場合は、三つ目の見直しで、自分のAPIキーが「無効」になっている。。
+このエラーの原因は、だいたいAPIキーの設定に何か間違っているようです。 以下の見直しを確認すべき。
+ APIキーを生成するとき、xcodeのProjectのbundle IDを設定した方がいい。このパラメータは「任意」ってGoogleが言ったが、やはり設定した方が無難。 アプリのBundleIDを変更した場合、APIキーを再生成しましょう。 Google Developersのダッシュボードで「Google Maps SDK for iOS」が有効になっていることを確認しましょう。デフォルトでは無効になっている。(今回はここにはまった)  時間があったらAPIキー有効の画面もアップする予定</description>
+    </item>
+    
+  </channel>
+</rss>

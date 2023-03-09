@@ -1,11 +1,67 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>tmux · Wenhan Shi Blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Wenhan Shi"><meta name=description content="Beware the dark side"><meta name=keywords content="Ubuntu,RHEL,Docker,Kubernetes,OpenShift,GlusterFS"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://wenhan.blog/tags/tmux/><link href=https://wenhan.blog/tags/tmux/index.xml rel=alternate type=application/rss+xml title="Wenhan Shi Blog"><link href=https://wenhan.blog/tags/tmux/index.xml rel=feed type=application/rss+xml title="Wenhan Shi Blog"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/dist/even.c2a46f00.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="tmux"><meta property="og:description" content="Beware the dark side"><meta property="og:type" content="website"><meta property="og:url" content="https://wenhan.blog/tags/tmux/"><meta property="og:updated_time" content="2017-06-29T14:31:14+00:00"><meta itemprop=name content="tmux"><meta itemprop=description content="Beware the dark side"><meta name=twitter:card content="summary"><meta name=twitter:title content="tmux"><meta name=twitter:description content="Beware the dark side"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>WenhanBlog</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>WenhanBlog</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div></header><main id=main class=main><div class=content-wrapper><div id=content class=content><section id=archive class=archive><div class="archive-title tag"><h2 class=archive-name>tmux</h2></div><div class=archive-post><span class=archive-post-time>2017-06-29</span>
-<span class=archive-post-title><a href=/post/how-to-keep-process-script-running-after-end-the-ssh-session/ class=archive-post-link>How to keep process running after log off</a></span></div></section><nav class=pagination></nav></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:shibunkan@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/shi_wenhan class="iconfont icon-twitter" title=twitter></a><a href=https://www.linkedin.com/in/wenhan-shi-0883a9132/ class="iconfont icon-linkedin" title=linkedin></a><a href=https://github.com/xibuka class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/xibuka class="iconfont icon-zhihu" title=zhihu></a><a href=https://wenhan.blog/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
-<span class=division>|</span>
-<span class=theme-info>Theme -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
-<span class=division>|</span>
-<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
-2016 -
-2023
-<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Wenhan Shi</span></span>
-<script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-87273435-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>tmux | Wenhan blog</title><meta name=keywords content>
+<meta name=description content="尘归尘，土归土">
+<meta name=author content="Me">
+<link rel=canonical href=https://wenhan.blog/tags/tmux/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.6a98292fb8fa8cf0f3ba4042d4b75515c04267550f3ad49ff6271b5af9562443.css integrity="sha256-apgpL7j6jPDzukBC1LdVFcBCZ1UPOtSf9icbWvlWJEM=" rel="preload stylesheet" as=style>
+<link rel=icon href="https://media.licdn.com/dms/image/C4D03AQHsFHxbDCgPsA/profile-displayphoto-shrink_400_400/0/1517015003915?e=1683763200&v=beta&t=PR0k2MbOHcJjtozRAQipgSz2CGprYxywDGgXInkOXmo">
+<link rel=icon type=image/png sizes=16x16 href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://wenhan.blog/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<link rel=alternate type=application/rss+xml href=https://wenhan.blog/tags/tmux/index.xml>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-87273435-2","auto"),ga("send","pageview"))</script><meta property="og:title" content="tmux">
+<meta property="og:description" content="尘归尘，土归土">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wenhan.blog/tags/tmux/"><meta property="og:image" content="https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="og:site_name" content="Wenhan blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="tmux">
+<meta name=twitter:description content="尘归尘，土归土">
+</head><body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://wenhan.blog/ accesskey=h title="Home (Alt + H)">
+<img src=https://wenhan.blog/apple-touch-icon.png alt aria-label=logo height=35>Home</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</div></div><ul id=menu>
+<li>
+<a href=https://wenhan.blog/tags/ title=tags>
+<span>tags</span>
+</a>
+</li></ul></nav></header><main class=main>
+<header class=page-header><div class=breadcrumbs><a href=https://wenhan.blog/>Home</a>&nbsp;»&nbsp;<a href=https://wenhan.blog/tags/>Tags</a></div><h1>
+tmux
+<a href=index.xml title=RSS aria-label=RSS><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="23"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg>
+</a>
+</h1></header><article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>How to keep process running after log off
+</h2></header><footer class=entry-footer><span title="2017-06-29 14:31:14 +0000 UTC">June 29, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;139 words&nbsp;·&nbsp;Me</footer><a class=entry-link aria-label="post link to How to keep process running after log off" href=https://wenhan.blog/post/how-to-keep-process-script-running-after-end-the-ssh-session/></a>
+</article></main><footer class=footer>
+<span>&copy; 2023 <a href=https://wenhan.blog/>Wenhan blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script>
+</body></html>

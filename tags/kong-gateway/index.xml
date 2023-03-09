@@ -1,1 +1,64 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kong Gateway on Wenhan Shi Blog</title><link>https://wenhan.blog/tags/kong-gateway/</link><description>Recent content in Kong Gateway on Wenhan Shi Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 23 Feb 2023 00:34:38 +0900</lastBuildDate><atom:link href="https://wenhan.blog/tags/kong-gateway/index.xml" rel="self" type="application/rss+xml"/><item><title>HashiCorp Vaultを参照しKongGatewayをデプロイ</title><link>https://wenhan.blog/post/20230223_vault_konggwdeploy_via_sm/</link><pubDate>Thu, 23 Feb 2023 00:34:38 +0900</pubDate><guid>https://wenhan.blog/post/20230223_vault_konggwdeploy_via_sm/</guid><description>背景 Kong Gateway 3.0 から、Secrets ManagementがGAとなりました。Kong Gateway は、データベースのパスワードからプラグインで使用される API キー</description></item><item><title>KongのCanary Release pluginを使ってみる</title><link>https://wenhan.blog/post/20220531_using-kong-canary-release-plugin/</link><pubDate>Tue, 31 May 2022 13:58:39 +0900</pubDate><guid>https://wenhan.blog/post/20220531_using-kong-canary-release-plugin/</guid><description>紹介 Kong Gatewayのプラグインを利用すれば、カナリアリリースが簡単に設定することができます。しかもカナリアリリースのモードは単なるパーセン</description></item><item><title>Kongの Mocking Plugingを使ってみる</title><link>https://wenhan.blog/post/20220517_using-kong-mocking-plugin/</link><pubDate>Tue, 17 May 2022 13:58:39 +0900</pubDate><guid>https://wenhan.blog/post/20220517_using-kong-mocking-plugin/</guid><description>紹介 Mockingプラグインは、開発中のAPIに対するテストを行うために、模擬のエンドポイントを提供するものです。Open API（OAS）仕</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Kong Gateway on Wenhan blog</title>
+    <link>https://wenhan.blog/tags/kong-gateway/</link>
+    <description>Recent content in Kong Gateway on Wenhan blog</description>
+    <image>
+      <title>Wenhan blog</title>
+      <url>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 Feb 2023 00:34:38 +0900</lastBuildDate><atom:link href="https://wenhan.blog/tags/kong-gateway/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HashiCorp Vaultを参照しKongGatewayをデプロイ</title>
+      <link>https://wenhan.blog/post/20230223_vault_konggwdeploy_via_sm/</link>
+      <pubDate>Thu, 23 Feb 2023 00:34:38 +0900</pubDate>
+      
+      <guid>https://wenhan.blog/post/20230223_vault_konggwdeploy_via_sm/</guid>
+      <description>背景 Kong Gateway 3.0 から、Secrets ManagementがGAとなりました。Kong Gateway は、データベースのパスワードからプラグインで使用される API キーまで、多くのSecretに依存して動作します。以前ではRBACを使って、Admin APIとKong Managerから機密情報へのアクセスを制限できましたが、Secretを平文で表示されずに管理できたら嬉しいですよね。これを実現できるのはSecrets Managementです。
+サポートするVault 現時点で、サポートしているVaultは以下の４種類です。
+ AWS Secrets Manager GCP Secrets Manager HashiCorp Vault Environment Variable  Kong は、上記の各システムを抽象化して、利用するときにVaultのキーワード(hcv、aws、gcpまたは env)を変更するだけで利用できます。たとえば、HashiCorp Vaultの Postgres Secretのpassword フィールドにアクセスするには、次のフォーマットで参照できます。
+{vault://hcv/postgres/password}  AWS Secrets Managerの場合
+{vault://aws/postgres/password}  環境変数の場合
+export POSTGRES=&#39;{&amp;quot;username&amp;quot;:&amp;quot;user&amp;quot;, &amp;quot;password&amp;quot;:&amp;quot;pass&amp;quot;}&#39; {vault://env/postgres/password}  デモ では実際にSecrets Managementを使ってVaultのSecretsを参照し、Kongのデプロイを試してみよう
+Vault環境を用意 ここで、TOKEN_IDをkongにします。この値は後の認証するときに使用されます。
+1 2 3 4 5 6  docker run -d --name vault.idp \ --network=kong-net \ -e &amp;#34;VAULT_DEV_ROOT_TOKEN_ID=kong&amp;#34; \ -p 8200:8200 \ --cap-add=IPC_LOCK \ vault:latest   Secretを作成 コンテナーに入って、Secretを作成しましょう</description>
+    </item>
+    
+    <item>
+      <title>KongのCanary Release pluginを使ってみる</title>
+      <link>https://wenhan.blog/post/20220531_using-kong-canary-release-plugin/</link>
+      <pubDate>Tue, 31 May 2022 13:58:39 +0900</pubDate>
+      
+      <guid>https://wenhan.blog/post/20220531_using-kong-canary-release-plugin/</guid>
+      <description>紹介 Kong Gatewayのプラグインを利用すれば、カナリアリリースが簡単に設定することができます。しかもカナリアリリースのモードは単なるパーセンテージではなく、徐々に利用拡大や、Writelist&amp;amp;blacklistの設定もできます。
+この記事では、カナリアリリースのやり方についてメモします。
+https://docs.konghq.com/hub/kong-inc/canary/
+ServiceとRouteの作成 デモの例として、現在のバージョンをhttp://httpbin.org/xmlに、新規リリースのバージョンをhttp://httpbin.org/jsonにします。なので、現在のバージョンの場合は、xmlのレスポンス、新規リリースのバージョンの場合は、jsonのレスポンスが帰ってくるはず。
+1 2 3 4 5 6 7  ❯ http POST localhost:8001/services \ name=canary-api-service \ url=http://httpbin.org/xml ❯ http -f POST localhost:8001/services/canary-api-service/routes \ name=canary-api-route \ paths=/api/canary   動作確認、xmlのレスポンスが帰ってきた。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37  ❯ http GET localhost:8000/api/canary HTTP/1.</description>
+    </item>
+    
+    <item>
+      <title>Kongの Mocking Plugingを使ってみる</title>
+      <link>https://wenhan.blog/post/20220517_using-kong-mocking-plugin/</link>
+      <pubDate>Tue, 17 May 2022 13:58:39 +0900</pubDate>
+      
+      <guid>https://wenhan.blog/post/20220517_using-kong-mocking-plugin/</guid>
+      <description>紹介 Mockingプラグインは、開発中のAPIに対するテストを行うために、模擬のエンドポイントを提供するものです。Open API（OAS）仕様に基づいて、APIに送信されたリクエストに模擬応答をレスポンスします。また、テストの柔軟性のため、Mockingプラグインを簡単に有効または無効にすることができます。 https://docs.konghq.com/hub/kong-inc/mocking/
+注意点として、このプラグインは、200、201と204の応答をレスポンスすることができます。正常動作をテストするために開発されたもので、200番台以外のコードをを返すことができません。
+今回は、db-less環境のKong-gatewayをDocker containerで構築し、その上に Mocking Pluginを試してみます。
+Kong-gatewayをデプロイする前に db-lessの環境のため、Admin APIやGUIで設定を変更することはできません（保存先はないから）。そのため、起動時にDeclarative Configurationという名の設定ファイルを事前にコンテナーに食わせる必要があります。
+https://docs.konghq.com/gateway/2.8.x/reference/db-less-and-declarative-config/#main
+今回の目標は Mockingを試したいので、 Mockingの設定内容も事前にこのファイルに記述していきます。Mocking Pluginの紹介ページで書いたように、設定自体はとてもシンプルです。ただ、肝心なのはapi_specificationとapi_specification_filenameの二つです。この二つのパラメータは、模擬のエンドポイントのスペック内容を定義するために使われますが、違いは以下の通りです。
+ api_specification_filename: スペック内容が保存されたファイル名を設定する。 api_specification: スペック内容をそのままパラメータに設定する。  api_specification_filenameは、設定するファイルを事前にDev Portalにアップロードしてから、パスなしで設定してください。設定の例はここに書いています。しかし、今回はdb-lessの環境を構築するため、そもそもdev protalが利用できないし、api_specification_filenameを利用できません。
+そのため、api_specificationにサンプルのAPIのスペック内容をそのまま設定し、コンテナーを立ち上げます。スペックのサンプルは、Mocking Pluginの紹介ページにあります。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  _format_version:&amp;#34;1.1&amp;#34;_transform:trueservices:- host:mockbin.orgname:example_serviceport:80protocol:httproutes:- name:example_routepaths:- /mockstrip_path:trueplugins:- name:mockingconfig:api_specification:&amp;#39;{&amp;#34;swagger&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;info&amp;#34;:{&amp;#34;title&amp;#34;:&amp;#34;Stock API&amp;#34;,&amp;#34;description&amp;#34;:&amp;#34;Stock Information Service&amp;#34;,&amp;#34;version&amp;#34;:&amp;#34;0.1&amp;#34;},&amp;#34;host&amp;#34;:&amp;#34;127.0.0.1:8000&amp;#34;,&amp;#34;basePath&amp;#34;:&amp;#34;/&amp;#34;,&amp;#34;schemes&amp;#34;:[&amp;#34;http&amp;#34;,&amp;#34;https&amp;#34;],&amp;#34;consumes&amp;#34;:[&amp;#34;application/json&amp;#34;],&amp;#34;produces&amp;#34;:[&amp;#34;application/json&amp;#34;],&amp;#34;paths&amp;#34;:{&amp;#34;/stock/historical&amp;#34;:{&amp;#34;get&amp;#34;:{&amp;#34;description&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;operationId&amp;#34;:&amp;#34;GET /stock/historical&amp;#34;,&amp;#34;produces&amp;#34;:[&amp;#34;application/json&amp;#34;],&amp;#34;tags&amp;#34;:[&amp;#34;Production&amp;#34;],&amp;#34;parameters&amp;#34;:[{&amp;#34;required&amp;#34;:true,&amp;#34;in&amp;#34;:&amp;#34;query&amp;#34;,&amp;#34;name&amp;#34;:&amp;#34;tickers&amp;#34;,&amp;#34;type&amp;#34;:&amp;#34;string&amp;#34;}],&amp;#34;responses&amp;#34;:{&amp;#34;200&amp;#34;:{&amp;#34;description&amp;#34;:&amp;#34;Status 200&amp;#34;,&amp;#34;examples&amp;#34;:{&amp;#34;application/json&amp;#34;:{&amp;#34;meta_data&amp;#34;:{&amp;#34;api_name&amp;#34;:&amp;#34;historical_stock_price_v2&amp;#34;,&amp;#34;num_total_data_points&amp;#34;:1,&amp;#34;credit_cost&amp;#34;:10,&amp;#34;start_date&amp;#34;:&amp;#34;yesterday&amp;#34;,&amp;#34;end_date&amp;#34;:&amp;#34;yesterday&amp;#34;},&amp;#34;result_data&amp;#34;:{&amp;#34;AAPL&amp;#34;:[{&amp;#34;date&amp;#34;:&amp;#34;2000-04-23&amp;#34;,&amp;#34;volume&amp;#34;:33,&amp;#34;high&amp;#34;:100.75,&amp;#34;low&amp;#34;:100.87,&amp;#34;adj_close&amp;#34;:275.03,&amp;#34;close&amp;#34;:100.03,&amp;#34;open&amp;#34;:100.87}]}}}}}}},&amp;#34;/stock/closing&amp;#34;:{&amp;#34;get&amp;#34;:{&amp;#34;description&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;operationId&amp;#34;:&amp;#34;GET /stock/closing&amp;#34;,&amp;#34;produces&amp;#34;:[&amp;#34;application/json&amp;#34;],&amp;#34;tags&amp;#34;:[&amp;#34;Beta&amp;#34;],&amp;#34;parameters&amp;#34;:[{&amp;#34;required&amp;#34;:true,&amp;#34;in&amp;#34;:&amp;#34;query&amp;#34;,&amp;#34;name&amp;#34;:&amp;#34;tickers&amp;#34;,&amp;#34;type&amp;#34;:&amp;#34;string&amp;#34;}],&amp;#34;responses&amp;#34;:{&amp;#34;200&amp;#34;:{&amp;#34;description&amp;#34;:&amp;#34;Status 200&amp;#34;,&amp;#34;examples&amp;#34;:{&amp;#34;application/json&amp;#34;:{&amp;#34;meta_data&amp;#34;:{&amp;#34;api_name&amp;#34;:&amp;#34;closing_stock_price_v1&amp;#34;},&amp;#34;result_data&amp;#34;:{&amp;#34;AAPL&amp;#34;:[{&amp;#34;date&amp;#34;:&amp;#34;2000-06-23&amp;#34;,&amp;#34;volume&amp;#34;:33,&amp;#34;high&amp;#34;:100.75,&amp;#34;low&amp;#34;:100.87,&amp;#34;adj_close&amp;#34;:275.03,&amp;#34;close&amp;#34;:100.03,&amp;#34;open&amp;#34;:100.87}]}}}}}}}}}&amp;#39;max_delay_time:1min_delay_time:0.001random_delay:false  db-lessのKong-gateway環境を構築 ライセンスを環境変数に設定した後、以下のコマンドでコンテナーを立ち上げます。KONG_DATABASEがoffになっているところと、KONG_DECLARATIVE_CONFIGに設定ファイルのパスが書かれているところが重要です。設定ファイルは、-vでローカルからMountされています。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  $ docker run -d --name kong-dbless \  --network=kong-net \  -v &amp;#34;$(pwd):/kong/declarative/&amp;#34; \  -e &amp;#34;KONG_DATABASE=off&amp;#34; \  -e &amp;#34;KONG_DECLARATIVE_CONFIG=/kong/declarative/kong.</description>
+    </item>
+    
+  </channel>
+</rss>

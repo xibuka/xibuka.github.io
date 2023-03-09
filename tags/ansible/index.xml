@@ -1,1 +1,66 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ansible on Wenhan Shi Blog</title><link>https://wenhan.blog/tags/ansible/</link><description>Recent content in Ansible on Wenhan Shi Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 09 Apr 2018 15:25:32 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/ansible/index.xml" rel="self" type="application/rss+xml"/><item><title>Ansible 入門 - 基本操作(チュートリアル)</title><link>https://wenhan.blog/post/getting-started-with-ansible-jp-basic/</link><pubDate>Mon, 09 Apr 2018 15:25:32 +0000</pubDate><guid>https://wenhan.blog/post/getting-started-with-ansible-jp-basic/</guid><description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳</description></item><item><title>Ansible 入門 - 応用</title><link>https://wenhan.blog/post/getting-started-with-ansible-jp-adv/</link><pubDate>Mon, 09 Apr 2018 15:20:32 +0000</pubDate><guid>https://wenhan.blog/post/getting-started-with-ansible-jp-adv/</guid><description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳</description></item><item><title>Ansible 入門 - 紹介</title><link>https://wenhan.blog/post/getting-started-with-ansible-jp-intro/</link><pubDate>Mon, 09 Apr 2018 15:15:32 +0000</pubDate><guid>https://wenhan.blog/post/getting-started-with-ansible-jp-intro/</guid><description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Ansible on Wenhan blog</title>
+    <link>https://wenhan.blog/tags/ansible/</link>
+    <description>Recent content in Ansible on Wenhan blog</description>
+    <image>
+      <title>Wenhan blog</title>
+      <url>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://wenhan.blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 09 Apr 2018 15:25:32 +0000</lastBuildDate><atom:link href="https://wenhan.blog/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ansible 入門 - 基本操作(チュートリアル)</title>
+      <link>https://wenhan.blog/post/getting-started-with-ansible-jp-basic/</link>
+      <pubDate>Mon, 09 Apr 2018 15:25:32 +0000</pubDate>
+      
+      <guid>https://wenhan.blog/post/getting-started-with-ansible-jp-basic/</guid>
+      <description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。内容の校正はHideki SaitoとKento Yagisawaが協力しています。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。
+本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。 https://github.com/ansible-book/ansible-first-book-examples もし不備やコメントがありましたら、作者shijingjing02@163.comまたは翻訳者shibunkan@gmail.com に連絡してください。
+詳細の内容を下記三つに分けて説明します。
+Ansible 入門 - 紹介 Ansible 入門 - 基本 Ansible 入門 - 応用
+本章では、簡単な例を使ってAnsibleの基本的な使い方を説明する。
+ インストール 管理対象のサーバー（サーバリストの管理） コマンドラインによるサーバー管理(Ad-hoc command) スクリプトによるサーバー管理(スクリプト言語 Playbook) モジュール  インストール ここでは Red Hat 系 Linux でのインストールを前提に解説にする。他のOSに関していAnsibleのWebページをご参照ください。
+管理者ノード Ansible パッケージをインストール 1 2 3 4  # Redhat/CentOS Linuxの場合, epolリポジトリをインストールする必要がある。 # Fedoraの場合、デフォルトのリポジトリにAnsibleを含まれているため，直接インストールできる sudo yum install epel-release sudo yum install ansible -y   管理者ノードからリモートノードの接続設定 SSH keyによる認証パスワードレス）方式を設定する。
+1 2 3 4 5 6  # ssh key を生成 ssh-keygen # リモートノードにssh keyをコピー ssh-copy-id remoteuser@remoteserver # リモートノードをknows_hostsに追加（ssh Keyの保存確認がなくなる） ssh-keyscan remote_servers &amp;gt;&amp;gt; ~/.</description>
+    </item>
+    
+    <item>
+      <title>Ansible 入門 - 応用</title>
+      <link>https://wenhan.blog/post/getting-started-with-ansible-jp-adv/</link>
+      <pubDate>Mon, 09 Apr 2018 15:20:32 +0000</pubDate>
+      
+      <guid>https://wenhan.blog/post/getting-started-with-ansible-jp-adv/</guid>
+      <description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。内容の校正はHideki SaitoとKento Yagisawaが協力しています。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。
+本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。 https://github.com/ansible-book/ansible-first-book-examples もし不備やコメントがありましたら、作者shijingjing02@163.comまたは翻訳者shibunkan@gmail.com に連絡してください。
+詳細の内容を下記三つに分けて説明します。
+Ansible 入門 - 紹介 Ansible 入門 - 基本 Ansible 入門 - 応用
+本章では、もっと自由に運用するために、Ansibleの高度な使い方を説明する。
+ Ansibleの設定ファイル サーバーリスト管理（Host Inventory） Playbookの上級な書き方 Extraモジュールの利用  Ansible設定ファイル 設定内容  基本の設定内容     項目 詳細 内容（デフォルト）     inventory リモートノードリスト管理ファイル /etc/ansible/hosts   library 拡張モジュールフォルダ /usr/share/my_modules/   remote_tmp リモートノード上のファイル一時保存場所 $HOME/.ansible/tmp   local_tmp 管理者ノード上のファイル一時保存場所 $HOME/.ansible/tmp     高度の設定内容     項目 詳細 内容（デフォルト）     accelerate_port 接続ポート番号 5099   accelerate_timeout タイムアウト 30   accelerate_connect_timeout 接続タイムアウト 5    上記は設定できる内容の一部しかすぎない。以下のAnsible設定ファイルの全体を通して、どんなことができるのはは理解できる</description>
+    </item>
+    
+    <item>
+      <title>Ansible 入門 - 紹介</title>
+      <link>https://wenhan.blog/post/getting-started-with-ansible-jp-intro/</link>
+      <pubDate>Mon, 09 Apr 2018 15:15:32 +0000</pubDate>
+      
+      <guid>https://wenhan.blog/post/getting-started-with-ansible-jp-intro/</guid>
+      <description>こちらの記事はではAnsibleを紹介するための文章で、元Red Hat社員のJingjing Shiが作成し、Wenhan Shiが日本語に翻訳しました。内容の校正はHideki SaitoとKento Yagisawaが協力しています。Ansibleの基礎知識から、実際の現場で利用できる実運用まで紹介しています。
+本文内にあるすべてのansible playbookの例は、以下のgithubのURLから利用できる。 https://github.com/ansible-book/ansible-first-book-examples もし不備やコメントがありましたら、作者shijingjing02@163.comまたは翻訳者shibunkan@gmail.com に連絡してください。
+詳細の内容を下記三つに分けて説明します。
+Ansible 入門 - 紹介 Ansible 入門 - 基本 Ansible 入門 - 応用
+本章では、Ansibleの基礎部分の紹介を説明する。
+Ansibleとは Ansibleとはなにか？ Ansibleは、複数のサーバを一括でコントロールする構成管理ツールである。コントロールできるサーバ対象はリモートの仮想マシンでも物理マシンでも問ローカルのサーバマシンも問題ない。
+Ansibleでなにができる？ Ansibleでは、SSHなどを利用し管理ノードからリモートノードへの通信を行う。理論上では、サーバ管理者がsshでサーバにログインした後できるすべてのことに対し、Ansibleも同じことができる。
+例えば
+ ファイルコピー パッケージインストール デーモンサービス起動 その他  アーキテクチャ 管理者ノードとリモートノードの間では、SSHプロトコルを利用して通信を行っている。そのため、Ansible環境を設定する時に、管理者ノードからリモートノードへSSHログインできることが必要である。ただし、SSHログインはパスワードレスに設定しなければいけない。詳細な設定方法は後ほど説明する。
+SSH接続 管理者ノードでAnsibleをインストールし、スクリプトの編集を行う。管理者ノードでAnsibleのコマンドやスクリプトを実行する時に、管理対象のサーバにSSHで接続する。管理対象のサーバの上にパッケージをインストールする必要がない。 多種類のサーバに対応 AnsibleはRedHat系、Debian系のLinuxと、Windows系のサーバを同時に管理することができる。管理者ノードはスクリプトを実行する時のみリモートサーバに接続するため、他の同期処理がない。そのため、通常の状態では、停電などの異常状態はAnsibleを影響しない。 Ansible Towerのアーキテクチャ なぜAnsible Towerが必要なのか？ Ansible Towerは企業向けの有償ソフトウェアである。 前章のAnsible アーキテクチャとこれからのAnsibleのインストールでは、すべてのAnsibleでの管理対象となるサーバは、sshの公開鍵認証によるパスワードレスSSH接続を設定する必要がある。一般ユーザの場合、数台の仮想サーバやリモートサーバのみを管理するため特に問題ないが、企業ユーザに対し業務プロセスと安全性を確保しにくくなる。
+ 1台のリモートサーバを追加する毎に、パスワードレスなSSH接続の設定を手動で行うことは非常に非効率的である。企業レベルのサーバが数百台、数千台規模になると、各サーバ管理者が自分の管理者ノードで全サーバに対しパスワードレスSSH接続の設定が必要となり、作業量は膨大になる。 管理者がパスワードレスSSH接続の為のssh keyを入手したり、他人にコピーしたりすると、本番環境に対し重大なセキュリティの問題になる。  Ansible Towerでなにができるのか？ Ansible Towerは企業ユーザ向けに開発されている、集中管理や権限による制限、ジョブスケジューリング機能などを提供するソフトウェアである。このソフトウェアは管理者にWebUIやREST APIを提供し、Playbookの実行やワークフローテンプレートによる条件分岐などをサポートする。
+ 管理者は、Ansible Tower上にサーバのssh keyを使用したりシェアしたりすることができるが、ssh keyの内容参照やコピーすることはできない。 Ansible Towerでは、各管理者がシェアしているplaybookスクリプトを参照するとこができるため、重複する作業を減らすことができる。 また、Ansible Towerは現在すべてのサーバでのplaybookの実行状況を集計/表示するため、状態の確認や統計もできる。  下記の図でAnsible Towerのアーキテクチャを示している。</description>
+    </item>
+    
+  </channel>
+</rss>
