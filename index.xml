@@ -11,7 +11,20 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Mar 2023 16:41:18 +0900</lastBuildDate><atom:link href="https://wenhan.blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 May 2023 00:33:31 +0900</lastBuildDate><atom:link href="https://wenhan.blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kong Gatewayの JWT Pluginを使ってみる</title>
+      <link>https://wenhan.blog/post/20230522_kong_jwt_plugin/</link>
+      <pubDate>Mon, 22 May 2023 00:33:31 +0900</pubDate>
+      
+      <guid>https://wenhan.blog/post/20230522_kong_jwt_plugin/</guid>
+      <description>(https://tech.aufomm.com/how-to-use-jwt-plugin/ より翻訳)
+Kongにはたくさんの認証プラグインがあります。今回はJWT Pluginの使い方についてお話したいと思います。
+使用例 サービスを作成 1 2 3 4  curl -X POST http://localhost:8001/services \ -H &amp;#34;Content-Type: application/json&amp;#34; \ -H &amp;#34;Accept: application/json, */*&amp;#34; \ -d &amp;#39;{&amp;#34;name&amp;#34;:&amp;#34;jwt-service&amp;#34;,&amp;#34;url&amp;#34;:&amp;#34;https://httpbin.org/anything&amp;#34;}&amp;#39;   Routeを作成 1 2 3 4  curl -X POST http://localhost:8001/services/jwt-service/routes \ -H &amp;#34;Content-Type: application/json&amp;#34; \ -H &amp;#34;Accept: application/json, */*&amp;#34; \ -d &amp;#39;{&amp;#34;name&amp;#34;:&amp;#34;jwt-route&amp;#34;,&amp;#34;paths&amp;#34;:[&amp;#34;/jwt&amp;#34;]}&amp;#39;   curl &#39;http://localhost:8000/jwt&#39; -i でルートにアクセスすると、HTTP/1.1 200 OKとなるはずです。
+JWT Pluginを有効 :::note このプラグインは、Service単位またはグローバル全体に有効化することも可能です。 :::
+1 2 3 4  curl --request POST \ --url http://localhost:8001/plugins \ --header &amp;#39;Content-Type: application/x-www-form-urlencoded&amp;#39; \ --data name=jwt   上記のルートをもう一度アクセスすると、HTTP/1.</description>
+    </item>
+    
     <item>
       <title>Secure deployment Kong Gateway using Mozila SOPS, age and Github Action</title>
       <link>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw_en/</link>
