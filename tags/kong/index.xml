@@ -11,7 +11,23 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Mar 2023 16:41:18 +0900</lastBuildDate><atom:link href="https://wenhan.blog/tags/kong/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Jan 2024 22:55:37 +0900</lastBuildDate><atom:link href="https://wenhan.blog/tags/kong/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kong OpenID Connectプラグインのその他の使用例</title>
+      <link>https://wenhan.blog/post/20240123_kong-oidc-plugin-extra-use-cases/</link>
+      <pubDate>Tue, 23 Jan 2024 22:55:37 +0900</pubDate>
+      
+      <guid>https://wenhan.blog/post/20240123_kong-oidc-plugin-extra-use-cases/</guid>
+      <description>(https://tech.aufomm.com/kong-oidc-plugin-extra-use-cases/ より翻訳)
+KongのOIDCプラグインはとてもパワフルで複雑なので（200近くのパラメーターがある&amp;hellip;）、ユーザーがどのような設定の組み合わせが必要かを知っていれば、より多くのことができるようになる。今日の投稿では、このプラグインをよりうまく使うためのいくつかの使用例を紹介しよう。
+なお、私はKong Gateway (Enterprise)の最新バージョン2.4.1.1を使用しています。
+:::note 前提条件
+ Kong Gateway (Enterprise) OIDCサーバーが稼動していること。(私の例ではKeycloak) もしKeycloakの使い方がわからない場合は、以前の投稿をご覧ください。 :::  IDPトークンからデータを抽出しヘッダへの追加 IDPトークンからアップストリームヘッダーに値をマッピングしたい場合は、config.upstream_headers_namesとconfig.upstream_headers_claimsを使用できます。
+例えば、JWTトークンのペイロードに以下のようなclaimがあるとします。
+1 2 3 4 5  { &amp;#34;payload&amp;#34;: { &amp;#34;kong-test&amp;#34;: &amp;#34;to-upstream&amp;#34; } }   目的は、ヘッダーkong-testにto-upstreamの値をマッピングし、アップストリームサーバーに送信することである。OIDCプラグインは以下のように設定できる。これはパスワードフローを使っている。
+1 2 3 4 5 6 7 8 9 10  curl --request POST \ --url http://kong.li.lan:8001/plugins \ --header &amp;#39;Content-Type: application/x-www-form-urlencoded&amp;#39; \ --data name=openid-connect \ --data config.issuer=https://&amp;lt;keycloak&amp;gt;/auth/realms/demo \ --data config.client_id=&amp;lt;client_id&amp;gt; \ --data config.client_secret=&amp;lt;client_secret&amp;gt; \ --data config.</description>
+    </item>
+    
     <item>
       <title>Secure deployment Kong Gateway using Mozila SOPS, age and Github Action</title>
       <link>https://wenhan.blog/post/20230308_using-sops-and-age-deploy-konggw_en/</link>
